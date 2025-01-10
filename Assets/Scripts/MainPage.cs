@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Main : MonoBehaviour
+public class MainPage : MonoBehaviour
 {
 	[Header("Hello")]
 	[SerializeField] private TextMeshProUGUI _helloWorldText;
