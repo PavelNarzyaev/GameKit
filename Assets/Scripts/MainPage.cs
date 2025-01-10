@@ -2,6 +2,7 @@ using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class MainPage : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class MainPage : MonoBehaviour
 	[Header("Clicks counter")]
 	[SerializeField] private Button _clicksButton;
 	[SerializeField] private TextMeshProUGUI _clicksCounterText;
+
+	[Inject] private LazyBindTest _lazyBindTest;
 
 	private const int _framesForOneStep = 60;
 
