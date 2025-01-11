@@ -13,8 +13,6 @@ public class MainPage : MonoBehaviour
 	[SerializeField] private Button _clicksButton;
 	[SerializeField] private TextMeshProUGUI _clicksCounterText;
 
-	[Inject] private LazyBindTest _lazyBindTest;
-
 	private const int _framesForOneStep = 60;
 
 	private AnimationStep _animationStep;
