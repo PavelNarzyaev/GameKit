@@ -8,5 +8,6 @@ public class PersistentDataBindingsInstaller : ScriptableObjectInstaller
 	{
 		Container.Bind<SaveFirstLaunchPersistentDataCommand>().AsSingle();
 		Container.Bind<UserIdProxy>().AsSingle();
+		Container.Bind<FirstLaunchTimestampProxy>().AsSingle();
 	}
 }

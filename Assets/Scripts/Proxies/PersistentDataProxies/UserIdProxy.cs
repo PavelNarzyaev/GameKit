@@ -2,9 +2,9 @@
 
 public class UserIdProxy
 {
-	public void Set(string id)
+	public void Set(string value)
 	{
-		PlayerPrefs.SetString(PlayerPrefsKeys.userId, id);
+		PlayerPrefs.SetString(PlayerPrefsKeys.userId, value);
 	}
 
 	public string Get()
