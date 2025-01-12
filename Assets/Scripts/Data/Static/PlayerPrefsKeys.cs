@@ -2,4 +2,5 @@
 {
 	public const string userId = nameof(userId);
 	public const string firstLaunchTimestamp = nameof(firstLaunchTimestamp);
+	public const string launchesCounter = nameof(launchesCounter);
 }
