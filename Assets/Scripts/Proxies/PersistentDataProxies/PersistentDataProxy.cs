@@ -4,7 +4,7 @@ using UnityEngine;
 public class PersistentDataProxy
 {
 	public PersistentData data;
-	private string _filePath => Path.Combine(Application.persistentDataPath, "persistentData.json");
+	private string _filePath => Path.Combine(Application.persistentDataPath, PersistentDataFileName.fileName);
 
 	public void Save()
 	{
