@@ -3,13 +3,15 @@ using Zenject;
 
 public class SaveFirstLaunchPersistentDataCommand
 {
-	[Inject] private UserIdProxy _userIdProxy;
-	[Inject] private FirstLaunchTimestampProxy _firstLaunchTimestampProxy;
 	[Inject] private CurrentTimeProxy _currentTimeProxy;
+	[Inject] private PersistentDataProxy _persistentDataProxy;
 
 	public void Execute()
 	{
-		_userIdProxy.Set(Guid.NewGuid().ToString());
-		_firstLaunchTimestampProxy.Set(_currentTimeProxy.GetTimestamp());
+		_persistentDataProxy.data = new PersistentData
+		{
+			userId = Guid.NewGuid().ToString(),
+			firstLaunchTimestamp = _currentTimeProxy.GetTimestamp()
+		};
 	}
 }

@@ -2,15 +2,17 @@
 
 public class LaunchCommand
 {
-	[Inject] private UserIdProxy _userIdProxy;
 	[Inject] private SaveFirstLaunchPersistentDataCommand _saveFirstLaunchPersistentDataCommand;
-	[Inject] private LaunchesCounterProxy _launchesCounterProxy;
+	[Inject] private PersistentDataProxy _persistentDataProxy;
 
 	public void Execute()
 	{
-		var isFirstLaunch = string.IsNullOrEmpty(_userIdProxy.Get());
+		var isFirstLaunch = !_persistentDataProxy.Exists();
 		if (isFirstLaunch)
 			_saveFirstLaunchPersistentDataCommand.Execute();
-		_launchesCounterProxy.Increment();
+		else
+			_persistentDataProxy.Load();
+		_persistentDataProxy.data.launchesCounter++;
+		_persistentDataProxy.Save();
 	}
 }

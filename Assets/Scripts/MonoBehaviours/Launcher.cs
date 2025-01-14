@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -11,17 +12,25 @@ public class Launcher : MonoBehaviour
 	[SerializeField] private TextMeshProUGUI _currentTimeText;
 
 	[Inject] private LaunchCommand _launchCommand;
-	[Inject] private UserIdProxy _userIdProxy;
-	[Inject] private FirstLaunchTimestampProxy _firstLaunchTimestampProxy;
-	[Inject] private LaunchesCounterProxy _launchesCounterProxy;
 	[Inject] private CurrentTimeProxy _currentTimeProxy;
+	[Inject] private PersistentDataProxy _persistentDataProxy;
 
 	private void Start()
 	{
-		_launchCommand.Execute();
-		_userIdText.text = _userIdProxy.Get();
-		_firstLaunchTimeText.text = ConvertTimestampToReadableString(_firstLaunchTimestampProxy.Get());
-		_launchCountText.text = _launchesCounterProxy.Get().ToString(CultureInfo.InvariantCulture);
+		try
+		{
+			_launchCommand.Execute();
+		}
+		catch (Exception e)
+		{
+			// TODO: show launch error popup
+			throw;
+		}
+
+		var persistentData = _persistentDataProxy.data;
+		_userIdText.text = persistentData.userId;
+		_firstLaunchTimeText.text = ConvertTimestampToReadableString(persistentData.firstLaunchTimestamp);
+		_launchCountText.text = persistentData.launchesCounter.ToString(CultureInfo.InvariantCulture);
 	}
 
 	private void Update()
