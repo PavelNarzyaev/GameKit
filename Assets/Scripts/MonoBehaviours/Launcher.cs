@@ -17,15 +17,15 @@ public class Launcher : MonoBehaviour
 
 	private void Start()
 	{
-		try
-		{
+		// try
+		// {
 			_launchCommand.Execute();
-		}
-		catch (Exception e)
-		{
+		// }
+		// catch (Exception e)
+		// {
 			// TODO: show launch error popup
-			throw;
-		}
+			// throw;
+		// }
 
 		var persistentData = _persistentDataProxy.data;
 		_userIdText.text = persistentData.userId;
