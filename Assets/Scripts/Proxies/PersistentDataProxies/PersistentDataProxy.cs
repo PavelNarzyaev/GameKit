@@ -1,10 +1,17 @@
 ﻿using System.IO;
 using UnityEngine;
+using Zenject;
 
 public class PersistentDataProxy
 {
 	public PersistentData data;
-	private string _filePath => Path.Combine(Application.persistentDataPath, PersistentDataFileName.fileName);
+	private string _filePath;
+
+	[Inject]
+	private void Inject()
+	{
+		_filePath = Path.Combine(Application.persistentDataPath, PersistentDataFileName.fileName);
+	}
 
 	public void Save()
 	{
