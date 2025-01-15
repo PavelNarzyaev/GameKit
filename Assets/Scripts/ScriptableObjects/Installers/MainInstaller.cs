@@ -8,6 +8,7 @@ public class MainInstaller : ScriptableObjectInstaller
 	{
 		Container.Bind<SaveFirstLaunchPersistentDataCommand>().AsSingle();
 		Container.Bind<PersistentDataProxy>().AsSingle();
+		Container.Bind<PersistentDataClipboardProxy>().AsSingle();
 		Container.Bind<LaunchCommand>().AsSingle();
 		Container.Bind<CurrentTimeProxy>().AsSingle();
 		Container.BindInterfacesAndSelfTo<PersistentDataController>().AsSingle();

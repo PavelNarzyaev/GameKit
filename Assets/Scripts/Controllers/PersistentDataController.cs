@@ -9,6 +9,6 @@ public class PersistentDataController : ITickable
 	public void Tick()
 	{
 		if (_persistentDataProxy.isDirty)
-			_persistentDataProxy.Save();
+			_persistentDataProxy.RefreshFile();
 	}
 }

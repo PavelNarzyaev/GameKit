@@ -11,7 +11,7 @@ public class LaunchCommand
 		if (isFirstLaunch)
 			_saveFirstLaunchPersistentDataCommand.Execute();
 		else
-			_persistentDataProxy.Load();
+			_persistentDataProxy.RefreshFromFile();
 		_persistentDataProxy.data.launchesCounter++;
 		_persistentDataProxy.MarkAsDirty();
 	}

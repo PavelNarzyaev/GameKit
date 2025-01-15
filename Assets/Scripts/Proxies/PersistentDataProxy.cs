@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UnityEngine;
 using Zenject;
 
@@ -6,6 +7,7 @@ public class PersistentDataProxy
 {
 	public PersistentData data;
 	public bool isDirty { get; private set; }
+	public event Action refreshFromJsonEvent;
 	private string _filePath;
 
 	[Inject]
@@ -19,9 +21,29 @@ public class PersistentDataProxy
 		isDirty = true;
 	}
 
-	public void Save()
+	public void RefreshFile()
 	{
-		var json = JsonUtility.ToJson(data);
+		SaveJsonToFile(JsonUtility.ToJson(data));
+	}
+
+	public void RefreshFromJson(string json)
+	{
+		try
+		{
+			data = JsonUtility.FromJson<PersistentData>(json);
+		}
+		catch
+		{
+			Debug.LogError("Incorrect json");
+			return;
+		}
+
+		SaveJsonToFile(json);
+		refreshFromJsonEvent?.Invoke();
+	}
+
+	private void SaveJsonToFile(string json)
+	{
 		var encryptedJson = EncryptionUtility.Encrypt(json);
 		File.WriteAllText(_filePath, encryptedJson);
 		isDirty = false;
@@ -29,10 +51,15 @@ public class PersistentDataProxy
 
 	public bool Exists() => File.Exists(_filePath);
 
-	public void Load()
+	public void RefreshFromFile()
+	{
+		var json = LoadJsonFromFile();
+		data = JsonUtility.FromJson<PersistentData>(json);
+	}
+
+	public string LoadJsonFromFile()
 	{
 		var encryptedJson = File.ReadAllText(_filePath);
-		var json = EncryptionUtility.Decrypt(encryptedJson);
-		data = JsonUtility.FromJson<PersistentData>(json);
+		return EncryptionUtility.Decrypt(encryptedJson);
 	}
 }
