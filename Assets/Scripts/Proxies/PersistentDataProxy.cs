@@ -22,7 +22,8 @@ public class PersistentDataProxy
 	public void Save()
 	{
 		var json = JsonUtility.ToJson(data);
-		File.WriteAllText(_filePath, json);
+		var encryptedJson = EncryptionUtility.Encrypt(json);
+		File.WriteAllText(_filePath, encryptedJson);
 		isDirty = false;
 	}
 
@@ -30,7 +31,8 @@ public class PersistentDataProxy
 
 	public void Load()
 	{
-		var json = File.ReadAllText(_filePath);
+		var encryptedJson = File.ReadAllText(_filePath);
+		var json = EncryptionUtility.Decrypt(encryptedJson);
 		data = JsonUtility.FromJson<PersistentData>(json);
 	}
 }
