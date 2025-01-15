@@ -13,5 +13,6 @@ public class SaveFirstLaunchPersistentDataCommand
 			userId = Guid.NewGuid().ToString(),
 			firstLaunchTimestamp = _currentTimeProxy.GetTimestamp()
 		};
+		_persistentDataProxy.MarkAsDirty();
 	}
 }

@@ -13,6 +13,6 @@ public class LaunchCommand
 		else
 			_persistentDataProxy.Load();
 		_persistentDataProxy.data.launchesCounter++;
-		_persistentDataProxy.Save();
+		_persistentDataProxy.MarkAsDirty();
 	}
 }
