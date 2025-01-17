@@ -11,7 +11,7 @@ public class Layers : MonoBehaviour
 	[Inject] private LayersMediator _layersMediator;
 	[Inject] private DiContainer _diContainer;
 
-	private Dictionary<string, Transform> _containerByLayerName = new();
+	private Dictionary<string, RectTransform> _transformByLayerName = new();
 
 	private void Awake()
 	{
@@ -30,7 +30,7 @@ public class Layers : MonoBehaviour
 			layerRectTransform.offsetMin = Vector2.zero;
 			layerRectTransform.offsetMax = Vector2.zero;
 
-			_containerByLayerName.Add(layerName, layerRectTransform);
+			_transformByLayerName.Add(layerName, layerRectTransform);
 		}
 	}
 
@@ -53,10 +53,10 @@ public class Layers : MonoBehaviour
 
 	private void ShowScreenEventHandler(Type screenType, LayerNames.Layer layerName)
 	{
-		if (!_containerByLayerName.TryGetValue(layerName.ToString(), out var container))
-			throw new Exception($"Container for screen «{screenType}» is not found");
-		var prefab = _diContainer.InstantiatePrefabResource(screenType.ToString(), container);
+		if (!_transformByLayerName.TryGetValue(layerName.ToString(), out var layerTransform))
+			throw new Exception($"Rect transform for screen «{screenType}» is not found");
+		var prefab = _diContainer.InstantiatePrefabResource(screenType.ToString(), layerTransform);
 		if (prefab == null)
-			throw new Exception($"Prefab for screen «{screenType}» is not found»");
+			throw new Exception($"Prefab for screen «{screenType}» is not found");
 	}
 }
