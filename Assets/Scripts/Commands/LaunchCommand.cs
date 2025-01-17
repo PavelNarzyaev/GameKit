@@ -4,8 +4,7 @@ public class LaunchCommand
 {
 	[Inject] private SaveFirstLaunchPersistentDataCommand _saveFirstLaunchPersistentDataCommand;
 	[Inject] private PersistentDataProxy _persistentDataProxy;
-	[Inject] private LayersMediator _layersMediator;
-	[Inject] private PagesLayerMediator _pagesLayerMediator;
+	[Inject] private ResetUiCommand _resetUiCommand;
 
 	public void Execute()
 	{
@@ -17,7 +16,6 @@ public class LaunchCommand
 		_persistentDataProxy.data.launchesCounter++;
 		_persistentDataProxy.MarkAsDirty();
 
-		_layersMediator.ShowScreen(typeof(NavigationPanelScreen), LayerNames.Layer.NavigationScreen);
-		_pagesLayerMediator.ShowPage(typeof(MainPageScreen));
+		_resetUiCommand.Execute();
 	}
 }

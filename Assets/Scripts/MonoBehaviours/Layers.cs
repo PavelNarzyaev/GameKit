@@ -36,26 +36,27 @@ public class Layers : MonoBehaviour
 
 	private void OnEnable()
 	{
-		_layersMediator.showScreenEvent += ShowScreenEventHandler;
-		_layersMediator.destroyScreenIfExistsEvent += DestroyScreenIfExistsEventHandler;
+		_layersMediator.showScreenEvent += ShowScreenHandler;
+		_layersMediator.destroyScreenIfExistsEvent += DestroyScreenIfExistsHandler;
+		_layersMediator.destroyAllScreensEvent += DestroyAllScreensHandler;
 	}
 
 	private void OnDisable()
 	{
-		_layersMediator.showScreenEvent -= ShowScreenEventHandler;
-		_layersMediator.destroyScreenIfExistsEvent -= DestroyScreenIfExistsEventHandler;
+		_layersMediator.showScreenEvent -= ShowScreenHandler;
+		_layersMediator.destroyScreenIfExistsEvent -= DestroyScreenIfExistsHandler;
+		_layersMediator.destroyAllScreensEvent -= DestroyAllScreensHandler;
 	}
 
-	private void DestroyScreenIfExistsEventHandler(Type screenType)
+	private void DestroyScreenIfExistsHandler(Type screenType)
 	{
 		if (!_screenPrefabByType.TryGetValue(screenType, out var prefab))
 			return;
-		prefab.SetActive(false);
-		Destroy(prefab);
+		DestroyPrefab(prefab);
 		_screenPrefabByType.Remove(screenType);
 	}
 
-	private void ShowScreenEventHandler(Type screenType, LayerNames.Layer layerName)
+	private void ShowScreenHandler(Type screenType, LayerNames.Layer layerName)
 	{
 		if (!_transformByLayerName.TryGetValue(layerName.ToString(), out var layerTransform))
 			throw new Exception($"Rect transform for screen «{screenType}» is not found");
@@ -63,5 +64,18 @@ public class Layers : MonoBehaviour
 		if (prefab == null)
 			throw new Exception($"Prefab for screen «{screenType}» is not found");
 		_screenPrefabByType.Add(screenType, prefab);
+	}
+
+	private void DestroyAllScreensHandler()
+	{
+		foreach (var prefab in _screenPrefabByType.Values)
+			DestroyPrefab(prefab);
+		_screenPrefabByType.Clear();
+	}
+
+	private void DestroyPrefab(GameObject prefab)
+	{
+		prefab.SetActive(false);
+		Destroy(prefab);
 	}
 }

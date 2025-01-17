@@ -6,12 +6,17 @@ public class MainInstaller : ScriptableObjectInstaller
 {
 	public override void InstallBindings()
 	{
-		Container.Bind<SaveFirstLaunchPersistentDataCommand>().AsSingle();
 		Container.Bind<PersistentDataProxy>().AsSingle();
 		Container.Bind<PersistentDataClipboardProxy>().AsSingle();
-		Container.Bind<LaunchCommand>().AsSingle();
 		Container.Bind<CurrentTimeProxy>().AsSingle();
+
+		Container.Bind<SaveFirstLaunchPersistentDataCommand>().AsSingle();
+		Container.Bind<LaunchCommand>().AsSingle();
+		Container.Bind<ResetUiCommand>().AsSingle();
+
 		Container.BindInterfacesAndSelfTo<PersistentDataController>().AsSingle();
+		Container.Bind<ResetUiController>().AsSingle().NonLazy();
+
 		Container.Bind<LayersMediator>().AsSingle();
 		Container.Bind<PagesLayerMediator>().AsSingle();
 	}

@@ -25,35 +25,15 @@ public class AnalyticsPageScreen : MonoBehaviour
 
 	private void Start()
 	{
-		RefreshPersistentDataTexts();
-	}
-
-	private void Update()
-	{
-		RefreshCurrentTimeText();
-	}
-
-	private void OnEnable()
-	{
-		_persistentDataProxy.refreshFromJsonEvent += RefreshPersistentDataTexts;
-	}
-
-	private void OnDisable()
-	{
-		_persistentDataProxy.refreshFromJsonEvent -= RefreshPersistentDataTexts;
-	}
-
-	private void RefreshCurrentTimeText()
-	{
-		_currentTimeText.text = ConvertTimestampToReadableString(_currentTimeProxy.GetTimestamp());
-	}
-
-	private void RefreshPersistentDataTexts()
-	{
 		var persistentData = _persistentDataProxy.data;
 		_userIdText.text = persistentData.userId;
 		_firstLaunchTimeText.text = ConvertTimestampToReadableString(persistentData.firstLaunchTimestamp);
 		_launchCountText.text = persistentData.launchesCounter.ToString(CultureInfo.InvariantCulture);
+	}
+
+	private void Update()
+	{
+		_currentTimeText.text = ConvertTimestampToReadableString(_currentTimeProxy.GetTimestamp());
 	}
 
 	private string ConvertTimestampToReadableString(long value)
