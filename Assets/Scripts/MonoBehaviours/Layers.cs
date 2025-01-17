@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +11,7 @@ public class Layers : MonoBehaviour
 	[Inject] private DiContainer _diContainer;
 
 	private Dictionary<string, RectTransform> _transformByLayerName = new();
+	private Dictionary<Type, GameObject> _screenPrefabByType = new();
 
 	private void Awake()
 	{
@@ -37,18 +37,22 @@ public class Layers : MonoBehaviour
 	private void OnEnable()
 	{
 		_layersMediator.showScreenEvent += ShowScreenEventHandler;
+		_layersMediator.destroyScreenIfExistsEvent += DestroyScreenIfExistsEventHandler;
 	}
 
 	private void OnDisable()
 	{
 		_layersMediator.showScreenEvent -= ShowScreenEventHandler;
+		_layersMediator.destroyScreenIfExistsEvent -= DestroyScreenIfExistsEventHandler;
 	}
 
-	private void DestroyIfExists([CanBeNull] GameObject screen)
+	private void DestroyScreenIfExistsEventHandler(Type screenType)
 	{
-		if (screen == null) return;
-		screen.SetActive(false);
-		Destroy(screen);
+		if (!_screenPrefabByType.TryGetValue(screenType, out var prefab))
+			return;
+		prefab.SetActive(false);
+		Destroy(prefab);
+		_screenPrefabByType.Remove(screenType);
 	}
 
 	private void ShowScreenEventHandler(Type screenType, LayerNames.Layer layerName)
@@ -58,5 +62,6 @@ public class Layers : MonoBehaviour
 		var prefab = _diContainer.InstantiatePrefabResource(screenType.ToString(), layerTransform);
 		if (prefab == null)
 			throw new Exception($"Prefab for screen «{screenType}» is not found");
+		_screenPrefabByType.Add(screenType, prefab);
 	}
 }

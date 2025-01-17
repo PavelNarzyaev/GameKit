@@ -2,9 +2,7 @@
 {
 	public enum Layer
 	{
-		Background,
 		Page,
-		Currencies,
-		Popups,
+		NavigationScreen,
 	}
 }

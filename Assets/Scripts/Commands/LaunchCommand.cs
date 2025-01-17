@@ -5,6 +5,7 @@ public class LaunchCommand
 	[Inject] private SaveFirstLaunchPersistentDataCommand _saveFirstLaunchPersistentDataCommand;
 	[Inject] private PersistentDataProxy _persistentDataProxy;
 	[Inject] private LayersMediator _layersMediator;
+	[Inject] private PagesLayerMediator _pagesLayerMediator;
 
 	public void Execute()
 	{
@@ -16,7 +17,7 @@ public class LaunchCommand
 		_persistentDataProxy.data.launchesCounter++;
 		_persistentDataProxy.MarkAsDirty();
 
-		_layersMediator.ShowScreen<MainPageScreen>(LayerNames.Layer.Page);
-		// _layersMediator.Show<AnalyticsPageScreen>(LayerNames.Layer.Page);
+		_layersMediator.ShowScreen<NavigationPanelScreen>(LayerNames.Layer.NavigationScreen);
+		_pagesLayerMediator.ShowPage<MainPageScreen>();
 	}
 }

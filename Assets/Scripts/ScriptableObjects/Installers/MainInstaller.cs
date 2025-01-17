@@ -13,5 +13,6 @@ public class MainInstaller : ScriptableObjectInstaller
 		Container.Bind<CurrentTimeProxy>().AsSingle();
 		Container.BindInterfacesAndSelfTo<PersistentDataController>().AsSingle();
 		Container.Bind<LayersMediator>().AsSingle();
+		Container.Bind<PagesLayerMediator>().AsSingle();
 	}
 }
