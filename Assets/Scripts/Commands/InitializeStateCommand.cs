@@ -1,18 +1,18 @@
 ﻿using System;
 using Zenject;
 
-public class SaveFirstLaunchPersistentDataCommand
+public class InitializeStateCommand
 {
 	[Inject] private CurrentTimeProxy _currentTimeProxy;
-	[Inject] private PersistentDataProxy _persistentDataProxy;
+	[Inject] private StateProxy _stateProxy;
 
 	public void Execute()
 	{
-		_persistentDataProxy.data = new PersistentData
+		_stateProxy.data = new State
 		{
 			userId = Guid.NewGuid().ToString(),
 			firstLaunchTimestamp = _currentTimeProxy.GetTimestamp()
 		};
-		_persistentDataProxy.MarkAsDirty();
+		_stateProxy.MarkAsDirty();
 	}
 }

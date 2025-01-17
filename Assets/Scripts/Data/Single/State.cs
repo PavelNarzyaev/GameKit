@@ -1,5 +1,5 @@
 ﻿[System.Serializable]
-public class PersistentData
+public class State
 {
 	public string userId;
 	public long firstLaunchTimestamp;

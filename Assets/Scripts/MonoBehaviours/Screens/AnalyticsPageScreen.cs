@@ -14,21 +14,21 @@ public class AnalyticsPageScreen : MonoBehaviour
 	[SerializeField] private Button _pasteFromClipboardButton;
 
 	[Inject] private CurrentTimeProxy _currentTimeProxy;
-	[Inject] private PersistentDataProxy _persistentDataProxy;
-	[Inject] private PersistentDataClipboardProxy _persistentDataClipboardProxy;
+	[Inject] private StateProxy _stateProxy;
+	[Inject] private StateClipboardProxy _stateClipboardProxy;
 
 	private void Awake()
 	{
-		_copyToClipboardButton.onClick.AddListener(_persistentDataClipboardProxy.CopyPersistentDataToClipboard);
-		_pasteFromClipboardButton.onClick.AddListener(_persistentDataClipboardProxy.PastePersistentDataFromClipboard);
+		_copyToClipboardButton.onClick.AddListener(_stateClipboardProxy.CopyStateToClipboard);
+		_pasteFromClipboardButton.onClick.AddListener(_stateClipboardProxy.PasteStateFromClipboard);
 	}
 
 	private void Start()
 	{
-		var persistentData = _persistentDataProxy.data;
-		_userIdText.text = persistentData.userId;
-		_firstLaunchTimeText.text = ConvertTimestampToReadableString(persistentData.firstLaunchTimestamp);
-		_launchCountText.text = persistentData.launchesCounter.ToString(CultureInfo.InvariantCulture);
+		var state = _stateProxy.data;
+		_userIdText.text = state.userId;
+		_firstLaunchTimeText.text = ConvertTimestampToReadableString(state.firstLaunchTimestamp);
+		_launchCountText.text = state.launchesCounter.ToString(CultureInfo.InvariantCulture);
 	}
 
 	private void Update()

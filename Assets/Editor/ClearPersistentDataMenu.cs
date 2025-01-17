@@ -7,7 +7,7 @@ public class ClearPersistentDataMenu
 	[MenuItem("GameKit/Clear Persistent Data", false, 101)]
 	public static void ClearPersistentData()
 	{
-		var filePath = Path.Combine(Application.persistentDataPath, PersistentDataFileName.fileName);
+		var filePath = Path.Combine(Application.persistentDataPath, StateProxy.fileName);
 
 		if (File.Exists(filePath))
 		{

@@ -2,19 +2,19 @@
 
 public class LaunchCommand
 {
-	[Inject] private SaveFirstLaunchPersistentDataCommand _saveFirstLaunchPersistentDataCommand;
-	[Inject] private PersistentDataProxy _persistentDataProxy;
+	[Inject] private InitializeStateCommand _initializeStateCommand;
+	[Inject] private StateProxy _stateProxy;
 	[Inject] private ResetUiCommand _resetUiCommand;
 
 	public void Execute()
 	{
-		var isFirstLaunch = !_persistentDataProxy.Exists();
+		var isFirstLaunch = !_stateProxy.Exists();
 		if (isFirstLaunch)
-			_saveFirstLaunchPersistentDataCommand.Execute();
+			_initializeStateCommand.Execute();
 		else
-			_persistentDataProxy.RefreshFromFile();
-		_persistentDataProxy.data.launchesCounter++;
-		_persistentDataProxy.MarkAsDirty();
+			_stateProxy.RefreshFromFile();
+		_stateProxy.data.launchesCounter++;
+		_stateProxy.MarkAsDirty();
 
 		_resetUiCommand.Execute();
 	}

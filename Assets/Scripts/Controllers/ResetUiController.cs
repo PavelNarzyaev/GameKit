@@ -3,13 +3,13 @@ using Zenject;
 
 public class ResetUiController
 {
-	[Inject] private PersistentDataProxy _persistentDataProxy;
+	[Inject] private StateProxy _stateProxy;
 	[Inject] private ResetUiCommand _resetUiCommand;
 
 	[Inject]
 	private void Inject()
 	{
-		_persistentDataProxy.refreshFromJsonEvent += () => { Debug.Log("Reset controller"); };
-		_persistentDataProxy.refreshFromJsonEvent += _resetUiCommand.Execute;
+		_stateProxy.refreshFromJsonEvent += () => { Debug.Log("Reset controller"); };
+		_stateProxy.refreshFromJsonEvent += _resetUiCommand.Execute;
 	}
 }

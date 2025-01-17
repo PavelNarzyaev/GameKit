@@ -3,17 +3,20 @@ using System.IO;
 using UnityEngine;
 using Zenject;
 
-public class PersistentDataProxy
+public class StateProxy
 {
-	public PersistentData data;
+	public const string fileName = "state.json";
+
+	public State data;
 	public bool isDirty { get; private set; }
 	public event Action refreshFromJsonEvent;
+
 	private string _filePath;
 
 	[Inject]
 	private void Inject()
 	{
-		_filePath = Path.Combine(Application.persistentDataPath, PersistentDataFileName.fileName);
+		_filePath = Path.Combine(Application.persistentDataPath, fileName);
 	}
 
 	public void MarkAsDirty()
@@ -30,7 +33,7 @@ public class PersistentDataProxy
 	{
 		try
 		{
-			data = JsonUtility.FromJson<PersistentData>(json);
+			data = JsonUtility.FromJson<State>(json);
 		}
 		catch
 		{
@@ -54,7 +57,7 @@ public class PersistentDataProxy
 	public void RefreshFromFile()
 	{
 		var json = LoadJsonFromFile();
-		data = JsonUtility.FromJson<PersistentData>(json);
+		data = JsonUtility.FromJson<State>(json);
 	}
 
 	public string LoadJsonFromFile()
