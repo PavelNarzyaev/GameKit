@@ -37,8 +37,8 @@ public class StateProxy
 		}
 		catch
 		{
-			Debug.LogError("Incorrect json");
-			return;
+			// TODO: show loading error popup
+			throw;
 		}
 
 		SaveJsonToFile(json);
