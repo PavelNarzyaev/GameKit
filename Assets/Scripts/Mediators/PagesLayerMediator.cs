@@ -11,7 +11,7 @@ public class PagesLayerMediator
 	{
 		if (_currentPageType != null)
 			_layersMediator.DestroyScreenIfExists(_currentPageType);
-		_layersMediator.ShowScreen(screenType, LayerNames.Layer.Page);
+		_layersMediator.ShowScreen(screenType, Layer.Page);
 		_currentPageType = screenType;
 	}
 }

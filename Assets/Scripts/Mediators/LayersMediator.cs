@@ -2,11 +2,11 @@
 
 public class LayersMediator
 {
-	public event Action<Type, LayerNames.Layer> showScreenEvent;
+	public event Action<Type, Layer> showScreenEvent;
 	public event Action<Type> destroyScreenIfExistsEvent;
 	public event Action destroyAllScreensEvent;
 
-	public void ShowScreen(Type screenType, LayerNames.Layer layer)
+	public void ShowScreen(Type screenType, Layer layer)
 	{
 		showScreenEvent?.Invoke(screenType, layer);
 	}

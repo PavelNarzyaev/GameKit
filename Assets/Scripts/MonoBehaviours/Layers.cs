@@ -15,7 +15,7 @@ public class Layers : MonoBehaviour
 
 	private void Awake()
 	{
-		var layers = Enum.GetValues(typeof(LayerNames.Layer));
+		var layers = Enum.GetValues(typeof(Layer));
 
 		foreach (var layer in layers)
 		{
@@ -56,7 +56,7 @@ public class Layers : MonoBehaviour
 		_screenPrefabByType.Remove(screenType);
 	}
 
-	private void ShowScreenHandler(Type screenType, LayerNames.Layer layerName)
+	private void ShowScreenHandler(Type screenType, Layer layerName)
 	{
 		if (!_transformByLayerName.TryGetValue(layerName.ToString(), out var layerTransform))
 			throw new Exception($"Rect transform for screen «{screenType}» is not found");
