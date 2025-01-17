@@ -11,7 +11,7 @@ public class NavigationPanelScreen : MonoBehaviour
 
 	private void Awake()
 	{
-		_mainPageButton.onClick.AddListener(() => _pagesLayerMediator.ShowPage<MainPageScreen>());
-		_analyticsPageButton.onClick.AddListener(() => _pagesLayerMediator.ShowPage<AnalyticsPageScreen>());
+		_mainPageButton.onClick.AddListener(() => _pagesLayerMediator.ShowPage(typeof(MainPageScreen)));
+		_analyticsPageButton.onClick.AddListener(() => _pagesLayerMediator.ShowPage(typeof(AnalyticsPageScreen)));
 	}
 }

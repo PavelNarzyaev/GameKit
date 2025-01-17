@@ -17,7 +17,7 @@ public class LaunchCommand
 		_persistentDataProxy.data.launchesCounter++;
 		_persistentDataProxy.MarkAsDirty();
 
-		_layersMediator.ShowScreen<NavigationPanelScreen>(LayerNames.Layer.NavigationScreen);
-		_pagesLayerMediator.ShowPage<MainPageScreen>();
+		_layersMediator.ShowScreen(typeof(NavigationPanelScreen), LayerNames.Layer.NavigationScreen);
+		_pagesLayerMediator.ShowPage(typeof(MainPageScreen));
 	}
 }

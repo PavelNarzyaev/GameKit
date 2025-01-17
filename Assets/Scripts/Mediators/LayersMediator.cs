@@ -1,19 +1,13 @@
 ﻿using System;
-using UnityEngine;
 
 public class LayersMediator
 {
 	public event Action<Type, LayerNames.Layer> showScreenEvent;
 	public event Action<Type> destroyScreenIfExistsEvent;
 
-	public void ShowScreen<T>(LayerNames.Layer layer) where T : MonoBehaviour
+	public void ShowScreen(Type screenType, LayerNames.Layer layer)
 	{
-		showScreenEvent?.Invoke(typeof(T), layer);
-	}
-
-	public void DestroyScreenIfExists<T>() where T : MonoBehaviour
-	{
-		DestroyScreenIfExists(typeof(T));
+		showScreenEvent?.Invoke(screenType, layer);
 	}
 
 	public void DestroyScreenIfExists(Type screenType)

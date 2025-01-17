@@ -1,18 +1,17 @@
 ﻿using System;
-using UnityEngine;
 using Zenject;
 
 public class PagesLayerMediator
 {
 	[Inject] private LayersMediator _layersMediator;
 
-	private Type _currentPage;
+	private Type _currentPageType;
 
-	public void ShowPage<T>() where T : MonoBehaviour
+	public void ShowPage(Type screenType)
 	{
-		if (_currentPage != null)
-			_layersMediator.DestroyScreenIfExists(_currentPage);
-		_layersMediator.ShowScreen<T>(LayerNames.Layer.Page);
-		_currentPage = typeof(T);
+		if (_currentPageType != null)
+			_layersMediator.DestroyScreenIfExists(_currentPageType);
+		_layersMediator.ShowScreen(screenType, LayerNames.Layer.Page);
+		_currentPageType = screenType;
 	}
 }
