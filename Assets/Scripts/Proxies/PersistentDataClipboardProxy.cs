@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using UnityEngine;
+using Zenject;
 
 public class PersistentDataClipboardProxy
 {
@@ -7,10 +8,12 @@ public class PersistentDataClipboardProxy
 	public void CopyPersistentDataToClipboard()
 	{
 		UniClipboard.SetText(_persistentDataProxy.LoadJsonFromFile());
+		Debug.Log("Persistent data is copied to clipboard");
 	}
 
 	public void PastePersistentDataFromClipboard()
 	{
 		_persistentDataProxy.RefreshFromJson(UniClipboard.GetText());
+		Debug.Log("Persistent data is applied from clipboard");
 	}
 }
