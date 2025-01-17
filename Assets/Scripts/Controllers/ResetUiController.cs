@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using Zenject;
+﻿using Zenject;
 
 public class ResetUiController
 {
@@ -9,7 +8,6 @@ public class ResetUiController
 	[Inject]
 	private void Inject()
 	{
-		_stateProxy.refreshFromJsonEvent += () => { Debug.Log("Reset controller"); };
 		_stateProxy.refreshFromJsonEvent += _resetUiCommand.Execute;
 	}
 }
