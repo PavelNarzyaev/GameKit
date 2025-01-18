@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public class AnalyticsPageScreen : MonoBehaviour
+public class StatePageScreen : MonoBehaviour
 {
 	[SerializeField] private TextMeshProUGUI _userIdText;
 	[SerializeField] private TextMeshProUGUI _firstLaunchTimeText;

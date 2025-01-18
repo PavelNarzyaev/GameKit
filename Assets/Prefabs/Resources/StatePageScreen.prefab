@@ -677,7 +677,7 @@ GameObject:
   - component: {fileID: 7498098722371014808}
   - component: {fileID: 4740565839417141006}
   m_Layer: 0
-  m_Name: AnalyticsPageScreen
+  m_Name: StatePageScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
