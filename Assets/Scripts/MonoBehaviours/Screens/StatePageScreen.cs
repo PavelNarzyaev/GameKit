@@ -6,14 +6,12 @@ using Zenject;
 
 public class StatePageScreen : MonoBehaviour
 {
-	[SerializeField] private TextMeshProUGUI _userIdText;
-	[SerializeField] private TextMeshProUGUI _firstLaunchTimeText;
-	[SerializeField] private TextMeshProUGUI _launchCountText;
-	[SerializeField] private TextMeshProUGUI _currentTimeText;
+	[SerializeField] private DebugValue _userId;
+	[SerializeField] private DebugValue _firstLaunchTime;
+	[SerializeField] private DebugValue _launchCount;
 	[SerializeField] private Button _copyToClipboardButton;
 	[SerializeField] private Button _pasteFromClipboardButton;
 
-	[Inject] private CurrentTimeProxy _currentTimeProxy;
 	[Inject] private StateProxy _stateProxy;
 	[Inject] private StateClipboardProxy _stateClipboardProxy;
 
@@ -26,14 +24,15 @@ public class StatePageScreen : MonoBehaviour
 	private void Start()
 	{
 		var state = _stateProxy.data;
-		_userIdText.text = state.userId;
-		_firstLaunchTimeText.text = ConvertTimestampToReadableString(state.firstLaunchTimestamp);
-		_launchCountText.text = state.launchesCounter.ToString(CultureInfo.InvariantCulture);
-	}
 
-	private void Update()
-	{
-		_currentTimeText.text = ConvertTimestampToReadableString(_currentTimeProxy.GetTimestamp());
+		_userId.SetTitleText("USER ID");
+		_userId.SetValueText(state.userId);
+
+		_firstLaunchTime.SetTitleText("FIRST LAUNCH");
+		_firstLaunchTime.SetValueText(ConvertTimestampToReadableString(state.firstLaunchTimestamp));
+
+		_launchCount.SetTitleText("LAUNCH COUNT");
+		_launchCount.SetValueText(state.launchesCounter.ToString(CultureInfo.InvariantCulture));
 	}
 
 	private string ConvertTimestampToReadableString(long value)
