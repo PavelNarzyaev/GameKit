@@ -180,7 +180,7 @@ MonoBehaviour:
     _fillRotation: 0
     _fillScale: {x: 1, y: 1}
     _fillTexture: {fileID: 0}
-    _fillType: 2
+    _fillType: 0
     _gradientAxis: 0
     _gradientStart: 0
     _gradientType: 0
@@ -189,7 +189,7 @@ MonoBehaviour:
     _invertArc: 0
     _lineSize: 0.05
     _obsoleteNumSides: -1
-    _outlineColor: {r: 0.81960785, g: 0.8156863, b: 0, a: 1}
+    _outlineColor: {r: 0.7411765, g: 0.52156866, b: 0.13333334, a: 1}
     _outlineSize: 8
     _pathSegments:
     - p0: {x: -0.3, y: 0, z: 0}
@@ -289,8 +289,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278243537
-  m_fontColor: {r: 0.81960785, g: 0.8156863, b: 0, a: 1}
+    rgba: 4280452541
+  m_fontColor: {r: 0.7411765, g: 0.52156866, b: 0.13333334, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

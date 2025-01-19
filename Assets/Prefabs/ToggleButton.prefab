@@ -99,8 +99,8 @@ MonoBehaviour:
   _backgroundImage: {fileID: 8262196721709713833}
   _text: {fileID: 2711537618979806873}
   _button: {fileID: 2585799765249989409}
-  _selectedColor: {r: 0.098039225, g: 0.8196079, b: 0, a: 1}
-  _defaultColor: {r: 0.81960785, g: 0.81610495, b: 0, a: 1}
+  _selectedColor: {r: 0.12941177, g: 0.7372549, b: 0.39607844, a: 1}
+  _defaultColor: {r: 0.7411765, g: 0.52156866, b: 0.13333334, a: 1}
 --- !u!114 &6869390007316420069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +226,7 @@ MonoBehaviour:
     _fillRotation: 0
     _fillScale: {x: 1, y: 1}
     _fillTexture: {fileID: 0}
-    _fillType: 2
+    _fillType: 0
     _gradientAxis: 0
     _gradientStart: 0
     _gradientType: 0
@@ -235,7 +235,7 @@ MonoBehaviour:
     _invertArc: 0
     _lineSize: 0.05
     _obsoleteNumSides: -1
-    _outlineColor: {r: 0.097833365, g: 0.8207547, b: 0, a: 1}
+    _outlineColor: {r: 0.12941177, g: 0.7372549, b: 0.39607844, a: 1}
     _outlineSize: 8
     _pathSegments:
     - p0: {x: -0.3, y: 0, z: 0}
@@ -355,8 +355,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278243609
-  m_fontColor: {r: 0.098039225, g: 0.8196079, b: 0, a: 1}
+    rgba: 4284857377
+  m_fontColor: {r: 0.12941177, g: 0.7372549, b: 0.39607844, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
