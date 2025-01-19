@@ -6,7 +6,7 @@ using Zenject;
 public class NavigationPanelScreen : MonoBehaviour
 {
 	[SerializeField] private NavigationPanelToggleButton _mainPageButton;
-	[SerializeField] private NavigationPanelToggleButton _analyticsPageButton;
+	[SerializeField] private NavigationPanelToggleButton _statePageButton;
 
 	[Inject] private PagesLayerMediator _pagesLayerMediator;
 
@@ -16,7 +16,7 @@ public class NavigationPanelScreen : MonoBehaviour
 	private void Awake()
 	{
 		SetUpButton(_mainPageButton, typeof(MainPageScreen));
-		SetUpButton(_analyticsPageButton, typeof(StatePageScreen));
+		SetUpButton(_statePageButton, typeof(StatePageScreen));
 	}
 
 	private void SetUpButton(NavigationPanelToggleButton button, Type pageType)

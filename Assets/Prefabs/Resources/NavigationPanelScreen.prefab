@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainPageButton: {fileID: 7644544127593506229}
-  _analyticsPageButton: {fileID: 123251605792587713}
+  _statePageButton: {fileID: 123251605792587713}
 --- !u!1001 &2047817357317798990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -262,11 +262,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2711537618979806873, guid: c8eed90904d55734aaf4c5b77f414112, type: 3}
       propertyPath: m_text
-      value: ANALYTICS
+      value: STATE
       objectReference: {fileID: 0}
     - target: {fileID: 3532193239342411554, guid: c8eed90904d55734aaf4c5b77f414112, type: 3}
       propertyPath: m_Name
-      value: AnalyticsButton
+      value: StateButton
       objectReference: {fileID: 0}
     - target: {fileID: 5763336123267084227, guid: c8eed90904d55734aaf4c5b77f414112, type: 3}
       propertyPath: m_AnchorMax.y
