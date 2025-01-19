@@ -9,7 +9,7 @@ public class TimePageScreen : MonoBehaviour
 
 	private void Start()
 	{
-		_currentTime.SetTitleText("LOCAL TIME");
+		_currentTime.SetTitleText("Local Time");
 	}
 
 	private void Update()

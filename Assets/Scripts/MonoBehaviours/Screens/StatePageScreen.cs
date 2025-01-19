@@ -24,13 +24,13 @@ public class StatePageScreen : MonoBehaviour
 	{
 		var state = _stateProxy.data;
 
-		_userId.SetTitleText("USER ID");
+		_userId.SetTitleText("User Id");
 		_userId.SetValueText(state.userId);
 
-		_firstLaunchTime.SetTitleText("FIRST LAUNCH");
+		_firstLaunchTime.SetTitleText("First Launch");
 		_firstLaunchTime.SetValueText(TimestampUtility.ConvertTimestampToReadableString(state.firstLaunchTimestamp));
 
-		_launchCount.SetTitleText("LAUNCH COUNT");
+		_launchCount.SetTitleText("Launch Count");
 		_launchCount.SetValueText(state.launchesCounter.ToString(CultureInfo.InvariantCulture));
 	}
 }

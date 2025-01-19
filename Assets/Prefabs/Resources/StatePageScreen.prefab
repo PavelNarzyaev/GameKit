@@ -95,7 +95,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2711537618979806873, guid: 1dc24cc7f26ebb9438c4b44b10e33c39, type: 3}
       propertyPath: m_text
-      value: PASTE
+      value: Paste
       objectReference: {fileID: 0}
     - target: {fileID: 3532193239342411554, guid: 1dc24cc7f26ebb9438c4b44b10e33c39, type: 3}
       propertyPath: m_Name
@@ -212,7 +212,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2711537618979806873, guid: 1dc24cc7f26ebb9438c4b44b10e33c39, type: 3}
       propertyPath: m_text
-      value: COPY
+      value: Copy
       objectReference: {fileID: 0}
     - target: {fileID: 3532193239342411554, guid: 1dc24cc7f26ebb9438c4b44b10e33c39, type: 3}
       propertyPath: m_Name
