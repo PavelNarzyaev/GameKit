@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7605072839016055119}
   - component: {fileID: 7498098722371014808}
   - component: {fileID: 4740565839417141006}
+  - component: {fileID: 8768094022918675555}
   m_Layer: 0
   m_Name: StatePageScreen
   m_TagString: Untagged
@@ -85,6 +86,21 @@ MonoBehaviour:
   _launchCount: {fileID: 4380862531955787552}
   _copyToClipboardButton: {fileID: 4046377377736133553}
   _pasteFromClipboardButton: {fileID: 3208610507325687006}
+--- !u!114 &8768094022918675555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3532193239342411554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c97afc556caea1c44969477eb7ddec74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConformX: 0
+  ConformY: 1
+  Logging: 0
 --- !u!1001 &1109536348063686655
 PrefabInstance:
   m_ObjectHideFlags: 0
