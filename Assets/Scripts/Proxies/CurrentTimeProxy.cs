@@ -9,7 +9,7 @@ public class CurrentTimeProxy
 	[Inject]
 	private void Inject()
 	{
-		_startupTimestamp = DateTime.UtcNow.ToTimestamp() - (int)Time.realtimeSinceStartup;
+		_startupTimestamp = TimestampUtility.ConvertDatetimeToTimestamp(DateTime.UtcNow) - (int)Time.realtimeSinceStartup;
 	}
 
 	public long GetTimestamp()

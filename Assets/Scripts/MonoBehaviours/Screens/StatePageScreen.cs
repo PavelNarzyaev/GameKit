@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -29,14 +28,9 @@ public class StatePageScreen : MonoBehaviour
 		_userId.SetValueText(state.userId);
 
 		_firstLaunchTime.SetTitleText("FIRST LAUNCH");
-		_firstLaunchTime.SetValueText(ConvertTimestampToReadableString(state.firstLaunchTimestamp));
+		_firstLaunchTime.SetValueText(TimestampUtility.ConvertTimestampToReadableString(state.firstLaunchTimestamp));
 
 		_launchCount.SetTitleText("LAUNCH COUNT");
 		_launchCount.SetValueText(state.launchesCounter.ToString(CultureInfo.InvariantCulture));
-	}
-
-	private string ConvertTimestampToReadableString(long value)
-	{
-		return value.ToLocalDateTime().ToString("yyyy-MM-dd HH:mm:ss");
 	}
 }

@@ -7,6 +7,7 @@ public class NavigationPanelScreen : MonoBehaviour
 {
 	[SerializeField] private NavigationPanelToggleButton _mainPageButton;
 	[SerializeField] private NavigationPanelToggleButton _statePageButton;
+	[SerializeField] private NavigationPanelToggleButton _timePageButton;
 
 	[Inject] private PagesLayerMediator _pagesLayerMediator;
 
@@ -17,6 +18,7 @@ public class NavigationPanelScreen : MonoBehaviour
 	{
 		SetUpButton(_mainPageButton, typeof(MainPageScreen));
 		SetUpButton(_statePageButton, typeof(StatePageScreen));
+		SetUpButton(_timePageButton, typeof(TimePageScreen));
 	}
 
 	private void SetUpButton(NavigationPanelToggleButton button, Type pageType)
