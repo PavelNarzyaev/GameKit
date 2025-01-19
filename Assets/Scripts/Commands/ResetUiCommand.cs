@@ -9,7 +9,7 @@ public class ResetUiCommand
 	{
 		_layersMediator.DestroyAllScreens();
 
-		_layersMediator.ShowScreen(typeof(NavigationPanelScreen), Layer.NavigationScreen);
 		_pagesLayerMediator.ShowPage(typeof(MainPageScreen));
+		_layersMediator.ShowScreen(typeof(NavigationPanelScreen), Layer.NavigationScreen);
 	}
 }
