@@ -1,5 +1,6 @@
 ﻿public enum Layer
 {
 	Page,
-	NavigationScreen,
+	NavigationPanel,
+	LinesOverlay,
 }
