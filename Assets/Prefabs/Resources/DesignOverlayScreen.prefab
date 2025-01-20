@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4415202218932617496}
   - component: {fileID: 8875726499916918935}
   m_Layer: 0
-  m_Name: LinesOverlayScreen
+  m_Name: DesignOverlayScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

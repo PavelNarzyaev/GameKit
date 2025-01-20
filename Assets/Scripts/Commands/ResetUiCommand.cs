@@ -11,6 +11,6 @@ public class ResetUiCommand
 
 		_pagesLayerMediator.ShowPage(typeof(MainPageScreen));
 		_layersMediator.ShowScreen(typeof(NavigationPanelScreen), Layer.NavigationPanel);
-		_layersMediator.ShowScreen(typeof(LinesOverlayScreen), Layer.LinesOverlay);
+		_layersMediator.ShowScreen(typeof(DesignOverlayScreen), Layer.DesignOverlay);
 	}
 }

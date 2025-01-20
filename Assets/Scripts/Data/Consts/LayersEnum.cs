@@ -2,5 +2,8 @@
 {
 	Page,
 	NavigationPanel,
-	LinesOverlay,
+	Shade,
+	ShadeOverlay,
+	RaycastBlocker,
+	DesignOverlay,
 }
