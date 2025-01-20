@@ -10,9 +10,15 @@ public class TimePageScreen : MonoBehaviour
 	private void Start()
 	{
 		_currentTime.SetTitleText("Local Time");
+		RefreshCurrentTime();
 	}
 
 	private void Update()
+	{
+		RefreshCurrentTime();
+	}
+
+	private void RefreshCurrentTime()
 	{
 		var timestamp = _currentTimeProxy.GetTimestamp();
 		var readableDatetime = TimestampUtility.ConvertTimestampToReadableString(timestamp);
