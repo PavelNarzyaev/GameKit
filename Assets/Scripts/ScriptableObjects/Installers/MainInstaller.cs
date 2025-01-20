@@ -13,6 +13,7 @@ public class MainInstaller : ScriptableObjectInstaller
 		Container.Bind<InitializeStateCommand>().AsSingle();
 		Container.Bind<LaunchCommand>().AsSingle();
 		Container.Bind<ResetUiCommand>().AsSingle();
+		Container.Bind<ResetStateCommand>().AsSingle();
 
 		Container.BindInterfacesAndSelfTo<StateSavingController>().AsSingle();
 		Container.Bind<ResetUiController>().AsSingle().NonLazy();

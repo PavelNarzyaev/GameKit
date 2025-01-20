@@ -5,19 +5,13 @@ using Zenject;
 
 public class StateProxy
 {
-	public const string fileName = "state.json";
+	private const string _fileName = "state.json";
 
 	public State data;
 	public bool isDirty { get; private set; }
 	public event Action refreshFromJsonEvent;
 
-	private string _filePath;
-
-	[Inject]
-	private void Inject()
-	{
-		_filePath = Path.Combine(Application.persistentDataPath, fileName);
-	}
+	private static string GetFilePath() => Path.Combine(Application.persistentDataPath, _fileName);
 
 	public void MarkAsDirty()
 	{
@@ -48,11 +42,11 @@ public class StateProxy
 	private void SaveJsonToFile(string json)
 	{
 		var encryptedJson = EncryptionUtility.Encrypt(json);
-		File.WriteAllText(_filePath, encryptedJson);
+		File.WriteAllText(GetFilePath(), encryptedJson);
 		isDirty = false;
 	}
 
-	public bool Exists() => File.Exists(_filePath);
+	public bool Exists() => File.Exists(GetFilePath());
 
 	public void RefreshFromFile()
 	{
@@ -62,7 +56,19 @@ public class StateProxy
 
 	public string LoadJsonFromFile()
 	{
-		var encryptedJson = File.ReadAllText(_filePath);
+		var encryptedJson = File.ReadAllText(GetFilePath());
 		return EncryptionUtility.Decrypt(encryptedJson);
+	}
+
+	public static void DeleteFile()
+	{
+		var filePath = GetFilePath();
+		if (File.Exists(filePath))
+		{
+			File.Delete(filePath);
+			Debug.Log("Persistent data file deleted.");
+		}
+		else
+			Debug.LogWarning("Persistent data file not found.");
 	}
 }

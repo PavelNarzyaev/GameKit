@@ -10,14 +10,17 @@ public class StatePageScreen : MonoBehaviour
 	[SerializeField] private DebugValue _launchCount;
 	[SerializeField] private Button _copyToClipboardButton;
 	[SerializeField] private Button _pasteFromClipboardButton;
+	[SerializeField] private Button _resetButton;
 
 	[Inject] private StateProxy _stateProxy;
 	[Inject] private StateClipboardProxy _stateClipboardProxy;
+	[Inject] private ResetStateCommand _resetStateCommand;
 
 	private void Awake()
 	{
 		_copyToClipboardButton.onClick.AddListener(_stateClipboardProxy.CopyStateToClipboard);
 		_pasteFromClipboardButton.onClick.AddListener(_stateClipboardProxy.PasteStateFromClipboard);
+		_resetButton.onClick.AddListener(_resetStateCommand.Execute);
 	}
 
 	private void Start()
