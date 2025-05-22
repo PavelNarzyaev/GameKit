@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public class StatePageScreen : MonoBehaviour
+public class StatePageScreen : ScreenAbstract
 {
 	[SerializeField] private DebugValue _userId;
 	[SerializeField] private DebugValue _firstLaunchTime;
@@ -35,5 +35,10 @@ public class StatePageScreen : MonoBehaviour
 
 		_launchCount.SetTitleText("Launch Count");
 		_launchCount.SetValueText(state.launchesCounter.ToString(CultureInfo.InvariantCulture));
+	}
+
+	public override bool IsCached()
+	{
+		return true;
 	}
 }

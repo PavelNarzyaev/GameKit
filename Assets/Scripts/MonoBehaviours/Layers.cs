@@ -37,40 +37,53 @@ public class Layers : MonoBehaviour
 	private void OnEnable()
 	{
 		_layersMediator.showScreenEvent += ShowScreenHandler;
-		_layersMediator.destroyScreenIfExistsEvent += DestroyScreenIfExistsHandler;
+		_layersMediator.hideScreenIfExistsEvent += HideScreenIfExistsHandler;
 		_layersMediator.destroyAllScreensEvent += DestroyAllScreensHandler;
 	}
 
 	private void OnDisable()
 	{
 		_layersMediator.showScreenEvent -= ShowScreenHandler;
-		_layersMediator.destroyScreenIfExistsEvent -= DestroyScreenIfExistsHandler;
+		_layersMediator.hideScreenIfExistsEvent -= HideScreenIfExistsHandler;
 		_layersMediator.destroyAllScreensEvent -= DestroyAllScreensHandler;
-	}
-
-	private void DestroyScreenIfExistsHandler(Type screenType)
-	{
-		if (!_screenPrefabByType.TryGetValue(screenType, out var prefab))
-			return;
-		DestroyPrefab(prefab);
-		_screenPrefabByType.Remove(screenType);
 	}
 
 	private void ShowScreenHandler(Type screenType, Layer layerName)
 	{
-		if (!_transformByLayerName.TryGetValue(layerName.ToString(), out var layerTransform))
-			throw new Exception($"Rect transform for screen «{screenType}» is not found");
-		var prefab = _diContainer.InstantiatePrefabResource(screenType.ToString(), layerTransform);
-		if (prefab == null)
-			throw new Exception($"Prefab for screen «{screenType}» is not found");
-		_screenPrefabByType.Add(screenType, prefab);
+		if (_screenByType.TryGetValue(screenType, out var screen))
+			screen.gameObject.SetActive(true);
+		else
+		{
+			if (!_transformByLayerName.TryGetValue(layerName.ToString(), out var layerTransform))
+				throw new Exception($"Rect transform for screen «{screenType}» is not found");
+			var screenPrefab = _diContainer.InstantiatePrefabResource(screenType.ToString(), layerTransform);
+			if (screenPrefab == null)
+				throw new Exception($"Prefab for screen «{screenType}» is not found");
+			var screenComponent = screenPrefab.GetComponent<ScreenAbstract>();
+			if (screenComponent == null)
+				throw new Exception($"Screen prefab must have a «{nameof(ScreenAbstract)}» component.");
+			_screenByType.Add(screenType, screenComponent);
+		}
+	}
+
+	private void HideScreenIfExistsHandler(Type screenType)
+	{
+		if (!_screenByType.TryGetValue(screenType, out var screen))
+			return;
+		if (screen.IsCached())
+			screen.gameObject.SetActive(false);
+		else
+		{
+			DestroyPrefab(screen.gameObject);
+			_screenByType.Remove(screenType);
+		}
 	}
 
 	private void DestroyAllScreensHandler()
 	{
-		foreach (var prefab in _screenPrefabByType.Values)
-			DestroyPrefab(prefab);
-		_screenPrefabByType.Clear();
+		foreach (var screen in _screenByType.Values)
+			DestroyPrefab(screen.gameObject);
+		_screenByType.Clear();
 	}
 
 	private void DestroyPrefab(GameObject prefab)

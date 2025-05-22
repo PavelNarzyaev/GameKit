@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class NavigationPanelScreen : MonoBehaviour
+public class NavigationPanelScreen : ScreenAbstract
 {
 	[SerializeField] private NavigationPanelToggleButton _mainPageButton;
 	[SerializeField] private NavigationPanelToggleButton _statePageButton;

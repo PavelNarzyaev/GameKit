@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-public class TimePageScreen : MonoBehaviour
+public class TimePageScreen : ScreenAbstract
 {
 	[SerializeField] private DebugValue _currentTime;
 

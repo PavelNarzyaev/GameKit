@@ -1,5 +1,3 @@
-﻿using UnityEngine;
-
-public class MainPageScreen : MonoBehaviour
+﻿public class MainPageScreen : ScreenAbstract
 {
 }

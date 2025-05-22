@@ -1,5 +1,3 @@
-﻿using UnityEngine;
-
-public class DesignOverlayScreen : MonoBehaviour
+﻿public class DesignOverlayScreen : ScreenAbstract
 {
 }

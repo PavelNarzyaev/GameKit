@@ -11,7 +11,7 @@ public class PagesLayerMediator
 	public void ShowPage(Type pageScreenType)
 	{
 		if (currentPageType != null)
-			_layersMediator.DestroyScreenIfExists(currentPageType);
+			_layersMediator.HideScreenIfExists(currentPageType);
 		_layersMediator.ShowScreen(pageScreenType, Layer.Page);
 		currentPageType = pageScreenType;
 		changePageEvent?.Invoke();
