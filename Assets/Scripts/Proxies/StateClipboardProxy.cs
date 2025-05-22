@@ -3,17 +3,17 @@ using Zenject;
 
 public class StateClipboardProxy
 {
-	[Inject] private StateProxy _stateProxy;
+	[Inject] private LocalStateProxy _localStateProxy;
 
 	public void CopyStateToClipboard()
 	{
-		UniClipboard.SetText(_stateProxy.LoadJsonFromFile());
+		UniClipboard.SetText(_localStateProxy.Get());
 		Debug.Log("User state is copied to clipboard");
 	}
 
 	public void PasteStateFromClipboard()
 	{
-		_stateProxy.RefreshFromJson(UniClipboard.GetText());
+		_localStateProxy.Set(UniClipboard.GetText());
 		Debug.Log("User state is applied from clipboard");
 	}
 }

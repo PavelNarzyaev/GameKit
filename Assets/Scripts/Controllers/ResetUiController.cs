@@ -2,12 +2,12 @@
 
 public class ResetUiController
 {
-	[Inject] private StateProxy _stateProxy;
+	[Inject] private LocalStateProxy _localStateProxy;
 	[Inject] private ResetUiCommand _resetUiCommand;
 
 	[Inject]
 	private void Inject()
 	{
-		_stateProxy.refreshFromJsonEvent += _resetUiCommand.Execute;
+		_localStateProxy.refreshFromJsonEvent += _resetUiCommand.Execute;
 	}
 }

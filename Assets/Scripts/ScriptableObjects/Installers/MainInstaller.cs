@@ -6,7 +6,7 @@ public class MainInstaller : ScriptableObjectInstaller
 {
 	public override void InstallBindings()
 	{
-		Container.Bind<StateProxy>().AsSingle();
+		Container.Bind<LocalStateProxy>().AsSingle();
 		Container.Bind<StateClipboardProxy>().AsSingle();
 		Container.Bind<CurrentTimeProxy>().AsSingle();
 

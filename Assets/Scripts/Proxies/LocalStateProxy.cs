@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
 using UnityEngine;
-using Zenject;
 
-public class StateProxy
+public class LocalStateProxy
 {
 	private const string _fileName = "state.json";
 
@@ -18,12 +17,12 @@ public class StateProxy
 		isDirty = true;
 	}
 
-	public void RefreshFile()
+	public void Save()
 	{
 		SaveJsonToFile(JsonUtility.ToJson(data));
 	}
 
-	public void RefreshFromJson(string json)
+	public void Set(string json)
 	{
 		try
 		{
@@ -46,21 +45,21 @@ public class StateProxy
 		isDirty = false;
 	}
 
-	public bool Exists() => File.Exists(GetFilePath());
+	public bool CheckIfExists() => File.Exists(GetFilePath());
 
-	public void RefreshFromFile()
+	public void Refresh()
 	{
-		var json = LoadJsonFromFile();
+		var json = Get();
 		data = JsonUtility.FromJson<State>(json);
 	}
 
-	public string LoadJsonFromFile()
+	public string Get()
 	{
 		var encryptedJson = File.ReadAllText(GetFilePath());
 		return EncryptionUtility.Decrypt(encryptedJson);
 	}
 
-	public static void DeleteFile()
+	public static void Delete()
 	{
 		var filePath = GetFilePath();
 		if (File.Exists(filePath))

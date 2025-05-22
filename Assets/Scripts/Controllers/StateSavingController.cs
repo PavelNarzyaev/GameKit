@@ -2,13 +2,13 @@
 
 public class StateSavingController : ITickable
 {
-	[Inject] private StateProxy _stateProxy;
+	[Inject] private LocalStateProxy _localStateProxy;
 
 	private string _filePath;
 
 	public void Tick()
 	{
-		if (_stateProxy.isDirty)
-			_stateProxy.RefreshFile();
+		if (_localStateProxy.isDirty)
+			_localStateProxy.Save();
 	}
 }

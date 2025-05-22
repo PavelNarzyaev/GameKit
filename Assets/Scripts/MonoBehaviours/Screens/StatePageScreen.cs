@@ -12,7 +12,7 @@ public class StatePageScreen : MonoBehaviour
 	[SerializeField] private Button _pasteFromClipboardButton;
 	[SerializeField] private Button _resetButton;
 
-	[Inject] private StateProxy _stateProxy;
+	[Inject] private LocalStateProxy _localStateProxy;
 	[Inject] private StateClipboardProxy _stateClipboardProxy;
 	[Inject] private ResetStateCommand _resetStateCommand;
 
@@ -25,7 +25,7 @@ public class StatePageScreen : MonoBehaviour
 
 	private void Start()
 	{
-		var state = _stateProxy.data;
+		var state = _localStateProxy.data;
 
 		_userId.SetTitleText("User Id");
 		_userId.SetValueText(state.userId);

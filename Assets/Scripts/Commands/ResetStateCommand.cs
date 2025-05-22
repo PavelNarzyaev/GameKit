@@ -6,7 +6,7 @@ public class ResetStateCommand
 
 	public void Execute()
 	{
-		StateProxy.DeleteFile();
+		LocalStateProxy.Delete();
 		_launchCommand.Execute();
 	}
 }

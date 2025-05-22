@@ -4,15 +4,15 @@ using Zenject;
 public class InitializeStateCommand
 {
 	[Inject] private CurrentTimeProxy _currentTimeProxy;
-	[Inject] private StateProxy _stateProxy;
+	[Inject] private LocalStateProxy _localStateProxy;
 
 	public void Execute()
 	{
-		_stateProxy.data = new State
+		_localStateProxy.data = new State
 		{
 			userId = Guid.NewGuid().ToString(),
 			firstLaunchTimestamp = _currentTimeProxy.GetTimestamp()
 		};
-		_stateProxy.MarkAsDirty();
+		_localStateProxy.MarkAsDirty();
 	}
 }
