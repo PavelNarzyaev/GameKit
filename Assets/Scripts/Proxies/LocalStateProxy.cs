@@ -7,14 +7,14 @@ public class LocalStateProxy
 	private const string _fileName = "state.json";
 
 	public State data;
-	public bool isDirty { get; private set; }
+	public bool IsDirty { get; private set; }
 	public event Action refreshFromJsonEvent;
 
 	private static string GetFilePath() => Path.Combine(Application.persistentDataPath, _fileName);
 
 	public void MarkAsDirty()
 	{
-		isDirty = true;
+		IsDirty = true;
 	}
 
 	public void Save()
@@ -42,7 +42,7 @@ public class LocalStateProxy
 	{
 		var encryptedJson = EncryptionUtility.Encrypt(json);
 		File.WriteAllText(GetFilePath(), encryptedJson);
-		isDirty = false;
+		IsDirty = false;
 	}
 
 	public bool CheckIfExists() => File.Exists(GetFilePath());

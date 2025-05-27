@@ -23,14 +23,14 @@ public class NavigationPanelScreen : ScreenAbstract
 
 	private void SetUpButton(NavigationPanelToggleButton button, Type pageType)
 	{
-		button.SetSelected(_pagesLayerMediator.currentPageType == pageType);
+		button.SetSelected(_pagesLayerMediator.CurrentPageType == pageType);
 		_buttonByType.Add(pageType, button);
 		button.AddClickListener(() => _pagesLayerMediator.ShowPage(pageType));
 	}
 
 	private void Start()
 	{
-		if (_pagesLayerMediator.currentPageType != null)
+		if (_pagesLayerMediator.CurrentPageType != null)
 			Refresh();
 	}
 
@@ -48,7 +48,7 @@ public class NavigationPanelScreen : ScreenAbstract
 	{
 		if (_selectedButton != null)
 			_selectedButton.SetSelected(false);
-		_selectedButton = _buttonByType[_pagesLayerMediator.currentPageType];
+		_selectedButton = _buttonByType[_pagesLayerMediator.CurrentPageType];
 		_selectedButton.SetSelected(true);
 	}
 }

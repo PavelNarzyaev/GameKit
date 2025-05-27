@@ -6,14 +6,14 @@ public class PagesLayerMediator
 	[Inject] private LayersMediator _layersMediator;
 
 	public event Action changePageEvent;
-	public Type currentPageType { get; private set; }
+	public Type CurrentPageType { get; private set; }
 
 	public void ShowPage(Type pageScreenType)
 	{
-		if (currentPageType != null)
-			_layersMediator.HideScreenIfExists(currentPageType);
+		if (CurrentPageType != null)
+			_layersMediator.HideScreenIfExists(CurrentPageType);
 		_layersMediator.ShowScreen(pageScreenType, Layer.Page);
-		currentPageType = pageScreenType;
+		CurrentPageType = pageScreenType;
 		changePageEvent?.Invoke();
 	}
 }

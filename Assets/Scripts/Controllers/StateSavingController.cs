@@ -8,7 +8,7 @@ public class StateSavingController : ITickable
 
 	public void Tick()
 	{
-		if (_localStateProxy.isDirty)
+		if (_localStateProxy.IsDirty)
 			_localStateProxy.Save();
 	}
 }
