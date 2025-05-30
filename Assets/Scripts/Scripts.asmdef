@@ -1,0 +1,16 @@
+﻿{
+  "name": "Scripts",
+  "references": [
+    "Zenject",
+    "Unity.TextMeshPro",
+    "Shapes2D",
+    "UniClipboard",
+    "SafeArea"
+  ],
+  "optionalUnityReferences": [
+  ],
+  "includePlatforms": [
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false
+}

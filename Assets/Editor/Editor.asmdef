@@ -1,0 +1,16 @@
+﻿{
+  "name": "Editor",
+  "references": [
+    "Zenject",
+    "Zenject-TestFramework",
+    "Scripts"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false
+}
