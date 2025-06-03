@@ -9,7 +9,7 @@ public class PopupShadeScreen : ScreenAbstract
 
 	private void OnEnable()
 	{
-		_button.onClick.AddListener(_popupsLayerMediator.ClosePopup);
+		_button.onClick.AddListener(_popupsLayerMediator.CloseNavigationPopup);
 	}
 
 	private void OnDisable()

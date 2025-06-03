@@ -9,6 +9,6 @@ public class MainPageScreen : ScreenAbstract
 
 	private void Awake()
 	{
-		_showNavigationPopupButton.onClick.AddListener(_popupsLayerMediator.ShowPopup);
+		_showNavigationPopupButton.onClick.AddListener(_popupsLayerMediator.ShowNavigationPopup);
 	}
 }
