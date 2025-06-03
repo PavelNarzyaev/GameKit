@@ -1,22 +1,20 @@
 ﻿using NUnit.Framework;
 using Zenject;
 
-public class CurrentTimeProxyTests
+[TestFixture]
+public class CurrentTimeProxyTests : ZenjectUnitTestFixture
 {
-	private DiContainer _diContainer;
-
 	[SetUp]
 	public void SetUp()
 	{
-		_diContainer = new DiContainer();
-		_diContainer.Bind<CurrentTimeProxy>().AsSingle();
+		Container.Bind<CurrentTimeProxy>().AsSingle();
 	}
 
 	[Test]
 	public void GetTimestamp_WhenCalled_ReturnsPositiveValue()
 	{
 		// Arrange
-		var currentTimeProxy = _diContainer.Resolve<CurrentTimeProxy>();
+		var currentTimeProxy = Container.Resolve<CurrentTimeProxy>();
 
 		// Act
 		var timestamp = currentTimeProxy.GetTimestamp();
