@@ -10,6 +10,7 @@ public class MainInstaller : ScriptableObjectInstaller
 		Container.Bind<LocalStateProxy>().AsSingle();
 		Container.Bind<StateClipboardProxy>().AsSingle();
 		Container.Bind<CurrentTimeProxy>().AsSingle();
+		Container.Bind<PopupsLayerMediator>().AsSingle();
 
 		// mediators
 		Container.Bind<LayersMediator>().AsSingle();

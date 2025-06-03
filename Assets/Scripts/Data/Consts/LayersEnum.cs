@@ -2,8 +2,6 @@
 {
 	Page,
 	NavigationPanel,
-	Shade,
-	ShadeOverlay,
-	RaycastBlocker,
+	Popups,
 	DesignOverlay,
 }
