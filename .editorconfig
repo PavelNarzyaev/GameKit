@@ -1,0 +1,38 @@
+root = true
+
+[*.cs]
+indent_style = tab
+# Set the visual width of a tab to four spaces.
+# While indent_style=tab is enough for indentation,
+# specifying indent_size keeps tab width consistent
+indent_size = 4
+insert_final_newline = true
+charset = utf-8-bom
+trim_trailing_whitespace = true
+end_of_line = lf
+# Use Unix line endings as found across the repository.
+
+# C# specific settings
+# System directives are listed first in using blocks across the codebase
+# followed by other namespaces
+# This matches the order found in files such as Layers.cs
+# (System -> UnityEngine -> Zenject)
+dotnet_sort_system_directives_first = true
+# Maintain readability by grouping 'System' usings
+# before project and third-party namespaces.
+
+# Member access does not use explicit 'this.'
+# All files reference fields and methods directly
+# so qualification is turned off
+dotnet_style_qualification_for_field = false
+dotnet_style_qualification_for_property = false
+dotnet_style_qualification_for_method = false
+dotnet_style_qualification_for_event = false
+
+# Opening braces appear on new lines for classes and methods
+# as seen across the project
+csharp_new_line_before_open_brace = all
+
+# Switch labels should be indented to align with
+# the indentation observed in other blocks
+csharp_indent_switch_labels = true
