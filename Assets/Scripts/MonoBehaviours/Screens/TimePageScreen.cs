@@ -1,27 +1,32 @@
-﻿using UnityEngine;
+﻿using Proxies;
+using UnityEngine;
+using Utilities;
 using Zenject;
 
-public class TimePageScreen : ScreenAbstract
+namespace MonoBehaviours.Screens
 {
-	[SerializeField] private DebugValue _currentTime;
-
-	[Inject] private CurrentTimeProxy _currentTimeProxy;
-
-	private void Start()
+	public class TimePageScreen : ScreenAbstract
 	{
-		_currentTime.SetTitleText("Local Time");
-		RefreshCurrentTime();
-	}
+		[SerializeField] private DebugValue _currentTime;
 
-	private void Update()
-	{
-		RefreshCurrentTime();
-	}
+		[Inject] private CurrentTimeProxy _currentTimeProxy;
 
-	private void RefreshCurrentTime()
-	{
-		var timestamp = _currentTimeProxy.GetTimestamp();
-		var readableDatetime = TimestampUtility.ConvertTimestampToReadableString(timestamp);
-		_currentTime.SetValueText(readableDatetime);
+		private void Start()
+		{
+			_currentTime.SetTitleText("Local Time");
+			RefreshCurrentTime();
+		}
+
+		private void Update()
+		{
+			RefreshCurrentTime();
+		}
+
+		private void RefreshCurrentTime()
+		{
+			var timestamp = _currentTimeProxy.GetTimestamp();
+			var readableDatetime = TimestampUtility.ConvertTimestampToReadableString(timestamp);
+			_currentTime.SetValueText(readableDatetime);
+		}
 	}
 }

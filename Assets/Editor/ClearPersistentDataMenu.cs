@@ -1,10 +1,14 @@
-﻿using UnityEditor;
+﻿using Proxies;
+using UnityEditor;
 
-public class ClearPersistentDataMenu
+namespace Editor
 {
-	[MenuItem("GameKit/Clear Persistent Data", false, 101)]
-	public static void ClearPersistentData()
+	public class ClearPersistentDataMenu
 	{
-		LocalStateProxy.Delete();
+		[MenuItem("GameKit/Clear Persistent Data", false, 101)]
+		public static void ClearPersistentData()
+		{
+			LocalStateProxy.Delete();
+		}
 	}
 }

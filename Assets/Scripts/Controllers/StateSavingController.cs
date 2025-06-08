@@ -1,14 +1,18 @@
-﻿using Zenject;
+﻿using Proxies;
+using Zenject;
 
-public class StateSavingController : ITickable
+namespace Controllers
 {
-	[Inject] private LocalStateProxy _localStateProxy;
-
-	private string _filePath;
-
-	public void Tick()
+	public class StateSavingController : ITickable
 	{
-		if (_localStateProxy.IsDirty)
-			_localStateProxy.Save();
+		[Inject] private LocalStateProxy _localStateProxy;
+
+		private string _filePath;
+
+		public void Tick()
+		{
+			if (_localStateProxy.IsDirty)
+				_localStateProxy.Save();
+		}
 	}
 }

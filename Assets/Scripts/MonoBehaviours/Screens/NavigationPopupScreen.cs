@@ -1,3 +1,6 @@
-﻿public class NavigationPopupScreen : ScreenAbstract
+﻿namespace MonoBehaviours.Screens
 {
+    public class NavigationPopupScreen : ScreenAbstract
+    {
+    }
 }
