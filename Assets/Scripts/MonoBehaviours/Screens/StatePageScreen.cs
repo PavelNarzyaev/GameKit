@@ -1,44 +1,50 @@
 ﻿using System.Globalization;
+using Commands;
+using Proxies;
 using UnityEngine;
 using UnityEngine.UI;
+using Utilities;
 using Zenject;
 
-public class StatePageScreen : ScreenAbstract
+namespace MonoBehaviours.Screens
 {
-	[SerializeField] private DebugValue _userId;
-	[SerializeField] private DebugValue _firstLaunchTime;
-	[SerializeField] private DebugValue _launchCount;
-	[SerializeField] private Button _copyToClipboardButton;
-	[SerializeField] private Button _pasteFromClipboardButton;
-	[SerializeField] private Button _resetButton;
-
-	[Inject] private LocalStateProxy _localStateProxy;
-	[Inject] private StateClipboardProxy _stateClipboardProxy;
-	[Inject] private ResetStateCommand _resetStateCommand;
-
-	private void Awake()
+	public class StatePageScreen : ScreenAbstract
 	{
-		_copyToClipboardButton.onClick.AddListener(_stateClipboardProxy.CopyStateToClipboard);
-		_pasteFromClipboardButton.onClick.AddListener(_stateClipboardProxy.PasteStateFromClipboard);
-		_resetButton.onClick.AddListener(_resetStateCommand.Execute);
-	}
+		[SerializeField] private DebugValue _userId;
+		[SerializeField] private DebugValue _firstLaunchTime;
+		[SerializeField] private DebugValue _launchCount;
+		[SerializeField] private Button _copyToClipboardButton;
+		[SerializeField] private Button _pasteFromClipboardButton;
+		[SerializeField] private Button _resetButton;
 
-	private void Start()
-	{
-		var state = _localStateProxy.data;
+		[Inject] private LocalStateProxy _localStateProxy;
+		[Inject] private StateClipboardProxy _stateClipboardProxy;
+		[Inject] private ResetStateCommand _resetStateCommand;
 
-		_userId.SetTitleText("User Id");
-		_userId.SetValueText(state.userId);
+		private void Awake()
+		{
+			_copyToClipboardButton.onClick.AddListener(_stateClipboardProxy.CopyStateToClipboard);
+			_pasteFromClipboardButton.onClick.AddListener(_stateClipboardProxy.PasteStateFromClipboard);
+			_resetButton.onClick.AddListener(_resetStateCommand.Execute);
+		}
 
-		_firstLaunchTime.SetTitleText("First Launch");
-		_firstLaunchTime.SetValueText(TimestampUtility.ConvertTimestampToReadableString(state.firstLaunchTimestamp));
+		private void Start()
+		{
+			var state = _localStateProxy.data;
 
-		_launchCount.SetTitleText("Launch Count");
-		_launchCount.SetValueText(state.launchesCounter.ToString(CultureInfo.InvariantCulture));
-	}
+			_userId.SetTitleText("User Id");
+			_userId.SetValueText(state.userId);
 
-	public override bool IsCached()
-	{
-		return true;
+			_firstLaunchTime.SetTitleText("First Launch");
+			_firstLaunchTime.SetValueText(TimestampUtility.ConvertTimestampToReadableString(state.firstLaunchTimestamp));
+
+			_launchCount.SetTitleText("Launch Count");
+			_launchCount.SetValueText(state.launchesCounter.ToString(CultureInfo.InvariantCulture));
+		}
+
+		public override bool IsCached()
+		{
+			return true;
+		}
 	}
 }

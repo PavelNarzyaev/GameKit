@@ -1,3 +1,6 @@
-﻿public class DesignOverlayScreen : ScreenAbstract
+﻿namespace MonoBehaviours.Screens
 {
+    public class DesignOverlayScreen : ScreenAbstract
+    {
+    }
 }
