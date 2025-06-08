@@ -102,7 +102,7 @@ class AndroidBoard : IBoard
         var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
         var activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
         var staticContext = new AndroidJavaClass("android.content.Context");
-        var service = staticContext.GetStatic<AndroidJavaObject>("CLIPBOARD_SERVICE");
+        var service = staticContext.GetStatic<string>("CLIPBOARD_SERVICE");
         return activity.Call<AndroidJavaObject>("getSystemService", service);
     }
 }
