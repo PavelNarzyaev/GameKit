@@ -4,4 +4,4 @@ Welcome to **GameKit** – a flexible starting point for building mobile 2D game
 
 ## About the Project
 
-GameKit Pro provides a solid foundation for creating mobile games on the Unity engine, saving you time on setup and enabling you to focus directly on development. With pre-built systems and tools already in place, GameKit Pro is aimed at delivering a streamlined development experience for 2D mobile games.
+GameKit provides a solid foundation for creating mobile games on the Unity engine, saving you time on setup and enabling you to focus directly on development. With pre-built systems and tools already in place, GameKit is aimed at delivering a streamlined development experience for 2D mobile games.
