@@ -11,7 +11,7 @@ public class Layers : MonoBehaviour
 	[Inject] private DiContainer _diContainer;
 
 	private Dictionary<string, RectTransform> _transformByLayerName = new();
-	private Dictionary<Type, GameObject> _screenPrefabByType = new();
+	private Dictionary<Type, ScreenAbstract> _screenPrefabByType = new();
 
 	private void Awake()
 	{
@@ -50,7 +50,7 @@ public class Layers : MonoBehaviour
 
 	private void ShowScreenHandler(Type screenType, Layer layerName)
 	{
-		if (_screenByType.TryGetValue(screenType, out var screen))
+		if (_screenPrefabByType.TryGetValue(screenType, out var screen))
 			screen.gameObject.SetActive(true);
 		else
 		{
@@ -62,28 +62,28 @@ public class Layers : MonoBehaviour
 			var screenComponent = screenPrefab.GetComponent<ScreenAbstract>();
 			if (screenComponent == null)
 				throw new Exception($"Screen prefab must have a «{nameof(ScreenAbstract)}» component.");
-			_screenByType.Add(screenType, screenComponent);
+			_screenPrefabByType.Add(screenType, screenComponent);
 		}
 	}
 
 	private void HideScreenIfExistsHandler(Type screenType)
 	{
-		if (!_screenByType.TryGetValue(screenType, out var screen))
+		if (!_screenPrefabByType.TryGetValue(screenType, out var screen))
 			return;
 		if (screen.IsCached())
 			screen.gameObject.SetActive(false);
 		else
 		{
 			DestroyPrefab(screen.gameObject);
-			_screenByType.Remove(screenType);
+			_screenPrefabByType.Remove(screenType);
 		}
 	}
 
 	private void DestroyAllScreensHandler()
 	{
-		foreach (var screen in _screenByType.Values)
+		foreach (var screen in _screenPrefabByType.Values)
 			DestroyPrefab(screen.gameObject);
-		_screenByType.Clear();
+		_screenPrefabByType.Clear();
 	}
 
 	private void DestroyPrefab(GameObject prefab)
