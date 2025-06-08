@@ -1,18 +1,21 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class DebugValue : MonoBehaviour
+namespace MonoBehaviours
 {
-	[SerializeField] private TextMeshProUGUI _titleText;
-	[SerializeField] private TextMeshProUGUI _valueText;
-
-	public void SetTitleText(string value)
+	public class DebugValue : MonoBehaviour
 	{
-		_titleText.text = value;
-	}
+		[SerializeField] private TextMeshProUGUI _titleText;
+		[SerializeField] private TextMeshProUGUI _valueText;
 
-	public void SetValueText(string value)
-	{
-		_valueText.text = value;
+		public void SetTitleText(string value)
+		{
+			_titleText.text = value;
+		}
+
+		public void SetValueText(string value)
+		{
+			_valueText.text = value;
+		}
 	}
 }

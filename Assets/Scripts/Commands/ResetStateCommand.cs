@@ -1,12 +1,16 @@
-﻿using Zenject;
+﻿using Proxies;
+using Zenject;
 
-public class ResetStateCommand
+namespace Commands
 {
-	[Inject] private LaunchCommand _launchCommand;
-
-	public void Execute()
+	public class ResetStateCommand
 	{
-		LocalStateProxy.Delete();
-		_launchCommand.Execute();
+		[Inject] private LaunchCommand _launchCommand;
+
+		public void Execute()
+		{
+			LocalStateProxy.Delete();
+			_launchCommand.Execute();
+		}
 	}
 }

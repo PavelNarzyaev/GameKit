@@ -1,19 +1,23 @@
-﻿using Zenject;
+﻿using Commands;
+using Zenject;
 
-public class EntryPointController : IInitializable
+namespace Controllers
 {
-	[Inject] private LaunchCommand _launchCommand;
-
-	public void Initialize()
+	public class EntryPointController : IInitializable
 	{
-		// try
-		// {
-		_launchCommand.Execute();
-		// }
-		// catch (Exception e)
-		// {
-		// TODO: show launch error popup
-		// throw;
-		// }
+		[Inject] private LaunchCommand _launchCommand;
+
+		public void Initialize()
+		{
+			// try
+			// {
+			_launchCommand.Execute();
+			// }
+			// catch (Exception e)
+			// {
+			// TODO: show launch error popup
+			// throw;
+			// }
+		}
 	}
 }
