@@ -1,3 +1,7 @@
-﻿public class DesignOverlayScreen : ScreenAbstract
+﻿
+namespace GameKit
 {
+	public class DesignOverlayScreen : ScreenAbstract
+	{
+	}
 }

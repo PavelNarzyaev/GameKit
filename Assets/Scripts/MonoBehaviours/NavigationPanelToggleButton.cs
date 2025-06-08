@@ -4,23 +4,27 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class NavigationPanelToggleButton : MonoBehaviour
+namespace GameKit
 {
-	[SerializeField] private Shape _backgroundImage;
-	[SerializeField] private TextMeshProUGUI _text;
-	[SerializeField] private Button _button;
-	[SerializeField] private Color _selectedColor;
-	[SerializeField] private Color _defaultColor;
 
-	public void SetSelected(bool value)
+	public class NavigationPanelToggleButton : MonoBehaviour
 	{
-		_backgroundImage.settings.outlineColor = value ? _selectedColor : _defaultColor;
-		_text.color = value ? _selectedColor : _defaultColor;
-		_button.enabled = !value;
-	}
+		[SerializeField] private Shape _backgroundImage;
+		[SerializeField] private TextMeshProUGUI _text;
+		[SerializeField] private Button _button;
+		[SerializeField] private Color _selectedColor;
+		[SerializeField] private Color _defaultColor;
 
-	public void AddClickListener(UnityAction call)
-	{
-		_button.onClick.AddListener(call);
+		public void SetSelected(bool value)
+		{
+			_backgroundImage.settings.outlineColor = value ? _selectedColor : _defaultColor;
+			_text.color = value ? _selectedColor : _defaultColor;
+			_button.enabled = !value;
+		}
+
+		public void AddClickListener(UnityAction call)
+		{
+			_button.onClick.AddListener(call);
+		}
 	}
 }

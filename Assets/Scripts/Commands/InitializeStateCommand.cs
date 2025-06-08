@@ -1,18 +1,22 @@
 ﻿using System;
 using Zenject;
 
-public class InitializeStateCommand
+namespace GameKit
 {
-	[Inject] private CurrentTimeProxy _currentTimeProxy;
-	[Inject] private LocalStateProxy _localStateProxy;
 
-	public void Execute()
+	public class InitializeStateCommand
 	{
-		_localStateProxy.data = new State
+		[Inject] private CurrentTimeProxy _currentTimeProxy;
+		[Inject] private LocalStateProxy _localStateProxy;
+
+		public void Execute()
 		{
-			userId = Guid.NewGuid().ToString(),
-			firstLaunchTimestamp = _currentTimeProxy.GetTimestamp()
-		};
-		_localStateProxy.MarkAsDirty();
+			_localStateProxy.data = new State
+			{
+				userId = Guid.NewGuid().ToString(),
+				firstLaunchTimestamp = _currentTimeProxy.GetTimestamp()
+			};
+			_localStateProxy.MarkAsDirty();
+		}
 	}
 }

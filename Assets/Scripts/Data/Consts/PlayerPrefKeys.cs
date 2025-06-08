@@ -1,3 +1,7 @@
-﻿public static class PlayerPrefKeys
+﻿
+namespace GameKit
 {
+	public static class PlayerPrefKeys
+	{
+	}
 }

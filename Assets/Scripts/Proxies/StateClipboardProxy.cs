@@ -1,19 +1,23 @@
 ﻿using UnityEngine;
 using Zenject;
 
-public class StateClipboardProxy
+namespace GameKit
 {
-	[Inject] private LocalStateProxy _localStateProxy;
 
-	public void CopyStateToClipboard()
+	public class StateClipboardProxy
 	{
-		UniClipboard.SetText(_localStateProxy.Get());
-		Debug.Log("User state is copied to clipboard");
-	}
+		[Inject] private LocalStateProxy _localStateProxy;
 
-	public void PasteStateFromClipboard()
-	{
-		_localStateProxy.Set(UniClipboard.GetText());
-		Debug.Log("User state is applied from clipboard");
+		public void CopyStateToClipboard()
+		{
+			UniClipboard.SetText(_localStateProxy.Get());
+			Debug.Log("User state is copied to clipboard");
+		}
+
+		public void PasteStateFromClipboard()
+		{
+			_localStateProxy.Set(UniClipboard.GetText());
+			Debug.Log("User state is applied from clipboard");
+		}
 	}
 }

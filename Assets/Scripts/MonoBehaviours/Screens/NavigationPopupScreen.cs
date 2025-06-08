@@ -1,3 +1,7 @@
-﻿public class NavigationPopupScreen : ScreenAbstract
+﻿
+namespace GameKit
 {
+	public class NavigationPopupScreen : ScreenAbstract
+	{
+	}
 }

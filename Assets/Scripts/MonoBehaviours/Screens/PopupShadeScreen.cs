@@ -2,23 +2,27 @@
 using UnityEngine.UI;
 using Zenject;
 
-public class PopupShadeScreen : ScreenAbstract
+namespace GameKit
 {
-	[SerializeField] private Button _button;
-	[Inject] private PopupsLayerMediator _popupsLayerMediator;
 
-	private void OnEnable()
+	public class PopupShadeScreen : ScreenAbstract
 	{
-		_button.onClick.AddListener(_popupsLayerMediator.CloseNavigationPopup);
-	}
+		[SerializeField] private Button _button;
+		[Inject] private PopupsLayerMediator _popupsLayerMediator;
 
-	private void OnDisable()
-	{
-		_button.onClick.RemoveAllListeners();
-	}
+		private void OnEnable()
+		{
+			_button.onClick.AddListener(_popupsLayerMediator.CloseNavigationPopup);
+		}
 
-	public override bool IsCached()
-	{
-		return true;
+		private void OnDisable()
+		{
+			_button.onClick.RemoveAllListeners();
+		}
+
+		public override bool IsCached()
+		{
+			return true;
+		}
 	}
 }

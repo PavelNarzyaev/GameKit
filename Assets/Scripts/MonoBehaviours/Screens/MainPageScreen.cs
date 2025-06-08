@@ -2,13 +2,17 @@
 using UnityEngine.UI;
 using Zenject;
 
-public class MainPageScreen : ScreenAbstract
+namespace GameKit
 {
-	[SerializeField] private Button _showNavigationPopupButton;
-	[Inject] private PopupsLayerMediator _popupsLayerMediator;
 
-	private void Awake()
+	public class MainPageScreen : ScreenAbstract
 	{
-		_showNavigationPopupButton.onClick.AddListener(_popupsLayerMediator.ShowNavigationPopup);
+		[SerializeField] private Button _showNavigationPopupButton;
+		[Inject] private PopupsLayerMediator _popupsLayerMediator;
+
+		private void Awake()
+		{
+			_showNavigationPopupButton.onClick.AddListener(_popupsLayerMediator.ShowNavigationPopup);
+		}
 	}
 }

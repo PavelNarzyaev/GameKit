@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 
-public abstract class ScreenAbstract : MonoBehaviour
+namespace GameKit
 {
-	public virtual bool IsCached()
+
+	public abstract class ScreenAbstract : MonoBehaviour
 	{
-		return false;
+		public virtual bool IsCached()
+		{
+			return false;
+		}
 	}
 }

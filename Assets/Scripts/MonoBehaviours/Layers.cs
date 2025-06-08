@@ -3,92 +3,96 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class Layers : MonoBehaviour
+namespace GameKit
 {
-	[SerializeField] private RectTransform _rectTransform;
 
-	[Inject] private LayersMediator _layersMediator;
-	[Inject] private DiContainer _diContainer;
-
-	private Dictionary<string, RectTransform> _transformByLayerName = new();
-	private Dictionary<Type, ScreenAbstract> _screenPrefabByType = new();
-
-	private void Awake()
+	public class Layers : MonoBehaviour
 	{
-		var layers = Enum.GetValues(typeof(Layer));
+		[SerializeField] private RectTransform _rectTransform;
 
-		foreach (var layer in layers)
+		[Inject] private LayersMediator _layersMediator;
+		[Inject] private DiContainer _diContainer;
+
+		private Dictionary<string, RectTransform> _transformByLayerName = new();
+		private Dictionary<Type, ScreenAbstract> _screenPrefabByType = new();
+
+		private void Awake()
 		{
-			var layerName = layer.ToString();
-			var layerContainer = new GameObject(layerName);
+			var layers = Enum.GetValues(typeof(Layer));
 
-			layerContainer.transform.SetParent(_rectTransform, false);
+			foreach (var layer in layers)
+			{
+				var layerName = layer.ToString();
+				var layerContainer = new GameObject(layerName);
 
-			var layerRectTransform = layerContainer.AddComponent<RectTransform>();
-			layerRectTransform.anchorMin = Vector2.zero;
-			layerRectTransform.anchorMax = Vector2.one;
-			layerRectTransform.offsetMin = Vector2.zero;
-			layerRectTransform.offsetMax = Vector2.zero;
+				layerContainer.transform.SetParent(_rectTransform, false);
 
-			_transformByLayerName.Add(layerName, layerRectTransform);
+				var layerRectTransform = layerContainer.AddComponent<RectTransform>();
+				layerRectTransform.anchorMin = Vector2.zero;
+				layerRectTransform.anchorMax = Vector2.one;
+				layerRectTransform.offsetMin = Vector2.zero;
+				layerRectTransform.offsetMax = Vector2.zero;
+
+				_transformByLayerName.Add(layerName, layerRectTransform);
+			}
 		}
-	}
 
-	private void OnEnable()
-	{
-		_layersMediator.showScreenEvent += ShowScreenHandler;
-		_layersMediator.hideScreenIfExistsEvent += HideScreenIfExistsHandler;
-		_layersMediator.destroyAllScreensEvent += DestroyAllScreensHandler;
-	}
-
-	private void OnDisable()
-	{
-		_layersMediator.showScreenEvent -= ShowScreenHandler;
-		_layersMediator.hideScreenIfExistsEvent -= HideScreenIfExistsHandler;
-		_layersMediator.destroyAllScreensEvent -= DestroyAllScreensHandler;
-	}
-
-	private void ShowScreenHandler(Type screenType, Layer layerName)
-	{
-		if (_screenPrefabByType.TryGetValue(screenType, out var screen))
-			screen.gameObject.SetActive(true);
-		else
+		private void OnEnable()
 		{
-			if (!_transformByLayerName.TryGetValue(layerName.ToString(), out var layerTransform))
-				throw new Exception($"Rect transform for screen «{screenType}» is not found");
-			var screenPrefab = _diContainer.InstantiatePrefabResource(screenType.ToString(), layerTransform);
-			if (screenPrefab == null)
-				throw new Exception($"Prefab for screen «{screenType}» is not found");
-			var screenComponent = screenPrefab.GetComponent<ScreenAbstract>();
-			if (screenComponent == null)
-				throw new Exception($"Screen prefab must have a «{nameof(ScreenAbstract)}» component.");
-			_screenPrefabByType.Add(screenType, screenComponent);
+			_layersMediator.showScreenEvent += ShowScreenHandler;
+			_layersMediator.hideScreenIfExistsEvent += HideScreenIfExistsHandler;
+			_layersMediator.destroyAllScreensEvent += DestroyAllScreensHandler;
 		}
-	}
 
-	private void HideScreenIfExistsHandler(Type screenType)
-	{
-		if (!_screenPrefabByType.TryGetValue(screenType, out var screen))
-			return;
-		if (screen.IsCached())
-			screen.gameObject.SetActive(false);
-		else
+		private void OnDisable()
 		{
-			DestroyPrefab(screen.gameObject);
-			_screenPrefabByType.Remove(screenType);
+			_layersMediator.showScreenEvent -= ShowScreenHandler;
+			_layersMediator.hideScreenIfExistsEvent -= HideScreenIfExistsHandler;
+			_layersMediator.destroyAllScreensEvent -= DestroyAllScreensHandler;
 		}
-	}
 
-	private void DestroyAllScreensHandler()
-	{
-		foreach (var screen in _screenPrefabByType.Values)
-			DestroyPrefab(screen.gameObject);
-		_screenPrefabByType.Clear();
-	}
+		private void ShowScreenHandler(Type screenType, Layer layerName)
+		{
+			if (_screenPrefabByType.TryGetValue(screenType, out var screen))
+				screen.gameObject.SetActive(true);
+			else
+			{
+				if (!_transformByLayerName.TryGetValue(layerName.ToString(), out var layerTransform))
+					throw new Exception($"Rect transform for screen «{screenType}» is not found");
+				var screenPrefab = _diContainer.InstantiatePrefabResource(screenType.ToString(), layerTransform);
+				if (screenPrefab == null)
+					throw new Exception($"Prefab for screen «{screenType}» is not found");
+				var screenComponent = screenPrefab.GetComponent<ScreenAbstract>();
+				if (screenComponent == null)
+					throw new Exception($"Screen prefab must have a «{nameof(ScreenAbstract)}» component.");
+				_screenPrefabByType.Add(screenType, screenComponent);
+			}
+		}
 
-	private void DestroyPrefab(GameObject prefab)
-	{
-		prefab.SetActive(false);
-		Destroy(prefab);
+		private void HideScreenIfExistsHandler(Type screenType)
+		{
+			if (!_screenPrefabByType.TryGetValue(screenType, out var screen))
+				return;
+			if (screen.IsCached())
+				screen.gameObject.SetActive(false);
+			else
+			{
+				DestroyPrefab(screen.gameObject);
+				_screenPrefabByType.Remove(screenType);
+			}
+		}
+
+		private void DestroyAllScreensHandler()
+		{
+			foreach (var screen in _screenPrefabByType.Values)
+				DestroyPrefab(screen.gameObject);
+			_screenPrefabByType.Clear();
+		}
+
+		private void DestroyPrefab(GameObject prefab)
+		{
+			prefab.SetActive(false);
+			Destroy(prefab);
+		}
 	}
 }

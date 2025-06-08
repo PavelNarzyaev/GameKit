@@ -1,12 +1,16 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-public class ClearPlayerPrefsMenu
+namespace GameKit.Editor
 {
-	[MenuItem("GameKit/Clear PlayerPrefs", false, 100)]
-	public static void ClearPlayerPrefs()
+
+	public class ClearPlayerPrefsMenu
 	{
-		PlayerPrefs.DeleteAll();
-		Debug.Log("PlayerPrefs cleared.");
+		[MenuItem("GameKit/Clear PlayerPrefs", false, 100)]
+		public static void ClearPlayerPrefs()
+		{
+			PlayerPrefs.DeleteAll();
+			Debug.Log("PlayerPrefs cleared.");
+		}
 	}
 }

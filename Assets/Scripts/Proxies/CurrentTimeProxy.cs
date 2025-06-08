@@ -2,18 +2,22 @@
 using UnityEngine;
 using Zenject;
 
-public class CurrentTimeProxy
+namespace GameKit
 {
-	private static long _startupTimestamp;
 
-	[Inject]
-	private void Inject()
+	public class CurrentTimeProxy
 	{
-		_startupTimestamp = TimestampUtility.ConvertDatetimeToTimestamp(DateTime.UtcNow) - (int)Time.realtimeSinceStartup;
-	}
+		private static long _startupTimestamp;
 
-	public long GetTimestamp()
-	{
-		return _startupTimestamp + (int)Time.realtimeSinceStartup;
+		[Inject]
+		private void Inject()
+		{
+			_startupTimestamp = TimestampUtility.ConvertDatetimeToTimestamp(DateTime.UtcNow) - (int)Time.realtimeSinceStartup;
+		}
+
+		public long GetTimestamp()
+		{
+			return _startupTimestamp + (int)Time.realtimeSinceStartup;
+		}
 	}
 }

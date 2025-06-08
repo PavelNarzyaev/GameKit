@@ -1,12 +1,16 @@
 ﻿using Zenject;
 
-public class ResetStateCommand
+namespace GameKit
 {
-	[Inject] private LaunchCommand _launchCommand;
 
-	public void Execute()
+	public class ResetStateCommand
 	{
-		LocalStateProxy.Delete();
-		_launchCommand.Execute();
+		[Inject] private LaunchCommand _launchCommand;
+
+		public void Execute()
+		{
+			LocalStateProxy.Delete();
+			_launchCommand.Execute();
+		}
 	}
 }

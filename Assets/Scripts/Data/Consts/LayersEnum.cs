@@ -1,7 +1,11 @@
-﻿public enum Layer
+﻿
+namespace GameKit
 {
-	Page,
-	NavigationPanel,
-	Popups,
-	DesignOverlay,
+	public enum Layer
+	{
+		Page,
+		NavigationPanel,
+		Popups,
+		DesignOverlay,
+	}
 }
