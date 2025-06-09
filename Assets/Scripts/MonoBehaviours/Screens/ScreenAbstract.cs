@@ -2,11 +2,11 @@
 
 namespace MonoBehaviours.Screens
 {
-	public abstract class ScreenAbstract : MonoBehaviour
-	{
-		public virtual bool IsCached()
-		{
-			return false;
-		}
-	}
+    public abstract class ScreenAbstract : MonoBehaviour
+    {
+        public virtual bool IsCached()
+        {
+            return false;
+        }
+    }
 }

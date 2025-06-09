@@ -36,13 +36,13 @@ namespace Zenject
             _container = container;
 
            signalDeclarations.ForEach(x =>
-			{
-				if (!_localDeclarationMap.ContainsKey(x.BindingId))
-				{
-					_localDeclarationMap.Add(x.BindingId, x);
-				}
-				else _localDeclarationMap[x.BindingId].Subscriptions.AllocFreeAddRange(x.Subscriptions);
-			});
+            {
+                if (!_localDeclarationMap.ContainsKey(x.BindingId))
+                {
+                    _localDeclarationMap.Add(x.BindingId, x);
+                }
+                else _localDeclarationMap[x.BindingId].Subscriptions.AllocFreeAddRange(x.Subscriptions);
+            });
             _parentBus = parentBus;
         }
 
@@ -59,11 +59,11 @@ namespace Zenject
 
         //Fires Signals with their interfaces
         public void AbstractFire<TSignal>() where TSignal : new() => AbstractFire(new TSignal());
-		public void AbstractFire<TSignal>(TSignal signal) => AbstractFireId(null, signal);
-		public void AbstractFireId<TSignal>(object identifier, TSignal signal)
-		{
-			// Do this before creating the signal so that it throws if the signal was not declared
-			Type signalType = typeof(TSignal);
+        public void AbstractFire<TSignal>(TSignal signal) => AbstractFireId(null, signal);
+        public void AbstractFireId<TSignal>(object identifier, TSignal signal)
+        {
+            // Do this before creating the signal so that it throws if the signal was not declared
+            Type signalType = typeof(TSignal);
             InternalFire(signalType, signal, identifier, true);
 
             Type[] interfaces = signalType.GetInterfaces();
@@ -72,7 +72,7 @@ namespace Zenject
             {
                 InternalFire(interfaces[i], signal, identifier, true);
             }
-		}
+        }
 
         public void LateDispose()
         {
