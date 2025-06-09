@@ -1,9 +1,11 @@
-﻿using Commands;
+using Commands;
+using JetBrains.Annotations;
 using Proxies;
 using Zenject;
 
 namespace Controllers
 {
+    [UsedImplicitly]
     public class ResetUiController
     {
         [Inject] private LocalStateProxy _localStateProxy;

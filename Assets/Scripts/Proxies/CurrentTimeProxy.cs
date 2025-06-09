@@ -1,10 +1,12 @@
-﻿using System;
+using System;
+using JetBrains.Annotations;
 using UnityEngine;
 using Utilities;
 using Zenject;
 
 namespace Proxies
 {
+    [UsedImplicitly]
     public class CurrentTimeProxy
     {
         private static long _startupTimestamp;

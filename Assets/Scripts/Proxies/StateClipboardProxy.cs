@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
+using JetBrains.Annotations;
 using Zenject;
 
 namespace Proxies
 {
+    [UsedImplicitly]
     public class StateClipboardProxy
     {
         [Inject] private LocalStateProxy _localStateProxy;

@@ -1,8 +1,10 @@
-﻿using Commands;
+using Commands;
+using JetBrains.Annotations;
 using Zenject;
 
 namespace Controllers
 {
+    [UsedImplicitly]
     public class EntryPointController : IInitializable
     {
         [Inject] private LaunchCommand _launchCommand;

@@ -1,9 +1,11 @@
-﻿using Data.Constants;
+using Data.Constants;
+using JetBrains.Annotations;
 using MonoBehaviours.Screens;
 using Zenject;
 
 namespace Mediators
 {
+    [UsedImplicitly]
     public class PopupsLayerMediator
     {
         [Inject] private LayersMediator _layersMediator;
