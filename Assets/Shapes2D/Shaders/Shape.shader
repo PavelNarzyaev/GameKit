@@ -1,26 +1,26 @@
 Shader "Shapes2D/Shape" {
-	Properties {
+    Properties {
         // this is to make SpriteRenderer happy
-		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
+        [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
         [HideInInspector] _Shapes2D_SrcBlend ("Src Blend", Float) = 0
         [HideInInspector] _Shapes2D_DstBlend ("Dst Blend", Float) = 0
         [HideInInspector] _Shapes2D_SrcAlpha ("Src Alpha", Float) = 0
         [HideInInspector] _Shapes2D_DstAlpha ("Dst Alpha", Float) = 0
 
         // UI-related masking options, Unity complains if they aren't here
-		[HideInInspector] _StencilComp ("Stencil Comparison", Float) = 8
-		[HideInInspector] _Stencil ("Stencil ID", Float) = 0
-		[HideInInspector] _StencilOp ("Stencil Operation", Float) = 0
-		[HideInInspector] _StencilWriteMask ("Stencil Write Mask", Float) = 255
-		[HideInInspector] _StencilReadMask ("Stencil Read Mask", Float) = 255
-		[HideInInspector] _ColorMask ("Color Mask", Float) = 15
+        [HideInInspector] _StencilComp ("Stencil Comparison", Float) = 8
+        [HideInInspector] _Stencil ("Stencil ID", Float) = 0
+        [HideInInspector] _StencilOp ("Stencil Operation", Float) = 0
+        [HideInInspector] _StencilWriteMask ("Stencil Write Mask", Float) = 255
+        [HideInInspector] _StencilReadMask ("Stencil Read Mask", Float) = 255
+        [HideInInspector] _ColorMask ("Color Mask", Float) = 15
     }
     SubShader {
         Tags { 
-			"Queue"="Transparent" 
-			"IgnoreProjector"="True" 
-			"RenderType"="Transparent" 
-			"PreviewType"="Plane"
+            "Queue"="Transparent" 
+            "IgnoreProjector"="True" 
+            "RenderType"="Transparent" 
+            "PreviewType"="Plane"
         }
         Cull Off
         Lighting Off
@@ -28,13 +28,13 @@ Shader "Shapes2D/Shape" {
         Blend [_Shapes2D_SrcBlend] [_Shapes2D_DstBlend], [_Shapes2D_SrcAlpha] [_Shapes2D_DstAlpha]
 
         // UI-related masking options
-		Stencil {
-			Ref [_Stencil]
-			Comp [_StencilComp]
-			Pass [_StencilOp]
-			ReadMask [_StencilReadMask]
-			WriteMask [_StencilWriteMask]
-		}
+        Stencil {
+            Ref [_Stencil]
+            Comp [_StencilComp]
+            Pass [_StencilOp]
+            ReadMask [_StencilReadMask]
+            WriteMask [_StencilWriteMask]
+        }
         ColorMask [_ColorMask]
         
         Pass {
@@ -46,11 +46,11 @@ Shader "Shapes2D/Shape" {
             #pragma fragment frag
             #pragma target 3.0
             #include "UnityCG.cginc"
-			#include "UnityUI.cginc"
+            #include "UnityUI.cginc"
 
             // UI-related masking options
             int _UseClipRect = 0;
-			float4 _ClipRect;
+            float4 _ClipRect;
 
             // values passed in from user space
             float _PixelSize; // in world units (if 0, we'll calc it ourselves)
@@ -82,16 +82,16 @@ Shader "Shapes2D/Shape" {
 
             #include "Common.cginc"
 
-			struct appdata_t {
-				float4 vertex : POSITION;
-				float4 color : COLOR;
-				float2 texcoord : TEXCOORD0;
-			};
+            struct appdata_t {
+                float4 vertex : POSITION;
+                float4 color : COLOR;
+                float2 texcoord : TEXCOORD0;
+            };
             
             struct v2f {
                 float4 pos : SV_POSITION;
                 float2 uv : TEXCOORD0;
-				float4 modelPos : TEXCOORD1;
+                float4 modelPos : TEXCOORD1;
                 fixed4 color : COLOR;
             };
 
@@ -101,7 +101,7 @@ Shader "Shapes2D/Shape" {
                 // translate input uv coords (which are from 0 - 1 on either dimension) to something more 
                 // useful (-0.5 to 0.5).
                 o.uv = v.texcoord.xy - 0.5;
-				o.modelPos = v.vertex;
+                o.modelPos = v.vertex;
                 // hijack modelPos.z to be distance from camera plane since it 
                 // isn't being used for anything else.  used for pixel size.
                 o.modelPos.z = -UnityObjectToViewPos(v.vertex).z;

@@ -111,9 +111,9 @@ float2 distance_to_segment(float2 M, float2 b0, float2 b1, float2 b2) {
     float2 p2 = roots.y * (D + B * roots.y) + b0;
     float2 p3 = roots.z * (D + B * roots.z) + b0;
     // figure out which point is closest to M
-	float dist1 = length(p1 - M);
-	float dist2 = length(p2 - M);
-	float dist3 = length(p3 - M);
+    float dist1 = length(p1 - M);
+    float dist2 = length(p2 - M);
+    float dist3 = length(p3 - M);
     float dist = min(min(dist1, dist2), dist3);
     return float2(dist, flip);
 }

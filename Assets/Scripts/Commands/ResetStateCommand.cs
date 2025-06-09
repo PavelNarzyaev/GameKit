@@ -2,11 +2,11 @@
 
 public class ResetStateCommand
 {
-	[Inject] private LaunchCommand _launchCommand;
+    [Inject] private LaunchCommand _launchCommand;
 
-	public void Execute()
-	{
-		LocalStateProxy.Delete();
-		_launchCommand.Execute();
-	}
+    public void Execute()
+    {
+        LocalStateProxy.Delete();
+        _launchCommand.Execute();
+    }
 }

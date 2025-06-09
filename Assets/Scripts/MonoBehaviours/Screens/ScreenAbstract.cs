@@ -2,8 +2,8 @@
 
 public abstract class ScreenAbstract : MonoBehaviour
 {
-	public virtual bool IsCached()
-	{
-		return false;
-	}
+    public virtual bool IsCached()
+    {
+        return false;
+    }
 }

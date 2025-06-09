@@ -3,25 +3,25 @@ using Zenject;
 
 public class TimePageScreen : ScreenAbstract
 {
-	[SerializeField] private DebugValue _currentTime;
+    [SerializeField] private DebugValue _currentTime;
 
-	[Inject] private CurrentTimeProxy _currentTimeProxy;
+    [Inject] private CurrentTimeProxy _currentTimeProxy;
 
-	private void Start()
-	{
-		_currentTime.SetTitleText("Local Time");
-		RefreshCurrentTime();
-	}
+    private void Start()
+    {
+        _currentTime.SetTitleText("Local Time");
+        RefreshCurrentTime();
+    }
 
-	private void Update()
-	{
-		RefreshCurrentTime();
-	}
+    private void Update()
+    {
+        RefreshCurrentTime();
+    }
 
-	private void RefreshCurrentTime()
-	{
-		var timestamp = _currentTimeProxy.GetTimestamp();
-		var readableDatetime = TimestampUtility.ConvertTimestampToReadableString(timestamp);
-		_currentTime.SetValueText(readableDatetime);
-	}
+    private void RefreshCurrentTime()
+    {
+        var timestamp = _currentTimeProxy.GetTimestamp();
+        var readableDatetime = TimestampUtility.ConvertTimestampToReadableString(timestamp);
+        _currentTime.SetValueText(readableDatetime);
+    }
 }
