@@ -1,4 +1,4 @@
-﻿using Proxies;
+using Proxies;
 using UnityEngine;
 using Utilities;
 using Zenject;

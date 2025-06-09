@@ -1,10 +1,12 @@
-﻿using Data.Constants;
+using Data.Constants;
+using JetBrains.Annotations;
 using Mediators;
 using MonoBehaviours.Screens;
 using Zenject;
 
 namespace Commands
 {
+    [UsedImplicitly]
     public class ResetUiCommand
     {
         [Inject] private LayersMediator _layersMediator;

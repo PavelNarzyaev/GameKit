@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using JetBrains.Annotations;
 using System.IO;
 using Data;
 using UnityEngine;
@@ -6,6 +7,7 @@ using Utilities;
 
 namespace Proxies
 {
+    [UsedImplicitly]
     public class LocalStateProxy
     {
         private const string _fileName = "state.json";

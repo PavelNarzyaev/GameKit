@@ -1,8 +1,10 @@
-﻿using System;
+using System;
+using JetBrains.Annotations;
 using Data.Constants;
 
 namespace Mediators
 {
+    [UsedImplicitly]
     public class LayersMediator
     {
         public event Action<Type, Layer> showScreenEvent;

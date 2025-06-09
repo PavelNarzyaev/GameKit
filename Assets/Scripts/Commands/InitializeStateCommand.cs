@@ -1,10 +1,12 @@
-﻿using System;
+using System;
 using Data;
 using Proxies;
 using Zenject;
+using JetBrains.Annotations;
 
 namespace Commands
 {
+    [UsedImplicitly]
     public class InitializeStateCommand
     {
         [Inject] private CurrentTimeProxy _currentTimeProxy;

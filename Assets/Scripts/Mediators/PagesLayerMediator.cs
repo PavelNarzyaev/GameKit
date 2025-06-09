@@ -1,9 +1,11 @@
-﻿using System;
+using System;
+using JetBrains.Annotations;
 using Data.Constants;
 using Zenject;
 
 namespace Mediators
 {
+    [UsedImplicitly]
     public class PagesLayerMediator
     {
         [Inject] private LayersMediator _layersMediator;

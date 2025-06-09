@@ -1,4 +1,4 @@
-﻿namespace MonoBehaviours.Screens
+namespace MonoBehaviours.Screens
 {
     public class NavigationPopupScreen : ScreenAbstract
     {

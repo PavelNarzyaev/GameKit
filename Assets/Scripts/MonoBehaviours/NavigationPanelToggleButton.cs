@@ -1,4 +1,4 @@
-﻿using Shapes2D;
+using Shapes2D;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;

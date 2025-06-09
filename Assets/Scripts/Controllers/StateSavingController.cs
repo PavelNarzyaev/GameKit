@@ -1,8 +1,10 @@
-﻿using Proxies;
+using Proxies;
+using JetBrains.Annotations;
 using Zenject;
 
 namespace Controllers
 {
+    [UsedImplicitly]
     public class StateSavingController : ITickable
     {
         [Inject] private LocalStateProxy _localStateProxy;

@@ -1,8 +1,10 @@
-﻿using Proxies;
+using Proxies;
+using JetBrains.Annotations;
 using Zenject;
 
 namespace Commands
 {
+    [UsedImplicitly]
     public class LaunchCommand
     {
         [Inject] private InitializeStateCommand _initializeStateCommand;
