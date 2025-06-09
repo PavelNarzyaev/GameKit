@@ -1,0 +1,23 @@
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = crlf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{yml,yaml,json,xml,csproj,sln,asmdef,asmref,asset,prefab,unity,mat,controller,anim,shader,compute,cginc,hlsl}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+# Batch files (Windows)
+[*.{bat,cmd}]
+end_of_line = crlf
+
+# Shell scripts (Mac/Linux)
+[*.sh]
+end_of_line = lf
