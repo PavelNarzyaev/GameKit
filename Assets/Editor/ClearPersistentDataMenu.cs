@@ -3,12 +3,12 @@ using UnityEditor;
 
 namespace Editor
 {
-	public class ClearPersistentDataMenu
-	{
-		[MenuItem("GameKit/Clear Persistent Data", false, 101)]
-		public static void ClearPersistentData()
-		{
-			LocalStateProxy.Delete();
-		}
-	}
+    public class ClearPersistentDataMenu
+    {
+        [MenuItem("GameKit/Clear Persistent Data", false, 101)]
+        public static void ClearPersistentData()
+        {
+            LocalStateProxy.Delete();
+        }
+    }
 }

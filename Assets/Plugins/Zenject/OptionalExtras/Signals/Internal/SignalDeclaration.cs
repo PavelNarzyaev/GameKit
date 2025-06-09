@@ -41,7 +41,7 @@ namespace Zenject
         }
 #endif
 
-		public List<SignalSubscription> Subscriptions => _subscriptions;
+        public List<SignalSubscription> Subscriptions => _subscriptions;
 
         public int TickPriority
         {
