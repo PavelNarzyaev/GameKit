@@ -1,4 +1,4 @@
-﻿using Mediators;
+using Mediators;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;

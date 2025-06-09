@@ -1,4 +1,4 @@
-﻿using Commands;
+using Commands;
 using Controllers;
 using Mediators;
 using Proxies;

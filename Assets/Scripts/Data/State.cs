@@ -1,4 +1,4 @@
-﻿namespace Data
+namespace Data
 {
     [System.Serializable]
     public class State
