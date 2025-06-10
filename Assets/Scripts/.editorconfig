@@ -3,9 +3,23 @@ root = true
 [*.cs]
 indent_style = space
 indent_size = 4
+trim_trailing_whitespace = true
 insert_final_newline = true
 end_of_line = lf
 charset = utf-8
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggestion
 
 # rules from https://unity.com/how-to/formatting-best-practices-c-scripting-unity
 csharp_prefer_braces = true:error
+csharp_new_line_before_open_brace = all
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+csharp_space_after_comma = true
+csharp_space_before_method_call_parentheses = false
+csharp_space_before_method_declaration_parentheses = false
+csharp_space_within_brackets = false
+csharp_space_after_keywords_in_control_flow_statements = true
+csharp_space_around_binary_operators = before_and_after
+csharp_indent_case_contents = true
+max_line_length = 120
