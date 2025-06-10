@@ -74,7 +74,9 @@ namespace Proxies
                 Debug.Log("Persistent data file deleted.");
             }
             else
+            {
                 Debug.LogWarning("Persistent data file not found.");
+            }
         }
     }
 }

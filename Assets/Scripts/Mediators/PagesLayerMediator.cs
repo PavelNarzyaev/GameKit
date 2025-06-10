@@ -16,7 +16,9 @@ namespace Mediators
         public void ShowPage(Type pageScreenType)
         {
             if (CurrentPageType != null)
+            {
                 _layersMediator.HideScreenIfExists(CurrentPageType);
+            }
             _layersMediator.ShowScreen(pageScreenType, Layer.Page);
             CurrentPageType = pageScreenType;
             changePageEvent?.Invoke();
