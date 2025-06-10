@@ -15,9 +15,14 @@ namespace Commands
         {
             var isFirstLaunch = !_localStateProxy.CheckIfExists();
             if (isFirstLaunch)
+            {
                 _initializeStateCommand.Execute();
+            }
             else
+            {
                 _localStateProxy.Refresh();
+            }
+
             _localStateProxy.data.launchesCounter++;
             _localStateProxy.MarkAsDirty();
 

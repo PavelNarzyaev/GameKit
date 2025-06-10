@@ -20,7 +20,10 @@ namespace Utilities
             using var memoryStream = new MemoryStream();
             using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
             using (var writer = new StreamWriter(cryptoStream))
+            {
                 writer.Write(plainText);
+            }
+
             return Convert.ToBase64String(memoryStream.ToArray());
         }
 
