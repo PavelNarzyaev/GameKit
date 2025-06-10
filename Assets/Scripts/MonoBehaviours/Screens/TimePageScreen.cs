@@ -17,15 +17,12 @@ namespace MonoBehaviours.Screens
             RefreshCurrentTime();
         }
 
-        private void Update()
-        {
-            RefreshCurrentTime();
-        }
+        private void Update() => RefreshCurrentTime();
 
         private void RefreshCurrentTime()
         {
-            var timestamp = _currentTimeProxy.GetTimestamp();
-            var readableDatetime = TimestampUtility.ConvertTimestampToReadableString(timestamp);
+            long timestamp = _currentTimeProxy.GetTimestamp();
+            string readableDatetime = TimestampUtility.ConvertTimestampToReadableString(timestamp);
             _currentTime.SetValueText(readableDatetime);
         }
     }

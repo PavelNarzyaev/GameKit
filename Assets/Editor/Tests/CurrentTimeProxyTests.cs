@@ -8,10 +8,7 @@ namespace Editor.Tests
     public class CurrentTimeProxyTests : ZenjectUnitTestFixture
     {
         [SetUp]
-        public void SetUp()
-        {
-            Container.Bind<CurrentTimeProxy>().AsSingle();
-        }
+        public void SetUp() => Container.Bind<CurrentTimeProxy>().AsSingle();
 
         [Test]
         public void GetTimestamp_WhenCalled_ReturnsPositiveValue()
@@ -20,7 +17,7 @@ namespace Editor.Tests
             var currentTimeProxy = Container.Resolve<CurrentTimeProxy>();
 
             // Act
-            var timestamp = currentTimeProxy.GetTimestamp();
+            long timestamp = currentTimeProxy.GetTimestamp();
 
             // Assert
             Assert.That(timestamp, Is.GreaterThan(0));

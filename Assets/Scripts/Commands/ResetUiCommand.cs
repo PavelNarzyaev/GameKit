@@ -17,8 +17,8 @@ namespace Commands
             _layersMediator.DestroyAllScreens();
 
             _pagesLayerMediator.ShowPage(typeof(MainPageScreen));
-            _layersMediator.ShowScreen(typeof(NavigationPanelScreen), Layer.NavigationPanel);
-            _layersMediator.ShowScreen(typeof(DesignOverlayScreen), Layer.DesignOverlay);
+            _layersMediator.ShowScreen(typeof(NavigationPanelScreen), ELayer.NavigationPanel);
+            _layersMediator.ShowScreen(typeof(DesignOverlayScreen), ELayer.DesignOverlay);
         }
     }
 }

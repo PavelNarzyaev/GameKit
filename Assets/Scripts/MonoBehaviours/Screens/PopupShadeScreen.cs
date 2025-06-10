@@ -20,9 +20,6 @@ namespace MonoBehaviours.Screens
             _button.onClick.RemoveAllListeners();
         }
 
-        public override bool IsCached()
-        {
-            return true;
-        }
+        public override bool IsCached() => true;
     }
 }

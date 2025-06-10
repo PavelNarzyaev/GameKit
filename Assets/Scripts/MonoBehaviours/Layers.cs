@@ -20,11 +20,11 @@ namespace MonoBehaviours
 
         private void Awake()
         {
-            var layers = Enum.GetValues(typeof(Layer));
+            var layers = Enum.GetValues(typeof(ELayer));
 
-            foreach (var layer in layers)
+            foreach (object layer in layers)
             {
-                var layerName = layer.ToString();
+                string layerName = layer.ToString();
                 var layerContainer = new GameObject(layerName);
 
                 layerContainer.transform.SetParent(_rectTransform, false);
@@ -53,20 +53,31 @@ namespace MonoBehaviours
             _layersMediator.destroyAllScreensEvent -= DestroyAllScreensHandler;
         }
 
-        private void ShowScreenHandler(Type screenType, Layer layerName)
+        private void ShowScreenHandler(Type screenType, ELayer layerName)
         {
             if (_screenPrefabByType.TryGetValue(screenType, out var screen))
+            {
                 screen.gameObject.SetActive(true);
+            }
             else
             {
                 if (!_transformByLayerName.TryGetValue(layerName.ToString(), out var layerTransform))
+                {
                     throw new Exception($"Rect transform for screen «{screenType}» is not found");
+                }
+
                 var screenPrefab = _diContainer.InstantiatePrefabResource(screenType.Name, layerTransform);
                 if (screenPrefab == null)
+                {
                     throw new Exception($"Prefab for screen «{screenType}» is not found");
+                }
+
                 var screenComponent = screenPrefab.GetComponent<ScreenAbstract>();
                 if (screenComponent == null)
+                {
                     throw new Exception($"Screen prefab must have a «{nameof(ScreenAbstract)}» component.");
+                }
+
                 _screenPrefabByType.Add(screenType, screenComponent);
             }
         }
@@ -74,9 +85,14 @@ namespace MonoBehaviours
         private void HideScreenIfExistsHandler(Type screenType)
         {
             if (!_screenPrefabByType.TryGetValue(screenType, out var screen))
+            {
                 return;
+            }
+
             if (screen.IsCached())
+            {
                 screen.gameObject.SetActive(false);
+            }
             else
             {
                 DestroyPrefab(screen.gameObject);
@@ -87,7 +103,10 @@ namespace MonoBehaviours
         private void DestroyAllScreensHandler()
         {
             foreach (var screen in _screenPrefabByType.Values)
+            {
                 DestroyPrefab(screen.gameObject);
+            }
+
             _screenPrefabByType.Clear();
         }
 

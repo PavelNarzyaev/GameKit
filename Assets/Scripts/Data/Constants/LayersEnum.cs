@@ -1,6 +1,6 @@
 namespace Data.Constants
 {
-    public enum Layer
+    public enum ELayer
     {
         Page,
         NavigationPanel,

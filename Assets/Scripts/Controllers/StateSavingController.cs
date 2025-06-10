@@ -14,7 +14,9 @@ namespace Controllers
         public void Tick()
         {
             if (_localStateProxy.IsDirty)
+            {
                 _localStateProxy.Save();
+            }
         }
     }
 }

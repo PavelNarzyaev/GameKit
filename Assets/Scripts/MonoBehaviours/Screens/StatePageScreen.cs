@@ -42,9 +42,6 @@ namespace MonoBehaviours.Screens
             _launchCount.SetValueText(state.launchesCounter.ToString(CultureInfo.InvariantCulture));
         }
 
-        public override bool IsCached()
-        {
-            return true;
-        }
+        public override bool IsCached() => true;
     }
 }

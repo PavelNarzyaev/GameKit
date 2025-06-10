@@ -4,19 +4,8 @@ namespace Utilities
 {
     public static class TimestampUtility
     {
-        public static long ConvertDatetimeToTimestamp(DateTime dateTime)
-        {
-            return new DateTimeOffset(dateTime, TimeSpan.Zero).ToUnixTimeSeconds();
-        }
-
-        public static DateTime ConvertTimestampToLocalDateTime(long timestamp)
-        {
-            return DateTimeOffset.FromUnixTimeSeconds(timestamp).LocalDateTime;
-        }
-
-        public static string ConvertTimestampToReadableString(long timestamp)
-        {
-            return ConvertTimestampToLocalDateTime(timestamp).ToString("yyyy-MM-dd HH:mm:ss");
-        }
+        public static long ConvertDatetimeToTimestamp(DateTime dateTime) => new DateTimeOffset(dateTime, TimeSpan.Zero).ToUnixTimeSeconds();
+        private static DateTime ConvertTimestampToLocalDateTime(long timestamp) => DateTimeOffset.FromUnixTimeSeconds(timestamp).LocalDateTime;
+        public static string ConvertTimestampToReadableString(long timestamp) => ConvertTimestampToLocalDateTime(timestamp).ToString("yyyy-MM-dd HH:mm:ss");
     }
 }

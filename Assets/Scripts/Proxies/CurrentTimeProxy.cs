@@ -17,9 +17,6 @@ namespace Proxies
             _startupTimestamp = TimestampUtility.ConvertDatetimeToTimestamp(DateTime.UtcNow) - (int)Time.realtimeSinceStartup;
         }
 
-        public long GetTimestamp()
-        {
-            return _startupTimestamp + (int)Time.realtimeSinceStartup;
-        }
+        public long GetTimestamp() => _startupTimestamp + (int)Time.realtimeSinceStartup;
     }
 }

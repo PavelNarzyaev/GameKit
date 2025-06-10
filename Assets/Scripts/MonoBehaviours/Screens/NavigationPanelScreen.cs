@@ -34,7 +34,9 @@ namespace MonoBehaviours.Screens
         private void Start()
         {
             if (_pagesLayerMediator.CurrentPageType != null)
+            {
                 Refresh();
+            }
         }
 
         private void OnEnable()
@@ -50,7 +52,10 @@ namespace MonoBehaviours.Screens
         private void Refresh()
         {
             if (_selectedButton != null)
+            {
                 _selectedButton.SetSelected(false);
+            }
+
             _selectedButton = _buttonByType[_pagesLayerMediator.CurrentPageType];
             _selectedButton.SetSelected(true);
         }

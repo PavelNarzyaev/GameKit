@@ -12,8 +12,8 @@ namespace Mediators
 
         public void ShowNavigationPopup()
         {
-            _layersMediator.ShowScreen(typeof(PopupShadeScreen), Layer.Popups);
-            _layersMediator.ShowScreen(typeof(NavigationPopupScreen), Layer.Popups);
+            _layersMediator.ShowScreen(typeof(PopupShadeScreen), ELayer.Popups);
+            _layersMediator.ShowScreen(typeof(NavigationPopupScreen), ELayer.Popups);
         }
 
         public void CloseNavigationPopup()

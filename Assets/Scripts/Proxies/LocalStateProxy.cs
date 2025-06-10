@@ -18,15 +18,8 @@ namespace Proxies
 
         private static string GetFilePath() => Path.Combine(Application.persistentDataPath, _fileName);
 
-        public void MarkAsDirty()
-        {
-            IsDirty = true;
-        }
-
-        public void Save()
-        {
-            SaveJsonToFile(JsonUtility.ToJson(data));
-        }
+        public void MarkAsDirty() => IsDirty = true;
+        public void Save() => SaveJsonToFile(JsonUtility.ToJson(data));
 
         public void Set(string json)
         {
@@ -46,7 +39,7 @@ namespace Proxies
 
         private void SaveJsonToFile(string json)
         {
-            var encryptedJson = EncryptionUtility.Encrypt(json);
+            string encryptedJson = EncryptionUtility.Encrypt(json);
             File.WriteAllText(GetFilePath(), encryptedJson);
             IsDirty = false;
         }
@@ -55,26 +48,28 @@ namespace Proxies
 
         public void Refresh()
         {
-            var json = Get();
+            string json = Get();
             data = JsonUtility.FromJson<State>(json);
         }
 
         public string Get()
         {
-            var encryptedJson = File.ReadAllText(GetFilePath());
+            string encryptedJson = File.ReadAllText(GetFilePath());
             return EncryptionUtility.Decrypt(encryptedJson);
         }
 
         public static void Delete()
         {
-            var filePath = GetFilePath();
+            string filePath = GetFilePath();
             if (File.Exists(filePath))
             {
                 File.Delete(filePath);
                 Debug.Log("Persistent data file deleted.");
             }
             else
+            {
                 Debug.LogWarning("Persistent data file not found.");
+            }
         }
     }
 }
