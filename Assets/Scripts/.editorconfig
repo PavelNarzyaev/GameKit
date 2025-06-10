@@ -1,0 +1,11 @@
+root = true
+
+[*.cs]
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+end_of_line = lf
+charset = utf-8
+
+# rules from https://unity.com/how-to/formatting-best-practices-c-scripting-unity
+csharp_prefer_braces = true:error
