@@ -7,26 +7,26 @@ namespace Commands
     [UsedImplicitly]
     public class LaunchCommand
     {
-        [Inject] private InitializeStateCommand _initializeStateCommand;
-        [Inject] private LocalStateProxy _localStateProxy;
-        [Inject] private ResetUiCommand _resetUiCommand;
+        [Inject] private InitializeStateCommand m_initializeStateCommand;
+        [Inject] private LocalStateProxy m_localStateProxy;
+        [Inject] private ResetUiCommand m_resetUiCommand;
 
         public void Execute()
         {
-            var isFirstLaunch = !_localStateProxy.CheckIfExists();
+            var isFirstLaunch = !m_localStateProxy.CheckIfExists();
             if (isFirstLaunch)
             {
-                _initializeStateCommand.Execute();
+                m_initializeStateCommand.Execute();
             }
             else
             {
-                _localStateProxy.Refresh();
+                m_localStateProxy.Refresh();
             }
 
-            _localStateProxy.data.launchesCounter++;
-            _localStateProxy.MarkAsDirty();
+            m_localStateProxy.Data.launchesCounter++;
+            m_localStateProxy.MarkAsDirty();
 
-            _resetUiCommand.Execute();
+            m_resetUiCommand.Execute();
         }
     }
 }

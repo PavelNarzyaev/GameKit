@@ -8,21 +8,21 @@ namespace Mediators
     [UsedImplicitly]
     public class PagesLayerMediator
     {
-        [Inject] private LayersMediator _layersMediator;
+        [Inject] private LayersMediator m_layersMediator;
         public Type CurrentPageType { get; private set; }
 
-        public event Action changePageEvent;
+        public event Action ChangePageEvent;
 
         public void ShowPage(Type pageScreenType)
         {
             if (CurrentPageType != null)
             {
-                _layersMediator.HideScreenIfExists(CurrentPageType);
+                m_layersMediator.HideScreenIfExists(CurrentPageType);
             }
 
-            _layersMediator.ShowScreen(pageScreenType, Layer.Page);
+            m_layersMediator.ShowScreen(pageScreenType, Layer.Page);
             CurrentPageType = pageScreenType;
-            changePageEvent?.Invoke();
+            ChangePageEvent?.Invoke();
         }
     }
 }

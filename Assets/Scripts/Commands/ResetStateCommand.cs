@@ -7,12 +7,12 @@ namespace Commands
     [UsedImplicitly]
     public class ResetStateCommand
     {
-        [Inject] private LaunchCommand _launchCommand;
+        [Inject] private LaunchCommand m_launchCommand;
 
         public void Execute()
         {
             LocalStateProxy.Delete();
-            _launchCommand.Execute();
+            m_launchCommand.Execute();
         }
     }
 }

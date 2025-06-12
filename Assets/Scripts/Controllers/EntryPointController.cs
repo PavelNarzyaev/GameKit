@@ -7,13 +7,13 @@ namespace Controllers
     [UsedImplicitly]
     public class EntryPointController : IInitializable
     {
-        [Inject] private LaunchCommand _launchCommand;
+        [Inject] private LaunchCommand m_launchCommand;
 
         public void Initialize()
         {
             // try
             // {
-            _launchCommand.Execute();
+            m_launchCommand.Execute();
             // }
             // catch (Exception e)
             // {

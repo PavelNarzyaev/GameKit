@@ -4,19 +4,20 @@ using Data.Constants;
 using Mediators;
 using MonoBehaviours.Screens;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace MonoBehaviours
 {
     public class Layers : MonoBehaviour
     {
-        [SerializeField] private RectTransform _rectTransform;
-        private readonly Dictionary<Type, ScreenAbstract> _screenPrefabByType = new();
+        [FormerlySerializedAs("_rectTransform")] [SerializeField] private RectTransform rectTransform;
+        private readonly Dictionary<Type, ScreenAbstract> m_screenPrefabByType = new();
 
-        private readonly Dictionary<string, RectTransform> _transformByLayerName = new();
-        [Inject] private DiContainer _diContainer;
+        private readonly Dictionary<string, RectTransform> m_transformByLayerName = new();
+        [Inject] private DiContainer m_diContainer;
 
-        [Inject] private LayersMediator _layersMediator;
+        [Inject] private LayersMediator m_layersMediator;
 
         private void Awake()
         {
@@ -27,7 +28,7 @@ namespace MonoBehaviours
                 var layerName = layer.ToString();
                 var layerContainer = new GameObject(layerName);
 
-                layerContainer.transform.SetParent(_rectTransform, false);
+                layerContainer.transform.SetParent(rectTransform, false);
 
                 var layerRectTransform = layerContainer.AddComponent<RectTransform>();
                 layerRectTransform.anchorMin = Vector2.zero;
@@ -35,38 +36,38 @@ namespace MonoBehaviours
                 layerRectTransform.offsetMin = Vector2.zero;
                 layerRectTransform.offsetMax = Vector2.zero;
 
-                _transformByLayerName.Add(layerName, layerRectTransform);
+                m_transformByLayerName.Add(layerName, layerRectTransform);
             }
         }
 
         private void OnEnable()
         {
-            _layersMediator.showScreenEvent += ShowScreenHandler;
-            _layersMediator.hideScreenIfExistsEvent += HideScreenIfExistsHandler;
-            _layersMediator.destroyAllScreensEvent += DestroyAllScreensHandler;
+            m_layersMediator.ShowScreenEvent += ShowScreenHandler;
+            m_layersMediator.HideScreenIfExistsEvent += HideScreenIfExistsHandler;
+            m_layersMediator.DestroyAllScreensEvent += DestroyAllScreensHandler;
         }
 
         private void OnDisable()
         {
-            _layersMediator.showScreenEvent -= ShowScreenHandler;
-            _layersMediator.hideScreenIfExistsEvent -= HideScreenIfExistsHandler;
-            _layersMediator.destroyAllScreensEvent -= DestroyAllScreensHandler;
+            m_layersMediator.ShowScreenEvent -= ShowScreenHandler;
+            m_layersMediator.HideScreenIfExistsEvent -= HideScreenIfExistsHandler;
+            m_layersMediator.DestroyAllScreensEvent -= DestroyAllScreensHandler;
         }
 
         private void ShowScreenHandler(Type screenType, Layer layerName)
         {
-            if (_screenPrefabByType.TryGetValue(screenType, out var screen))
+            if (m_screenPrefabByType.TryGetValue(screenType, out var screen))
             {
                 screen.gameObject.SetActive(true);
             }
             else
             {
-                if (!_transformByLayerName.TryGetValue(layerName.ToString(), out var layerTransform))
+                if (!m_transformByLayerName.TryGetValue(layerName.ToString(), out var layerTransform))
                 {
                     throw new Exception($"Rect transform for screen «{screenType}» is not found");
                 }
 
-                var screenPrefab = _diContainer.InstantiatePrefabResource(screenType.Name, layerTransform);
+                var screenPrefab = m_diContainer.InstantiatePrefabResource(screenType.Name, layerTransform);
                 if (screenPrefab == null)
                 {
                     throw new Exception($"Prefab for screen «{screenType}» is not found");
@@ -78,13 +79,13 @@ namespace MonoBehaviours
                     throw new Exception($"Screen prefab must have a «{nameof(ScreenAbstract)}» component.");
                 }
 
-                _screenPrefabByType.Add(screenType, screenComponent);
+                m_screenPrefabByType.Add(screenType, screenComponent);
             }
         }
 
         private void HideScreenIfExistsHandler(Type screenType)
         {
-            if (!_screenPrefabByType.TryGetValue(screenType, out var screen))
+            if (!m_screenPrefabByType.TryGetValue(screenType, out var screen))
             {
                 return;
             }
@@ -96,18 +97,18 @@ namespace MonoBehaviours
             else
             {
                 DestroyPrefab(screen.gameObject);
-                _screenPrefabByType.Remove(screenType);
+                m_screenPrefabByType.Remove(screenType);
             }
         }
 
         private void DestroyAllScreensHandler()
         {
-            foreach (var screen in _screenPrefabByType.Values)
+            foreach (var screen in m_screenPrefabByType.Values)
             {
                 DestroyPrefab(screen.gameObject);
             }
 
-            _screenPrefabByType.Clear();
+            m_screenPrefabByType.Clear();
         }
 
         private void DestroyPrefab(GameObject prefab)

@@ -7,23 +7,23 @@ namespace Mediators
     [UsedImplicitly]
     public class LayersMediator
     {
-        public event Action<Type, Layer> showScreenEvent;
-        public event Action<Type> hideScreenIfExistsEvent;
-        public event Action destroyAllScreensEvent;
+        public event Action<Type, Layer> ShowScreenEvent;
+        public event Action<Type> HideScreenIfExistsEvent;
+        public event Action DestroyAllScreensEvent;
 
         public void ShowScreen(Type screenType, Layer layer)
         {
-            showScreenEvent?.Invoke(screenType, layer);
+            ShowScreenEvent?.Invoke(screenType, layer);
         }
 
         public void HideScreenIfExists(Type screenType)
         {
-            hideScreenIfExistsEvent?.Invoke(screenType);
+            HideScreenIfExistsEvent?.Invoke(screenType);
         }
 
         public void DestroyAllScreens()
         {
-            destroyAllScreensEvent?.Invoke();
+            DestroyAllScreensEvent?.Invoke();
         }
     }
 }

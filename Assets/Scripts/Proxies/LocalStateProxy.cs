@@ -10,15 +10,15 @@ namespace Proxies
     [UsedImplicitly]
     public class LocalStateProxy
     {
-        private const string _fileName = "state.json";
+        private const string k_FileName = "state.json";
 
-        public State data;
+        public State Data;
         public bool IsDirty { get; private set; }
-        public event Action refreshFromJsonEvent;
+        public event Action RefreshFromJsonEvent;
 
         private static string GetFilePath()
         {
-            return Path.Combine(Application.persistentDataPath, _fileName);
+            return Path.Combine(Application.persistentDataPath, k_FileName);
         }
 
         public void MarkAsDirty()
@@ -28,14 +28,14 @@ namespace Proxies
 
         public void Save()
         {
-            SaveJsonToFile(JsonUtility.ToJson(data));
+            SaveJsonToFile(JsonUtility.ToJson(Data));
         }
 
         public void Set(string json)
         {
             try
             {
-                data = JsonUtility.FromJson<State>(json);
+                Data = JsonUtility.FromJson<State>(json);
             }
             catch
             {
@@ -45,7 +45,7 @@ namespace Proxies
             }
 
             SaveJsonToFile(json);
-            refreshFromJsonEvent?.Invoke();
+            RefreshFromJsonEvent?.Invoke();
         }
 
         private void SaveJsonToFile(string json)
@@ -63,7 +63,7 @@ namespace Proxies
         public void Refresh()
         {
             var json = Get();
-            data = JsonUtility.FromJson<State>(json);
+            Data = JsonUtility.FromJson<State>(json);
         }
 
         public string Get()

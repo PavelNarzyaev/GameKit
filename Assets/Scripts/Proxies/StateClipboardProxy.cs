@@ -7,17 +7,17 @@ namespace Proxies
     [UsedImplicitly]
     public class StateClipboardProxy
     {
-        [Inject] private LocalStateProxy _localStateProxy;
+        [Inject] private LocalStateProxy m_localStateProxy;
 
         public void CopyStateToClipboard()
         {
-            UniClipboard.SetText(_localStateProxy.Get());
+            UniClipboard.SetText(m_localStateProxy.Get());
             Debug.Log("User state is copied to clipboard");
         }
 
         public void PasteStateFromClipboard()
         {
-            _localStateProxy.Set(UniClipboard.GetText());
+            m_localStateProxy.Set(UniClipboard.GetText());
             Debug.Log("User state is applied from clipboard");
         }
     }

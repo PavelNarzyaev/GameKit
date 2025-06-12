@@ -2,31 +2,32 @@ using System;
 using System.Collections.Generic;
 using Mediators;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace MonoBehaviours.Screens
 {
     public class NavigationPanelScreen : ScreenAbstract
     {
-        [SerializeField] private NavigationPanelToggleButton _mainPageButton;
-        [SerializeField] private NavigationPanelToggleButton _statePageButton;
-        [SerializeField] private NavigationPanelToggleButton _timePageButton;
+        [FormerlySerializedAs("_mainPageButton")] [SerializeField] private NavigationPanelToggleButton mainPageButton;
+        [FormerlySerializedAs("_statePageButton")] [SerializeField] private NavigationPanelToggleButton statePageButton;
+        [FormerlySerializedAs("_timePageButton")] [SerializeField] private NavigationPanelToggleButton timePageButton;
 
-        private readonly Dictionary<Type, NavigationPanelToggleButton> _buttonByType = new();
+        private readonly Dictionary<Type, NavigationPanelToggleButton> m_buttonByType = new();
 
-        [Inject] private PagesLayerMediator _pagesLayerMediator;
-        private NavigationPanelToggleButton _selectedButton;
+        [Inject] private PagesLayerMediator m_pagesLayerMediator;
+        private NavigationPanelToggleButton m_selectedButton;
 
         private void Awake()
         {
-            SetUpButton(_mainPageButton, typeof(MainPageScreen));
-            SetUpButton(_statePageButton, typeof(StatePageScreen));
-            SetUpButton(_timePageButton, typeof(TimePageScreen));
+            SetUpButton(mainPageButton, typeof(MainPageScreen));
+            SetUpButton(statePageButton, typeof(StatePageScreen));
+            SetUpButton(timePageButton, typeof(TimePageScreen));
         }
 
         private void Start()
         {
-            if (_pagesLayerMediator.CurrentPageType != null)
+            if (m_pagesLayerMediator.CurrentPageType != null)
             {
                 Refresh();
             }
@@ -34,30 +35,30 @@ namespace MonoBehaviours.Screens
 
         private void OnEnable()
         {
-            _pagesLayerMediator.changePageEvent += Refresh;
+            m_pagesLayerMediator.ChangePageEvent += Refresh;
         }
 
         private void OnDisable()
         {
-            _pagesLayerMediator.changePageEvent -= Refresh;
+            m_pagesLayerMediator.ChangePageEvent -= Refresh;
         }
 
         private void SetUpButton(NavigationPanelToggleButton button, Type pageType)
         {
-            button.SetSelected(_pagesLayerMediator.CurrentPageType == pageType);
-            _buttonByType.Add(pageType, button);
-            button.AddClickListener(() => _pagesLayerMediator.ShowPage(pageType));
+            button.SetSelected(m_pagesLayerMediator.CurrentPageType == pageType);
+            m_buttonByType.Add(pageType, button);
+            button.AddClickListener(() => m_pagesLayerMediator.ShowPage(pageType));
         }
 
         private void Refresh()
         {
-            if (_selectedButton != null)
+            if (m_selectedButton != null)
             {
-                _selectedButton.SetSelected(false);
+                m_selectedButton.SetSelected(false);
             }
 
-            _selectedButton = _buttonByType[_pagesLayerMediator.CurrentPageType];
-            _selectedButton.SetSelected(true);
+            m_selectedButton = m_buttonByType[m_pagesLayerMediator.CurrentPageType];
+            m_selectedButton.SetSelected(true);
         }
     }
 }

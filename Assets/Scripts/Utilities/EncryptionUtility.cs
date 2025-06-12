@@ -7,14 +7,14 @@ namespace Utilities
 {
     public static class EncryptionUtility
     {
-        private static readonly byte[] _key = Encoding.UTF8.GetBytes("SU6x2h36syQVdHV&Zx$t1%6flcXWBwgb");
-        private static readonly byte[] _iv = Encoding.UTF8.GetBytes("9nZEMp**W#3bAYyh");
+        private static readonly byte[] s_key = Encoding.UTF8.GetBytes("SU6x2h36syQVdHV&Zx$t1%6flcXWBwgb");
+        private static readonly byte[] s_iv = Encoding.UTF8.GetBytes("9nZEMp**W#3bAYyh");
 
         public static string Encrypt(string plainText)
         {
             using var aes = Aes.Create();
-            aes.Key = _key;
-            aes.IV = _iv;
+            aes.Key = s_key;
+            aes.IV = s_iv;
 
             using var encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
             using var memoryStream = new MemoryStream();
@@ -30,8 +30,8 @@ namespace Utilities
         public static string Decrypt(string cipherText)
         {
             using var aes = Aes.Create();
-            aes.Key = _key;
-            aes.IV = _iv;
+            aes.Key = s_key;
+            aes.IV = s_iv;
 
             using var decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
             using var memoryStream = new MemoryStream(Convert.FromBase64String(cipherText));

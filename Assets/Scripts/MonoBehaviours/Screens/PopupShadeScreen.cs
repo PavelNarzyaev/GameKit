@@ -1,5 +1,6 @@
 using Mediators;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 
@@ -7,17 +8,17 @@ namespace MonoBehaviours.Screens
 {
     public class PopupShadeScreen : ScreenAbstract
     {
-        [SerializeField] private Button _button;
-        [Inject] private PopupsLayerMediator _popupsLayerMediator;
+        [FormerlySerializedAs("_button")] [SerializeField] private Button button;
+        [Inject] private PopupsLayerMediator m_popupsLayerMediator;
 
         private void OnEnable()
         {
-            _button.onClick.AddListener(_popupsLayerMediator.CloseNavigationPopup);
+            button.onClick.AddListener(m_popupsLayerMediator.CloseNavigationPopup);
         }
 
         private void OnDisable()
         {
-            _button.onClick.RemoveAllListeners();
+            button.onClick.RemoveAllListeners();
         }
 
         public override bool IsCached()

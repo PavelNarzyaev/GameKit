@@ -8,13 +8,13 @@ namespace Controllers
     [UsedImplicitly]
     public class ResetUiController
     {
-        [Inject] private LocalStateProxy _localStateProxy;
-        [Inject] private ResetUiCommand _resetUiCommand;
+        [Inject] private LocalStateProxy m_localStateProxy;
+        [Inject] private ResetUiCommand m_resetUiCommand;
 
         [Inject]
         private void Inject()
         {
-            _localStateProxy.refreshFromJsonEvent += _resetUiCommand.Execute;
+            m_localStateProxy.RefreshFromJsonEvent += m_resetUiCommand.Execute;
         }
     }
 }

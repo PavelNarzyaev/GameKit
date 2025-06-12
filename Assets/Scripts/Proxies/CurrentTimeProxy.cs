@@ -9,18 +9,18 @@ namespace Proxies
     [UsedImplicitly]
     public class CurrentTimeProxy
     {
-        private static long _startupTimestamp;
+        private static long s_startupTimestamp;
 
         [Inject]
         private void Inject()
         {
             var currentTimestamp = TimestampUtility.ConvertDatetimeToTimestamp(DateTime.UtcNow);
-            _startupTimestamp = currentTimestamp - (int)Time.realtimeSinceStartup;
+            s_startupTimestamp = currentTimestamp - (int)Time.realtimeSinceStartup;
         }
 
         public long GetTimestamp()
         {
-            return _startupTimestamp + (int)Time.realtimeSinceStartup;
+            return s_startupTimestamp + (int)Time.realtimeSinceStartup;
         }
     }
 }

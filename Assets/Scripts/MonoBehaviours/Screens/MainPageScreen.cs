@@ -1,5 +1,6 @@
 using Mediators;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 
@@ -7,12 +8,12 @@ namespace MonoBehaviours.Screens
 {
     public class MainPageScreen : ScreenAbstract
     {
-        [SerializeField] private Button _showNavigationPopupButton;
-        [Inject] private PopupsLayerMediator _popupsLayerMediator;
+        [FormerlySerializedAs("_showNavigationPopupButton")] [SerializeField] private Button showNavigationPopupButton;
+        [Inject] private PopupsLayerMediator m_popupsLayerMediator;
 
         private void Awake()
         {
-            _showNavigationPopupButton.onClick.AddListener(_popupsLayerMediator.ShowNavigationPopup);
+            showNavigationPopupButton.onClick.AddListener(m_popupsLayerMediator.ShowNavigationPopup);
         }
     }
 }

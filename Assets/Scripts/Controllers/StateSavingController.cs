@@ -7,14 +7,14 @@ namespace Controllers
     [UsedImplicitly]
     public class StateSavingController : ITickable
     {
-        private string _filePath;
-        [Inject] private LocalStateProxy _localStateProxy;
+        private string m_filePath;
+        [Inject] private LocalStateProxy m_localStateProxy;
 
         public void Tick()
         {
-            if (_localStateProxy.IsDirty)
+            if (m_localStateProxy.IsDirty)
             {
-                _localStateProxy.Save();
+                m_localStateProxy.Save();
             }
         }
     }

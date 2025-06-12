@@ -8,18 +8,18 @@ namespace Mediators
     [UsedImplicitly]
     public class PopupsLayerMediator
     {
-        [Inject] private LayersMediator _layersMediator;
+        [Inject] private LayersMediator m_layersMediator;
 
         public void ShowNavigationPopup()
         {
-            _layersMediator.ShowScreen(typeof(PopupShadeScreen), Layer.Popups);
-            _layersMediator.ShowScreen(typeof(NavigationPopupScreen), Layer.Popups);
+            m_layersMediator.ShowScreen(typeof(PopupShadeScreen), Layer.Popups);
+            m_layersMediator.ShowScreen(typeof(NavigationPopupScreen), Layer.Popups);
         }
 
         public void CloseNavigationPopup()
         {
-            _layersMediator.HideScreenIfExists(typeof(PopupShadeScreen));
-            _layersMediator.HideScreenIfExists(typeof(NavigationPopupScreen));
+            m_layersMediator.HideScreenIfExists(typeof(PopupShadeScreen));
+            m_layersMediator.HideScreenIfExists(typeof(NavigationPopupScreen));
         }
     }
 }

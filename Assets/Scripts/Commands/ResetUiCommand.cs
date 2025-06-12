@@ -9,16 +9,16 @@ namespace Commands
     [UsedImplicitly]
     public class ResetUiCommand
     {
-        [Inject] private LayersMediator _layersMediator;
-        [Inject] private PagesLayerMediator _pagesLayerMediator;
+        [Inject] private LayersMediator m_layersMediator;
+        [Inject] private PagesLayerMediator m_pagesLayerMediator;
 
         public void Execute()
         {
-            _layersMediator.DestroyAllScreens();
+            m_layersMediator.DestroyAllScreens();
 
-            _pagesLayerMediator.ShowPage(typeof(MainPageScreen));
-            _layersMediator.ShowScreen(typeof(NavigationPanelScreen), Layer.NavigationPanel);
-            _layersMediator.ShowScreen(typeof(DesignOverlayScreen), Layer.DesignOverlay);
+            m_pagesLayerMediator.ShowPage(typeof(MainPageScreen));
+            m_layersMediator.ShowScreen(typeof(NavigationPanelScreen), Layer.NavigationPanel);
+            m_layersMediator.ShowScreen(typeof(DesignOverlayScreen), Layer.DesignOverlay);
         }
     }
 }

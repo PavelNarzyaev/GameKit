@@ -9,17 +9,17 @@ namespace Commands
     [UsedImplicitly]
     public class InitializeStateCommand
     {
-        [Inject] private CurrentTimeProxy _currentTimeProxy;
-        [Inject] private LocalStateProxy _localStateProxy;
+        [Inject] private CurrentTimeProxy m_currentTimeProxy;
+        [Inject] private LocalStateProxy m_localStateProxy;
 
         public void Execute()
         {
-            _localStateProxy.data = new State
+            m_localStateProxy.Data = new State
             {
                 userId = Guid.NewGuid().ToString(),
-                firstLaunchTimestamp = _currentTimeProxy.GetTimestamp()
+                firstLaunchTimestamp = m_currentTimeProxy.GetTimestamp()
             };
-            _localStateProxy.MarkAsDirty();
+            m_localStateProxy.MarkAsDirty();
         }
     }
 }

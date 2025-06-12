@@ -3,6 +3,7 @@ using Commands;
 using Data;
 using Proxies;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Utilities;
 using Zenject;
@@ -11,27 +12,27 @@ namespace MonoBehaviours.Screens
 {
     public class StatePageScreen : ScreenAbstract
     {
-        [SerializeField] private DebugValue _userId;
-        [SerializeField] private DebugValue _firstLaunchTime;
-        [SerializeField] private DebugValue _launchCount;
-        [SerializeField] private Button _copyToClipboardButton;
-        [SerializeField] private Button _pasteFromClipboardButton;
-        [SerializeField] private Button _resetButton;
+        [FormerlySerializedAs("_userId")] [SerializeField] private DebugValue userId;
+        [FormerlySerializedAs("_firstLaunchTime")] [SerializeField] private DebugValue firstLaunchTime;
+        [FormerlySerializedAs("_launchCount")] [SerializeField] private DebugValue launchCount;
+        [FormerlySerializedAs("_copyToClipboardButton")] [SerializeField] private Button copyToClipboardButton;
+        [FormerlySerializedAs("_pasteFromClipboardButton")] [SerializeField] private Button pasteFromClipboardButton;
+        [FormerlySerializedAs("_resetButton")] [SerializeField] private Button resetButton;
 
-        [Inject] private LocalStateProxy _localStateProxy;
-        [Inject] private ResetStateCommand _resetStateCommand;
-        [Inject] private StateClipboardProxy _stateClipboardProxy;
+        [Inject] private LocalStateProxy m_localStateProxy;
+        [Inject] private ResetStateCommand m_resetStateCommand;
+        [Inject] private StateClipboardProxy m_stateClipboardProxy;
 
         private void Awake()
         {
-            _copyToClipboardButton.onClick.AddListener(_stateClipboardProxy.CopyStateToClipboard);
-            _pasteFromClipboardButton.onClick.AddListener(_stateClipboardProxy.PasteStateFromClipboard);
-            _resetButton.onClick.AddListener(_resetStateCommand.Execute);
+            copyToClipboardButton.onClick.AddListener(m_stateClipboardProxy.CopyStateToClipboard);
+            pasteFromClipboardButton.onClick.AddListener(m_stateClipboardProxy.PasteStateFromClipboard);
+            resetButton.onClick.AddListener(m_resetStateCommand.Execute);
         }
 
         private void Start()
         {
-            var state = _localStateProxy.data;
+            var state = m_localStateProxy.Data;
 
             SetUpUserId(state);
             SetUpFirstLaunchTime(state);
@@ -40,22 +41,22 @@ namespace MonoBehaviours.Screens
 
         private void SetUpUserId(State state)
         {
-            _userId.SetTitleText("User Id");
-            _userId.SetValueText(state.userId);
+            userId.SetTitleText("User Id");
+            userId.SetValueText(state.userId);
         }
 
         private void SetUpFirstLaunchTime(State state)
         {
-            _firstLaunchTime.SetTitleText("First Launch");
+            firstLaunchTime.SetTitleText("First Launch");
             var timestamp = state.firstLaunchTimestamp;
             var readableTime = TimestampUtility.ConvertTimestampToReadableString(timestamp);
-            _firstLaunchTime.SetValueText(readableTime);
+            firstLaunchTime.SetValueText(readableTime);
         }
 
         private void SetUpLaunchCount(State state)
         {
-            _launchCount.SetTitleText("Launch Count");
-            _launchCount.SetValueText(state.launchesCounter.ToString(CultureInfo.InvariantCulture));
+            launchCount.SetTitleText("Launch Count");
+            launchCount.SetValueText(state.launchesCounter.ToString(CultureInfo.InvariantCulture));
         }
 
         public override bool IsCached()
