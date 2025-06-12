@@ -1,5 +1,5 @@
-using Proxies;
 using JetBrains.Annotations;
+using Proxies;
 using Zenject;
 
 namespace Controllers
@@ -7,9 +7,8 @@ namespace Controllers
     [UsedImplicitly]
     public class StateSavingController : ITickable
     {
-        [Inject] private LocalStateProxy _localStateProxy;
-
         private string _filePath;
+        [Inject] private LocalStateProxy _localStateProxy;
 
         public void Tick()
         {

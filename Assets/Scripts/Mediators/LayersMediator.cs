@@ -1,6 +1,6 @@
 using System;
-using JetBrains.Annotations;
 using Data.Constants;
+using JetBrains.Annotations;
 
 namespace Mediators
 {

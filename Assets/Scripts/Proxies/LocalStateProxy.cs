@@ -1,7 +1,7 @@
 using System;
-using JetBrains.Annotations;
 using System.IO;
 using Data;
+using JetBrains.Annotations;
 using UnityEngine;
 using Utilities;
 
@@ -16,7 +16,10 @@ namespace Proxies
         public bool IsDirty { get; private set; }
         public event Action refreshFromJsonEvent;
 
-        private static string GetFilePath() => Path.Combine(Application.persistentDataPath, _fileName);
+        private static string GetFilePath()
+        {
+            return Path.Combine(Application.persistentDataPath, _fileName);
+        }
 
         public void MarkAsDirty()
         {
@@ -30,15 +33,7 @@ namespace Proxies
 
         public void Set(string json)
         {
-            try
-            {
-                data = JsonUtility.FromJson<State>(json);
-            }
-            catch
-            {
-                // TODO: show loading error popup
-                throw;
-            }
+            data = JsonUtility.FromJson<State>(json);
 
             SaveJsonToFile(json);
             refreshFromJsonEvent?.Invoke();
@@ -51,7 +46,10 @@ namespace Proxies
             IsDirty = false;
         }
 
-        public bool CheckIfExists() => File.Exists(GetFilePath());
+        public bool CheckIfExists()
+        {
+            return File.Exists(GetFilePath());
+        }
 
         public void Refresh()
         {

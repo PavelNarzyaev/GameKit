@@ -5,6 +5,6 @@ namespace Data.Constants
         Page,
         NavigationPanel,
         Popups,
-        DesignOverlay,
+        DesignOverlay
     }
 }

@@ -1,5 +1,5 @@
-using Proxies;
 using JetBrains.Annotations;
+using Proxies;
 using Zenject;
 
 namespace Commands

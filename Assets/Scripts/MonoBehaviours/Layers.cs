@@ -11,12 +11,12 @@ namespace MonoBehaviours
     public class Layers : MonoBehaviour
     {
         [SerializeField] private RectTransform _rectTransform;
+        private readonly Dictionary<Type, ScreenAbstract> _screenPrefabByType = new();
 
-        [Inject] private LayersMediator _layersMediator;
+        private readonly Dictionary<string, RectTransform> _transformByLayerName = new();
         [Inject] private DiContainer _diContainer;
 
-        private Dictionary<string, RectTransform> _transformByLayerName = new();
-        private Dictionary<Type, ScreenAbstract> _screenPrefabByType = new();
+        [Inject] private LayersMediator _layersMediator;
 
         private void Awake()
         {

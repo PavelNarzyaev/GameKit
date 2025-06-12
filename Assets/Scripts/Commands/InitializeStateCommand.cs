@@ -1,8 +1,8 @@
 using System;
 using Data;
+using JetBrains.Annotations;
 using Proxies;
 using Zenject;
-using JetBrains.Annotations;
 
 namespace Commands
 {

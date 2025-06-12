@@ -12,9 +12,9 @@ namespace MonoBehaviours.Screens
         [SerializeField] private NavigationPanelToggleButton _statePageButton;
         [SerializeField] private NavigationPanelToggleButton _timePageButton;
 
-        [Inject] private PagesLayerMediator _pagesLayerMediator;
+        private readonly Dictionary<Type, NavigationPanelToggleButton> _buttonByType = new();
 
-        private Dictionary<Type, NavigationPanelToggleButton> _buttonByType = new();
+        [Inject] private PagesLayerMediator _pagesLayerMediator;
         private NavigationPanelToggleButton _selectedButton;
 
         private void Awake()
@@ -22,13 +22,6 @@ namespace MonoBehaviours.Screens
             SetUpButton(_mainPageButton, typeof(MainPageScreen));
             SetUpButton(_statePageButton, typeof(StatePageScreen));
             SetUpButton(_timePageButton, typeof(TimePageScreen));
-        }
-
-        private void SetUpButton(NavigationPanelToggleButton button, Type pageType)
-        {
-            button.SetSelected(_pagesLayerMediator.CurrentPageType == pageType);
-            _buttonByType.Add(pageType, button);
-            button.AddClickListener(() => _pagesLayerMediator.ShowPage(pageType));
         }
 
         private void Start()
@@ -47,6 +40,13 @@ namespace MonoBehaviours.Screens
         private void OnDisable()
         {
             _pagesLayerMediator.changePageEvent -= Refresh;
+        }
+
+        private void SetUpButton(NavigationPanelToggleButton button, Type pageType)
+        {
+            button.SetSelected(_pagesLayerMediator.CurrentPageType == pageType);
+            _buttonByType.Add(pageType, button);
+            button.AddClickListener(() => _pagesLayerMediator.ShowPage(pageType));
         }
 
         private void Refresh()

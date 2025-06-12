@@ -1,6 +1,6 @@
 using System;
-using JetBrains.Annotations;
 using Data.Constants;
+using JetBrains.Annotations;
 using Zenject;
 
 namespace Mediators
@@ -9,9 +9,9 @@ namespace Mediators
     public class PagesLayerMediator
     {
         [Inject] private LayersMediator _layersMediator;
+        public Type CurrentPageType { get; private set; }
 
         public event Action changePageEvent;
-        public Type CurrentPageType { get; private set; }
 
         public void ShowPage(Type pageScreenType)
         {

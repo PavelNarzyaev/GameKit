@@ -1,6 +1,8 @@
+using System;
+
 namespace Data
 {
-    [System.Serializable]
+    [Serializable]
     public class State
     {
         public string userId;

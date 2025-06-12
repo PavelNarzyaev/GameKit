@@ -18,8 +18,8 @@ namespace MonoBehaviours.Screens
         [SerializeField] private Button _resetButton;
 
         [Inject] private LocalStateProxy _localStateProxy;
-        [Inject] private StateClipboardProxy _stateClipboardProxy;
         [Inject] private ResetStateCommand _resetStateCommand;
+        [Inject] private StateClipboardProxy _stateClipboardProxy;
 
         private void Awake()
         {
@@ -36,7 +36,8 @@ namespace MonoBehaviours.Screens
             _userId.SetValueText(state.userId);
 
             _firstLaunchTime.SetTitleText("First Launch");
-            _firstLaunchTime.SetValueText(TimestampUtility.ConvertTimestampToReadableString(state.firstLaunchTimestamp));
+            _firstLaunchTime.SetValueText(
+                TimestampUtility.ConvertTimestampToReadableString(state.firstLaunchTimestamp));
 
             _launchCount.SetTitleText("Launch Count");
             _launchCount.SetValueText(state.launchesCounter.ToString(CultureInfo.InvariantCulture));

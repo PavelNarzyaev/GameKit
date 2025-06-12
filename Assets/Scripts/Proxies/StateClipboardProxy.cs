@@ -1,5 +1,5 @@
-using UnityEngine;
 using JetBrains.Annotations;
+using UnityEngine;
 using Zenject;
 
 namespace Proxies
