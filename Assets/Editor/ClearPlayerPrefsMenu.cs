@@ -1,8 +1,10 @@
-﻿using UnityEditor;
+﻿using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 
 namespace Editor
 {
+    [UsedImplicitly]
     public class ClearPlayerPrefsMenu
     {
         [MenuItem("GameKit/Clear PlayerPrefs", false, 100)]
