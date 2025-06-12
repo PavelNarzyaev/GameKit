@@ -33,8 +33,16 @@ namespace Proxies
 
         public void Set(string json)
         {
-            // TODO: add try/catch block and loading error popup
-            data = JsonUtility.FromJson<State>(json);
+            try
+            {
+                data = JsonUtility.FromJson<State>(json);
+            }
+            catch
+            {
+                // TODO: show loading error popup
+                Debug.Log("Failed to load state");
+                throw;
+            }
 
             SaveJsonToFile(json);
             refreshFromJsonEvent?.Invoke();
