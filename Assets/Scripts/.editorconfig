@@ -7,9 +7,12 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 end_of_line = lf
 charset = utf-8
-dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggestion
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:warning
 
-# rules from https://unity.com/how-to/formatting-best-practices-c-scripting-unity
+###################################################################################
+# Rules from https://unity.com/how-to/formatting-best-practices-c-scripting-unity #
+###################################################################################
+
 csharp_prefer_braces = true:error
 csharp_new_line_before_open_brace = all
 csharp_new_line_before_else = true
@@ -23,3 +26,36 @@ csharp_space_after_keywords_in_control_flow_statements = true
 csharp_space_around_binary_operators = before_and_after
 csharp_indent_case_contents = true
 max_line_length = 120
+
+##############################################################################
+# Rules, based on https://unity.com/ru/resources/c-sharp-style-guide-unity-6 #
+##############################################################################
+
+# Rule: Private instance fields should be m_camelCase
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+dotnet_naming_style.m_camel_case.required_prefix = m_
+dotnet_naming_style.m_camel_case.capitalization = camel_case
+dotnet_naming_rule.private_fields_are_m_camel_case.symbols = private_fields
+dotnet_naming_rule.private_fields_are_m_camel_case.style = m_camel_case
+dotnet_naming_rule.private_fields_are_m_camel_case.severity = warning
+
+# Rule: Private static fields should be s_camelCase
+dotnet_naming_symbols.private_static_fields.applicable_kinds = field
+dotnet_naming_symbols.private_static_fields.applicable_accessibilities = private
+dotnet_naming_symbols.private_static_fields.required_modifiers = static
+dotnet_naming_style.s_camel_case.required_prefix = s_
+dotnet_naming_style.s_camel_case.capitalization = camel_case
+dotnet_naming_rule.private_static_fields_are_s_camel_case.symbols = private_static_fields
+dotnet_naming_rule.private_static_fields_are_s_camel_case.style = s_camel_case
+dotnet_naming_rule.private_static_fields_are_s_camel_case.severity = warning
+
+# Rule: Private constants should be k_PascalCase
+dotnet_naming_symbols.private_constants.applicable_kinds = field
+dotnet_naming_symbols.private_constants.applicable_accessibilities = private
+dotnet_naming_symbols.private_constants.required_modifiers = const
+dotnet_naming_style.k_pascal_case.required_prefix = k_
+dotnet_naming_style.k_pascal_case.capitalization = pascal_case
+dotnet_naming_rule.private_constants_are_k_pascal_case.symbols = private_constants
+dotnet_naming_rule.private_constants_are_k_pascal_case.style = k_pascal_case
+dotnet_naming_rule.private_constants_are_k_pascal_case.severity = warning
