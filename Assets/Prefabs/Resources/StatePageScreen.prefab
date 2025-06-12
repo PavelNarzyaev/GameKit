@@ -82,12 +82,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 639622b74a1c469588035d730da2a5a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _userId: {fileID: 2837266121235110580}
-  _firstLaunchTime: {fileID: 7187365856244514791}
-  _launchCount: {fileID: 4380862531955787552}
-  _copyToClipboardButton: {fileID: 4046377377736133553}
-  _pasteFromClipboardButton: {fileID: 3208610507325687006}
-  _resetButton: {fileID: 4207127091416457503}
+  userId: {fileID: 2837266121235110580}
+  firstLaunchTime: {fileID: 7187365856244514791}
+  launchCount: {fileID: 4380862531955787552}
+  copyToClipboardButton: {fileID: 4046377377736133553}
+  pasteFromClipboardButton: {fileID: 3208610507325687006}
+  resetButton: {fileID: 4207127091416457503}
 --- !u!114 &8768094022918675555
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,7 +3,6 @@ using Commands;
 using Data;
 using Proxies;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Utilities;
 using Zenject;
@@ -12,12 +11,12 @@ namespace MonoBehaviours.Screens
 {
     public class StatePageScreen : ScreenAbstract
     {
-        [FormerlySerializedAs("_userId")] [SerializeField] private DebugValue userId;
-        [FormerlySerializedAs("_firstLaunchTime")] [SerializeField] private DebugValue firstLaunchTime;
-        [FormerlySerializedAs("_launchCount")] [SerializeField] private DebugValue launchCount;
-        [FormerlySerializedAs("_copyToClipboardButton")] [SerializeField] private Button copyToClipboardButton;
-        [FormerlySerializedAs("_pasteFromClipboardButton")] [SerializeField] private Button pasteFromClipboardButton;
-        [FormerlySerializedAs("_resetButton")] [SerializeField] private Button resetButton;
+        [SerializeField] private DebugValue userId;
+        [SerializeField] private DebugValue firstLaunchTime;
+        [SerializeField] private DebugValue launchCount;
+        [SerializeField] private Button copyToClipboardButton;
+        [SerializeField] private Button pasteFromClipboardButton;
+        [SerializeField] private Button resetButton;
 
         [Inject] private LocalStateProxy m_localStateProxy;
         [Inject] private ResetStateCommand m_resetStateCommand;

@@ -2,16 +2,15 @@ using System;
 using System.Collections.Generic;
 using Mediators;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace MonoBehaviours.Screens
 {
     public class NavigationPanelScreen : ScreenAbstract
     {
-        [FormerlySerializedAs("_mainPageButton")] [SerializeField] private NavigationPanelToggleButton mainPageButton;
-        [FormerlySerializedAs("_statePageButton")] [SerializeField] private NavigationPanelToggleButton statePageButton;
-        [FormerlySerializedAs("_timePageButton")] [SerializeField] private NavigationPanelToggleButton timePageButton;
+        [SerializeField] private NavigationPanelToggleButton mainPageButton;
+        [SerializeField] private NavigationPanelToggleButton statePageButton;
+        [SerializeField] private NavigationPanelToggleButton timePageButton;
 
         private readonly Dictionary<Type, NavigationPanelToggleButton> m_buttonByType = new();
 

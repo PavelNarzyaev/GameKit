@@ -4,14 +4,13 @@ using Data.Constants;
 using Mediators;
 using MonoBehaviours.Screens;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace MonoBehaviours
 {
     public class Layers : MonoBehaviour
     {
-        [FormerlySerializedAs("_rectTransform")] [SerializeField] private RectTransform rectTransform;
+        [SerializeField] private RectTransform rectTransform;
         private readonly Dictionary<Type, ScreenAbstract> m_screenPrefabByType = new();
 
         private readonly Dictionary<string, RectTransform> m_transformByLayerName = new();

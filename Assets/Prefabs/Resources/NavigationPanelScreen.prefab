@@ -332,9 +332,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 930f955078a34353b5598bb8a9d5bde1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainPageButton: {fileID: 7644544127593506229}
-  _statePageButton: {fileID: 123251605792587713}
-  _timePageButton: {fileID: 6979746764870950582}
+  mainPageButton: {fileID: 7644544127593506229}
+  statePageButton: {fileID: 123251605792587713}
+  timePageButton: {fileID: 6979746764870950582}
 --- !u!114 &2577172837180750602
 MonoBehaviour:
   m_ObjectHideFlags: 0

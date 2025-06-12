@@ -1,6 +1,5 @@
 using Proxies;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utilities;
 using Zenject;
 
@@ -8,7 +7,7 @@ namespace MonoBehaviours.Screens
 {
     public class TimePageScreen : ScreenAbstract
     {
-        [FormerlySerializedAs("_currentTime")] [SerializeField] private DebugValue currentTime;
+        [SerializeField] private DebugValue currentTime;
 
         [Inject] private CurrentTimeProxy m_currentTimeProxy;
 

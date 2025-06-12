@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83234e9e8fb74b279d4b86be0194a2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _showNavigationPopupButton: {fileID: 6536347110802765912}
+  showNavigationPopupButton: {fileID: 6536347110802765912}
 --- !u!114 &8357298084234491776
 MonoBehaviour:
   m_ObjectHideFlags: 0
