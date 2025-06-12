@@ -67,13 +67,13 @@ namespace MonoBehaviours
                 }
 
                 var screenPrefab = m_diContainer.InstantiatePrefabResource(screenType.Name, layerTransform);
-                if (screenPrefab == null)
+                if (!screenPrefab)
                 {
                     throw new Exception($"Prefab for screen «{screenType}» is not found");
                 }
 
                 var screenComponent = screenPrefab.GetComponent<ScreenAbstract>();
-                if (screenComponent == null)
+                if (!screenComponent)
                 {
                     throw new Exception($"Screen prefab must have a «{nameof(ScreenAbstract)}» component.");
                 }
@@ -110,7 +110,7 @@ namespace MonoBehaviours
             m_screenPrefabByType.Clear();
         }
 
-        private void DestroyPrefab(GameObject prefab)
+        private static void DestroyPrefab(GameObject prefab)
         {
             prefab.SetActive(false);
             Destroy(prefab);

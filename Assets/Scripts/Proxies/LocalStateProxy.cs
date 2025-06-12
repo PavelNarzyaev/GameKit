@@ -54,7 +54,7 @@ namespace Proxies
             IsDirty = false;
         }
 
-        public bool CheckIfExists()
+        public static bool CheckIfExists()
         {
             return File.Exists(GetFilePath());
         }
@@ -65,7 +65,7 @@ namespace Proxies
             Data = JsonUtility.FromJson<State>(json);
         }
 
-        public string Get()
+        public static string Get()
         {
             var encryptedJson = File.ReadAllText(GetFilePath());
             return EncryptionUtility.Decrypt(encryptedJson);

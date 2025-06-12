@@ -9,7 +9,7 @@ namespace Utilities
             return new DateTimeOffset(dateTime, TimeSpan.Zero).ToUnixTimeSeconds();
         }
 
-        public static DateTime ConvertTimestampToLocalDateTime(long timestamp)
+        private static DateTime ConvertTimestampToLocalDateTime(long timestamp)
         {
             return DateTimeOffset.FromUnixTimeSeconds(timestamp).LocalDateTime;
         }

@@ -51,7 +51,7 @@ namespace MonoBehaviours.Screens
 
         private void Refresh()
         {
-            if (m_selectedButton != null)
+            if (m_selectedButton)
             {
                 m_selectedButton.SetSelected(false);
             }

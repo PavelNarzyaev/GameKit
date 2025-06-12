@@ -11,7 +11,7 @@ namespace Proxies
 
         public void CopyStateToClipboard()
         {
-            UniClipboard.SetText(m_localStateProxy.Get());
+            UniClipboard.SetText(LocalStateProxy.Get());
             Debug.Log("User state is copied to clipboard");
         }
 

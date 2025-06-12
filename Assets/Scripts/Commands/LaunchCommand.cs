@@ -13,7 +13,7 @@ namespace Commands
 
         public void Execute()
         {
-            var isFirstLaunch = !m_localStateProxy.CheckIfExists();
+            var isFirstLaunch = !LocalStateProxy.CheckIfExists();
             if (isFirstLaunch)
             {
                 m_initializeStateCommand.Execute();

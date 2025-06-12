@@ -20,7 +20,7 @@ namespace Controllers
             catch (Exception e)
             {
                 // TODO: show launch error popup
-                Debug.Log("Launch error");
+                Debug.Log($"Launch error: «{e.Message}»");
             }
         }
     }
