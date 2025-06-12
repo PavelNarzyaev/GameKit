@@ -1,5 +1,6 @@
 using System.Globalization;
 using Commands;
+using Data;
 using Proxies;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,13 +33,27 @@ namespace MonoBehaviours.Screens
         {
             var state = _localStateProxy.data;
 
+            SetUpUserId(state);
+            SetUpFirstLaunchTime(state);
+            SetUpLaunchCount(state);
+        }
+
+        private void SetUpUserId(State state)
+        {
             _userId.SetTitleText("User Id");
             _userId.SetValueText(state.userId);
+        }
 
+        private void SetUpFirstLaunchTime(State state)
+        {
             _firstLaunchTime.SetTitleText("First Launch");
-            _firstLaunchTime.SetValueText(
-                TimestampUtility.ConvertTimestampToReadableString(state.firstLaunchTimestamp));
+            var timestamp = state.firstLaunchTimestamp;
+            var readableTime = TimestampUtility.ConvertTimestampToReadableString(timestamp);
+            _firstLaunchTime.SetValueText(readableTime);
+        }
 
+        private void SetUpLaunchCount(State state)
+        {
             _launchCount.SetTitleText("Launch Count");
             _launchCount.SetValueText(state.launchesCounter.ToString(CultureInfo.InvariantCulture));
         }
