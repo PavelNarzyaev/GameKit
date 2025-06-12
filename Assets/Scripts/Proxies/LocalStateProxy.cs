@@ -41,7 +41,6 @@ namespace Proxies
             {
                 // TODO: show loading error popup
                 Debug.Log("Failed to load state");
-                throw;
             }
 
             SaveJsonToFile(json);

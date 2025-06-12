@@ -1,5 +1,7 @@
+using System;
 using Commands;
 using JetBrains.Annotations;
+using UnityEngine;
 using Zenject;
 
 namespace Controllers
@@ -11,15 +13,15 @@ namespace Controllers
 
         public void Initialize()
         {
-            // try
-            // {
-            m_launchCommand.Execute();
-            // }
-            // catch (Exception e)
-            // {
-            // TODO: show launch error popup
-            // throw;
-            // }
+            try
+            {
+                m_launchCommand.Execute();
+            }
+            catch (Exception e)
+            {
+                // TODO: show launch error popup
+                Debug.Log("Launch error");
+            }
         }
     }
 }
