@@ -14,8 +14,8 @@ namespace Proxies
         [Inject]
         private void Inject()
         {
-            _startupTimestamp = TimestampUtility.ConvertDatetimeToTimestamp(DateTime.UtcNow) -
-                                (int)Time.realtimeSinceStartup;
+            var currentTimestamp = TimestampUtility.ConvertDatetimeToTimestamp(DateTime.UtcNow);
+            _startupTimestamp = currentTimestamp - (int)Time.realtimeSinceStartup;
         }
 
         public long GetTimestamp()
