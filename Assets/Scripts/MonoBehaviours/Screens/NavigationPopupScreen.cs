@@ -22,7 +22,7 @@ namespace MonoBehaviours.Screens
             SetUpButton(statePageButton, typeof(StatePageScreen));
             SetUpButton(timePageButton, typeof(TimePageScreen));
 
-            closeButton.onClick.AddListener(m_popupsLayerMediator.CloseNavigationPopup);
+            closeButton.onClick.AddListener(m_popupsLayerMediator.Close<NavigationPopupScreen>);
         }
 
         private void SetUpButton(Button button, Type pageType)

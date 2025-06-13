@@ -12,7 +12,7 @@ namespace MonoBehaviours.Screens
 
         private void Awake()
         {
-            showNavigationPopupButton.onClick.AddListener(m_popupsLayerMediator.ShowNavigationPopup);
+            showNavigationPopupButton.onClick.AddListener(m_popupsLayerMediator.Open<NavigationPopupScreen>);
         }
     }
 }

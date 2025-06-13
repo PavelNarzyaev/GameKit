@@ -9,17 +9,28 @@ namespace Mediators
     public class PopupsLayerMediator
     {
         [Inject] private LayersMediator m_layersMediator;
+        private int m_popupsCounter;
 
-        public void ShowNavigationPopup()
+        public void Open<T>() where T : ScreenAbstract
         {
-            m_layersMediator.ShowScreen(typeof(PopupShadeScreen), Layer.Popups);
-            m_layersMediator.ShowScreen(typeof(NavigationPopupScreen), Layer.Popups);
+            if (m_popupsCounter == 0)
+            {
+                m_layersMediator.ShowScreen(typeof(PopupShadeScreen), Layer.Popups);
+            }
+
+            m_layersMediator.ShowScreen(typeof(T), Layer.Popups);
+            m_popupsCounter++;
         }
 
-        public void CloseNavigationPopup()
+        public void Close<T>() where T : ScreenAbstract
         {
-            m_layersMediator.HideScreenIfExists(typeof(PopupShadeScreen));
-            m_layersMediator.HideScreenIfExists(typeof(NavigationPopupScreen));
+            m_layersMediator.HideScreenIfExists(typeof(T));
+            m_popupsCounter--;
+
+            if (m_popupsCounter == 0)
+            {
+                m_layersMediator.HideScreenIfExists(typeof(PopupShadeScreen));
+            }
         }
     }
 }

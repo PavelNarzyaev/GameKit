@@ -12,7 +12,7 @@ namespace MonoBehaviours.Screens
 
         private void OnEnable()
         {
-            button.onClick.AddListener(m_popupsLayerMediator.CloseNavigationPopup);
+            button.onClick.AddListener(m_popupsLayerMediator.Close<NavigationPopupScreen>);
         }
 
         private void OnDisable()
