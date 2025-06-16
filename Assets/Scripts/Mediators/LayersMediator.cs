@@ -10,6 +10,7 @@ namespace Mediators
         public event Action<Type, Layer> ShowScreenEvent;
         public event Action<Type> HideScreenIfExistsEvent;
         public event Action DestroyAllScreensEvent;
+        public event Action<Type, int> SetScreenIndexEvent;
 
         public void ShowScreen(Type screenType, Layer layer)
         {
@@ -24,6 +25,11 @@ namespace Mediators
         public void DestroyAllScreens()
         {
             DestroyAllScreensEvent?.Invoke();
+        }
+
+        public void SetScreenIndex(Type type, int index)
+        {
+            SetScreenIndexEvent?.Invoke(type, index);
         }
     }
 }

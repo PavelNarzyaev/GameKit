@@ -13,7 +13,7 @@ namespace MonoBehaviours
         [SerializeField] private RectTransform rectTransform;
         private readonly Dictionary<Type, ScreenAbstract> m_screenPrefabByType = new();
 
-        private readonly Dictionary<string, RectTransform> m_transformByLayerName = new();
+        private readonly Dictionary<Layer, RectTransform> m_transformByLayerName = new();
         [Inject] private DiContainer m_diContainer;
 
         [Inject] private LayersMediator m_layersMediator;
@@ -35,7 +35,7 @@ namespace MonoBehaviours
                 layerRectTransform.offsetMin = Vector2.zero;
                 layerRectTransform.offsetMax = Vector2.zero;
 
-                m_transformByLayerName.Add(layerName, layerRectTransform);
+                m_transformByLayerName.Add((Layer)layer, layerRectTransform);
             }
         }
 
@@ -44,6 +44,7 @@ namespace MonoBehaviours
             m_layersMediator.ShowScreenEvent += ShowScreenHandler;
             m_layersMediator.HideScreenIfExistsEvent += HideScreenIfExistsHandler;
             m_layersMediator.DestroyAllScreensEvent += DestroyAllScreensHandler;
+            m_layersMediator.SetScreenIndexEvent += SetScreenIndexHandler;
         }
 
         private void OnDisable()
@@ -51,9 +52,10 @@ namespace MonoBehaviours
             m_layersMediator.ShowScreenEvent -= ShowScreenHandler;
             m_layersMediator.HideScreenIfExistsEvent -= HideScreenIfExistsHandler;
             m_layersMediator.DestroyAllScreensEvent -= DestroyAllScreensHandler;
+            m_layersMediator.SetScreenIndexEvent -= SetScreenIndexHandler;
         }
 
-        private void ShowScreenHandler(Type screenType, Layer layerName)
+        private void ShowScreenHandler(Type screenType, Layer layer)
         {
             if (m_screenPrefabByType.TryGetValue(screenType, out var screen))
             {
@@ -61,7 +63,7 @@ namespace MonoBehaviours
             }
             else
             {
-                if (!m_transformByLayerName.TryGetValue(layerName.ToString(), out var layerTransform))
+                if (!m_transformByLayerName.TryGetValue(layer, out var layerTransform))
                 {
                     throw new Exception($"Rect transform for screen «{screenType}» is not found");
                 }
@@ -108,6 +110,11 @@ namespace MonoBehaviours
             }
 
             m_screenPrefabByType.Clear();
+        }
+
+        private void SetScreenIndexHandler(Type screenType, int index)
+        {
+            m_screenPrefabByType[screenType].transform.SetSiblingIndex(index);
         }
 
         private static void DestroyPrefab(GameObject prefab)

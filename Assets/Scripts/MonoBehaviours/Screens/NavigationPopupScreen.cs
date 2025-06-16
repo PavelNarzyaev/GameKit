@@ -11,6 +11,7 @@ namespace MonoBehaviours.Screens
         [SerializeField] private Button mainPageButton;
         [SerializeField] private Button statePageButton;
         [SerializeField] private Button timePageButton;
+        [SerializeField] private Button popupButton;
         [SerializeField] private Button closeButton;
 
         [Inject] private PagesLayerMediator m_pagesLayerMediator;
@@ -21,7 +22,7 @@ namespace MonoBehaviours.Screens
             SetUpButton(mainPageButton, typeof(MainPageScreen));
             SetUpButton(statePageButton, typeof(StatePageScreen));
             SetUpButton(timePageButton, typeof(TimePageScreen));
-
+            popupButton.onClick.AddListener(m_popupsLayerMediator.Open<ModalPopupScreen>);
             closeButton.onClick.AddListener(m_popupsLayerMediator.Close<NavigationPopupScreen>);
         }
 
