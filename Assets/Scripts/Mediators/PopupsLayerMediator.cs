@@ -14,7 +14,7 @@ namespace Mediators
         [Inject] private LayersMediator m_layersMediator;
         private readonly List<Type> m_stack = new();
         public bool IsLastPopupModal;
-        public event Action ChangeEvent;
+        public event Action<Type> TopPopupChangedEvent;
 
         public void Open<T>() where T : ScreenAbstract
         {
@@ -24,9 +24,9 @@ namespace Mediators
             }
 
             m_layersMediator.ShowScreen(typeof(T), Layer.Popups);
+            TopPopupChangedEvent?.Invoke(typeof(T));
             m_stack.Add(typeof(T));
             RefreshShadeIndex();
-            ChangeEvent?.Invoke();
         }
 
         public void Close<T>() where T : ScreenAbstract
@@ -46,18 +46,13 @@ namespace Mediators
             else
             {
                 RefreshShadeIndex();
+                TopPopupChangedEvent?.Invoke(m_stack.Last());
             }
-            ChangeEvent?.Invoke();
         }
 
         public void CloseLastOpened()
         {
             Close(m_stack.Last());
-        }
-
-        public Type LastOpenedPopup()
-        {
-            return m_stack.Last();
         }
 
         private void RefreshShadeIndex()

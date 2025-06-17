@@ -1,5 +1,5 @@
-﻿using Mediators;
-using UnityEngine;
+﻿using System;
+using Mediators;
 using Zenject;
 
 namespace MonoBehaviours.Screens
@@ -10,17 +10,17 @@ namespace MonoBehaviours.Screens
 
         private void OnEnable()
         {
-            m_popupsLayerMediator.ChangeEvent += ChangeHandler;
+            m_popupsLayerMediator.TopPopupChangedEvent += TopPopupChangedHandler;
         }
 
         private void OnDisable()
         {
-            m_popupsLayerMediator.ChangeEvent -= ChangeHandler;
+            m_popupsLayerMediator.TopPopupChangedEvent -= TopPopupChangedHandler;
         }
 
-        private void ChangeHandler()
+        private void TopPopupChangedHandler(Type type)
         {
-            if (m_popupsLayerMediator.LastOpenedPopup() != GetType())
+            if (type != GetType())
             {
                 return;
             }
