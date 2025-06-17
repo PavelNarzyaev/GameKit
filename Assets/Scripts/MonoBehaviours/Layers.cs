@@ -69,16 +69,29 @@ namespace MonoBehaviours
                     throw new Exception($"Rect transform for screen «{screenType}» is not found");
                 }
 
-                var handle = Addressables.LoadAssetAsync<GameObject>(screenType.Name);
-                var prefab = handle.WaitForCompletion();
+                GameObject prefab = null;
+                try
+                {
+                    var handle = Addressables.LoadAssetAsync<GameObject>(screenType.Name);
+                    prefab = handle.WaitForCompletion();
+                    Addressables.Release(handle);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogWarning($"Addressables failed to load {screenType.Name}: {e.Message}");
+                }
+
                 if (!prefab)
                 {
-                    Addressables.Release(handle);
+                    prefab = Resources.Load<GameObject>(screenType.Name);
+                }
+
+                if (!prefab)
+                {
                     throw new Exception($"Prefab for screen «{screenType}» is not found");
                 }
 
                 var screenPrefab = m_diContainer.InstantiatePrefab(prefab, layerTransform);
-                Addressables.Release(handle);
 
                 var screenComponent = screenPrefab.GetComponent<ScreenAbstract>();
                 if (!screenComponent)
