@@ -12,7 +12,15 @@ namespace MonoBehaviours.Screens
 
         private void OnEnable()
         {
-            button.onClick.AddListener(m_popupsLayerMediator.CloseLastOpened);
+            button.onClick.AddListener(OnClick);
+        }
+
+        private void OnClick()
+        {
+            if (!m_popupsLayerMediator.IsLastPopupModal)
+            {
+                m_popupsLayerMediator.CloseLastOpened();
+            }
         }
 
         private void OnDisable()

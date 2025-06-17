@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MonoBehaviours.Screens
 {
-    public class ModalPopupScreen : ScreenAbstract
+    public class ModalPopupScreen : PopupScreenBase
     {
         [SerializeField] private Button closeButton;
         [Inject] private PopupsLayerMediator m_popupsLayerMediator;
@@ -13,6 +13,11 @@ namespace MonoBehaviours.Screens
         private void Awake()
         {
             closeButton.onClick.AddListener(m_popupsLayerMediator.Close<ModalPopupScreen>);
+        }
+
+        protected override bool IsModal()
+        {
+            return true;
         }
     }
 }

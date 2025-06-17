@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MonoBehaviours.Screens
 {
-    public class NavigationPopupScreen : ScreenAbstract
+    public class NavigationPopupScreen : PopupScreenBase
     {
         [SerializeField] private Button mainPageButton;
         [SerializeField] private Button statePageButton;
