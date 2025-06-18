@@ -5,7 +5,8 @@
     "Unity.TextMeshPro",
     "Shapes2D",
     "UniClipboard",
-    "SafeArea"
+    "SafeArea",
+    "Unity.Addressables"
   ],
   "optionalUnityReferences": [
   ],
