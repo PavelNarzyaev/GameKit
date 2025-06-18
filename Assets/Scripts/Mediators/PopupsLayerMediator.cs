@@ -16,7 +16,7 @@ namespace Mediators
         public bool IsLastPopupModal;
         public event Action<Type> TopPopupChangedEvent;
 
-        public void Open<T>() where T : ScreenAbstract
+        public void Open<T>() where T : PopupScreenBase
         {
             if (m_stack.Count == 0)
             {
@@ -29,7 +29,7 @@ namespace Mediators
             RefreshShadeIndex();
         }
 
-        public void Close<T>() where T : ScreenAbstract
+        public void Close<T>() where T : PopupScreenBase
         {
             Close(typeof(T));
         }
