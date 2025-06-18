@@ -3,9 +3,11 @@
   "references": [
     "Zenject",
     "Unity.TextMeshPro",
-    "Shapes2D",
+    "Shapes2D.Runtime",
     "UniClipboard",
-    "SafeArea"
+    "SafeArea",
+    "Unity.Addressables",
+    "Unity.ResourceManager"
   ],
   "optionalUnityReferences": [
   ],

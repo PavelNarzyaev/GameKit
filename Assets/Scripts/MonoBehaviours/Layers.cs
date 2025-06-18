@@ -4,6 +4,7 @@ using Data.Constants;
 using Mediators;
 using MonoBehaviours.Screens;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using Zenject;
 
 namespace MonoBehaviours
@@ -68,13 +69,18 @@ namespace MonoBehaviours
                     throw new Exception($"Rect transform for screen «{screenType}» is not found");
                 }
 
-                var screenPrefab = m_diContainer.InstantiatePrefabResource(screenType.Name, layerTransform);
+                var asyncOperationHandle = Addressables.LoadAssetAsync<GameObject>(screenType.Name);
+                var screenPrefab = asyncOperationHandle.WaitForCompletion();
                 if (!screenPrefab)
                 {
+                    Addressables.Release(asyncOperationHandle);
                     throw new Exception($"Prefab for screen «{screenType}» is not found");
                 }
 
-                var screenComponent = screenPrefab.GetComponent<ScreenAbstract>();
+                var instantiatedScreen = m_diContainer.InstantiatePrefab(screenPrefab, layerTransform);
+                Addressables.Release(asyncOperationHandle);
+
+                var screenComponent = instantiatedScreen.GetComponent<ScreenAbstract>();
                 if (!screenComponent)
                 {
                     throw new Exception($"Screen prefab must have a «{nameof(ScreenAbstract)}» component.");
