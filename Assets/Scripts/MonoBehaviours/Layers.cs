@@ -12,11 +12,9 @@ namespace MonoBehaviours
     public class Layers : MonoBehaviour
     {
         [SerializeField] private RectTransform rectTransform;
-        private readonly Dictionary<Type, ScreenAbstract> m_screenPrefabByType = new();
-
+        private readonly Dictionary<Type, ScreenAbstract> m_screenByType = new();
         private readonly Dictionary<Layer, RectTransform> m_transformByLayerName = new();
         [Inject] private DiContainer m_diContainer;
-
         [Inject] private LayersMediator m_layersMediator;
 
         private void Awake()
@@ -58,7 +56,7 @@ namespace MonoBehaviours
 
         private void ShowScreenHandler(Type screenType, Layer layer)
         {
-            if (m_screenPrefabByType.TryGetValue(screenType, out var screen))
+            if (m_screenByType.TryGetValue(screenType, out var screen))
             {
                 screen.gameObject.SetActive(true);
             }
@@ -77,22 +75,22 @@ namespace MonoBehaviours
                     throw new Exception($"Prefab for screen «{screenType}» is not found");
                 }
 
-                var instantiatedScreen = m_diContainer.InstantiatePrefab(screenPrefab, layerTransform);
+                var screenGameObject = m_diContainer.InstantiatePrefab(screenPrefab, layerTransform);
                 Addressables.Release(asyncOperationHandle);
 
-                var screenComponent = instantiatedScreen.GetComponent<ScreenAbstract>();
+                var screenComponent = screenGameObject.GetComponent<ScreenAbstract>();
                 if (!screenComponent)
                 {
                     throw new Exception($"Screen prefab must have a «{nameof(ScreenAbstract)}» component.");
                 }
 
-                m_screenPrefabByType.Add(screenType, screenComponent);
+                m_screenByType.Add(screenType, screenComponent);
             }
         }
 
         private void HideScreenIfExistsHandler(Type screenType)
         {
-            if (!m_screenPrefabByType.TryGetValue(screenType, out var screen))
+            if (!m_screenByType.TryGetValue(screenType, out var screen))
             {
                 return;
             }
@@ -103,30 +101,32 @@ namespace MonoBehaviours
             }
             else
             {
-                DestroyPrefab(screen.gameObject);
-                m_screenPrefabByType.Remove(screenType);
+                DestroyScreenGameObject(screen);
+                m_screenByType.Remove(screenType);
             }
         }
 
         private void DestroyAllScreensHandler()
         {
-            foreach (var screen in m_screenPrefabByType.Values)
+            foreach (var screen in m_screenByType.Values)
             {
-                DestroyPrefab(screen.gameObject);
+                DestroyScreenGameObject(screen);
             }
 
-            m_screenPrefabByType.Clear();
+            m_screenByType.Clear();
         }
 
         private void SetScreenIndexHandler(Type screenType, int index)
         {
-            m_screenPrefabByType[screenType].transform.SetSiblingIndex(index);
+            m_screenByType[screenType].transform.SetSiblingIndex(index);
         }
 
-        private static void DestroyPrefab(GameObject prefab)
+        private static void DestroyScreenGameObject(ScreenAbstract screen)
         {
-            prefab.SetActive(false);
-            Destroy(prefab);
+            var screenGameObject = screen.gameObject;
+            screenGameObject.SetActive(false);
+            Destroy(screenGameObject);
+            Addressables.ReleaseInstance(screenGameObject);
         }
     }
 }
