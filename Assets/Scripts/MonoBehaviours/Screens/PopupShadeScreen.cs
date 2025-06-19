@@ -17,9 +17,9 @@ namespace MonoBehaviours.Screens
 
         private void OnClick()
         {
-            if (!m_popupsLayerMediator.IsLastPopupModal)
+            if (!m_popupsLayerMediator.IsFrontPopupModal)
             {
-                m_popupsLayerMediator.CloseLastOpened();
+                m_popupsLayerMediator.CloseFront();
             }
         }
 

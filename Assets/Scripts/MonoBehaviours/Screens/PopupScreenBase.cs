@@ -10,22 +10,22 @@ namespace MonoBehaviours.Screens
 
         private void OnEnable()
         {
-            m_popupsLayerMediator.TopPopupChangedEvent += TopPopupChangedHandler;
+            m_popupsLayerMediator.FrontPopupChangedEvent += FrontPopupChangedHandler;
         }
 
         private void OnDisable()
         {
-            m_popupsLayerMediator.TopPopupChangedEvent -= TopPopupChangedHandler;
+            m_popupsLayerMediator.FrontPopupChangedEvent -= FrontPopupChangedHandler;
         }
 
-        private void TopPopupChangedHandler(Type type)
+        private void FrontPopupChangedHandler(Type type)
         {
             if (type != GetType())
             {
                 return;
             }
 
-            m_popupsLayerMediator.IsLastPopupModal = IsModal();
+            m_popupsLayerMediator.IsFrontPopupModal = IsModal();
         }
 
         protected virtual bool IsModal()
