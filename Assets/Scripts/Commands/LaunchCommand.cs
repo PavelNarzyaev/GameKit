@@ -1,5 +1,9 @@
+using System;
 using JetBrains.Annotations;
+using Mediators;
+using MonoBehaviours.Screens;
 using Proxies;
+using UnityEngine;
 using Zenject;
 
 namespace Commands
@@ -10,23 +14,34 @@ namespace Commands
         [Inject] private InitializeStateCommand m_initializeStateCommand;
         [Inject] private LocalStateProxy m_localStateProxy;
         [Inject] private ResetUiCommand m_resetUiCommand;
+        [Inject] private PopupsLayerMediator m_popupsLayerMediator;
 
         public void Execute()
         {
-            var isFirstLaunch = !LocalStateProxy.CheckIfExists();
-            if (isFirstLaunch)
+            try
             {
-                m_initializeStateCommand.Execute();
+                m_popupsLayerMediator.Reset();
+
+                var isFirstLaunch = !LocalStateProxy.CheckIfExists();
+                if (isFirstLaunch)
+                {
+                    m_initializeStateCommand.Execute();
+                }
+                else
+                {
+                    m_localStateProxy.Refresh();
+                }
+
+                m_localStateProxy.Data.launchesCounter++;
+                m_localStateProxy.MarkAsDirty();
+
+                m_resetUiCommand.Execute();
             }
-            else
+            catch (Exception e)
             {
-                m_localStateProxy.Refresh();
+                Debug.Log($"Launch error: «{e.Message}»");
+                m_popupsLayerMediator.Open<ErrorPopupScreen>();
             }
-
-            m_localStateProxy.Data.launchesCounter++;
-            m_localStateProxy.MarkAsDirty();
-
-            m_resetUiCommand.Execute();
         }
     }
 }

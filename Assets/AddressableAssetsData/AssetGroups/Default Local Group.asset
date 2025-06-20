@@ -30,6 +30,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6106670807338a440afda50f16d825c0
+    m_Address: ErrorPopupScreen
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 97ba8b8b52122b143b98c981e803f647
     m_Address: StatePageScreen
     m_ReadOnly: 0

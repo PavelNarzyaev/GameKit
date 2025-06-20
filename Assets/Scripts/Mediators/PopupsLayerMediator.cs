@@ -55,6 +55,12 @@ namespace Mediators
             Close(m_stack.Last());
         }
 
+        public void Reset()
+        {
+            m_stack.Clear();
+            IsFrontPopupModal = false;
+        }
+
         private void RefreshShadeIndex()
         {
             m_layersMediator.SetScreenIndex(typeof(PopupShadeScreen), m_stack.Count - 1);
