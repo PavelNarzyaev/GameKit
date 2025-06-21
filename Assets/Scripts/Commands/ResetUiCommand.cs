@@ -19,6 +19,9 @@ namespace Commands
             m_pagesLayerMediator.ShowPage(typeof(MainPageScreen));
             m_layersMediator.ShowScreen(typeof(NavigationPanelScreen), Layer.NavigationPanel);
             m_layersMediator.ShowScreen(typeof(DesignOverlayScreen), Layer.DesignOverlay);
+#if !PROD
+            m_layersMediator.ShowScreen(typeof(NotProdMarkScreen), Layer.NotProdMark);
+#endif
         }
     }
 }
