@@ -1,5 +1,6 @@
 #if !NOT_UNITY3D
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -127,7 +128,7 @@ namespace ModestTree.Util
 
         public static IEnumerable<GameObject> GetAllGameObjects()
         {
-            return GameObject.FindObjectsOfType<Transform>().Select(x => x.gameObject);
+            return GameObject.FindObjectsByType<Transform>(FindObjectsSortMode.None).Select(x => x.gameObject);
         }
 
         public static List<GameObject> GetAllRootGameObjects()
