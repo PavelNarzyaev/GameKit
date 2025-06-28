@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using System;
+using Data;
 using JetBrains.Annotations;
 using Zenject;
 
@@ -8,23 +9,38 @@ namespace Proxies
     public class CurrenciesProxy
     {
         [Inject] private LocalStateProxy m_localStateProxy;
+        public event Action SoftChangedEvent;
+        public event Action HardChangedEvent;
+        public event Action EnergyChangedEvent;
 
         public int Soft
         {
             get => Currencies.softCurrency;
-            private set => Currencies.softCurrency = value;
+            private set
+            {
+                Currencies.softCurrency = value;
+                SoftChangedEvent?.Invoke();
+            }
         }
 
         public int Hard
         {
             get => Currencies.hardCurrency;
-            private set => Currencies.hardCurrency = value;
+            private set
+            {
+                Currencies.hardCurrency = value;
+                HardChangedEvent?.Invoke();
+            }
         }
 
         public int Energy
         {
             get => Currencies.energy;
-            private set => Currencies.energy = value;
+            private set
+            {
+                Currencies.energy = value;
+                EnergyChangedEvent?.Invoke();
+            }
         }
 
         private Currencies Currencies => m_localStateProxy.Data.currencies;
