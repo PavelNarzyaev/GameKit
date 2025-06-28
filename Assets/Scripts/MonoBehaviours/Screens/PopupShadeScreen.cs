@@ -15,17 +15,17 @@ namespace MonoBehaviours.Screens
             button.onClick.AddListener(OnClick);
         }
 
+        private void OnDisable()
+        {
+            button.onClick.RemoveAllListeners();
+        }
+
         private void OnClick()
         {
             if (!m_popupsLayerMediator.IsFrontPopupModal)
             {
                 m_popupsLayerMediator.CloseFront();
             }
-        }
-
-        private void OnDisable()
-        {
-            button.onClick.RemoveAllListeners();
         }
 
         public override bool IsCached()

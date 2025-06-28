@@ -13,8 +13,8 @@ namespace Commands
     {
         [Inject] private InitializeStateCommand m_initializeStateCommand;
         [Inject] private LocalStateProxy m_localStateProxy;
-        [Inject] private ResetUiCommand m_resetUiCommand;
         [Inject] private PopupsLayerMediator m_popupsLayerMediator;
+        [Inject] private ResetUiCommand m_resetUiCommand;
 
         public void Execute()
         {

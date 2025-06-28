@@ -11,9 +11,9 @@ namespace Mediators
     [UsedImplicitly]
     public class PopupsLayerMediator
     {
-        [Inject] private LayersMediator m_layersMediator;
         private readonly List<Type> m_stack = new();
         public bool IsFrontPopupModal;
+        [Inject] private LayersMediator m_layersMediator;
         public event Action<Type> FrontPopupChangedEvent;
 
         public void Open<T>() where T : PopupScreenBase
