@@ -40,13 +40,11 @@ namespace MonoBehaviours.Screens
 
         private void SetUpUserId(State state)
         {
-            userId.SetTitleText("User Id");
             userId.SetValueText(state.userId);
         }
 
         private void SetUpFirstLaunchTime(State state)
         {
-            firstLaunchTime.SetTitleText("First Launch");
             var timestamp = state.firstLaunchTimestamp;
             var readableTime = TimestampUtility.ConvertTimestampToReadableString(timestamp);
             firstLaunchTime.SetValueText(readableTime);
@@ -54,7 +52,6 @@ namespace MonoBehaviours.Screens
 
         private void SetUpLaunchCount(State state)
         {
-            launchCount.SetTitleText("Launch Count");
             launchCount.SetValueText(state.launchesCounter.ToString(CultureInfo.InvariantCulture));
         }
 

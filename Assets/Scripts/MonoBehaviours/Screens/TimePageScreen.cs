@@ -13,7 +13,6 @@ namespace MonoBehaviours.Screens
 
         private void Start()
         {
-            currentTime.SetTitleText("Local Time");
             RefreshCurrentTime();
         }
 

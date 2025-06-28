@@ -101,6 +101,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7605072839016055119}
     m_Modifications:
+    - target: {fileID: 2711537618979806873, guid: d3e90e23e247efc49842eebe5a2c1b55, type: 3}
+      propertyPath: m_text
+      value: Local Time
+      objectReference: {fileID: 0}
     - target: {fileID: 3532193239342411554, guid: d3e90e23e247efc49842eebe5a2c1b55, type: 3}
       propertyPath: m_Name
       value: CurrentTime
