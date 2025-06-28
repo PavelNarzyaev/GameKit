@@ -11,6 +11,7 @@ namespace MonoBehaviours.Screens
         [SerializeField] private NavigationPanelToggleButton mainPageButton;
         [SerializeField] private NavigationPanelToggleButton statePageButton;
         [SerializeField] private NavigationPanelToggleButton timePageButton;
+        [SerializeField] private NavigationPanelToggleButton currenciesPageButton;
 
         private readonly Dictionary<Type, NavigationPanelToggleButton> m_buttonByType = new();
 
@@ -22,6 +23,7 @@ namespace MonoBehaviours.Screens
             SetUpButton(mainPageButton, typeof(MainPageScreen));
             SetUpButton(statePageButton, typeof(StatePageScreen));
             SetUpButton(timePageButton, typeof(TimePageScreen));
+            SetUpButton(currenciesPageButton, typeof(CurrenciesPageScreen));
         }
 
         private void Start()

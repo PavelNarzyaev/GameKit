@@ -8,5 +8,6 @@ namespace Data
         public string userId;
         public long firstLaunchTimestamp;
         public int launchesCounter;
+        public Currencies currencies = new();
     }
 }

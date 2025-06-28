@@ -16,9 +16,10 @@ namespace ScriptableObjects.Installers
             Container.Bind<LocalStateProxy>().AsSingle();
             Container.Bind<StateClipboardProxy>().AsSingle();
             Container.Bind<CurrentTimeProxy>().AsSingle();
-            Container.Bind<PopupsLayerMediator>().AsSingle();
+            Container.Bind<CurrenciesProxy>().AsSingle();
 
             // mediators
+            Container.Bind<PopupsLayerMediator>().AsSingle();
             Container.Bind<LayersMediator>().AsSingle();
             Container.Bind<PagesLayerMediator>().AsSingle();
 

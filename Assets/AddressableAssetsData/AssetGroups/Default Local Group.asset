@@ -50,6 +50,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: af4758169f2f91741a8dc7d9943eeb82
+    m_Address: CurrenciesPageScreen
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: af9decb835d927d4b814f67ba6ad3776
     m_Address: TimePageScreen
     m_ReadOnly: 0
