@@ -11,7 +11,7 @@ namespace Mediators
         [Inject] private LayersMediator m_layersMediator;
         public Type CurrentPageType { get; private set; }
 
-        public event Action ChangePageEvent;
+        public event Action ChangedPageEvent;
 
         public void ShowPage(Type pageScreenType)
         {
@@ -22,7 +22,7 @@ namespace Mediators
 
             m_layersMediator.ShowScreen(pageScreenType, Layer.Page);
             CurrentPageType = pageScreenType;
-            ChangePageEvent?.Invoke();
+            ChangedPageEvent?.Invoke();
         }
     }
 }

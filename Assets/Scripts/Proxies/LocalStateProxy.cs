@@ -14,7 +14,7 @@ namespace Proxies
 
         public State Data;
         public bool IsDirty { get; private set; }
-        public event Action RefreshFromJsonEvent;
+        public event Action RefreshedFromJsonEvent;
 
         private static string GetFilePath()
         {
@@ -35,7 +35,7 @@ namespace Proxies
         {
             Data = JsonUtility.FromJson<State>(json);
             SaveJsonToFile(json);
-            RefreshFromJsonEvent?.Invoke();
+            RefreshedFromJsonEvent?.Invoke();
         }
 
         private void SaveJsonToFile(string json)

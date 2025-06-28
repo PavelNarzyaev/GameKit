@@ -14,7 +14,7 @@ namespace Controllers
         [Inject]
         private void Inject()
         {
-            m_localStateProxy.RefreshFromJsonEvent += m_resetUiCommand.Execute;
+            m_localStateProxy.RefreshedFromJsonEvent += m_resetUiCommand.Execute;
         }
     }
 }

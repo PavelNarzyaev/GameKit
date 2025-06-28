@@ -36,12 +36,12 @@ namespace MonoBehaviours.Screens
 
         private void OnEnable()
         {
-            m_pagesLayerMediator.ChangePageEvent += Refresh;
+            m_pagesLayerMediator.ChangedPageEvent += Refresh;
         }
 
         private void OnDisable()
         {
-            m_pagesLayerMediator.ChangePageEvent -= Refresh;
+            m_pagesLayerMediator.ChangedPageEvent -= Refresh;
         }
 
         private void SetUpButton(NavigationPanelToggleButton button, Type pageType)
