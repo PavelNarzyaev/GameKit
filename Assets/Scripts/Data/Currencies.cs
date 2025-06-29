@@ -7,6 +7,5 @@ namespace Data
     {
         public int softCurrency;
         public int hardCurrency;
-        public int energy;
     }
 }

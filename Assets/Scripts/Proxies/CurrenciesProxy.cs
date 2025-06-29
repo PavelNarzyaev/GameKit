@@ -11,7 +11,6 @@ namespace Proxies
         [Inject] private LocalStateProxy m_localStateProxy;
         public event Action SoftChangedEvent;
         public event Action HardChangedEvent;
-        public event Action EnergyChangedEvent;
 
         public int Soft
         {
@@ -20,6 +19,7 @@ namespace Proxies
             {
                 Currencies.softCurrency = value;
                 SoftChangedEvent?.Invoke();
+                m_localStateProxy.MarkAsDirty();
             }
         }
 
@@ -30,16 +30,7 @@ namespace Proxies
             {
                 Currencies.hardCurrency = value;
                 HardChangedEvent?.Invoke();
-            }
-        }
-
-        public int Energy
-        {
-            get => Currencies.energy;
-            private set
-            {
-                Currencies.energy = value;
-                EnergyChangedEvent?.Invoke();
+                m_localStateProxy.MarkAsDirty();
             }
         }
 
@@ -84,27 +75,6 @@ namespace Proxies
             }
 
             Hard -= number;
-            return true;
-        }
-
-        public void AddEnergy(int number)
-        {
-            Energy += number;
-        }
-
-        public bool TryToSpendEnergy(int number)
-        {
-            if (number < 1)
-            {
-                return false;
-            }
-
-            if (Energy < number)
-            {
-                return false;
-            }
-
-            Energy -= number;
             return true;
         }
     }

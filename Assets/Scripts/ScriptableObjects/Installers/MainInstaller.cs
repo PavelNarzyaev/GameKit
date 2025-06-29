@@ -17,6 +17,7 @@ namespace ScriptableObjects.Installers
             Container.Bind<StateClipboardProxy>().AsSingle();
             Container.Bind<CurrentTimeProxy>().AsSingle();
             Container.Bind<CurrenciesProxy>().AsSingle();
+            Container.Bind<EnergyProxy>().AsSingle();
 
             // mediators
             Container.Bind<PopupsLayerMediator>().AsSingle();
