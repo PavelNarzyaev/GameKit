@@ -12,6 +12,8 @@ namespace MonoBehaviours.Screens
         [SerializeField] private Button remove1EnergyButton;
         [SerializeField] private Button add1EnergyButton;
         [SerializeField] private Button add10EnergyButton;
+        [SerializeField] private DebugValue lastRestorationDatetime;
+        [SerializeField] private DebugValue nextRestorationTimer;
         [Inject] private EnergyProxy m_energyProxy;
 
         private void Awake()
@@ -24,17 +26,29 @@ namespace MonoBehaviours.Screens
 
         private void OnEnable()
         {
-            Refresh();
+            RefreshLastRestorationDatetime();
+            RefreshNextRestorationTimer();
+            RefreshCurrentEnergy();
 
-            m_energyProxy.ChangedEvent += Refresh;
+            m_energyProxy.ChangedEvent += RefreshCurrentEnergy;
         }
 
         private void OnDisable()
         {
-            m_energyProxy.ChangedEvent -= Refresh;
+            m_energyProxy.ChangedEvent -= RefreshCurrentEnergy;
         }
 
-        private void Refresh()
+        private void RefreshLastRestorationDatetime()
+        {
+            lastRestorationDatetime.SetValueText("TODO");
+        }
+
+        private void RefreshNextRestorationTimer()
+        {
+            nextRestorationTimer.SetValueText("TODO");
+        }
+
+        private void RefreshCurrentEnergy()
         {
             energy.SetValueText(m_energyProxy.Energy.ToString());
         }
