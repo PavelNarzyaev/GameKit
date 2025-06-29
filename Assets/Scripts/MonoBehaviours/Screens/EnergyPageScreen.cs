@@ -7,11 +7,11 @@ namespace MonoBehaviours.Screens
 {
     public class EnergyPageScreen : ScreenAbstract
     {
-        [SerializeField] public DebugValue energy;
-        [SerializeField] public Button remove10EnergyButton;
-        [SerializeField] public Button remove1EnergyButton;
-        [SerializeField] public Button add1EnergyButton;
-        [SerializeField] public Button add10EnergyButton;
+        [SerializeField] private DebugValue energy;
+        [SerializeField] private Button remove10EnergyButton;
+        [SerializeField] private Button remove1EnergyButton;
+        [SerializeField] private Button add1EnergyButton;
+        [SerializeField] private Button add10EnergyButton;
         [Inject] private EnergyProxy m_energyProxy;
 
         private void Awake()

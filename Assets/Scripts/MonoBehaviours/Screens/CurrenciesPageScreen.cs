@@ -7,16 +7,16 @@ namespace MonoBehaviours.Screens
 {
     public class CurrenciesPageScreen : ScreenAbstract
     {
-        [SerializeField] public DebugValue coins;
-        [SerializeField] public Button remove10CoinsButton;
-        [SerializeField] public Button remove1CoinButton;
-        [SerializeField] public Button add1CoinButton;
-        [SerializeField] public Button add10CoinsButton;
-        [SerializeField] public DebugValue diamonds;
-        [SerializeField] public Button remove10DiamondsButton;
-        [SerializeField] public Button remove1DiamondButton;
-        [SerializeField] public Button add1DiamondButton;
-        [SerializeField] public Button add10DiamondsButton;
+        [SerializeField] private DebugValue coins;
+        [SerializeField] private Button remove10CoinsButton;
+        [SerializeField] private Button remove1CoinButton;
+        [SerializeField] private Button add1CoinButton;
+        [SerializeField] private Button add10CoinsButton;
+        [SerializeField] private DebugValue diamonds;
+        [SerializeField] private Button remove10DiamondsButton;
+        [SerializeField] private Button remove1DiamondButton;
+        [SerializeField] private Button add1DiamondButton;
+        [SerializeField] private Button add10DiamondsButton;
 
         [Inject] private CurrenciesProxy m_currenciesProxy;
 
