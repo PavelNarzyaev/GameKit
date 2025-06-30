@@ -32,6 +32,7 @@ namespace ScriptableObjects.Installers
 
             // controllers
             Container.BindInterfacesAndSelfTo<StateSavingController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<EnergyRestorationController>().AsSingle();
             Container.Bind<ResetUiController>().AsSingle().NonLazy();
             Container.BindInterfacesTo<EntryPointController>().AsSingle(); // entry point
         }

@@ -5,6 +5,9 @@ namespace Data
     [Serializable]
     public class EnergyData
     {
-        public int value;
+        public int energy;
+        public bool isRestorationInProgress;
+        public long restorationStartTimestamp;
+        public int restored;
     }
 }

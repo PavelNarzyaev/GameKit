@@ -14,9 +14,8 @@ namespace MonoBehaviours.Screens
         [SerializeField] private Button add1EnergyButton;
         [SerializeField] private Button add10EnergyButton;
         [SerializeField] private DebugValue oneEnergyRestorationSeconds;
-        [SerializeField] private DebugValue energyRestorationLimit;
-        [SerializeField] private DebugValue lastRestorationDatetime;
-        [SerializeField] private DebugValue nextRestorationTimer;
+        [SerializeField] private DebugValue restorationLimit;
+        [SerializeField] private DebugValue restorationTimer;
         [Inject] private EnergyProxy m_energyProxy;
         [Inject] private MainConfig m_mainConfig;
 
@@ -31,12 +30,15 @@ namespace MonoBehaviours.Screens
         private void OnEnable()
         {
             RefreshOneEnergyRestorationSeconds();
-            RefreshEnergyRestorationLimit();
-            RefreshLastRestorationDatetime();
-            RefreshNextRestorationTimer();
+            RefreshRestorationLimit();
             RefreshCurrentEnergy();
 
             m_energyProxy.ChangedEvent += RefreshCurrentEnergy;
+        }
+
+        private void Update()
+        {
+            RefreshRestorationTimer();
         }
 
         private void OnDisable()
@@ -49,19 +51,14 @@ namespace MonoBehaviours.Screens
             oneEnergyRestorationSeconds.SetValueText(m_mainConfig.oneEnergyRestorationSeconds.ToString());
         }
 
-        private void RefreshEnergyRestorationLimit()
+        private void RefreshRestorationLimit()
         {
-            energyRestorationLimit.SetValueText(m_mainConfig.energyRestorationLimit.ToString());
+            restorationLimit.SetValueText(m_mainConfig.energyRestorationLimit.ToString());
         }
 
-        private void RefreshLastRestorationDatetime()
+        private void RefreshRestorationTimer()
         {
-            lastRestorationDatetime.SetValueText("TODO");
-        }
-
-        private void RefreshNextRestorationTimer()
-        {
-            nextRestorationTimer.SetValueText("TODO");
+            restorationTimer.SetValueText(m_energyProxy.GetRestorationTimer().ToString());
         }
 
         private void RefreshCurrentEnergy()

@@ -9,6 +9,6 @@ namespace Data
         public long firstLaunchTimestamp;
         public int launchesCounter;
         public Currencies currencies = new();
-        public EnergyData energy = new();
+        public EnergyData energyData = new();
     }
 }

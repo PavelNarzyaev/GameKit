@@ -24,7 +24,7 @@ namespace Commands
             // TODO: <remove_temporary_code>
             m_localStateProxy.Data.currencies.softCurrency = Random.Range(1, 100);
             m_localStateProxy.Data.currencies.hardCurrency = Random.Range(1, 100);
-            m_localStateProxy.Data.energy.value = Random.Range(1, 100);
+            m_localStateProxy.Data.energyData.energy = Random.Range(1, 100);
             // TODO: </remove_temporary_code>
 
             m_localStateProxy.MarkAsDirty();
