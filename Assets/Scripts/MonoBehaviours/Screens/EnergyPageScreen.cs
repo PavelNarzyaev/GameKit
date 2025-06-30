@@ -1,4 +1,5 @@
 using Proxies;
+using ScriptableObjects.Configs;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -12,9 +13,12 @@ namespace MonoBehaviours.Screens
         [SerializeField] private Button remove1EnergyButton;
         [SerializeField] private Button add1EnergyButton;
         [SerializeField] private Button add10EnergyButton;
+        [SerializeField] private DebugValue oneEnergyRestorationSeconds;
+        [SerializeField] private DebugValue energyRestorationLimit;
         [SerializeField] private DebugValue lastRestorationDatetime;
         [SerializeField] private DebugValue nextRestorationTimer;
         [Inject] private EnergyProxy m_energyProxy;
+        [Inject] private MainConfig m_mainConfig;
 
         private void Awake()
         {
@@ -26,6 +30,8 @@ namespace MonoBehaviours.Screens
 
         private void OnEnable()
         {
+            RefreshOneEnergyRestorationSeconds();
+            RefreshEnergyRestorationLimit();
             RefreshLastRestorationDatetime();
             RefreshNextRestorationTimer();
             RefreshCurrentEnergy();
@@ -36,6 +42,16 @@ namespace MonoBehaviours.Screens
         private void OnDisable()
         {
             m_energyProxy.ChangedEvent -= RefreshCurrentEnergy;
+        }
+
+        private void RefreshOneEnergyRestorationSeconds()
+        {
+            oneEnergyRestorationSeconds.SetValueText(m_mainConfig.oneEnergyRestorationSeconds.ToString());
+        }
+
+        private void RefreshEnergyRestorationLimit()
+        {
+            energyRestorationLimit.SetValueText(m_mainConfig.energyRestorationLimit.ToString());
         }
 
         private void RefreshLastRestorationDatetime()

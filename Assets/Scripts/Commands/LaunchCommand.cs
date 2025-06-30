@@ -3,7 +3,6 @@ using JetBrains.Annotations;
 using Mediators;
 using MonoBehaviours.Screens;
 using Proxies;
-using ScriptableObjects.Configs;
 using UnityEngine;
 using Zenject;
 
@@ -16,10 +15,6 @@ namespace Commands
         [Inject] private LocalStateProxy m_localStateProxy;
         [Inject] private PopupsLayerMediator m_popupsLayerMediator;
         [Inject] private ResetUiCommand m_resetUiCommand;
-
-        // TODO: <remove_temporary_code>
-        [Inject] private MainConfig m_mainConfig;
-        // TODO: </remove_temporary_code>
 
         public void Execute()
         {
@@ -41,11 +36,6 @@ namespace Commands
                 m_localStateProxy.MarkAsDirty();
 
                 m_resetUiCommand.Execute();
-
-                // TODO: <remove_temporary_code>
-                Debug.Log("Energy restoration limit: " + m_mainConfig.energyRestorationLimit);
-                Debug.Log("One energy restoration seconds: " + m_mainConfig.oneEnergyRestorationSeconds);
-                // TODO: </remove_temporary_code>
             }
             catch (Exception e)
             {
