@@ -7,7 +7,7 @@ using Zenject;
 
 namespace ScriptableObjects.Installers
 {
-    [CreateAssetMenu(fileName = nameof(MainInstaller), menuName = "Installers/" + nameof(MainInstaller))]
+    [CreateAssetMenu(fileName = nameof(MainInstaller), menuName = EditorMenuConstants.Installers + "/" + nameof(MainInstaller))]
     public class MainInstaller : ScriptableObjectInstaller
     {
         public override void InstallBindings()
