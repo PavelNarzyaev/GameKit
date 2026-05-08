@@ -1,0 +1,18 @@
+{
+    "name": "PlayerState.Editor",
+    "rootNamespace": "GameKit",
+    "references": [
+        "GUID:c278cdd55031c644d8a74651d17cb3aa"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

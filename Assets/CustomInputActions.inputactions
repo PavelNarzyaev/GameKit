@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "CustomInputActions",
+    "maps": [
+        {
+            "name": "utility",
+            "id": "e3252005-33c9-4e22-8d25-aa720f5196f4",
+            "actions": [
+                {
+                    "name": "refresh",
+                    "type": "Button",
+                    "id": "2a94e70d-4da2-4acd-a429-8149ef167966",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d6466253-d864-43fd-aba8-421ea09b0f2f",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "refresh",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
