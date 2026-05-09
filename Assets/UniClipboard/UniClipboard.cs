@@ -94,7 +94,8 @@ class AndroidBoard : IBoard
 
     public string GetText()
     {
-        return GetClipboardManager().Call<string>("getText");
+        var text = GetClipboardManager().Call<AndroidJavaObject>("getText");
+        return text.Call<string>("toString");
     }
 
     AndroidJavaObject GetClipboardManager()
