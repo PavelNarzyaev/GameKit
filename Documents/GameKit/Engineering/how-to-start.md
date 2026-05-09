@@ -54,7 +54,8 @@ Open `Edit` -> `Project Settings` -> `Player` and update the project metadata:
 
 - product name;
 - version;
-- company name.
+- company name;
+- Android package name.
 
 After that you can start adapting the project for the game.
 
