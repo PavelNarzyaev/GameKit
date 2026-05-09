@@ -4,6 +4,7 @@
 - [Coding Standards](coding-standards.md)
 - [Namespaces](namespaces.md)
 - [Views and Presenters](views-and-presenters.md)
+- [Rounded Rectangles](rounded-rectangles.md)
 - [Production Mode](production-mode.md)
 - [Debug Panel](debug-panel.md)
 - [Current Time](current-time.md)
