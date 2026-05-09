@@ -22,7 +22,11 @@ After opening the project in Unity, generate local encryption keys for save file
 
 For more details, see [Encryption Keys Editor Window](encryption-keys-editor-window.md).
 
-## 4. Optional: Windows Setup for AI Agents
+## 4. AGENTS.md
+
+This project assumes that the repository remains public, so [AGENTS.md](../../../AGENTS.md) tells agents not to add materials whose licenses do not allow redistribution in a public source repository. If you make your fork private, you can remove or adjust that rule for your own repository.
+
+## 5. Optional: Windows Setup for AI Agents
 
 Install `PowerShell 7` (`pwsh`) so the agent can use modern PowerShell syntax:
 
@@ -37,7 +41,3 @@ winget install BurntSushi.ripgrep.MSVC
 ```
 
 Make sure both `pwsh` and `rg` are available in `PATH`.
-
-## 5. AGENTS.md
-
-This project assumes that the repository remains public, so [AGENTS.md](../../../AGENTS.md) tells agents not to add materials whose licenses do not allow redistribution in a public source repository. If you make your fork private, you can remove or adjust that rule for your own repository.
