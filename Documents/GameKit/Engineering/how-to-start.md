@@ -56,7 +56,7 @@ Open `Edit` -> `Project Settings` -> `Player` and update the project metadata:
 - version;
 - company name.
 
-After that, remove template content that the new project does not need and start adapting the project for the game.
+After that you can start adapting the project for the game.
 
 ## 8. Optional: Update AGENTS.md
 
