@@ -58,11 +58,17 @@ Open `Edit` -> `Project Settings` -> `Player` and update the project metadata:
 
 After that, remove template content that the new project does not need and start adapting the project for the game.
 
-## 8. Update AGENTS.md
+## 8. Optional: Update AGENTS.md
 
 This project assumes that the repository remains public, so [AGENTS.md](../../../AGENTS.md) tells agents not to add materials whose licenses do not allow redistribution in a public source repository. If you make your fork private, you can remove or adjust that rule for your own repository.
 
-## 9. Optional: Windows Setup for AI Agents
+## 9. Optional: Include Workspace documents folder in git
+
+`Documents/Workspace` stores local working notes and is ignored by `Documents/Workspace/.gitignore` by default.
+
+If you want to keep these documents in Git for your project, remove or adjust `Documents/Workspace/.gitignore`, then commit the workspace documents that should be shared.
+
+## 10. Optional: Windows Setup for AI Agents
 
 Install `PowerShell 7` (`pwsh`) so the agent can use modern PowerShell syntax:
 
