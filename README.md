@@ -23,10 +23,6 @@ The project follows an AI-driven development approach, including Spec-Driven Dev
 
 Technical documentation: [Engineering](Documents/GameKit/Engineering/README.md)
 
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) before adding third-party materials.
-
 ## License
 
 The root [LICENSE](LICENSE) applies only to materials authored by the GameKit project.
