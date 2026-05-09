@@ -10,5 +10,6 @@ The current baseline setup is:
 - Windows
 - Unity with Android Build Profile
 - JetBrains Rider
+- Fork git client
 - Codex plugin as the AI agent
 - Android smartphone for device testing

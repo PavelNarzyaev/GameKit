@@ -1,32 +1,68 @@
 # How to Start
 
-## 1. Clone the Repository
+## 1. Create a Project Repository
 
-Clone the repository to your local machine using Git.
+Open the GameKit repository on GitHub:
 
-```bash
-git clone https://github.com/PavelNarzyaev/GameKit.git
-```
+https://github.com/PavelNarzyaev/GameKit
 
-## 2. Open the Project in Unity Hub
+Select `Use this template` -> `Create a new repository`.
 
-Open Unity Hub and add the cloned repository folder as a project.
+Enter the project name in `Repository name` and choose the repository visibility.
+
+After GitHub creates the new repository, open its main page, select `Code`, and copy the clone URL.
+
+## 2. Clone the Project
+
+Clone the new repository to your local machine using Fork git client (`File` -> `Clone`).
+
+## 3. Open the Project in Unity Hub
+
+Open Unity Hub and add the cloned repository folder as a project (`Add` -> `Add project from disk`).
 
 If Unity Hub asks to install or select an editor version, use the version required by the project.
 
-Open `Assets/_Project/Scenes/MainScene.unity`.
+When selecting the editor version, you can choose Android as the target platform immediately.
 
-## 3. Generate Save Encryption Keys
+Alternatively, open the project with the current platform first, then use `File` -> `Build Profiles` in Unity and switch the active build profile to Android.
+
+Open `Assets/_Project/Scenes/MainScene.unity` in Unity Editor.
+
+## 4. Generate Save Encryption Keys
 
 After opening the project in Unity, generate local encryption keys for save files.
 
 For more details, see [Encryption Keys Editor Window](encryption-keys-editor-window.md).
 
-## 4. AGENTS.md
+Application startup is blocked while encryption keys are missing.
+
+## 5. Decide How to Store Generated Keys
+
+Generated encryption keys are ignored by `Assets/_Project/Modules/PlayerState/.gitignore` so they are not committed to a public repository by accident.
+
+If your new project repository is private and you want to store the generated keys in Git, remove `Assets/_Project/Modules/PlayerState/.gitignore` and commit that repository setup change.
+
+## 6. Run the Project
+
+Press Play in Unity with `Assets/_Project/Scenes/MainScene.unity` open.
+
+If the project starts correctly, continue with the project-specific setup.
+
+## 7. Update Project Settings
+
+Open `Edit` -> `Project Settings` -> `Player` and update the project metadata:
+
+- product name;
+- version;
+- company name.
+
+After that, remove template content that the new project does not need and start adapting the project for the game.
+
+## 8. Update AGENTS.md
 
 This project assumes that the repository remains public, so [AGENTS.md](../../../AGENTS.md) tells agents not to add materials whose licenses do not allow redistribution in a public source repository. If you make your fork private, you can remove or adjust that rule for your own repository.
 
-## 5. Optional: Windows Setup for AI Agents
+## 9. Optional: Windows Setup for AI Agents
 
 Install `PowerShell 7` (`pwsh`) so the agent can use modern PowerShell syntax:
 
