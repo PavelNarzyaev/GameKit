@@ -1,5 +1,6 @@
 # Engineering
 
+- [Development Setup](development-setup.md)
 - [How to Start](how-to-start.md)
 - [Coding Standards](coding-standards.md)
 - [Namespaces](namespaces.md)
