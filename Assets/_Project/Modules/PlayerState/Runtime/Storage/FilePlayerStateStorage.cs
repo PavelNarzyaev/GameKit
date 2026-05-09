@@ -16,7 +16,17 @@ namespace GameKit.PlayerState
 
         public void Save(string stateJson)
         {
-            File.WriteAllText(GetFilePath(), stateJson);
+            var filePath = GetFilePath();
+            var temporaryFilePath = $"{filePath}.tmp";
+
+            File.WriteAllText(temporaryFilePath, stateJson);
+            if (File.Exists(filePath))
+            {
+                File.Replace(temporaryFilePath, filePath, null);
+                return;
+            }
+
+            File.Move(temporaryFilePath, filePath);
         }
 
         public string Load()
