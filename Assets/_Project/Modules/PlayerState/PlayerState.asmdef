@@ -1,6 +1,5 @@
 {
     "name": "PlayerState",
-    "rootNamespace": "GameKit",
     "references": [
         "GUID:8b2071723ed14fab8ce8a245649996f1",
         "GUID:0f3ce5e85b664c32aeeef1fe72545fd2",

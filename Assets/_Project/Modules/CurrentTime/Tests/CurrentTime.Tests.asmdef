@@ -1,6 +1,5 @@
 {
     "name": "CurrentTime.Tests",
-    "rootNamespace": "GameKit",
     "references": [
         "GUID:d53feb6312f9e57429ab7e279491af46",
         "GUID:8b2071723ed14fab8ce8a245649996f1",

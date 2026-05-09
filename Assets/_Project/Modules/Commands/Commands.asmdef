@@ -1,6 +1,5 @@
 {
     "name": "Commands",
-    "rootNamespace": "GameKit",
     "references": [
         "GUID:d53feb6312f9e57429ab7e279491af46",
         "GUID:45e78f73dda3e5c49be8b9fd1728242f",

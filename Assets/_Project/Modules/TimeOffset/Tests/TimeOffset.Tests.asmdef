@@ -1,6 +1,5 @@
 {
     "name": "TimeOffset.Tests",
-    "rootNamespace": "GameKit",
     "references": [
         "Core",
         "CurrentTime",

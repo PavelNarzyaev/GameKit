@@ -1,6 +1,5 @@
 {
     "name": "UiRegionsControl.Editor",
-    "rootNamespace": "GameKit",
     "references": [
         "GUID:1f4df4ad609c9f64bb9be8be1c01009b",
         "GUID:69448af7b92c7f342b298e06a37122aa"

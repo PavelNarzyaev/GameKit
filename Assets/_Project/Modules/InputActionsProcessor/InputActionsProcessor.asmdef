@@ -1,6 +1,5 @@
 {
     "name": "InputActionsProcessor",
-    "rootNamespace": "GameKit",
     "references": [
         "GUID:5f817d22d5fd44799c031343e33a8207",
         "GUID:246d6e37b34c4072a3836fcce7b679d6",

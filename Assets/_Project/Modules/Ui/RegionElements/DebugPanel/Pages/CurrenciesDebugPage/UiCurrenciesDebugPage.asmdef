@@ -1,6 +1,5 @@
 {
     "name": "UiCurrenciesDebugPage",
-    "rootNamespace": "GameKit",
     "references": [
         "GUID:d79c9aaa40d2b324e8e1ad97ee8a6cff",
         "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",

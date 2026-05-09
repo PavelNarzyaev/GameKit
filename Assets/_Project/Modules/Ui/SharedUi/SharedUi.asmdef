@@ -1,6 +1,5 @@
 {
     "name": "SharedUi",
-    "rootNamespace": "GameKit",
     "references": [
     ],
     "includePlatforms": [],

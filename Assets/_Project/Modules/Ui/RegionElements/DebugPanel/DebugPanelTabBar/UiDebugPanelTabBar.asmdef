@@ -1,6 +1,5 @@
 {
     "name": "UiDebugPanelTabBar",
-    "rootNamespace": "GameKit",
     "references": [
         "GUID:1f4df4ad609c9f64bb9be8be1c01009b",
         "GUID:45e78f73dda3e5c49be8b9fd1728242f",

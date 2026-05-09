@@ -1,6 +1,5 @@
 {
     "name": "UiEnergyDebugPage",
-    "rootNamespace": "GameKit",
     "references": [
         "GUID:e27785a3b090405409486325b6763ce1",
         "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",

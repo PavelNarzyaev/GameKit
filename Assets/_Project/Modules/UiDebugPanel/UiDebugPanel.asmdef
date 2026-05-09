@@ -1,6 +1,5 @@
 {
     "name": "UiDebugPanel",
-    "rootNamespace": "GameKit",
     "references": [
         "GUID:45e78f73dda3e5c49be8b9fd1728242f",
         "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",

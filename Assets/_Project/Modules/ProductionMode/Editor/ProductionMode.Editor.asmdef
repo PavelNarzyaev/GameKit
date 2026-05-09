@@ -1,6 +1,5 @@
 {
   "name": "ProductionMode.Editor",
-  "rootNamespace": "GameKit",
   "references": [],
   "includePlatforms": [
     "Editor"

@@ -1,6 +1,5 @@
 {
     "name": "Energy",
-    "rootNamespace": "GameKit",
     "references": [
         "GUID:c278cdd55031c644d8a74651d17cb3aa",
         "GUID:8b2071723ed14fab8ce8a245649996f1",

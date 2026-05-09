@@ -1,6 +1,5 @@
 {
   "name": "UiRegionsControl",
-  "rootNamespace": "GameKit",
   "references": [],
   "includePlatforms": [],
   "excludePlatforms": [],

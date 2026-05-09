@@ -1,6 +1,5 @@
 {
     "name": "UiStateDebugPage",
-    "rootNamespace": "GameKit",
     "references": [
         "GUID:5f817d22d5fd44799c031343e33a8207",
         "GUID:d53feb6312f9e57429ab7e279491af46",
