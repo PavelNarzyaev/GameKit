@@ -16,7 +16,7 @@ The root [LICENSE](LICENSE) applies only to materials authored by the GameKit pr
 | Material | Location | License or terms reference |
 | --- | --- | --- |
 | Liberation Sans | `Assets/TextMesh Pro/Fonts/LiberationSans.ttf` | SIL Open Font License 1.1. See [`Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt`](Assets/TextMesh%20Pro/Fonts/LiberationSans%20-%20OFL.txt). |
-| Roboto Mono | `Assets/_Project/Modules/UiFonts/Fonts/Roboto_Mono` | SIL Open Font License 1.1. See [`Assets/_Project/Modules/UiFonts/Fonts/Roboto_Mono/OFL.txt`](Assets/_Project/Modules/UiFonts/Fonts/Roboto_Mono/OFL.txt). Upstream: https://github.com/googlefonts/RobotoMono. |
+| Roboto Mono | `Assets/_Project/Modules/UiFonts/Runtime/Fonts/Roboto_Mono` | SIL Open Font License 1.1. See [`Assets/_Project/Modules/UiFonts/Runtime/Fonts/Roboto_Mono/OFL.txt`](Assets/_Project/Modules/UiFonts/Runtime/Fonts/Roboto_Mono/OFL.txt). Upstream: https://github.com/googlefonts/RobotoMono. |
 
 ## Unity Package Imported Resources
 
