@@ -1,11 +1,11 @@
 {
   "name": "GameKit.UiDebugPanelTabBar",
   "references": [
-    "GameKit.UiDebugPanel.Contracts",
-    "GameKit.UiRegions",
-    "GameKit.UiRegionsControl.Contracts",
+    "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
     "GUID:6055be8ebefd69e48b49212b09b47b2f",
-    "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
+    "GUID:172ef51c18859734ea56202d9289818c",
+    "GUID:1f4df4ad609c9f64bb9be8be1c01009b",
+    "GUID:110f4e09969191449b64ac56d35ee60b"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

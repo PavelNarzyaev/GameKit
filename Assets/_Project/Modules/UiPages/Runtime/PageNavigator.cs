@@ -1,5 +1,4 @@
 using System;
-using GameKit.UiRegionsControl;
 using GameKit.UiRegions;
 using JetBrains.Annotations;
 using Zenject;

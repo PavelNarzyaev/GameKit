@@ -1,8 +1,7 @@
 {
   "name": "GameKit.PlayerState.Editor",
   "references": [
-    "GameKit.PlayerState",
-    "GameKit.PlayerState.Contracts"
+    "GUID:c278cdd55031c644d8a74651d17cb3aa"
   ],
   "includePlatforms": [
     "Editor"

@@ -1,12 +1,12 @@
 {
   "name": "GameKit.UiTimeDebugPage",
   "references": [
-    "GameKit.Core",
-    "GameKit.CurrentTime.Contracts",
-    "GameKit.TimeOffset.Contracts",
-    "GameKit.UiRegions",
-    "GameKit.UiDebugShared",
-    "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
+    "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+    "GUID:02f1961606367cb41b34566fb4e4452f",
+    "GUID:d62151f86f5354444add7c9ea3caab43",
+    "GUID:c68c0158773b844489dbbf9367076100",
+    "GUID:1f4df4ad609c9f64bb9be8be1c01009b",
+    "GUID:d53feb6312f9e57429ab7e279491af46"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

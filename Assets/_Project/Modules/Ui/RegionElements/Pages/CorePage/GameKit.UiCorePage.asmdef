@@ -1,10 +1,10 @@
 {
   "name": "GameKit.UiCorePage",
   "references": [
-    "GameKit.UiPages.Contracts",
-    "GameKit.UiRegions",
-    "GameKit.UiRegionsControl.Contracts",
-    "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
+    "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+    "GUID:a2af520ed85107e44ae899b88a990e8f",
+    "GUID:110f4e09969191449b64ac56d35ee60b",
+    "GUID:1f4df4ad609c9f64bb9be8be1c01009b"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],
