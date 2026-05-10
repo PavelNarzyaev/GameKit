@@ -4,7 +4,7 @@ using Zenject;
 namespace GameKit.ProductionMode
 {
     [UsedImplicitly]
-    public class ProductionModeProvider
+    public class ProductionModeProvider : IProductionModeProvider
     {
         public bool IsProduction { get; private set; }
 

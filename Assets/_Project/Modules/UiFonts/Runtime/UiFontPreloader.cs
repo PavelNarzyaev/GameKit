@@ -6,7 +6,7 @@ using UnityEngine.AddressableAssets;
 namespace GameKit.UiFonts
 {
     [UsedImplicitly]
-    public class UiFontPreloader
+    public class UiFontPreloader : IUiFontPreloader
     {
         private bool m_isPreloaded;
 

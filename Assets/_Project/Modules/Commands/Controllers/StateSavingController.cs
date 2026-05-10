@@ -7,7 +7,7 @@ namespace GameKit.Commands
     [UsedImplicitly]
     public class StateSavingController
     {
-        [Inject] private PlayerStateProvider m_playerStateProvider;
+        [Inject] private IPlayerStateProvider m_playerStateProvider;
         [Inject] private GameKitTickController m_gameKitTickController;
 
         [Inject]

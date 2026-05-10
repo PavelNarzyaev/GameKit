@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 namespace GameKit.Commands
 {
     [UsedImplicitly]
-    public class ResetSceneCommand
+    public class ResetSceneCommand : IResetSceneCommand
     {
         public void Execute()
         {

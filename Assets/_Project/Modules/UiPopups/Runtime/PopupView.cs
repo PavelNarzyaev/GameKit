@@ -7,7 +7,7 @@ namespace GameKit.UiPopups
     public class PopupView : UiRegionElement
     {
         [SerializeField] private bool isModal;
-        [Inject] private PopupPresenter m_presenter;
+        [Inject] private IPopupPresenter m_presenter;
 
         private void OnEnable()
         {

@@ -1,6 +1,8 @@
 {
   "name": "UiRegionsControl",
-  "references": [],
+  "references": [
+    "GameKit.UiRegionsControl.Contracts"
+  ],
   "includePlatforms": [],
   "excludePlatforms": [],
   "allowUnsafeCode": false,

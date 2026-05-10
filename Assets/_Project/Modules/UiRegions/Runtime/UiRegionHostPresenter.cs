@@ -1,11 +1,10 @@
 using System;
-using GameKit.UiRegionsControl;
 using JetBrains.Annotations;
 
 namespace GameKit.UiRegions
 {
     [UsedImplicitly]
-    public class UiRegionHostPresenter
+    public class UiRegionHostPresenter : IUiRegionHostPresenter
     {
         public event Action<string, UiRegionId> RegionElementShowing;
         public event Action<string> RegionElementHidingIfExists;

@@ -1,20 +1,21 @@
 {
-    "name": "UiDebugPanelTabBar",
-    "references": [
-        "GUID:1f4df4ad609c9f64bb9be8be1c01009b",
-        "GUID:45e78f73dda3e5c49be8b9fd1728242f",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:663961585e55449fa5638b319565ed5c"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [
-        "!IS_PRODUCTION"
-    ],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "UiDebugPanelTabBar",
+  "references": [
+    "GameKit.UiDebugPanel.Contracts",
+    "UiRegions",
+    "GameKit.UiRegionsControl.Contracts",
+    "GUID:6055be8ebefd69e48b49212b09b47b2f",
+    "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [
+    "!IS_PRODUCTION"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

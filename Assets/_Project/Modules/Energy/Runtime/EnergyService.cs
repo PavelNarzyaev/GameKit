@@ -9,7 +9,7 @@ namespace GameKit.Energy
     public class EnergyService : IEnergyService
     {
         [Inject] private PlayerStateEnergyGateway m_gateway;
-        [Inject] private CurrentTimeProvider m_currentTimeProvider;
+        [Inject] private ICurrentTimeProvider m_currentTimeProvider;
         [Inject] private IEnergyConfig m_energyConfig;
         public event Action Changed;
 

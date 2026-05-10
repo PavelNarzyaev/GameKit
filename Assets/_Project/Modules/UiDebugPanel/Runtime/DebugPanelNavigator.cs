@@ -7,9 +7,9 @@ using Zenject;
 namespace GameKit.UiDebugPanel
 {
     [UsedImplicitly]
-    public class DebugPanelNavigator
+    public class DebugPanelNavigator : IDebugPanelNavigator
     {
-        [Inject] private UiRegionHostPresenter m_uiRegionHostPresenter;
+        [Inject] private IUiRegionHostPresenter m_uiRegionHostPresenter;
         public string CurrentPageAddressableId { get; private set; }
 
         public event Action PageChanged;

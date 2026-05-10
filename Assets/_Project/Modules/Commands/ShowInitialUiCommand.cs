@@ -8,11 +8,11 @@ using Zenject;
 namespace GameKit.Commands
 {
     [UsedImplicitly]
-    public class ShowInitialUiCommand
+    public class ShowInitialUiCommand : IShowInitialUiCommand
     {
-        [Inject] private UiRegionHostPresenter m_uiRegionHostPresenter;
-        [Inject] private PageNavigator m_pageNavigator;
-        [Inject] private ProductionModeProvider m_productionModeProvider;
+        [Inject] private IUiRegionHostPresenter m_uiRegionHostPresenter;
+        [Inject] private IPageNavigator m_pageNavigator;
+        [Inject] private IProductionModeProvider m_productionModeProvider;
 
         public void Execute()
         {

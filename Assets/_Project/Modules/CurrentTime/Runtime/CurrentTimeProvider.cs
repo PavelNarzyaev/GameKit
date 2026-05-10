@@ -5,7 +5,7 @@ using Zenject;
 namespace GameKit.CurrentTime
 {
     [UsedImplicitly]
-    public class CurrentTimeProvider
+    public class CurrentTimeProvider : ICurrentTimeProvider
     {
         [Inject] private ICurrentTimeSource m_currentTimeSource;
 

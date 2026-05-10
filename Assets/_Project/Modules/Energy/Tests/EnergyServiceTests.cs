@@ -15,10 +15,10 @@ namespace GameKit.Energy.Tests
         public void SetUp()
         {
             Container.Bind<IPlayerStateStorage>().To<FakePlayerStateStorage>().AsSingle();
-            Container.Bind<ProductionModeProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ProductionModeProvider>().AsSingle();
             Container.Bind<ICurrentTimeSource>().To<FakeCurrentTimeSource>().AsSingle();
-            Container.Bind<CurrentTimeProvider>().AsSingle();
-            Container.Bind<PlayerStateProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerStateProvider>().AsSingle();
             Container.Bind<IEnergyConfig>().To<FakeEnergyConfig>().AsSingle();
             Container.Bind<PlayerStateEnergyGateway>().AsSingle();
             Container.BindInterfacesAndSelfTo<EnergyService>().AsSingle();

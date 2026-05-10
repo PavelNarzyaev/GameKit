@@ -15,13 +15,13 @@ namespace GameKit.TimeOffset.Tests
         public void SetUp()
         {
             Container.Bind<IPlayerStateStorage>().To<FakePlayerStateStorage>().AsSingle();
-            Container.Bind<ProductionModeProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ProductionModeProvider>().AsSingle();
             Container.Bind<ICurrentTimeSource>().WithId(CurrentTimeSourceIds.k_BaseCurrentTimeSource).To<FakeCurrentTimeSource>().AsSingle();
             Container.Bind<PlayerStateTimeOffsetGateway>().AsSingle();
-            Container.Bind<TimeOffsetService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<TimeOffsetService>().AsSingle();
             Container.Bind<ICurrentTimeSource>().To<TimeOffsetCurrentTimeSource>().AsSingle();
-            Container.Bind<CurrentTimeProvider>().AsSingle();
-            Container.Bind<PlayerStateProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerStateProvider>().AsSingle();
         }
 
         [Test]

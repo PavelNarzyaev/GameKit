@@ -11,8 +11,8 @@ namespace GameKit.TimeDebugPage
     [UsedImplicitly]
     public class TimeDebugPagePresenter
     {
-        [Inject] private CurrentTimeProvider m_currentTimeProvider;
-        [Inject] private TimeOffsetService m_timeOffsetService;
+        [Inject] private ICurrentTimeProvider m_currentTimeProvider;
+        [Inject] private ITimeOffsetService m_timeOffsetService;
 
         public event Action Changed
         {

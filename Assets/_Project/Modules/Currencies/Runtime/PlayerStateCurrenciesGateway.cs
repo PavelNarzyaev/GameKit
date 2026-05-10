@@ -8,7 +8,7 @@ namespace GameKit.Currencies
     [UsedImplicitly]
     public class PlayerStateCurrenciesGateway
     {
-        [Inject] private PlayerStateProvider m_playerStateProvider;
+        [Inject] private IPlayerStateProvider m_playerStateProvider;
         public event Action Changed;
 
         [Inject]

@@ -7,9 +7,9 @@ namespace GameKit.Commands
     [UsedImplicitly]
     public class ResetUiController
     {
-        [Inject] private PlayerStateProvider m_playerStateProvider;
-        [Inject] private DestroyUiCommand m_destroyUiCommand;
-        [Inject] private ShowInitialUiCommand m_showInitialUiCommand;
+        [Inject] private IPlayerStateProvider m_playerStateProvider;
+        [Inject] private IDestroyUiCommand m_destroyUiCommand;
+        [Inject] private IShowInitialUiCommand m_showInitialUiCommand;
 
         [Inject]
         private void Inject()

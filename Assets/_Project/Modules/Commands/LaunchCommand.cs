@@ -9,11 +9,11 @@ using Zenject;
 namespace GameKit.Commands
 {
     [UsedImplicitly]
-    public class LaunchCommand
+    public class LaunchCommand : ILaunchCommand
     {
-        [Inject] private PlayerStateProvider m_playerStateProvider;
-        [Inject] private PopupNavigator m_popupNavigator;
-        [Inject] private ShowInitialUiCommand m_showInitialUiCommand;
+        [Inject] private IPlayerStateProvider m_playerStateProvider;
+        [Inject] private IPopupNavigator m_popupNavigator;
+        [Inject] private IShowInitialUiCommand m_showInitialUiCommand;
         [Inject] private GameKitTickController m_gameKitTickController;
 
         public void Execute()

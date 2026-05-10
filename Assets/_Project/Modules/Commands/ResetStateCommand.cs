@@ -5,11 +5,11 @@ using Zenject;
 namespace GameKit.Commands
 {
     [UsedImplicitly]
-    public class ResetStateCommand
+    public class ResetStateCommand : IResetStateCommand
     {
-        [Inject] private PlayerStateProvider m_playerStateProvider;
-        [Inject] private LaunchCommand m_launchCommand;
-        [Inject] private DestroyUiCommand m_destroyUiCommand;
+        [Inject] private IPlayerStateProvider m_playerStateProvider;
+        [Inject] private ILaunchCommand m_launchCommand;
+        [Inject] private IDestroyUiCommand m_destroyUiCommand;
 
         public void Execute()
         {

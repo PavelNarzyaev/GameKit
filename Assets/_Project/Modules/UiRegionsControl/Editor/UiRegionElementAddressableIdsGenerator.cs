@@ -12,7 +12,7 @@ namespace GameKit.UiRegionsControl.Editor
     public static class UiRegionElementAddressableIdsGenerator
     {
         private const string k_MenuItemPath = "GameKit/Rebuild UI Region Element Addressable Ids";
-        private const string k_OutputRelativePathFromModuleRoot = "UiRegionElementAddressableIds.Generated.cs";
+        private const string k_OutputRelativePathFromModuleRoot = "Contracts/UiRegionElementAddressableIds.Generated.cs";
 
         [MenuItem(k_MenuItemPath, false, 103)]
         public static void Generate()

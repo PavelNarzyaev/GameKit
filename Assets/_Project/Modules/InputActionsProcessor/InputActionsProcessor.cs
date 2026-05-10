@@ -8,7 +8,7 @@ namespace GameKit.InputActionsProcessor
     public class InputActionsProcessor : MonoBehaviour
     {
         private CustomInputActions m_inputActions;
-        [Inject] private ResetSceneCommand m_resetSceneCommand;
+        [Inject] private IResetSceneCommand m_resetSceneCommand;
 
         private void Awake()
         {

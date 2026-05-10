@@ -10,20 +10,20 @@ using Zenject;
 namespace GameKit.PlayerState
 {
     [UsedImplicitly]
-    public class PlayerStateProvider
+    public class PlayerStateProvider : IPlayerStateProvider
     {
         private static readonly JsonSerializerSettings s_jsonSerializerSettings = new()
         {
             ContractResolver = new CamelCasePropertyNamesContractResolver()
         };
 
-        public PlayerStateDto Data;
+        public PlayerStateDto Data { get; set; }
         public bool IsDirty { get; private set; }
         public event Action RefreshedFromJson;
 
         [Inject] private IPlayerStateStorage m_playerStateStorage;
-        [Inject] private ProductionModeProvider m_productionModeProvider;
-        [Inject] private CurrentTimeProvider m_currentTimeProvider;
+        [Inject] private IProductionModeProvider m_productionModeProvider;
+        [Inject] private ICurrentTimeProvider m_currentTimeProvider;
 
         public void MarkAsDirty()
         {

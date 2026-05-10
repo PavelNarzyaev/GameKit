@@ -8,7 +8,7 @@ namespace GameKit.CorePage
     [UsedImplicitly]
     public class CorePagePresenter
     {
-        [Inject] private PageNavigator m_pageNavigator;
+        [Inject] private IPageNavigator m_pageNavigator;
 
         public void OpenMetaPage()
         {

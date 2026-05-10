@@ -6,9 +6,9 @@ using Zenject;
 namespace GameKit.StateClipboardProxy
 {
     [UsedImplicitly]
-    public class StateClipboardProxy
+    public class StateClipboardProxy : IStateClipboardProxy
     {
-        [Inject] private PlayerStateProvider m_playerStateProvider;
+        [Inject] private IPlayerStateProvider m_playerStateProvider;
 
         public void CopyStateToClipboard()
         {

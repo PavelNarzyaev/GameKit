@@ -1,18 +1,18 @@
 {
-    "name": "UiRegionsControl.Editor",
-    "references": [
-        "GUID:1f4df4ad609c9f64bb9be8be1c01009b",
-        "GUID:69448af7b92c7f342b298e06a37122aa"
-    ],
-    "includePlatforms": [
-        "Editor"
-    ],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "UiRegionsControl.Editor",
+  "references": [
+    "UiRegions",
+    "GUID:69448af7b92c7f342b298e06a37122aa"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

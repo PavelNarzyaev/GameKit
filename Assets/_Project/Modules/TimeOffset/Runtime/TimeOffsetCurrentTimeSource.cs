@@ -10,7 +10,7 @@ namespace GameKit.TimeOffset
         [Inject(Id = CurrentTimeSourceIds.k_BaseCurrentTimeSource)]
         private ICurrentTimeSource m_baseCurrentTimeSource;
 
-        [Inject] private TimeOffsetService m_timeOffsetService;
+        [Inject] private ITimeOffsetService m_timeOffsetService;
 
         public long GetTimestamp()
         {

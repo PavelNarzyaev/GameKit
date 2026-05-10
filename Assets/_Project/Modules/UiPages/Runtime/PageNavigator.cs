@@ -7,9 +7,9 @@ using Zenject;
 namespace GameKit.UiPages
 {
     [UsedImplicitly]
-    public class PageNavigator
+    public class PageNavigator : IPageNavigator
     {
-        [Inject] private UiRegionHostPresenter m_uiRegionHostPresenter;
+        [Inject] private IUiRegionHostPresenter m_uiRegionHostPresenter;
         public string CurrentPageAddressableId { get; private set; }
 
         public event Action PageChanged;

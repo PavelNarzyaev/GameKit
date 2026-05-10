@@ -1,20 +1,20 @@
 {
-    "name": "TimeOffset",
-    "references": [
-        "GUID:d53feb6312f9e57429ab7e279491af46",
-        "GUID:8b2071723ed14fab8ce8a245649996f1",
-        "GUID:c278cdd55031c644d8a74651d17cb3aa",
-        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [
-        "!IS_PRODUCTION"
-    ],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "TimeOffset",
+  "references": [
+    "GameKit.TimeOffset.Contracts",
+    "GameKit.Core.Contracts",
+    "GameKit.PlayerState.Contracts",
+    "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [
+    "!IS_PRODUCTION"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

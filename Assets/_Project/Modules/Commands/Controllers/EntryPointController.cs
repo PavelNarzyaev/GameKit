@@ -9,12 +9,13 @@ namespace GameKit.Commands
     [UsedImplicitly]
     public class EntryPointController : IInitializable
     {
-        [Inject] private UiFontPreloader m_uiFontPreloader;
-        [Inject] private LaunchCommand m_launchCommand;
+        [Inject] private IUiFontPreloader m_uiFontPreloader;
+        [Inject] private ILaunchCommand m_launchCommand;
+        [Inject] private IEncryptionKeysProvider m_encryptionKeysProvider;
 
         public void Initialize()
         {
-            if (!EncryptionKeys.HasValues)
+            if (!m_encryptionKeysProvider.HasValues)
             {
                 Debug.LogError("Encryption keys are not configured. Open \"GameKit\"/\"Encryption Keys\" and save valid key values.");
                 return;

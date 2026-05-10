@@ -8,7 +8,7 @@ namespace GameKit.TopPanel
     [UsedImplicitly]
     public class TopPanelPresenter
     {
-        [Inject] private PopupNavigator m_popupNavigator;
+        [Inject] private IPopupNavigator m_popupNavigator;
 
         public void OpenSettingsPopup()
         {

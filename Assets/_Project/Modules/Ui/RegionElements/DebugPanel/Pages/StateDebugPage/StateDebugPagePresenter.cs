@@ -2,6 +2,7 @@ using System.Globalization;
 using GameKit.Commands;
 using GameKit.Core;
 using GameKit.PlayerState;
+using GameKit.StateClipboardProxy;
 using JetBrains.Annotations;
 using Zenject;
 
@@ -10,9 +11,9 @@ namespace GameKit.StateDebugPage
     [UsedImplicitly]
     public class StateDebugPagePresenter
     {
-        [Inject] private PlayerStateProvider m_playerStateProvider;
-        [Inject] private ResetStateCommand m_resetStateCommand;
-        [Inject] private StateClipboardProxy.StateClipboardProxy m_stateClipboardProxy;
+        [Inject] private IPlayerStateProvider m_playerStateProvider;
+        [Inject] private IResetStateCommand m_resetStateCommand;
+        [Inject] private IStateClipboardProxy m_stateClipboardProxy;
 
         public void CopyStateToClipboard()
         {

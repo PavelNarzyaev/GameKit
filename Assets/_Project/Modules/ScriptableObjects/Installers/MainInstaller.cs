@@ -33,30 +33,31 @@ namespace GameKit.ScriptableObjects
     {
         public override void InstallBindings()
         {
-            Container.Bind<ProductionModeProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ProductionModeProvider>().AsSingle();
 
             InstallCurrentTimeSource();
-            Container.Bind<CurrentTimeProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
 
-            Container.Bind<UiRegionHostPresenter>().AsSingle();
-            Container.Bind<PageNavigator>().AsSingle();
-            Container.Bind<PopupNavigator>().AsSingle();
-            Container.Bind<PopupPresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<UiRegionHostPresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PageNavigator>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PopupNavigator>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PopupPresenter>().AsSingle();
             Container.Bind<PopupBackdropPresenter>().AsSingle();
             Container.Bind<FilePlayerStateStorage>().AsSingle();
             Container.Bind<IPlayerStateStorage>().To<EncryptedPlayerStateStorage>().AsSingle();
-            Container.Bind<PlayerStateProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<EncryptionKeysProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerStateProvider>().AsSingle();
             Container.Bind<PlayerStateCurrenciesGateway>().AsSingle();
             Container.BindInterfacesAndSelfTo<CurrenciesService>().AsSingle();
             Container.Bind<PlayerStateEnergyGateway>().AsSingle();
             Container.BindInterfacesAndSelfTo<EnergyService>().AsSingle();
-            Container.Bind<UiFontPreloader>().AsSingle();
+            Container.BindInterfacesAndSelfTo<UiFontPreloader>().AsSingle();
             Container.Bind<ErrorPopupPresenter>().AsSingle();
             Container.Bind<SettingsPopupPresenter>().AsSingle();
             Container.Bind<TopPanelPresenter>().AsSingle();
             Container.Bind<CorePagePresenter>().AsSingle();
             Container.Bind<MetaPagePresenter>().AsSingle();
-            Container.Bind<StateClipboardProxy.StateClipboardProxy>().AsSingle();
+            Container.BindInterfacesAndSelfTo<StateClipboardProxy.StateClipboardProxy>().AsSingle();
 
             InstallDebugPanel();
             InstallCommands();
@@ -70,7 +71,7 @@ namespace GameKit.ScriptableObjects
 #else
             Container.Bind<ICurrentTimeSource>().WithId(CurrentTimeSourceIds.k_BaseCurrentTimeSource).To<SystemUtcCurrentTimeSource>().AsSingle();
             Container.Bind<PlayerStateTimeOffsetGateway>().AsSingle();
-            Container.Bind<TimeOffsetService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<TimeOffsetService>().AsSingle();
             Container.Bind<ICurrentTimeSource>().To<TimeOffsetCurrentTimeSource>().AsSingle();
 #endif
         }
@@ -78,7 +79,7 @@ namespace GameKit.ScriptableObjects
         private void InstallDebugPanel()
         {
 #if !IS_PRODUCTION
-            Container.Bind<DebugPanelNavigator>().AsSingle();
+            Container.BindInterfacesAndSelfTo<DebugPanelNavigator>().AsSingle();
             Container.Bind<DebugPanelTabBarPresenter>().AsSingle();
             Container.Bind<CurrenciesDebugPagePresenter>().AsSingle();
             Container.Bind<EnergyDebugPagePresenter>().AsSingle();
@@ -89,11 +90,11 @@ namespace GameKit.ScriptableObjects
 
         private void InstallCommands()
         {
-            Container.Bind<DestroyUiCommand>().AsSingle();
-            Container.Bind<LaunchCommand>().AsSingle();
-            Container.Bind<ShowInitialUiCommand>().AsSingle();
-            Container.Bind<ResetStateCommand>().AsSingle();
-            Container.Bind<ResetSceneCommand>().AsSingle();
+            Container.BindInterfacesAndSelfTo<DestroyUiCommand>().AsSingle();
+            Container.BindInterfacesAndSelfTo<LaunchCommand>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ShowInitialUiCommand>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ResetStateCommand>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ResetSceneCommand>().AsSingle();
         }
 
         private void InstallControllers()

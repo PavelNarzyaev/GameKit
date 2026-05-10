@@ -10,13 +10,13 @@ using GameKit.UiDebugPanel;
 namespace GameKit.Commands
 {
     [UsedImplicitly]
-    public class DestroyUiCommand
+    public class DestroyUiCommand : IDestroyUiCommand
     {
-        [Inject] private UiRegionHostPresenter m_uiRegionHostPresenter;
-        [Inject] private PageNavigator m_pageNavigator;
-        [Inject] private PopupNavigator m_popupNavigator;
+        [Inject] private IUiRegionHostPresenter m_uiRegionHostPresenter;
+        [Inject] private IPageNavigator m_pageNavigator;
+        [Inject] private IPopupNavigator m_popupNavigator;
 #if !IS_PRODUCTION
-        [Inject] private DebugPanelNavigator m_debugPanelNavigator;
+        [Inject] private IDebugPanelNavigator m_debugPanelNavigator;
 #endif
 
         public void Execute()

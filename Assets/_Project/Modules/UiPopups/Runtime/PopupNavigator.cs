@@ -9,12 +9,12 @@ using Zenject;
 namespace GameKit.UiPopups
 {
     [UsedImplicitly]
-    public class PopupNavigator
+    public class PopupNavigator : IPopupNavigator
     {
         private readonly List<string> m_stack = new();
-        public bool IsFrontPopupModal;
+        public bool IsFrontPopupModal { get; set; }
         public string FrontPopupAddressableId => m_stack.Count == 0 ? null : m_stack.Last();
-        [Inject] private UiRegionHostPresenter m_uiRegionHostPresenter;
+        [Inject] private IUiRegionHostPresenter m_uiRegionHostPresenter;
         public event Action FrontPopupChanged;
 
         public void Open(string addressableId)

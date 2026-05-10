@@ -7,8 +7,8 @@ namespace GameKit.ErrorPopup
     [UsedImplicitly]
     public class ErrorPopupPresenter
     {
-        [Inject] private DestroyUiCommand m_destroyUiCommand;
-        [Inject] private LaunchCommand m_launchCommand;
+        [Inject] private IDestroyUiCommand m_destroyUiCommand;
+        [Inject] private ILaunchCommand m_launchCommand;
 
         public void Reload()
         {

@@ -1,24 +1,25 @@
 {
-    "name": "Commands",
-    "references": [
-        "GUID:d53feb6312f9e57429ab7e279491af46",
-        "GUID:45e78f73dda3e5c49be8b9fd1728242f",
-        "GUID:c278cdd55031c644d8a74651d17cb3aa",
-        "GUID:0f3ce5e85b664c32aeeef1fe72545fd2",
-        "GUID:2e7b792419996314aa9f31fcfefe2de3",
-        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
-        "GUID:1f4df4ad609c9f64bb9be8be1c01009b",
-        "GUID:35894fd20c1fb004cb75fb40557b524c",
-        "GUID:ca0656527acdf184aa0015fbef5607fb",
-        "GUID:663961585e55449fa5638b319565ed5c"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "Commands",
+  "references": [
+    "GameKit.Commands.Contracts",
+    "GameKit.Core.Contracts",
+    "GameKit.PlayerState.Contracts",
+    "GameKit.ProductionMode.Contracts",
+    "GameKit.UiFonts.Contracts",
+    "GameKit.UiRegions.Contracts",
+    "GameKit.UiRegionsControl.Contracts",
+    "GameKit.UiPages.Contracts",
+    "GameKit.UiPopups.Contracts",
+    "GameKit.UiDebugPanel.Contracts",
+    "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

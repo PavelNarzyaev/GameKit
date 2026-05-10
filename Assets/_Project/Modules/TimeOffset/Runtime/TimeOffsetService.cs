@@ -5,7 +5,7 @@ using Zenject;
 namespace GameKit.TimeOffset
 {
     [UsedImplicitly]
-    public class TimeOffsetService
+    public class TimeOffsetService : ITimeOffsetService
     {
         [Inject] private PlayerStateTimeOffsetGateway m_gateway;
 

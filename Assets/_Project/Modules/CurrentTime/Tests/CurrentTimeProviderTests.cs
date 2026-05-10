@@ -12,7 +12,7 @@ namespace GameKit.CurrentTime.Tests
         public void SetUp()
         {
             Container.Bind<ICurrentTimeSource>().To<FakeCurrentTimeSource>().AsSingle();
-            Container.Bind<CurrentTimeProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
         }
 
         [Test]

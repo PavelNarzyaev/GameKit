@@ -8,7 +8,7 @@ namespace GameKit.DebugPanelTabBar
     [UsedImplicitly]
     public class DebugPanelTabBarPresenter
     {
-        [Inject] private DebugPanelNavigator m_debugPanelNavigator;
+        [Inject] private IDebugPanelNavigator m_debugPanelNavigator;
 
         public event Action PageChanged
         {

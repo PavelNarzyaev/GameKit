@@ -6,7 +6,7 @@ namespace GameKit.UiPopups
     [UsedImplicitly]
     public class PopupBackdropPresenter
     {
-        [Inject] private PopupNavigator m_popupNavigator;
+        [Inject] private IPopupNavigator m_popupNavigator;
 
         public bool CanCloseFrontPopup()
         {

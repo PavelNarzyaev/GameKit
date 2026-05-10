@@ -5,9 +5,9 @@ using Zenject;
 namespace GameKit.UiPopups
 {
     [UsedImplicitly]
-    public class PopupPresenter
+    public class PopupPresenter : IPopupPresenter
     {
-        [Inject] private PopupNavigator m_popupNavigator;
+        [Inject] private IPopupNavigator m_popupNavigator;
 
         public event Action FrontPopupChanged
         {

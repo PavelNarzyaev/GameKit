@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using GameKit.UiRegionsControl;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;
@@ -18,7 +17,7 @@ namespace GameKit.UiRegions
         private readonly Dictionary<string, UiRegionElement> m_elementByAddressableId = new();
         private readonly Dictionary<UiRegionId, RectTransform> m_transformByRegionId = new();
         [Inject] private DiContainer m_diContainer;
-        [Inject] private UiRegionHostPresenter m_presenter;
+        [Inject] private IUiRegionHostPresenter m_presenter;
 
         private void Awake()
         {
