@@ -1,0 +1,22 @@
+{
+  "name": "GameKit.UiTimeDebugPage",
+  "references": [
+    "GameKit.Core",
+    "GameKit.CurrentTime.Contracts",
+    "GameKit.TimeOffset.Contracts",
+    "GameKit.UiRegions",
+    "GameKit.UiDebugShared",
+    "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [
+    "!IS_PRODUCTION"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
