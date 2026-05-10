@@ -1,4 +1,5 @@
-using GameKit.Core;
+using GameKit.Core.Contracts;
+using GameKit.TimeOffset.Contracts;
 using JetBrains.Annotations;
 using Zenject;
 

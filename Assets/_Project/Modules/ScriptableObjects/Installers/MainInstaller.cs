@@ -1,5 +1,6 @@
 using GameKit.Commands;
 using GameKit.Core;
+using GameKit.Core.Contracts;
 using GameKit.CorePage;
 using GameKit.Currencies;
 using GameKit.CurrentTime;
@@ -7,6 +8,7 @@ using GameKit.Energy;
 using GameKit.ErrorPopup;
 using GameKit.MetaPage;
 using GameKit.PlayerState;
+using GameKit.PlayerState.Contracts;
 using GameKit.ProductionMode;
 using GameKit.SettingsPopup;
 using GameKit.TopPanel;
@@ -22,6 +24,7 @@ using GameKit.DebugPanelTabBar;
 using GameKit.EnergyDebugPage;
 using GameKit.StateDebugPage;
 using GameKit.TimeOffset;
+using GameKit.TimeOffset.Contracts;
 using GameKit.TimeDebugPage;
 using GameKit.UiDebugPanel;
 #endif

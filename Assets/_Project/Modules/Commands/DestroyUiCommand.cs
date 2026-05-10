@@ -1,10 +1,11 @@
-using GameKit.UiPages;
-using GameKit.UiPopups;
-using GameKit.UiRegions;
+using GameKit.Commands.Contracts;
+using GameKit.UiPages.Contracts;
+using GameKit.UiPopups.Contracts;
+using GameKit.UiRegions.Contracts;
 using JetBrains.Annotations;
 using Zenject;
 #if !IS_PRODUCTION
-using GameKit.UiDebugPanel;
+using GameKit.UiDebugPanel.Contracts;
 #endif
 
 namespace GameKit.Commands

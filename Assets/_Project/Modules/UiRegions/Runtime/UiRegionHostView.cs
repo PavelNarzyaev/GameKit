@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GameKit.UiRegions.Contracts;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;

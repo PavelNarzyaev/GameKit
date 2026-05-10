@@ -1,4 +1,4 @@
-namespace GameKit.ProductionMode
+namespace GameKit.ProductionMode.Contracts
 {
     public interface IProductionModeProvider
     {

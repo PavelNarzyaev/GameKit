@@ -1,5 +1,6 @@
-using GameKit.PlayerState;
-using GameKit.UiFonts;
+using GameKit.Commands.Contracts;
+using GameKit.PlayerState.Contracts;
+using GameKit.UiFonts.Contracts;
 using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;

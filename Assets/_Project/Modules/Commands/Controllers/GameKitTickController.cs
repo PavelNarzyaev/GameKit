@@ -1,6 +1,6 @@
 using System;
+using GameKit.Core.Contracts;
 using JetBrains.Annotations;
-using GameKit.Core;
 using Zenject;
 
 namespace GameKit.Commands

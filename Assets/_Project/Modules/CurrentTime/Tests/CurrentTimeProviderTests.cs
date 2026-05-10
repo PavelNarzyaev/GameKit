@@ -1,4 +1,4 @@
-using GameKit.Core;
+using GameKit.Core.Contracts;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using Zenject;

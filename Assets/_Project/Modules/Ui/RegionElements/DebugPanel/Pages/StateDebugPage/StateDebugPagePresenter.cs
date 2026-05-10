@@ -1,8 +1,8 @@
 using System.Globalization;
-using GameKit.Commands;
+using GameKit.Commands.Contracts;
 using GameKit.Core;
-using GameKit.PlayerState;
-using GameKit.StateClipboardProxy;
+using GameKit.PlayerState.Contracts;
+using GameKit.StateClipboardProxy.Contracts;
 using JetBrains.Annotations;
 using Zenject;
 

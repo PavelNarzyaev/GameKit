@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameKit.UiRegionsControl;
-using GameKit.UiRegions;
+using GameKit.UiPopups.Contracts;
+using GameKit.UiRegions.Contracts;
+using GameKit.UiRegionsControl.Contracts;
 using JetBrains.Annotations;
 using Zenject;
 

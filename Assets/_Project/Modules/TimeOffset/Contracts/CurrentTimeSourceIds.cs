@@ -1,4 +1,4 @@
-namespace GameKit.TimeOffset
+namespace GameKit.TimeOffset.Contracts
 {
     public static class CurrentTimeSourceIds
     {

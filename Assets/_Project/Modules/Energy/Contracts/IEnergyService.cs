@@ -1,6 +1,6 @@
 using System;
 
-namespace GameKit.Energy
+namespace GameKit.Energy.Contracts
 {
     public interface IEnergyService
     {

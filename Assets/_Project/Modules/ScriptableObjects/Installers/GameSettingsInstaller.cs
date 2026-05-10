@@ -1,5 +1,5 @@
 using GameKit.Core;
-using GameKit.Energy;
+using GameKit.Energy.Contracts;
 using UnityEngine;
 using Zenject;
 

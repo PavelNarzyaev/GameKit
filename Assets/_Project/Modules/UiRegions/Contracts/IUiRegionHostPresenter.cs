@@ -1,6 +1,6 @@
 using System;
 
-namespace GameKit.UiRegions
+namespace GameKit.UiRegions.Contracts
 {
     public interface IUiRegionHostPresenter
     {

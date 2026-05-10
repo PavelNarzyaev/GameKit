@@ -1,4 +1,4 @@
-namespace GameKit.UiFonts
+namespace GameKit.UiFonts.Contracts
 {
     public interface IUiFontPreloader
     {

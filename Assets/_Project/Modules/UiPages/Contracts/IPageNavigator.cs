@@ -1,6 +1,6 @@
 using System;
 
-namespace GameKit.UiPages
+namespace GameKit.UiPages.Contracts
 {
     public interface IPageNavigator
     {

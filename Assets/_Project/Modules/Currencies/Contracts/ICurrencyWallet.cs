@@ -1,6 +1,6 @@
 using System;
 
-namespace GameKit.Currencies
+namespace GameKit.Currencies.Contracts
 {
     public interface ICurrencyWallet
     {

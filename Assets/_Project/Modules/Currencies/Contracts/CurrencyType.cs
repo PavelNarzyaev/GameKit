@@ -1,4 +1,4 @@
-namespace GameKit.Currencies
+namespace GameKit.Currencies.Contracts
 {
     public enum CurrencyType
     {

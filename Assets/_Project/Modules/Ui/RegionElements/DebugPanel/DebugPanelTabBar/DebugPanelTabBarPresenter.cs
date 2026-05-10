@@ -1,5 +1,5 @@
 using System;
-using GameKit.UiDebugPanel;
+using GameKit.UiDebugPanel.Contracts;
 using JetBrains.Annotations;
 using Zenject;
 

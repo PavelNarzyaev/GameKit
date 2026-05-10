@@ -1,4 +1,5 @@
-using GameKit.PlayerState;
+using GameKit.PlayerState.Contracts;
+using GameKit.StateClipboardProxy.Contracts;
 using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;

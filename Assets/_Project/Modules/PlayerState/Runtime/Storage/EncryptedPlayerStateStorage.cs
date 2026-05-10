@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Security.Cryptography;
+using GameKit.PlayerState.Contracts;
 using JetBrains.Annotations;
 using Zenject;
 

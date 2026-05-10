@@ -1,4 +1,4 @@
-namespace GameKit.CurrentTime
+namespace GameKit.CurrentTime.Contracts
 {
     public interface ICurrentTimeProvider
     {

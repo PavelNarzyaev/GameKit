@@ -1,6 +1,7 @@
 using System;
-using GameKit.CurrentTime;
-using GameKit.ProductionMode;
+using GameKit.CurrentTime.Contracts;
+using GameKit.PlayerState.Contracts;
+using GameKit.ProductionMode.Contracts;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;

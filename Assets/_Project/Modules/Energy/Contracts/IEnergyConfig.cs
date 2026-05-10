@@ -1,4 +1,4 @@
-namespace GameKit.Energy
+namespace GameKit.Energy.Contracts
 {
     public interface IEnergyConfig
     {

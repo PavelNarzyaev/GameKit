@@ -1,4 +1,4 @@
-namespace GameKit.StateClipboardProxy
+namespace GameKit.StateClipboardProxy.Contracts
 {
     public interface IStateClipboardProxy
     {

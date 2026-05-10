@@ -1,5 +1,5 @@
-﻿using GameKit.UiPopups;
-using GameKit.UiRegionsControl;
+﻿using GameKit.UiPopups.Contracts;
+using GameKit.UiRegionsControl.Contracts;
 using JetBrains.Annotations;
 using Zenject;
 

@@ -1,8 +1,8 @@
 using System;
 using System.Globalization;
 using GameKit.Core;
-using GameKit.CurrentTime;
-using GameKit.TimeOffset;
+using GameKit.CurrentTime.Contracts;
+using GameKit.TimeOffset.Contracts;
 using JetBrains.Annotations;
 using Zenject;
 

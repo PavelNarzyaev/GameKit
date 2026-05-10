@@ -1,4 +1,5 @@
 using System;
+using GameKit.UiRegions.Contracts;
 using JetBrains.Annotations;
 
 namespace GameKit.UiRegions

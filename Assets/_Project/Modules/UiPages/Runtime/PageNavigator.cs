@@ -1,5 +1,6 @@
 using System;
-using GameKit.UiRegions;
+using GameKit.UiPages.Contracts;
+using GameKit.UiRegions.Contracts;
 using JetBrains.Annotations;
 using Zenject;
 

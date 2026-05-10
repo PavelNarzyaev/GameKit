@@ -1,5 +1,5 @@
 using System;
-using GameKit.Core;
+using GameKit.Core.Contracts;
 using JetBrains.Annotations;
 
 namespace GameKit.CurrentTime

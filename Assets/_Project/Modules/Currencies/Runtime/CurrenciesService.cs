@@ -1,4 +1,5 @@
 using System;
+using GameKit.Currencies.Contracts;
 using JetBrains.Annotations;
 using Zenject;
 

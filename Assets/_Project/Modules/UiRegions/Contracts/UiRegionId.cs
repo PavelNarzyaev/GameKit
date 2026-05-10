@@ -1,4 +1,4 @@
-namespace GameKit.UiRegions
+namespace GameKit.UiRegions.Contracts
 {
     public enum UiRegionId
     {

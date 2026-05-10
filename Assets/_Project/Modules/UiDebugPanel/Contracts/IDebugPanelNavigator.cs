@@ -1,6 +1,6 @@
 using System;
 
-namespace GameKit.UiDebugPanel
+namespace GameKit.UiDebugPanel.Contracts
 {
     public interface IDebugPanelNavigator
     {

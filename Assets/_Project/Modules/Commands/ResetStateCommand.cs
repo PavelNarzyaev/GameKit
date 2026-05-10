@@ -1,5 +1,6 @@
+using GameKit.Commands.Contracts;
+using GameKit.PlayerState.Contracts;
 using JetBrains.Annotations;
-using GameKit.PlayerState;
 using Zenject;
 
 namespace GameKit.Commands

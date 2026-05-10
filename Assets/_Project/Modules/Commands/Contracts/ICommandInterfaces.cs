@@ -1,4 +1,4 @@
-namespace GameKit.Commands
+namespace GameKit.Commands.Contracts
 {
     public interface IDestroyUiCommand
     {

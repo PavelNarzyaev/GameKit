@@ -1,3 +1,4 @@
+using GameKit.PlayerState.Contracts;
 using JetBrains.Annotations;
 
 namespace GameKit.PlayerState

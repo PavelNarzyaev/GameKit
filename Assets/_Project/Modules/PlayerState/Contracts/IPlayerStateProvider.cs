@@ -1,6 +1,6 @@
 using System;
 
-namespace GameKit.PlayerState
+namespace GameKit.PlayerState.Contracts
 {
     public interface IPlayerStateProvider
     {

@@ -1,4 +1,4 @@
-using GameKit.Commands;
+using GameKit.Commands.Contracts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;

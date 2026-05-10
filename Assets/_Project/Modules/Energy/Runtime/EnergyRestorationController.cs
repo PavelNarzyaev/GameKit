@@ -1,5 +1,6 @@
+using GameKit.Core.Contracts;
+using GameKit.Energy.Contracts;
 using JetBrains.Annotations;
-using GameKit.Core;
 using Zenject;
 
 namespace GameKit.Energy

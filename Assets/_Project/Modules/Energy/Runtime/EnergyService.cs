@@ -1,5 +1,6 @@
 using System;
-using GameKit.CurrentTime;
+using GameKit.CurrentTime.Contracts;
+using GameKit.Energy.Contracts;
 using JetBrains.Annotations;
 using Zenject;
 

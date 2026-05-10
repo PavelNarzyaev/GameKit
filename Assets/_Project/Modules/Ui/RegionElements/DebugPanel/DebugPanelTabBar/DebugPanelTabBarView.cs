@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using GameKit.UiRegions;
-using GameKit.UiRegionsControl;
+using GameKit.UiRegionsControl.Contracts;
 using UnityEngine;
 using Zenject;
 

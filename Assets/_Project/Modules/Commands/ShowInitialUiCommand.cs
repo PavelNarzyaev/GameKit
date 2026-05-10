@@ -1,7 +1,8 @@
-using GameKit.ProductionMode;
-using GameKit.UiPages;
-using GameKit.UiRegions;
-using GameKit.UiRegionsControl;
+using GameKit.Commands.Contracts;
+using GameKit.ProductionMode.Contracts;
+using GameKit.UiPages.Contracts;
+using GameKit.UiRegions.Contracts;
+using GameKit.UiRegionsControl.Contracts;
 using JetBrains.Annotations;
 using Zenject;
 

@@ -1,6 +1,6 @@
 using System;
 using System.Globalization;
-using GameKit.Currencies;
+using GameKit.Currencies.Contracts;
 using JetBrains.Annotations;
 using Zenject;
 

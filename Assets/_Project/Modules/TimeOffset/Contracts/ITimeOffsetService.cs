@@ -1,6 +1,6 @@
 using System;
 
-namespace GameKit.TimeOffset
+namespace GameKit.TimeOffset.Contracts
 {
     public interface ITimeOffsetService
     {

@@ -1,7 +1,8 @@
 using System;
-using GameKit.UiRegionsControl;
-using GameKit.PlayerState;
-using GameKit.UiPopups;
+using GameKit.Commands.Contracts;
+using GameKit.PlayerState.Contracts;
+using GameKit.UiPopups.Contracts;
+using GameKit.UiRegionsControl.Contracts;
 using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;

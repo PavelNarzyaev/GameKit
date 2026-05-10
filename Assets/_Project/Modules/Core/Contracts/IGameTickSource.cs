@@ -1,6 +1,6 @@
 using System;
 
-namespace GameKit.Core
+namespace GameKit.Core.Contracts
 {
     public interface IGameTickSource
     {

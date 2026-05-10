@@ -1,5 +1,5 @@
 using System;
-using GameKit.PlayerState;
+using GameKit.PlayerState.Contracts;
 using JetBrains.Annotations;
 using Zenject;
 

@@ -1,6 +1,6 @@
 using System;
 
-namespace GameKit.UiPopups
+namespace GameKit.UiPopups.Contracts
 {
     public interface IPopupPresenter
     {

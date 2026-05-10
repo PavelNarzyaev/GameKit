@@ -1,5 +1,6 @@
 using System;
-using GameKit.Core;
+using GameKit.Core.Contracts;
+using GameKit.Energy.Contracts;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using Zenject;

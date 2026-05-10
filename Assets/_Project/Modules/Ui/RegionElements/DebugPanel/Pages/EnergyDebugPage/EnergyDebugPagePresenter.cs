@@ -1,6 +1,6 @@
 using System;
 using System.Globalization;
-using GameKit.Energy;
+using GameKit.Energy.Contracts;
 using JetBrains.Annotations;
 using Zenject;
 
