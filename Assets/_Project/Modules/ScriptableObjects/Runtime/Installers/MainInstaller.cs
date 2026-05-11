@@ -89,7 +89,7 @@ namespace GameKit.ScriptableObjects
             Container.Bind<EnergyDebugPagePresenter>().AsSingle();
             Container.Bind<StateDebugPagePresenter>().AsSingle();
             Container.Bind<TimeDebugPagePresenter>().AsSingle();
-            Container.Bind<LogsDebugPagePresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<LogsDebugPagePresenter>().AsSingle().NonLazy();
 #endif
         }
 
