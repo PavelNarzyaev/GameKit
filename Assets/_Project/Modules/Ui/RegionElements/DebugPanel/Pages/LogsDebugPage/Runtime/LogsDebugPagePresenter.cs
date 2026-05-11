@@ -1,28 +1,40 @@
 using System;
-using System.Collections.Generic;
 using System.Text;
+using GameKit.Logs.Contracts;
 using JetBrains.Annotations;
-using UnityEngine;
 using Zenject;
 
 namespace GameKit.LogsDebugPage
 {
     [UsedImplicitly]
-    public class LogsDebugPagePresenter : IInitializable, IDisposable
+    public class LogsDebugPagePresenter : IDisposable
     {
-        private readonly List<LogEntry> m_entries = new();
         private LogFilter m_filter = LogFilter.All;
+
+        [Inject] private ILogsProvider m_logsProvider;
 
         public event Action Changed;
 
-        public void Initialize()
+        private enum LogFilter
         {
-            Application.logMessageReceived += HandleLogMessageReceived;
+            All,
+            Problems
+        }
+
+        [Inject]
+        private void Inject()
+        {
+            m_logsProvider.Changed += HandleLogsProviderChanged;
         }
 
         public void Dispose()
         {
-            Application.logMessageReceived -= HandleLogMessageReceived;
+            m_logsProvider.Changed -= HandleLogsProviderChanged;
+        }
+
+        private void HandleLogsProviderChanged()
+        {
+            Changed?.Invoke();
         }
 
         public void ShowAll()
@@ -47,57 +59,29 @@ namespace GameKit.LogsDebugPage
             UniClipboard.SetText(BuildLogsText(LogFilter.All));
         }
 
-        private void HandleLogMessageReceived(string condition, string stackTrace, LogType type)
-        {
-            m_entries.Add(new LogEntry(condition, stackTrace, type));
-            Changed?.Invoke();
-        }
-
         private string BuildLogsText(LogFilter filter)
         {
             var builder = new StringBuilder();
 
-            foreach (var entry in m_entries)
+            foreach (var message in m_logsProvider.Messages)
             {
-                if (filter == LogFilter.Problems && !entry.IsProblem)
+                if (filter == LogFilter.Problems && !message.IsProblem)
                 {
                     continue;
                 }
 
                 builder.Append('[');
-                builder.Append(entry.Type);
+                builder.Append(message.Type);
                 builder.Append("] ");
-                builder.AppendLine(entry.Condition);
+                builder.AppendLine(message.Condition);
 
-                if (entry.IsProblem)
+                if (message.IsProblem)
                 {
-                    builder.AppendLine(entry.StackTrace);
+                    builder.AppendLine(message.StackTrace);
                 }
             }
 
             return builder.ToString();
-        }
-
-        private readonly struct LogEntry
-        {
-            public LogEntry(string condition, string stackTrace, LogType type)
-            {
-                Condition = condition;
-                StackTrace = stackTrace;
-                Type = type;
-            }
-
-            public string Condition { get; }
-            public string StackTrace { get; }
-            public LogType Type { get; }
-
-            public bool IsProblem => Type != LogType.Log;
-        }
-
-        private enum LogFilter
-        {
-            All,
-            Problems
         }
     }
 }

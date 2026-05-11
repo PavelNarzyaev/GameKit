@@ -6,6 +6,7 @@ using GameKit.Currencies;
 using GameKit.CurrentTime;
 using GameKit.Energy;
 using GameKit.ErrorPopup;
+using GameKit.Logs;
 using GameKit.MetaPage;
 using GameKit.PlayerState;
 using GameKit.PlayerState.Contracts;
@@ -51,6 +52,7 @@ namespace GameKit.ScriptableObjects
             Container.Bind<IPlayerStateStorage>().To<EncryptedPlayerStateStorage>().AsSingle();
             Container.BindInterfacesAndSelfTo<EncryptionKeysProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerStateProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<LogsProvider>().AsSingle();
             Container.Bind<PlayerStateCurrenciesGateway>().AsSingle();
             Container.BindInterfacesAndSelfTo<CurrenciesService>().AsSingle();
             Container.Bind<PlayerStateEnergyGateway>().AsSingle();
@@ -89,7 +91,7 @@ namespace GameKit.ScriptableObjects
             Container.Bind<EnergyDebugPagePresenter>().AsSingle();
             Container.Bind<StateDebugPagePresenter>().AsSingle();
             Container.Bind<TimeDebugPagePresenter>().AsSingle();
-            Container.BindInterfacesAndSelfTo<LogsDebugPagePresenter>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<LogsDebugPagePresenter>().AsSingle();
 #endif
         }
 
@@ -108,6 +110,7 @@ namespace GameKit.ScriptableObjects
             Container.Bind<EnergyRestorationController>().AsSingle().NonLazy();
             Container.Bind<ResetUiController>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<GameKitTickController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<LogMessagesController>().AsSingle().NonLazy();
             Container.BindInterfacesTo<EntryPointController>().AsSingle();
         }
     }
