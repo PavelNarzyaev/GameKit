@@ -140,6 +140,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameKit.UiLogsDebugPage::GameKit.LogsDebugPage.LogsDebugPageView
   isCached: 0
   isDebug: 1
+  logsScrollRect: {fileID: 6448253334648121158}
+  logsContainerCanvasGroup: {fileID: 5695778613822777971}
   logsText: {fileID: 8644033669300023005}
   allButton: {fileID: 4076940466296423497}
   problemsButton: {fileID: 991963701426110144}
@@ -460,6 +462,7 @@ GameObject:
   - component: {fileID: 2226712676697514395}
   - component: {fileID: 1728865888885265784}
   - component: {fileID: 4298212023175533024}
+  - component: {fileID: 5695778613822777971}
   m_Layer: 0
   m_Name: LogsContainer
   m_TagString: Untagged
@@ -482,11 +485,11 @@ RectTransform:
   - {fileID: 6540650467221249420}
   m_Father: {fileID: 8541099017126334352}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -803.0201}
-  m_SizeDelta: {x: 900, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -124, y: 0}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &6765377487172425977
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -551,6 +554,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!225 &5695778613822777971
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7208748256445570040}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7664723736614076768
 GameObject:
   m_ObjectHideFlags: 0
