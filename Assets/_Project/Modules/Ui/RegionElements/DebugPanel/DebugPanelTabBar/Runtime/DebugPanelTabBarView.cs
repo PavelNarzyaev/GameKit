@@ -12,6 +12,7 @@ namespace GameKit.DebugPanelTabBar
         [SerializeField] private DebugPanelTab timeDebugPageTab;
         [SerializeField] private DebugPanelTab currenciesDebugPageTab;
         [SerializeField] private DebugPanelTab energyDebugPageTab;
+        [SerializeField] private DebugPanelTab logsDebugPageTab;
         [SerializeField] private DebugPanelTabBarCloseButton closeButton;
 
         private readonly Dictionary<string, DebugPanelTab> m_tabByAddressableId = new();
@@ -25,6 +26,7 @@ namespace GameKit.DebugPanelTabBar
             SetUpTab(timeDebugPageTab, UiRegionElementAddressableIds.k_TimeDebugPage);
             SetUpTab(currenciesDebugPageTab, UiRegionElementAddressableIds.k_CurrenciesDebugPage);
             SetUpTab(energyDebugPageTab, UiRegionElementAddressableIds.k_EnergyDebugPage);
+            SetUpTab(logsDebugPageTab, UiRegionElementAddressableIds.k_LogsDebugPage);
             closeButton.AddClickListener(m_presenter.Close);
         }
 

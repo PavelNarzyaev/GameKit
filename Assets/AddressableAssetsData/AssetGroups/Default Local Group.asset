@@ -40,6 +40,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5b15cb880491a7b4dbc5b5880b46553c
+    m_Address: LogsDebugPage
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6106670807338a440afda50f16d825c0
     m_Address: ErrorPopup
     m_ReadOnly: 0

@@ -17,6 +17,7 @@ namespace GameKit.UiRegionsControl.Contracts
         public const string k_DebugPageBackdrop = "DebugPageBackdrop";
         public const string k_DebugPanelTabBar = "DebugPanelTabBar";
         public const string k_EnergyDebugPage = "EnergyDebugPage";
+        public const string k_LogsDebugPage = "LogsDebugPage";
         public const string k_StateDebugPage = "StateDebugPage";
         public const string k_TimeDebugPage = "TimeDebugPage";
 #endif

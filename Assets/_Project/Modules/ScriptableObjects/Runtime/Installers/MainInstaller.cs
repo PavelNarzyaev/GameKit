@@ -22,6 +22,7 @@ using Zenject;
 using GameKit.CurrenciesDebugPage;
 using GameKit.DebugPanelTabBar;
 using GameKit.EnergyDebugPage;
+using GameKit.LogsDebugPage;
 using GameKit.StateDebugPage;
 using GameKit.TimeOffset;
 using GameKit.TimeOffset.Contracts;
@@ -88,6 +89,7 @@ namespace GameKit.ScriptableObjects
             Container.Bind<EnergyDebugPagePresenter>().AsSingle();
             Container.Bind<StateDebugPagePresenter>().AsSingle();
             Container.Bind<TimeDebugPagePresenter>().AsSingle();
+            Container.Bind<LogsDebugPagePresenter>().AsSingle();
 #endif
         }
 
