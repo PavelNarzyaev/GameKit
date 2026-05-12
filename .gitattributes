@@ -8,3 +8,4 @@ Assets/_Project/**/*.cs text eol=lf
 *.prefab -whitespace
 *.asset -whitespace
 *.unity -whitespace
+*.meta -whitespace
