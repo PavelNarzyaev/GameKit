@@ -1,4 +1,4 @@
-﻿using GameKit.DebugPanelTabBar;
+﻿using GameKit.UiDebugShared;
 using UnityEngine;
 using Zenject;
 
@@ -6,8 +6,8 @@ namespace GameKit.LogsDebugPage
 {
     public class DebugLogsFilterSelector : MonoBehaviour
     {
-        [SerializeField] private DebugPanelTab allTab;
-        [SerializeField] private DebugPanelTab problemsTab;
+        [SerializeField] private DebugButton allTab;
+        [SerializeField] private DebugButton problemsTab;
         [Inject] private DebugLogsFilterSelectorPresenter m_presenter;
 
         private void Awake()

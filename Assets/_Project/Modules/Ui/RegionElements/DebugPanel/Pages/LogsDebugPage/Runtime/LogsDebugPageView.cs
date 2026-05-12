@@ -1,4 +1,5 @@
 using System.Collections;
+using GameKit.UiDebugShared;
 using GameKit.UiRegions;
 using TMPro;
 using UnityEngine;
@@ -12,13 +13,13 @@ namespace GameKit.LogsDebugPage
         [SerializeField] private ScrollRect logsScrollRect;
         [SerializeField] private CanvasGroup logsContainerCanvasGroup;
         [SerializeField] private TMP_Text logsText;
-        [SerializeField] private Button copyButton;
+        [SerializeField] private DebugButton copyButton;
         [Inject] private LogsDebugPagePresenter m_presenter;
         private Coroutine m_scrollCoroutine;
 
         private void Awake()
         {
-            copyButton.onClick.AddListener(m_presenter.CopyAllLogs);
+            copyButton.AddClickListener(m_presenter.CopyAllLogs);
         }
 
         private void OnEnable()

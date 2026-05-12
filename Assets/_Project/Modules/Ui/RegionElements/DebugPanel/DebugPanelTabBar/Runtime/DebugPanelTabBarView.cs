@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using GameKit.UiDebugShared;
 using GameKit.UiRegions;
 using GameKit.UiRegionsControl.Contracts;
 using UnityEngine;
@@ -9,17 +10,17 @@ namespace GameKit.DebugPanelTabBar
     public class DebugPanelTabBarView : UiRegionElement
     {
         [SerializeField] private DebugPanelTabBarLogsIndicator logsIndicator;
-        [SerializeField] private DebugPanelTab stateDebugPageTab;
-        [SerializeField] private DebugPanelTab timeDebugPageTab;
-        [SerializeField] private DebugPanelTab currenciesDebugPageTab;
-        [SerializeField] private DebugPanelTab energyDebugPageTab;
-        [SerializeField] private DebugPanelTab logsDebugPageTab;
+        [SerializeField] private DebugButton stateDebugPageTab;
+        [SerializeField] private DebugButton timeDebugPageTab;
+        [SerializeField] private DebugButton currenciesDebugPageTab;
+        [SerializeField] private DebugButton energyDebugPageTab;
+        [SerializeField] private DebugButton logsDebugPageTab;
         [SerializeField] private DebugPanelTabBarCloseButton closeButton;
 
-        private readonly Dictionary<string, DebugPanelTab> m_tabByAddressableId = new();
+        private readonly Dictionary<string, DebugButton> m_tabByAddressableId = new();
 
         [Inject] private DebugPanelTabBarPresenter m_presenter;
-        private DebugPanelTab m_selectedTab;
+        private DebugButton m_selectedTab;
 
         private void Awake()
         {
@@ -54,7 +55,7 @@ namespace GameKit.DebugPanelTabBar
             m_presenter.ShowPage(UiRegionElementAddressableIds.k_LogsDebugPage);
         }
 
-        private void SetUpTab(DebugPanelTab tab, string addressableId)
+        private void SetUpTab(DebugButton tab, string addressableId)
         {
             tab.SetSelected(m_presenter.CurrentPageAddressableId == addressableId);
             m_tabByAddressableId.Add(addressableId, tab);

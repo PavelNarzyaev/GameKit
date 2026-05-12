@@ -1193,6 +1193,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3421436485176087880, guid: 4815571e1432f4947a7330839845e796, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5104881562431643298, guid: 4815571e1432f4947a7330839845e796, type: 3}
       propertyPath: m_Name
       value: LogsIndicator
