@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 namespace GameKit.DebugPanelTabBar
 {
-    [ExecuteAlways]
     public class DebugPanelTabBarLogsIndicator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         [SerializeField] private GameObject logIndicator;
