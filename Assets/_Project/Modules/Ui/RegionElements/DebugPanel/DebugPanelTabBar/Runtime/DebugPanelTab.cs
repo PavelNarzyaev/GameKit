@@ -36,7 +36,7 @@ namespace GameKit.DebugPanelTabBar
             m_isSelected = isSelected;
             m_isPressed = false;
 
-            button.enabled = !isSelected;
+            button.interactable = !isSelected;
 
             RefreshDesign();
         }

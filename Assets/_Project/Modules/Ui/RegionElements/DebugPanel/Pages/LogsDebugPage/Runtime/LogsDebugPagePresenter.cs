@@ -6,20 +6,23 @@ using Zenject;
 
 namespace GameKit.LogsDebugPage
 {
+    public enum LogsDebugPageFilter
+    {
+        All,
+        Problems
+    }
+
     [UsedImplicitly]
     public class LogsDebugPagePresenter : IDisposable
     {
-        private LogFilter m_filter = LogFilter.All;
+        private LogsDebugPageFilter m_filter = LogsDebugPageFilter.All;
 
         [Inject] private ILogsProvider m_logsProvider;
 
-        public event Action Changed;
+        public LogsDebugPageFilter CurrentFilter => m_filter;
 
-        private enum LogFilter
-        {
-            All,
-            Problems
-        }
+        public event Action Changed;
+        public event Action FilterChanged;
 
         [Inject]
         private void Inject()
@@ -37,15 +40,15 @@ namespace GameKit.LogsDebugPage
             Changed?.Invoke();
         }
 
-        public void ShowAll()
+        public void SetFilter(LogsDebugPageFilter filter)
         {
-            m_filter = LogFilter.All;
-            Changed?.Invoke();
-        }
+            if (m_filter == filter)
+            {
+                return;
+            }
 
-        public void ShowProblems()
-        {
-            m_filter = LogFilter.Problems;
+            m_filter = filter;
+            FilterChanged?.Invoke();
             Changed?.Invoke();
         }
 
@@ -56,16 +59,16 @@ namespace GameKit.LogsDebugPage
 
         public void CopyAllLogs()
         {
-            UniClipboard.SetText(BuildLogsText(LogFilter.All));
+            UniClipboard.SetText(BuildLogsText(LogsDebugPageFilter.All));
         }
 
-        private string BuildLogsText(LogFilter filter)
+        private string BuildLogsText(LogsDebugPageFilter filter)
         {
             var builder = new StringBuilder();
 
             foreach (var message in m_logsProvider.Messages)
             {
-                if (filter == LogFilter.Problems && !message.IsProblem)
+                if (filter == LogsDebugPageFilter.Problems && !message.IsProblem)
                 {
                     continue;
                 }

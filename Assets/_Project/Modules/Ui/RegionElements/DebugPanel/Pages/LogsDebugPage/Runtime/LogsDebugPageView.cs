@@ -12,16 +12,12 @@ namespace GameKit.LogsDebugPage
         [SerializeField] private ScrollRect logsScrollRect;
         [SerializeField] private CanvasGroup logsContainerCanvasGroup;
         [SerializeField] private TMP_Text logsText;
-        [SerializeField] private Button allButton;
-        [SerializeField] private Button problemsButton;
         [SerializeField] private Button copyButton;
         [Inject] private LogsDebugPagePresenter m_presenter;
         private Coroutine m_scrollCoroutine;
 
         private void Awake()
         {
-            allButton.onClick.AddListener(m_presenter.ShowAll);
-            problemsButton.onClick.AddListener(m_presenter.ShowProblems);
             copyButton.onClick.AddListener(m_presenter.CopyAllLogs);
         }
 

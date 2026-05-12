@@ -92,6 +92,7 @@ namespace GameKit.ScriptableObjects
             Container.Bind<StateDebugPagePresenter>().AsSingle();
             Container.Bind<TimeDebugPagePresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<LogsDebugPagePresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<DebugLogsFilterSelectorPresenter>().AsSingle();
 #endif
         }
 
