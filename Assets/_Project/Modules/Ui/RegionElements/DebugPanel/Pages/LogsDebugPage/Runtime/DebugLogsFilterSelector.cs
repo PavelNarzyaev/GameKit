@@ -34,8 +34,8 @@ namespace GameKit.LogsDebugPage
 
         private void Refresh()
         {
-            allTab.SetSelected(m_presenter.CurrentFilter == LogsDebugPageFilter.All);
-            problemsTab.SetSelected(m_presenter.CurrentFilter == LogsDebugPageFilter.Problems);
+            allTab.SetEnabled(m_presenter.CurrentFilter != LogsDebugPageFilter.All);
+            problemsTab.SetEnabled(m_presenter.CurrentFilter != LogsDebugPageFilter.Problems);
         }
     }
 }

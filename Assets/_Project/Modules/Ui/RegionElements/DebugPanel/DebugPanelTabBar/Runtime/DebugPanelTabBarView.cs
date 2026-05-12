@@ -15,7 +15,7 @@ namespace GameKit.DebugPanelTabBar
         [SerializeField] private DebugButton currenciesDebugPageTab;
         [SerializeField] private DebugButton energyDebugPageTab;
         [SerializeField] private DebugButton logsDebugPageTab;
-        [SerializeField] private DebugPanelTabBarCloseButton closeButton;
+        [SerializeField] private DebugButton closeButton;
 
         private readonly Dictionary<string, DebugButton> m_tabByAddressableId = new();
 
@@ -57,7 +57,7 @@ namespace GameKit.DebugPanelTabBar
 
         private void SetUpTab(DebugButton tab, string addressableId)
         {
-            tab.SetSelected(m_presenter.CurrentPageAddressableId == addressableId);
+            tab.SetEnabled(m_presenter.CurrentPageAddressableId != addressableId);
             m_tabByAddressableId.Add(addressableId, tab);
             tab.AddClickListener(() => m_presenter.ShowPage(addressableId));
         }
@@ -88,7 +88,7 @@ namespace GameKit.DebugPanelTabBar
         {
             if (m_selectedTab)
             {
-                m_selectedTab.SetSelected(false);
+                m_selectedTab.SetEnabled(true);
             }
 
             m_selectedTab = null;
@@ -104,7 +104,7 @@ namespace GameKit.DebugPanelTabBar
             }
 
             m_selectedTab = tab;
-            m_selectedTab.SetSelected(true);
+            m_selectedTab.SetEnabled(false);
         }
 
         private void RefreshCloseButton()

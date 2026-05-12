@@ -6,44 +6,32 @@ using UnityEngine.UI;
 
 namespace GameKit.UiDebugShared
 {
-    [ExecuteAlways]
     public class DebugButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        [SerializeField] private Color selectedColor;
-        [SerializeField] private Color pressedColor;
-        [SerializeField] private Color defaultColor;
         [SerializeField] private Button button;
         [SerializeField] private TMP_Text text;
         [SerializeField] private Image background;
 
-        private bool m_isSelected;
+        private static readonly Color s_disabledColor = new(0.6156863f, 0.6156863f, 0.6156863f, 1f);
+        private static readonly Color s_pressedColor = new(0.43529412f, 0.30980393f, 0.08627451f, 1f);
+        private static readonly Color s_enabledColor = new(0.7411765f, 0.52156866f, 0.13333334f, 1f);
+
+        private bool m_isEnabled = true;
         private bool m_isPressed;
 
-        private void OnValidate()
+        public void SetEnabled(bool isEnabled)
         {
-            if (Application.isPlaying)
-            {
-                return;
-            }
-
-            m_isSelected = false;
-            m_isPressed = false;
-            RefreshDesign();
-        }
-
-        public void SetSelected(bool isSelected)
-        {
-            m_isSelected = isSelected;
+            m_isEnabled = isEnabled;
             m_isPressed = false;
 
-            button.interactable = !isSelected;
+            button.interactable = isEnabled;
 
             RefreshDesign();
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (m_isSelected)
+            if (!m_isEnabled)
             {
                 return;
             }
@@ -54,7 +42,7 @@ namespace GameKit.UiDebugShared
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (m_isSelected)
+            if (!m_isEnabled)
             {
                 return;
             }
@@ -65,11 +53,11 @@ namespace GameKit.UiDebugShared
 
         private void RefreshDesign()
         {
-            var color = m_isSelected
-                ? selectedColor
+            var color = !m_isEnabled
+                ? s_disabledColor
                 : m_isPressed
-                    ? pressedColor
-                    : defaultColor;
+                    ? s_pressedColor
+                    : s_enabledColor;
 
             text.color = color;
             background.color = color;

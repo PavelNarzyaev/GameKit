@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7612971559916421371}
   - component: {fileID: 628057367492484479}
-  - component: {fileID: 1761530753973835006}
+  - component: {fileID: 429652785309483462}
+  - component: {fileID: 1494963292862669576}
   m_Layer: 0
-  m_Name: DebugPanelTabBarCloseButton
+  m_Name: DebugCloseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,7 +39,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 130, y: 130}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &628057367492484479
 MonoBehaviour:
@@ -84,7 +85,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1761530753973835006
+--- !u!114 &429652785309483462
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,15 +94,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 1966920654267975893}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42880b88928c416e97dddbcafb2e4b25, type: 3}
+  m_Script: {fileID: 11500000, guid: f1d9d12110434b4684e5d8aea16d90d4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UiDebugPanelTabBar::GameKit.DebugPanelTabBar.DebugPanelTabBarCloseButton
-  disabledColor: {r: 0.6156863, g: 0.6156863, b: 0.6156863, a: 1}
-  pressedColor: {r: 0.43529412, g: 0.30980393, b: 0.08627451, a: 1}
-  enabledColor: {r: 0.7411765, g: 0.52156866, b: 0.13333334, a: 1}
+  m_EditorClassIdentifier: 
   button: {fileID: 628057367492484479}
   text: {fileID: 7363873714634414116}
   background: {fileID: 6986223244507088098}
+--- !u!114 &1494963292862669576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966920654267975893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 200
+  m_PreferredHeight: 200
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &2350788276153087271
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,7 +132,7 @@ GameObject:
   - component: {fileID: 7468127411321444979}
   - component: {fileID: 457941084564329914}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,7 +155,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 70, y: 70}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7468127411321444979
 CanvasRenderer:
@@ -212,7 +230,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -70, y: -70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &543535831941262984
 CanvasRenderer:
@@ -235,8 +253,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6156863, g: 0.6156863, b: 0.6156863, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0.7411765, g: 0.52156866, b: 0.13333334, a: 1}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
   m_OnCullStateChanged:
@@ -245,7 +263,7 @@ MonoBehaviour:
   m_Sprite: {fileID: 21300000, guid: f662ea07f7cb1da45aa713777de61345, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
-  m_FillCenter: 1
+  m_FillCenter: 0
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
@@ -326,8 +344,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4288519581
-  m_fontColor: {r: 0.6156863, g: 0.6156863, b: 0.6156863, a: 1}
+    rgba: 4280452541
+  m_fontColor: {r: 0.7411765, g: 0.52156866, b: 0.13333334, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

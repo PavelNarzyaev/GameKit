@@ -31,7 +31,7 @@ RectTransform:
   m_Children:
   - {fileID: 8367334891496037111}
   - {fileID: 1351268599743633898}
-  - {fileID: 2327414197628773469}
+  - {fileID: 7201361220888945492}
   m_Father: {fileID: 7605072839016055119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -252,7 +252,7 @@ MonoBehaviour:
   currenciesDebugPageTab: {fileID: 2774295681865768908}
   energyDebugPageTab: {fileID: 1649019369178595872}
   logsDebugPageTab: {fileID: 7004910986665391889}
-  closeButton: {fileID: 1307412024043173713}
+  closeButton: {fileID: 1126045329511326313}
 --- !u!1 &4645180810719565316
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,63 +441,6 @@ MonoBehaviour:
   m_FlexibleWidth: 1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!1 &8701755598440581680
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2327414197628773469}
-  - component: {fileID: 6272986649854709456}
-  m_Layer: 0
-  m_Name: CloseButton
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2327414197628773469
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8701755598440581680}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7201361220888945492}
-  m_Father: {fileID: 2824548245919809572}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 200}
-  m_Pivot: {x: 1, y: 1}
---- !u!114 &6272986649854709456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8701755598440581680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
-  m_IgnoreLayout: 0
-  m_MinWidth: -1
-  m_MinHeight: -1
-  m_PreferredWidth: 200
-  m_PreferredHeight: 200
-  m_FlexibleWidth: -1
-  m_FlexibleHeight: -1
-  m_LayoutPriority: 1
 --- !u!1 &9082933325313121716
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,7 +522,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2327414197628773469}
+    m_TransformParent: {fileID: 2824548245919809572}
     m_Modifications:
     - target: {fileID: 1966920654267975893, guid: 388febc65d9d6b8429b72dcc7f47a556, type: 3}
       propertyPath: m_Name
@@ -591,7 +534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7363873714634414116, guid: 388febc65d9d6b8429b72dcc7f47a556, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4288519581
+      value: 4280452541
       objectReference: {fileID: 0}
     - target: {fileID: 7612971559916421371, guid: 388febc65d9d6b8429b72dcc7f47a556, type: 3}
       propertyPath: m_Pivot.x
@@ -603,27 +546,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7612971559916421371, guid: 388febc65d9d6b8429b72dcc7f47a556, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7612971559916421371, guid: 388febc65d9d6b8429b72dcc7f47a556, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7612971559916421371, guid: 388febc65d9d6b8429b72dcc7f47a556, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7612971559916421371, guid: 388febc65d9d6b8429b72dcc7f47a556, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7612971559916421371, guid: 388febc65d9d6b8429b72dcc7f47a556, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 130
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7612971559916421371, guid: 388febc65d9d6b8429b72dcc7f47a556, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 130
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7612971559916421371, guid: 388febc65d9d6b8429b72dcc7f47a556, type: 3}
       propertyPath: m_LocalPosition.x
@@ -678,17 +621,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 388febc65d9d6b8429b72dcc7f47a556, type: 3}
---- !u!114 &1307412024043173713 stripped
+--- !u!114 &1126045329511326313 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1761530753973835006, guid: 388febc65d9d6b8429b72dcc7f47a556, type: 3}
+  m_CorrespondingSourceObject: {fileID: 429652785309483462, guid: 388febc65d9d6b8429b72dcc7f47a556, type: 3}
   m_PrefabInstance: {fileID: 745040814302012335}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42880b88928c416e97dddbcafb2e4b25, type: 3}
+  m_Script: {fileID: 11500000, guid: f1d9d12110434b4684e5d8aea16d90d4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UiDebugPanelTabBar::GameKit.DebugPanelTabBar.DebugPanelTabBarCloseButton
+  m_EditorClassIdentifier: 
 --- !u!224 &7201361220888945492 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7612971559916421371, guid: 388febc65d9d6b8429b72dcc7f47a556, type: 3}
