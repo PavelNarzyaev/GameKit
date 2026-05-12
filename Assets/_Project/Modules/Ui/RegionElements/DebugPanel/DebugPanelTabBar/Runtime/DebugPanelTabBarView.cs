@@ -8,6 +8,7 @@ namespace GameKit.DebugPanelTabBar
 {
     public class DebugPanelTabBarView : UiRegionElement
     {
+        [SerializeField] private DebugPanelTabBarLogsIndicator logsIndicator;
         [SerializeField] private DebugPanelTab stateDebugPageTab;
         [SerializeField] private DebugPanelTab timeDebugPageTab;
         [SerializeField] private DebugPanelTab currenciesDebugPageTab;
@@ -22,6 +23,7 @@ namespace GameKit.DebugPanelTabBar
 
         private void Awake()
         {
+            logsIndicator.AddClickListener(HandleLogsIndicatorClicked);
             SetUpTab(stateDebugPageTab, UiRegionElementAddressableIds.k_StateDebugPage);
             SetUpTab(timeDebugPageTab, UiRegionElementAddressableIds.k_TimeDebugPage);
             SetUpTab(currenciesDebugPageTab, UiRegionElementAddressableIds.k_CurrenciesDebugPage);
@@ -38,11 +40,18 @@ namespace GameKit.DebugPanelTabBar
         private void OnEnable()
         {
             m_presenter.PageChanged += HandlePageChanged;
+            m_presenter.LogsIndicatorStateChanged += HandleLogsIndicatorStateChanged;
         }
 
         private void OnDisable()
         {
             m_presenter.PageChanged -= HandlePageChanged;
+            m_presenter.LogsIndicatorStateChanged -= HandleLogsIndicatorStateChanged;
+        }
+
+        private void HandleLogsIndicatorClicked()
+        {
+            m_presenter.ShowPage(UiRegionElementAddressableIds.k_LogsDebugPage);
         }
 
         private void SetUpTab(DebugPanelTab tab, string addressableId)
@@ -59,8 +68,19 @@ namespace GameKit.DebugPanelTabBar
 
         private void Refresh()
         {
+            RefreshLogsIndicator();
             RefreshSelectedPage();
             RefreshCloseButton();
+        }
+
+        private void HandleLogsIndicatorStateChanged()
+        {
+            RefreshLogsIndicator();
+        }
+
+        private void RefreshLogsIndicator()
+        {
+            logsIndicator.SetState(m_presenter.LogsIndicatorState);
         }
 
         private void RefreshSelectedPage()

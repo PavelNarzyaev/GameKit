@@ -86,7 +86,7 @@ namespace GameKit.ScriptableObjects
         {
 #if !IS_PRODUCTION
             Container.BindInterfacesAndSelfTo<DebugPanelNavigator>().AsSingle();
-            Container.Bind<DebugPanelTabBarPresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<DebugPanelTabBarPresenter>().AsSingle();
             Container.Bind<CurrenciesDebugPagePresenter>().AsSingle();
             Container.Bind<EnergyDebugPagePresenter>().AsSingle();
             Container.Bind<StateDebugPagePresenter>().AsSingle();
