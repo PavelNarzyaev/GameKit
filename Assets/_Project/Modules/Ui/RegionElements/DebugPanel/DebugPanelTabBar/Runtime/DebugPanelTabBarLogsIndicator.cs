@@ -8,10 +8,9 @@ namespace GameKit.DebugPanelTabBar
     [ExecuteAlways]
     public class DebugPanelTabBarLogsIndicator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        [SerializeField] private Image indicatorImage;
-        [SerializeField] private Color defaultColor;
-        [SerializeField] private Color warningColor;
-        [SerializeField] private Color errorColor;
+        [SerializeField] private GameObject logIndicator;
+        [SerializeField] private GameObject warningIndicator;
+        [SerializeField] private GameObject errorIndicator;
         [SerializeField] private GameObject pressedIndicator;
         [SerializeField] private Button button;
 
@@ -39,18 +38,9 @@ namespace GameKit.DebugPanelTabBar
 
         public void SetState(DebugPanelTabBarLogsIndicatorState state)
         {
-            switch (state)
-            {
-                case DebugPanelTabBarLogsIndicatorState.Default:
-                    indicatorImage.color = defaultColor;
-                    break;
-                case DebugPanelTabBarLogsIndicatorState.Warning:
-                    indicatorImage.color = warningColor;
-                    break;
-                case DebugPanelTabBarLogsIndicatorState.Error:
-                    indicatorImage.color = errorColor;
-                    break;
-            }
+            logIndicator.SetActive(state == DebugPanelTabBarLogsIndicatorState.Default);
+            warningIndicator.SetActive(state == DebugPanelTabBarLogsIndicatorState.Warning);
+            errorIndicator.SetActive(state == DebugPanelTabBarLogsIndicatorState.Error);
         }
     }
 }
