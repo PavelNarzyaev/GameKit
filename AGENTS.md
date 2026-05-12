@@ -1,6 +1,7 @@
 # Current task notes
 
-Check [workspace folder](Documents/Workspace/) before starting work if you need the latest task context
+Check the workspace folder inside the current project before starting work if you need the latest task context.
+Use `[ProjectRoot]/Documents/Workspace` as the project-local workspace path.
 
 # Fail fast
 
