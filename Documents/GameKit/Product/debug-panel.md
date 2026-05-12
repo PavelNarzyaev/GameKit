@@ -14,6 +14,10 @@ The Debug Panel is also a visible indicator of [Production Mode](production-mode
 
 The panel is placed at the bottom of the application. It slightly reduces the height of the gameplay area and does not overlap the gameplay UI elements.
 
+## Logs Indicator
+
+The debug panel tab bar includes an always-visible logs indicator. The indicator changes when a new warning or error appears while the logs page is not open, so testers can notice the moment when a problem appears in the console.
+
 ## Technical Article
 
 - [Debug Panel](../Engineering/debug-panel.md)

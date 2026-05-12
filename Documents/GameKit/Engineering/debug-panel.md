@@ -23,7 +23,7 @@ The system uses [UiRegions](ui-regions.md) to host two separate regions:
 
 ### UiDebugPanelTabBar
 
-`UiDebugPanelTabBar` contains the bottom tab bar. It highlights the selected debug page and forwards user actions to `UiDebugPanel`.
+`UiDebugPanelTabBar` contains the bottom tab bar. It highlights the selected debug page, forwards user actions to `UiDebugPanel`, and shows the logs indicator state.
 
 ### UiDebugPanel
 
@@ -33,3 +33,4 @@ The system uses [UiRegions](ui-regions.md) to host two separate regions:
 ### UiTimeDebugPage
 ### UiCurrenciesDebugPage
 ### UiEnergyDebugPage
+### UiLogsDebugPage
