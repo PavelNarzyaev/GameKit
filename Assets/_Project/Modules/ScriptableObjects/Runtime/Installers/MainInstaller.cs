@@ -51,6 +51,8 @@ namespace GameKit.ScriptableObjects
             Container.Bind<FilePlayerStateStorage>().AsSingle();
             Container.Bind<IPlayerStateStorage>().To<EncryptedPlayerStateStorage>().AsSingle();
             Container.BindInterfacesAndSelfTo<EncryptionKeysProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<JsonPlayerStateSerializer>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerStateValidator>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerStateProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<LogsProvider>().AsSingle();
             Container.Bind<PlayerStateCurrenciesGateway>().AsSingle();

@@ -18,6 +18,8 @@ namespace GameKit.PlayerState.Tests
             Container.BindInterfacesAndSelfTo<ProductionModeProvider>().AsSingle();
             Container.Bind<ICurrentTimeSource>().To<FakeCurrentTimeSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<JsonPlayerStateSerializer>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerStateValidator>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerStateProvider>().AsSingle();
         }
 
@@ -40,10 +42,24 @@ namespace GameKit.PlayerState.Tests
             Assert.That(storage.LoadCalls, Is.EqualTo(0));
         }
 
+        [Test]
+        public void Set_WhenJsonIsIncompatible_ThrowsWithoutSavingOrRaisingRefreshedFromJson()
+        {
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            var storage = (FakePlayerStateStorage)Container.Resolve<IPlayerStateStorage>();
+            var refreshedFromJsonCalls = 0;
+            playerStateProvider.RefreshedFromJson += () => refreshedFromJsonCalls++;
+
+            Assert.That(() => playerStateProvider.Set("{}"), Throws.Exception);
+            Assert.That(storage.SaveCalls, Is.EqualTo(0));
+            Assert.That(refreshedFromJsonCalls, Is.EqualTo(0));
+        }
+
         [UsedImplicitly]
         private class FakePlayerStateStorage : IPlayerStateStorage
         {
             public int LoadCalls { get; private set; }
+            public int SaveCalls { get; private set; }
 
             public bool Exists()
             {
@@ -52,6 +68,7 @@ namespace GameKit.PlayerState.Tests
 
             public void Save(string stateJson)
             {
+                SaveCalls++;
             }
 
             public string Load()

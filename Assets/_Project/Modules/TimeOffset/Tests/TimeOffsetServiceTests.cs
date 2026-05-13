@@ -23,6 +23,8 @@ namespace GameKit.TimeOffset.Tests
             Container.BindInterfacesAndSelfTo<TimeOffsetService>().AsSingle();
             Container.Bind<ICurrentTimeSource>().To<TimeOffsetCurrentTimeSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<JsonPlayerStateSerializer>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerStateValidator>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerStateProvider>().AsSingle();
         }
 

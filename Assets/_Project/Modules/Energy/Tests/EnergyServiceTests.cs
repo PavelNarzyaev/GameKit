@@ -20,6 +20,8 @@ namespace GameKit.Energy.Tests
             Container.BindInterfacesAndSelfTo<ProductionModeProvider>().AsSingle();
             Container.Bind<ICurrentTimeSource>().To<FakeCurrentTimeSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<JsonPlayerStateSerializer>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerStateValidator>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerStateProvider>().AsSingle();
             Container.Bind<IEnergyConfig>().To<FakeEnergyConfig>().AsSingle();
             Container.Bind<PlayerStateEnergyGateway>().AsSingle();

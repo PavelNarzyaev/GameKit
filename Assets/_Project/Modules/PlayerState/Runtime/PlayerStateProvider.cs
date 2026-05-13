@@ -3,8 +3,6 @@ using GameKit.CurrentTime.Contracts;
 using GameKit.PlayerState.Contracts;
 using GameKit.ProductionMode.Contracts;
 using JetBrains.Annotations;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using UnityEngine;
 using Zenject;
 
@@ -13,11 +11,6 @@ namespace GameKit.PlayerState
     [UsedImplicitly]
     public class PlayerStateProvider : IPlayerStateProvider
     {
-        private static readonly JsonSerializerSettings s_jsonSerializerSettings = new()
-        {
-            ContractResolver = new CamelCasePropertyNamesContractResolver()
-        };
-
         public PlayerStateDto Data { get; set; }
         public bool IsDirty { get; private set; }
         public event Action RefreshedFromJson;
@@ -25,6 +18,8 @@ namespace GameKit.PlayerState
         [Inject] private IPlayerStateStorage m_playerStateStorage;
         [Inject] private IProductionModeProvider m_productionModeProvider;
         [Inject] private ICurrentTimeProvider m_currentTimeProvider;
+        [Inject] private IPlayerStateSerializer m_playerStateSerializer;
+        [Inject] private IPlayerStateValidator m_playerStateValidator;
 
         public void MarkAsDirty()
         {
@@ -33,13 +28,13 @@ namespace GameKit.PlayerState
 
         public void Save()
         {
-            SaveJsonToFile(SerializeState(Data));
+            SaveJsonToFile(m_playerStateSerializer.Serialize(Data));
         }
 
         public void Set(string json)
         {
-            Data = DeserializeState(json);
-            SaveJsonToFile(SerializeState(Data));
+            Data = DeserializeAndValidate(json);
+            SaveJsonToFile(m_playerStateSerializer.Serialize(Data));
             RefreshedFromJson?.Invoke();
         }
 
@@ -67,11 +62,7 @@ namespace GameKit.PlayerState
             try
             {
                 var json = Get();
-                Data = DeserializeState(json);
-                if (Data == null || string.IsNullOrEmpty(Data.UserId))
-                {
-                    throw new FormatException("Saved state format is incompatible.");
-                }
+                Data = DeserializeAndValidate(json);
             }
             catch (Exception e)
             {
@@ -112,15 +103,11 @@ namespace GameKit.PlayerState
             m_playerStateStorage.Delete();
         }
 
-        private static string SerializeState(PlayerStateDto state)
+        private PlayerStateDto DeserializeAndValidate(string json)
         {
-            return JsonConvert.SerializeObject(state, s_jsonSerializerSettings);
-        }
-
-        private static PlayerStateDto DeserializeState(string json)
-        {
-            var state = JsonConvert.DeserializeObject<PlayerStateDto>(json, s_jsonSerializerSettings);
-            return state ?? throw new FormatException("Saved state format is incompatible.");
+            var state = m_playerStateSerializer.Deserialize(json);
+            m_playerStateValidator.Validate(state);
+            return state;
         }
     }
 }
