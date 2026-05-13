@@ -70,10 +70,24 @@ namespace GameKit.PlayerState
                     throw;
                 }
 
-                Initialize();
-                Debug.LogWarning($"Failed to apply saved state: \"{e}\". State has been reset.");
+#if !IS_PRODUCTION
+                ResetAfterLoadFailure(e);
+#else
+                Debug.LogError(
+                    $"Incorrect {nameof(IProductionModeProvider)} behaviour detected: " +
+                    $"{nameof(IProductionModeProvider.IsProduction)} is false in production build.");
+                throw;
+#endif
             }
         }
+
+#if !IS_PRODUCTION
+        private void ResetAfterLoadFailure(Exception e)
+        {
+            Initialize();
+            Debug.LogWarning($"Failed to apply saved state: \"{e}\". State has been reset.");
+        }
+#endif
 
         private void Initialize()
         {

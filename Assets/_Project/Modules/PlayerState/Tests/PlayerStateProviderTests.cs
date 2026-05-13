@@ -1,7 +1,7 @@
 using GameKit.Core.Contracts;
 using GameKit.CurrentTime;
 using GameKit.PlayerState.Contracts;
-using GameKit.ProductionMode;
+using GameKit.ProductionMode.Contracts;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using Zenject;
@@ -15,7 +15,7 @@ namespace GameKit.PlayerState.Tests
         public void SetUp()
         {
             Container.Bind<IPlayerStateStorage>().To<FakePlayerStateStorage>().AsSingle();
-            Container.BindInterfacesAndSelfTo<ProductionModeProvider>().AsSingle();
+            Container.Bind<IProductionModeProvider>().To<FakeProductionModeProvider>().AsSingle();
             Container.Bind<ICurrentTimeSource>().To<FakeCurrentTimeSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
             PlayerStateInstaller.Install(Container);
@@ -67,15 +67,28 @@ namespace GameKit.PlayerState.Tests
             Assert.That(refreshedFromJsonCalls, Is.EqualTo(0));
         }
 
+        [Test]
+        public void Refresh_WhenSavedStateIsInvalidAndProduction_Throws()
+        {
+            var productionModeProvider = (FakeProductionModeProvider)Container.Resolve<IProductionModeProvider>();
+            productionModeProvider.SetIsProduction(true);
+            var storage = (FakePlayerStateStorage)Container.Resolve<IPlayerStateStorage>();
+            storage.SetStoredState("{}");
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+
+            Assert.That(() => playerStateProvider.Refresh(), Throws.Exception);
+        }
+
         [UsedImplicitly]
         private class FakePlayerStateStorage : IPlayerStateStorage
         {
             public int LoadCalls { get; private set; }
             public int SaveCalls { get; private set; }
+            private string m_storedState;
 
             public bool Exists()
             {
-                return false;
+                return m_storedState != null;
             }
 
             public void Save(string stateJson)
@@ -86,11 +99,16 @@ namespace GameKit.PlayerState.Tests
             public string Load()
             {
                 LoadCalls++;
-                return string.Empty;
+                return m_storedState;
             }
 
             public void Delete()
             {
+            }
+
+            public void SetStoredState(string storedState)
+            {
+                m_storedState = storedState;
             }
         }
 
@@ -124,6 +142,16 @@ namespace GameKit.PlayerState.Tests
                     FirstLaunchTimestamp = k_FirstLaunchTimestamp,
                     LaunchesCounter = k_LaunchesCounter
                 };
+            }
+        }
+
+        private class FakeProductionModeProvider : IProductionModeProvider
+        {
+            public bool IsProduction { get; private set; }
+
+            public void SetIsProduction(bool isProduction)
+            {
+                IsProduction = isProduction;
             }
         }
     }
