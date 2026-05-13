@@ -34,6 +34,7 @@ Current direct non-module package dependencies:
 - `com.unity.adaptiveperformance.google.android`
 - `com.unity.addressables`
 - `com.unity.collab-proxy`
+- `com.unity.device-simulator.devices`
 - `com.unity.feature.2d`
 - `com.unity.feature.mobile`
 - `com.unity.ide.rider`
