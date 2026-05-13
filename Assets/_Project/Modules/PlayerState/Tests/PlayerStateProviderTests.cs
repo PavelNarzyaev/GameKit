@@ -41,6 +41,20 @@ namespace GameKit.PlayerState.Tests
         }
 
         [Test]
+        public void Refresh_WhenStorageIsEmpty_CreatesStateThroughFactory()
+        {
+            Container.Rebind<IPlayerStateFactory>().To<FakePlayerStateFactory>().AsSingle();
+
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+
+            playerStateProvider.Refresh();
+
+            Assert.That(playerStateProvider.Data.UserId, Is.EqualTo(FakePlayerStateFactory.k_UserId));
+            Assert.That(playerStateProvider.Data.FirstLaunchTimestamp, Is.EqualTo(FakePlayerStateFactory.k_FirstLaunchTimestamp));
+            Assert.That(playerStateProvider.Data.LaunchesCounter, Is.EqualTo(FakePlayerStateFactory.k_LaunchesCounter));
+        }
+
+        [Test]
         public void Set_WhenJsonIsIncompatible_ThrowsWithoutSavingOrRaisingRefreshedFromJson()
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
@@ -93,6 +107,23 @@ namespace GameKit.PlayerState.Tests
             public long GetTimestamp()
             {
                 return m_currentTimestamp;
+            }
+        }
+
+        private class FakePlayerStateFactory : IPlayerStateFactory
+        {
+            public const string k_UserId = "factory-user";
+            public const long k_FirstLaunchTimestamp = 123;
+            public const int k_LaunchesCounter = 4;
+
+            public PlayerStateDto Create()
+            {
+                return new PlayerStateDto
+                {
+                    UserId = k_UserId,
+                    FirstLaunchTimestamp = k_FirstLaunchTimestamp,
+                    LaunchesCounter = k_LaunchesCounter
+                };
             }
         }
     }

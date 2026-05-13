@@ -10,6 +10,7 @@ namespace GameKit.PlayerState
         {
             Container.BindInterfacesAndSelfTo<JsonPlayerStateSerializer>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerStateValidator>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerStateFactory>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerStateProvider>().AsSingle();
         }
     }

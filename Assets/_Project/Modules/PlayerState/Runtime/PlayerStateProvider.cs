@@ -1,5 +1,4 @@
 using System;
-using GameKit.CurrentTime.Contracts;
 using GameKit.PlayerState.Contracts;
 using GameKit.ProductionMode.Contracts;
 using JetBrains.Annotations;
@@ -17,9 +16,9 @@ namespace GameKit.PlayerState
 
         [Inject] private IPlayerStateStorage m_playerStateStorage;
         [Inject] private IProductionModeProvider m_productionModeProvider;
-        [Inject] private ICurrentTimeProvider m_currentTimeProvider;
         [Inject] private IPlayerStateSerializer m_playerStateSerializer;
         [Inject] private IPlayerStateValidator m_playerStateValidator;
+        [Inject] private IPlayerStateFactory m_playerStateFactory;
 
         public void MarkAsDirty()
         {
@@ -78,18 +77,7 @@ namespace GameKit.PlayerState
 
         private void Initialize()
         {
-            Data = new PlayerStateDto
-            {
-                UserId = Guid.NewGuid().ToString(),
-                FirstLaunchTimestamp = m_currentTimeProvider.GetTimestamp()
-            };
-
-            // TODO: <remove_temporary_code>
-            Data.Currencies.SoftCurrency = UnityEngine.Random.Range(1, 100);
-            Data.Currencies.HardCurrency = UnityEngine.Random.Range(1, 100);
-            Data.EnergyData.Energy = UnityEngine.Random.Range(1, 100);
-            // TODO: </remove_temporary_code>
-
+            Data = m_playerStateFactory.Create();
             IsDirty = true;
         }
 
