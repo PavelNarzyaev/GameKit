@@ -18,9 +18,7 @@ namespace GameKit.PlayerState.Tests
             Container.BindInterfacesAndSelfTo<ProductionModeProvider>().AsSingle();
             Container.Bind<ICurrentTimeSource>().To<FakeCurrentTimeSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
-            Container.BindInterfacesAndSelfTo<JsonPlayerStateSerializer>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerStateValidator>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerStateProvider>().AsSingle();
+            PlayerStateInstaller.Install(Container);
         }
 
         [Test]
