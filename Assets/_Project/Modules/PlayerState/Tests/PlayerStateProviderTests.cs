@@ -18,6 +18,7 @@ namespace GameKit.PlayerState.Tests
             Container.Bind<IPlayerStateStorage>().To<FakePlayerStateStorage>().AsSingle();
             Container.Bind<IProductionModeProvider>().To<FakeProductionModeProvider>().AsSingle();
             Container.Bind<ICurrentTimeSource>().To<FakeCurrentTimeSource>().AsSingle();
+            Container.Bind<IGameTickSource>().To<FakeGameTickSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
             PlayerStateInstaller.Install(Container);
         }
@@ -141,6 +142,21 @@ namespace GameKit.PlayerState.Tests
             Assert.That(() => playerStateProvider.Refresh(), Throws.Exception);
         }
 
+        [Test]
+        public void PlayerStateSavingController_WhenTickedAndStateIsDirty_SavesState()
+        {
+            var tickSource = (FakeGameTickSource)Container.Resolve<IGameTickSource>();
+            Container.Resolve<PlayerStateSavingController>();
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            var storage = (FakePlayerStateStorage)Container.Resolve<IPlayerStateStorage>();
+            playerStateProvider.Replace(new PlayerStateDto());
+
+            tickSource.Tick();
+
+            Assert.That(storage.SaveCalls, Is.EqualTo(1));
+            Assert.That(playerStateProvider.IsDirty, Is.False);
+        }
+
         [UsedImplicitly]
         private class FakePlayerStateStorage : IPlayerStateStorage
         {
@@ -214,6 +230,17 @@ namespace GameKit.PlayerState.Tests
             public void SetIsProduction(bool isProduction)
             {
                 IsProduction = isProduction;
+            }
+        }
+
+        [UsedImplicitly]
+        private class FakeGameTickSource : IGameTickSource
+        {
+            public event Action Ticked;
+
+            public void Tick()
+            {
+                Ticked?.Invoke();
             }
         }
 

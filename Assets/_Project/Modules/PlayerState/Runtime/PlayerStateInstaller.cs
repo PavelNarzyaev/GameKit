@@ -12,6 +12,7 @@ namespace GameKit.PlayerState
             Container.BindInterfacesAndSelfTo<PlayerStateValidator>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerStateFactory>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerStateProvider>().AsSingle();
+            Container.Bind<PlayerStateSavingController>().AsSingle().NonLazy();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using GameKit.Core.Contracts;
 using GameKit.CurrentTime;
 using GameKit.PlayerState;
@@ -18,6 +19,7 @@ namespace GameKit.TimeOffset.Tests
         {
             Container.Bind<IPlayerStateStorage>().To<FakePlayerStateStorage>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProductionModeProvider>().AsSingle();
+            Container.Bind<IGameTickSource>().To<FakeGameTickSource>().AsSingle();
             Container.Bind<ICurrentTimeSource>().WithId(CurrentTimeSourceIds.k_BaseCurrentTimeSource).To<FakeCurrentTimeSource>().AsSingle();
             Container.Bind<PlayerStateTimeOffsetGateway>().AsSingle();
             Container.BindInterfacesAndSelfTo<TimeOffsetService>().AsSingle();
@@ -138,6 +140,12 @@ namespace GameKit.TimeOffset.Tests
             {
                 return m_currentTimestamp;
             }
+        }
+
+        [UsedImplicitly]
+        private class FakeGameTickSource : IGameTickSource
+        {
+            public event Action Ticked;
         }
     }
 }

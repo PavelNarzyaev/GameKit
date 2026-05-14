@@ -109,7 +109,6 @@ namespace GameKit.ScriptableObjects
 
         private void InstallControllers()
         {
-            Container.Bind<StateSavingController>().AsSingle().NonLazy();
             Container.Bind<EnergyRestorationController>().AsSingle().NonLazy();
             Container.Bind<ResetUiController>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<GameKitTickController>().AsSingle();

@@ -1,3 +1,4 @@
+using System;
 using GameKit.Core.Contracts;
 using GameKit.CurrentTime;
 using GameKit.Energy.Contracts;
@@ -19,6 +20,7 @@ namespace GameKit.Energy.Tests
             Container.Bind<IPlayerStateStorage>().To<FakePlayerStateStorage>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProductionModeProvider>().AsSingle();
             Container.Bind<ICurrentTimeSource>().To<FakeCurrentTimeSource>().AsSingle();
+            Container.Bind<IGameTickSource>().To<FakeGameTickSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
             PlayerStateInstaller.Install(Container);
             Container.Bind<IEnergyConfig>().To<FakeEnergyConfig>().AsSingle();
@@ -313,5 +315,10 @@ namespace GameKit.Energy.Tests
             public int EnergyRestorationLimit => 10;
         }
 
+        [UsedImplicitly]
+        private class FakeGameTickSource : IGameTickSource
+        {
+            public event Action Ticked;
+        }
     }
 }
