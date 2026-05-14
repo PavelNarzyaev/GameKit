@@ -139,6 +139,5 @@ namespace GameKit.TimeOffset.Tests
                 return m_currentTimestamp;
             }
         }
-
     }
 }

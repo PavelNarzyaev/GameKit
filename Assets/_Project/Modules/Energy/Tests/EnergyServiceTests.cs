@@ -312,6 +312,5 @@ namespace GameKit.Energy.Tests
             public int OneEnergyRestorationSeconds => 10;
             public int EnergyRestorationLimit => 10;
         }
-
     }
 }

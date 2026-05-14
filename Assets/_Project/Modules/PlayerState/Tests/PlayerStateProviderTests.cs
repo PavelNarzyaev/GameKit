@@ -207,6 +207,7 @@ namespace GameKit.PlayerState.Tests
             }
         }
 
+        [UsedImplicitly]
         private class FakePlayerStateFactory : IPlayerStateFactory
         {
             public const string k_UserId = "factory-user";
@@ -224,6 +225,7 @@ namespace GameKit.PlayerState.Tests
             }
         }
 
+        [UsedImplicitly]
         private class FakeProductionModeProvider : IProductionModeProvider
         {
             public bool IsProduction { get; private set; }

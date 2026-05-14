@@ -200,6 +200,5 @@ namespace GameKit.Currencies.Tests
                 return 0;
             }
         }
-
     }
 }
