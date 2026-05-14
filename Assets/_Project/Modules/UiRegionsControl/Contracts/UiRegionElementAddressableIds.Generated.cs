@@ -7,8 +7,10 @@ namespace GameKit.UiRegionsControl.Contracts
     public static class UiRegionElementAddressableIds
     {
         public const string k_CorePage = "CorePage";
+        public const string k_CorePageBackground = "CorePageBackground";
         public const string k_ErrorPopup = "ErrorPopup";
         public const string k_MetaPage = "MetaPage";
+        public const string k_MetaPageBackground = "MetaPageBackground";
         public const string k_PopupBackdrop = "PopupBackdrop";
         public const string k_SettingsPopup = "SettingsPopup";
         public const string k_TopPanel = "TopPanel";

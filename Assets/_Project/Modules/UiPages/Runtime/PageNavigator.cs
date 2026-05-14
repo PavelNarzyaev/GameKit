@@ -1,4 +1,3 @@
-using System;
 using GameKit.UiPages.Contracts;
 using GameKit.UiRegions.Contracts;
 using JetBrains.Annotations;
@@ -10,30 +9,28 @@ namespace GameKit.UiPages
     public class PageNavigator : IPageNavigator
     {
         [Inject] private IUiRegionHostPresenter m_uiRegionHostPresenter;
-        public string CurrentPageAddressableId { get; private set; }
 
-        public event Action PageChanged;
+        private string m_currentPageAddressableId;
 
         public void ShowPage(string addressableId)
         {
-            if (CurrentPageAddressableId == addressableId)
+            if (m_currentPageAddressableId == addressableId)
             {
                 return;
             }
 
-            if (CurrentPageAddressableId != null)
+            if (m_currentPageAddressableId != null)
             {
-                m_uiRegionHostPresenter.OnRegionElementHidingIfExists(CurrentPageAddressableId);
+                m_uiRegionHostPresenter.OnRegionElementHidingIfExists(m_currentPageAddressableId);
             }
 
-            CurrentPageAddressableId = addressableId;
+            m_currentPageAddressableId = addressableId;
             m_uiRegionHostPresenter.OnRegionElementShowing(addressableId, UiRegionId.Page);
-            PageChanged?.Invoke();
         }
 
         public void Reset()
         {
-            CurrentPageAddressableId = null;
+            m_currentPageAddressableId = null;
         }
     }
 }

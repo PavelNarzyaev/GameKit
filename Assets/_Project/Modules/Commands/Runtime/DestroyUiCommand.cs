@@ -1,4 +1,5 @@
 using GameKit.Commands.Contracts;
+using GameKit.UiBackgrounds.Contracts;
 using GameKit.UiPages.Contracts;
 using GameKit.UiPopups.Contracts;
 using GameKit.UiRegions.Contracts;
@@ -13,6 +14,7 @@ namespace GameKit.Commands
     [UsedImplicitly]
     public class DestroyUiCommand : IDestroyUiCommand
     {
+        [Inject] private IBackgroundNavigator m_backgroundNavigator;
         [Inject] private IUiRegionHostPresenter m_uiRegionHostPresenter;
         [Inject] private IPageNavigator m_pageNavigator;
         [Inject] private IPopupNavigator m_popupNavigator;
@@ -23,6 +25,7 @@ namespace GameKit.Commands
         public void Execute()
         {
             m_uiRegionHostPresenter.OnAllRegionElementsDestroying();
+            m_backgroundNavigator.Reset();
             m_popupNavigator.Reset();
             m_pageNavigator.Reset();
 #if !IS_PRODUCTION

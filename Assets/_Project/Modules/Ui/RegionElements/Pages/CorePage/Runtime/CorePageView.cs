@@ -15,5 +15,10 @@ namespace GameKit.CorePage
         {
             metaPageButton.onClick.AddListener(() => m_presenter.OpenMetaPage());
         }
+
+        private void OnEnable()
+        {
+            m_presenter.ShowBackground();
+        }
     }
 }
