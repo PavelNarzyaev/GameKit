@@ -9,6 +9,7 @@ namespace GameKit.UiRegions
 {
     public class UiRegionHostView : MonoBehaviour
     {
+        [SerializeField] private RectTransform backgroundRegion;
         [SerializeField] private RectTransform topPanelRegion;
         [SerializeField] private RectTransform pageRegion;
         [SerializeField] private RectTransform popupsRegion;
@@ -22,6 +23,7 @@ namespace GameKit.UiRegions
 
         private void Awake()
         {
+            m_transformByRegionId.Add(UiRegionId.Background, backgroundRegion);
             m_transformByRegionId.Add(UiRegionId.DebugPanelPage, debugPanelPageRegion);
             m_transformByRegionId.Add(UiRegionId.DebugPanelTabBar, debugPanelTabBarRegion);
             m_transformByRegionId.Add(UiRegionId.TopPanel, topPanelRegion);

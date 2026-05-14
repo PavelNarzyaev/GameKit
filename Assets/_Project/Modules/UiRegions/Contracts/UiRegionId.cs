@@ -6,6 +6,7 @@ namespace GameKit.UiRegions.Contracts
         DebugPanelTabBar,
         TopPanel,
         Page,
-        Popups
+        Popups,
+        Background
     }
 }

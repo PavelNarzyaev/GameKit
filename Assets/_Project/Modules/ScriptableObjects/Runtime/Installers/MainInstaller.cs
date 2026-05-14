@@ -13,6 +13,7 @@ using GameKit.PlayerState.Contracts;
 using GameKit.ProductionMode;
 using GameKit.SettingsPopup;
 using GameKit.TopPanel;
+using GameKit.UiBackgrounds;
 using GameKit.UiFonts;
 using GameKit.UiPages;
 using GameKit.UiPopups;
@@ -44,6 +45,7 @@ namespace GameKit.ScriptableObjects
             Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<UiRegionHostPresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<BackgroundNavigator>().AsSingle();
             Container.BindInterfacesAndSelfTo<PageNavigator>().AsSingle();
             Container.BindInterfacesAndSelfTo<PopupNavigator>().AsSingle();
             Container.BindInterfacesAndSelfTo<PopupPresenter>().AsSingle();

@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 10858c50007498d4d84d013cf5179c4a
+    m_Address: MetaPageBackground
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1c885bc7a0253e84d8ed7170c3033b4d
     m_Address: RobotoMono-Medium
     m_ReadOnly: 0
@@ -77,6 +82,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: af9decb835d927d4b814f67ba6ad3776
     m_Address: TimeDebugPage
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b826b64dd328b6f4bbb67c4e5a475ea6
+    m_Address: CorePageBackground
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
