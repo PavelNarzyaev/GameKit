@@ -30,10 +30,10 @@ namespace GameKit.TimeOffset.Tests
         public void AddSeconds_WhenDeltaIsApplied_UpdatesPlayerStateAndMarksStateDirty()
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto
+            SetCleanState(playerStateProvider, new PlayerStateDto
             {
                 TimeOffsetSeconds = 60
-            };
+            });
 
             var timeOffsetService = Container.Resolve<TimeOffsetService>();
 
@@ -47,10 +47,10 @@ namespace GameKit.TimeOffset.Tests
         public void AddSeconds_WhenDeltaIsZero_DoesNotMarkStateDirtyOrRaiseChanged()
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto
+            SetCleanState(playerStateProvider, new PlayerStateDto
             {
                 TimeOffsetSeconds = 60
-            };
+            });
 
             var timeOffsetService = Container.Resolve<TimeOffsetService>();
             var changedCalls = 0;
@@ -86,14 +86,20 @@ namespace GameKit.TimeOffset.Tests
             currentTimeSource.SetTimestamp(currentTimestamp);
 
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto
+            SetCleanState(playerStateProvider, new PlayerStateDto
             {
                 TimeOffsetSeconds = 3661
-            };
+            });
 
             var currentTimeProvider = Container.Resolve<CurrentTimeProvider>();
 
             Assert.That(currentTimeProvider.GetTimestamp(), Is.EqualTo(currentTimestamp + 3661));
+        }
+
+        private static void SetCleanState(PlayerStateProvider playerStateProvider, PlayerStateDto state)
+        {
+            playerStateProvider.Replace(state);
+            playerStateProvider.Save();
         }
 
         [UsedImplicitly]

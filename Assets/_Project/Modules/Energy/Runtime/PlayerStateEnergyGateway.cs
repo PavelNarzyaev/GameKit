@@ -21,12 +21,15 @@ namespace GameKit.Energy
                 return;
             }
 
-            EnergyData.Energy = energy;
-            EnergyData.NextRestoreTimestamp = nextRestoreTimestamp;
-            m_playerStateProvider.MarkAsDirty();
+            m_playerStateProvider.Edit(state =>
+            {
+                state.EnergyData.Energy = energy;
+                state.EnergyData.NextRestoreTimestamp = nextRestoreTimestamp;
+            });
+
             Changed?.Invoke();
         }
 
-        private PlayerEnergyDataDto EnergyData => m_playerStateProvider.Data.EnergyData ??= new PlayerEnergyDataDto();
+        private PlayerEnergyDataDto EnergyData => m_playerStateProvider.Data.EnergyData;
     }
 }

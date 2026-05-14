@@ -29,19 +29,21 @@ namespace GameKit.Currencies
                 return;
             }
 
-            switch (type)
+            m_playerStateProvider.Edit(state =>
             {
-                case CurrencyType.Soft:
-                    Currencies.SoftCurrency = value;
-                    break;
-                case CurrencyType.Hard:
-                    Currencies.HardCurrency = value;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
-            }
+                switch (type)
+                {
+                    case CurrencyType.Soft:
+                        state.Currencies.SoftCurrency = value;
+                        break;
+                    case CurrencyType.Hard:
+                        state.Currencies.HardCurrency = value;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                }
+            });
 
-            m_playerStateProvider.MarkAsDirty();
             Changed?.Invoke();
         }
 

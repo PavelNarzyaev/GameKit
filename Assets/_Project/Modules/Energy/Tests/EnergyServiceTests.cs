@@ -30,14 +30,14 @@ namespace GameKit.Energy.Tests
         public void TryAdd_WhenAmountIsPositive_UpdatesValueMarksStateDirtyAndRaisesChanged()
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto
+            SetCleanState(playerStateProvider, new PlayerStateDto
             {
                 EnergyData = new PlayerEnergyDataDto
                 {
                     Energy = 3,
                     NextRestoreTimestamp = 120
                 }
-            };
+            });
 
             var energyService = Container.Resolve<IEnergyService>();
             var changedCalls = 0;
@@ -57,13 +57,13 @@ namespace GameKit.Energy.Tests
         public void TryAdd_WhenAmountIsNotPositive_ReturnsFalseWithoutChangingState(int amount)
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto
+            SetCleanState(playerStateProvider, new PlayerStateDto
             {
                 EnergyData = new PlayerEnergyDataDto
                 {
                     Energy = 5
                 }
-            };
+            });
 
             var energyService = Container.Resolve<IEnergyService>();
             var changedCalls = 0;
@@ -81,14 +81,14 @@ namespace GameKit.Energy.Tests
         public void TryAdd_WhenAmountWouldReachRestorationLimit_ClearsNextRestoreTimestamp()
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto
+            SetCleanState(playerStateProvider, new PlayerStateDto
             {
                 EnergyData = new PlayerEnergyDataDto
                 {
                     Energy = 8,
                     NextRestoreTimestamp = 145
                 }
-            };
+            });
 
             var energyService = Container.Resolve<IEnergyService>();
 
@@ -108,13 +108,13 @@ namespace GameKit.Energy.Tests
             currentTimeSource.SetTimestamp(currentTimestamp);
 
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto
+            SetCleanState(playerStateProvider, new PlayerStateDto
             {
                 EnergyData = new PlayerEnergyDataDto
                 {
                     Energy = 10
                 }
-            };
+            });
 
             var energyService = Container.Resolve<IEnergyService>();
             var changedCalls = 0;
@@ -136,13 +136,13 @@ namespace GameKit.Energy.Tests
         public void TrySpend_WhenAmountIsInvalidOrBalanceIsInsufficient_ReturnsFalseWithoutChangingState(int amount)
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto
+            SetCleanState(playerStateProvider, new PlayerStateDto
             {
                 EnergyData = new PlayerEnergyDataDto
                 {
                     Energy = 10
                 }
-            };
+            });
 
             var energyService = Container.Resolve<IEnergyService>();
             var changedCalls = 0;
@@ -165,14 +165,14 @@ namespace GameKit.Energy.Tests
             currentTimeSource.SetTimestamp(currentTimestamp);
 
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto
+            SetCleanState(playerStateProvider, new PlayerStateDto
             {
                 EnergyData = new PlayerEnergyDataDto
                 {
                     Energy = 4,
                     NextRestoreTimestamp = 110
                 }
-            };
+            });
 
             var energyService = Container.Resolve<IEnergyService>();
 
@@ -189,14 +189,14 @@ namespace GameKit.Energy.Tests
             currentTimeSource.SetTimestamp(currentTimestamp);
 
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto
+            SetCleanState(playerStateProvider, new PlayerStateDto
             {
                 EnergyData = new PlayerEnergyDataDto
                 {
                     Energy = 4,
                     NextRestoreTimestamp = 0
                 }
-            };
+            });
 
             var energyService = Container.Resolve<IEnergyService>();
             var changedCalls = 0;
@@ -218,14 +218,14 @@ namespace GameKit.Energy.Tests
             currentTimeSource.SetTimestamp(currentTimestamp);
 
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto
+            SetCleanState(playerStateProvider, new PlayerStateDto
             {
                 EnergyData = new PlayerEnergyDataDto
                 {
                     Energy = 4,
                     NextRestoreTimestamp = 110
                 }
-            };
+            });
 
             var energyService = Container.Resolve<IEnergyService>();
 
@@ -244,14 +244,14 @@ namespace GameKit.Energy.Tests
             currentTimeSource.SetTimestamp(currentTimestamp);
 
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto
+            SetCleanState(playerStateProvider, new PlayerStateDto
             {
                 EnergyData = new PlayerEnergyDataDto
                 {
                     Energy = 9,
                     NextRestoreTimestamp = 110
                 }
-            };
+            });
 
             var energyService = Container.Resolve<IEnergyService>();
 
@@ -260,6 +260,12 @@ namespace GameKit.Energy.Tests
             Assert.That(energyService.Energy, Is.EqualTo(10));
             Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(0));
             Assert.That(energyService.IsRestorationInProgress, Is.False);
+        }
+
+        private static void SetCleanState(PlayerStateProvider playerStateProvider, PlayerStateDto state)
+        {
+            playerStateProvider.Replace(state);
+            playerStateProvider.Save();
         }
 
         [UsedImplicitly]

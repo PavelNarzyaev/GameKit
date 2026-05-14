@@ -10,7 +10,7 @@ namespace GameKit.PlayerState
     [UsedImplicitly]
     public class PlayerStateProvider : IPlayerStateProvider
     {
-        public PlayerStateDto Data { get; set; }
+        public PlayerStateDto Data { get; private set; }
         public bool IsDirty { get; private set; }
         public event Action Replaced;
 
@@ -20,9 +20,17 @@ namespace GameKit.PlayerState
         [Inject] private IPlayerStateValidator m_playerStateValidator;
         [Inject] private IPlayerStateFactory m_playerStateFactory;
 
-        public void MarkAsDirty()
+        public void Edit(Action<PlayerStateDto> edit)
         {
+            edit(Data);
             IsDirty = true;
+        }
+
+        public void Replace(PlayerStateDto state)
+        {
+            Data = state;
+            IsDirty = true;
+            Replaced?.Invoke();
         }
 
         public void Save()

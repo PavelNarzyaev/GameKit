@@ -20,8 +20,7 @@ namespace GameKit.TimeOffset
                 return;
             }
 
-            m_playerStateProvider.Data.TimeOffsetSeconds = offsetSeconds;
-            m_playerStateProvider.MarkAsDirty();
+            m_playerStateProvider.Edit(state => state.TimeOffsetSeconds = offsetSeconds);
             Changed?.Invoke();
         }
     }

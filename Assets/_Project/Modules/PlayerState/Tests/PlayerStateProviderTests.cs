@@ -1,3 +1,4 @@
+using System;
 using GameKit.Core.Contracts;
 using GameKit.CurrentTime;
 using GameKit.PlayerState.Contracts;
@@ -55,16 +56,48 @@ namespace GameKit.PlayerState.Tests
         }
 
         [Test]
-        public void MarkAsDirty_MarksStateDirtyWithoutRaisingReplaced()
+        public void Edit_WhenActionCompletes_MarksStateDirtyWithoutRaisingReplaced()
+        {
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            playerStateProvider.Replace(new PlayerStateDto());
+            playerStateProvider.Save();
+            var replacedCalls = 0;
+            playerStateProvider.Replaced += () => replacedCalls++;
+
+            playerStateProvider.Edit(state => state.LaunchesCounter++);
+
+            Assert.That(playerStateProvider.IsDirty, Is.True);
+            Assert.That(replacedCalls, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void Edit_WhenActionThrows_DoesNotMarkStateDirty()
+        {
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            playerStateProvider.Replace(new PlayerStateDto());
+            playerStateProvider.Save();
+
+            Assert.That(
+                () => playerStateProvider.Edit(_ => throw new InvalidOperationException("edit failed")),
+                Throws.TypeOf<InvalidOperationException>());
+            Assert.That(playerStateProvider.IsDirty, Is.False);
+        }
+
+        [Test]
+        public void Replace_ReplacesStateMarksDirtyAndRaisesReplaced()
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
             var replacedCalls = 0;
             playerStateProvider.Replaced += () => replacedCalls++;
 
-            playerStateProvider.MarkAsDirty();
+            playerStateProvider.Replace(new PlayerStateDto
+            {
+                UserId = "replaced-user"
+            });
 
+            Assert.That(playerStateProvider.Data.UserId, Is.EqualTo("replaced-user"));
             Assert.That(playerStateProvider.IsDirty, Is.True);
-            Assert.That(replacedCalls, Is.EqualTo(0));
+            Assert.That(replacedCalls, Is.EqualTo(1));
         }
 
         [Test]

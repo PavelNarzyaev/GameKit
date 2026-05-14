@@ -22,8 +22,7 @@ namespace GameKit.Commands
             try
             {
                 m_playerStateProvider.Refresh();
-                m_playerStateProvider.Data.LaunchesCounter++;
-                m_playerStateProvider.MarkAsDirty();
+                m_playerStateProvider.Edit(state => state.LaunchesCounter++);
 
                 m_showInitialUiCommand.Execute();
                 m_gameKitTickController.Launch();

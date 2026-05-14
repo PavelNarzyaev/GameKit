@@ -29,7 +29,7 @@ namespace GameKit.Currencies.Tests
         public void TryAdd_WhenAmountIsPositive_UpdatesValueMarksStateDirtyAndRaisesChanged()
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto();
+            SetCleanState(playerStateProvider, new PlayerStateDto());
 
             var currencyWallet = Container.Resolve<ICurrencyWallet>();
             var changedCalls = 0;
@@ -48,13 +48,13 @@ namespace GameKit.Currencies.Tests
         public void TryAdd_WhenAmountIsNotPositive_ReturnsFalseWithoutChangingState(int amount)
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto
+            SetCleanState(playerStateProvider, new PlayerStateDto
             {
                 Currencies = new PlayerCurrenciesDto
                 {
                     SoftCurrency = 5
                 }
-            };
+            });
 
             var currencyWallet = Container.Resolve<ICurrencyWallet>();
             var changedCalls = 0;
@@ -72,13 +72,13 @@ namespace GameKit.Currencies.Tests
         public void TryAdd_WhenAmountWouldOverflow_ReturnsFalseWithoutChangingState()
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto
+            SetCleanState(playerStateProvider, new PlayerStateDto
             {
                 Currencies = new PlayerCurrenciesDto
                 {
                     SoftCurrency = int.MaxValue
                 }
-            };
+            });
 
             var currencyWallet = Container.Resolve<ICurrencyWallet>();
             var changedCalls = 0;
@@ -96,13 +96,13 @@ namespace GameKit.Currencies.Tests
         public void Set_WhenValueIsSame_DoesNotMarkStateDirtyOrRaiseChanged()
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto
+            SetCleanState(playerStateProvider, new PlayerStateDto
             {
                 Currencies = new PlayerCurrenciesDto
                 {
                     SoftCurrency = 5
                 }
-            };
+            });
 
             var gateway = Container.Resolve<PlayerStateCurrenciesGateway>();
             var changedCalls = 0;
@@ -118,13 +118,13 @@ namespace GameKit.Currencies.Tests
         public void TrySpend_WhenBalanceIsEnough_UpdatesValueMarksStateDirtyAndRaisesChanged()
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto
+            SetCleanState(playerStateProvider, new PlayerStateDto
             {
                 Currencies = new PlayerCurrenciesDto
                 {
                     HardCurrency = 10
                 }
-            };
+            });
 
             var currencyWallet = Container.Resolve<ICurrencyWallet>();
             var changedCalls = 0;
@@ -144,13 +144,13 @@ namespace GameKit.Currencies.Tests
         public void TrySpend_WhenAmountIsInvalidOrBalanceIsInsufficient_ReturnsFalseWithoutChangingState(int amount)
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto
+            SetCleanState(playerStateProvider, new PlayerStateDto
             {
                 Currencies = new PlayerCurrenciesDto
                 {
                     HardCurrency = 10
                 }
-            };
+            });
 
             var currencyWallet = Container.Resolve<ICurrencyWallet>();
             var changedCalls = 0;
@@ -162,6 +162,12 @@ namespace GameKit.Currencies.Tests
             Assert.That(currencyWallet.Get(CurrencyType.Hard), Is.EqualTo(10));
             Assert.That(playerStateProvider.IsDirty, Is.False);
             Assert.That(changedCalls, Is.EqualTo(0));
+        }
+
+        private static void SetCleanState(PlayerStateProvider playerStateProvider, PlayerStateDto state)
+        {
+            playerStateProvider.Replace(state);
+            playerStateProvider.Save();
         }
 
         [UsedImplicitly]
