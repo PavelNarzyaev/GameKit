@@ -1,4 +1,3 @@
-using System;
 using GameKit.UiBackgrounds.Contracts;
 using GameKit.UiRegions.Contracts;
 using JetBrains.Annotations;
@@ -11,30 +10,27 @@ namespace GameKit.UiBackgrounds
     {
         [Inject] private IUiRegionHostPresenter m_uiRegionHostPresenter;
 
-        public string CurrentBackgroundAddressableId { get; private set; }
-
-        public event Action BackgroundChanged;
+        private string m_currentBackgroundAddressableId;
 
         public void ShowBackground(string addressableId)
         {
-            if (CurrentBackgroundAddressableId == addressableId)
+            if (m_currentBackgroundAddressableId == addressableId)
             {
                 return;
             }
 
-            if (CurrentBackgroundAddressableId != null)
+            if (m_currentBackgroundAddressableId != null)
             {
-                m_uiRegionHostPresenter.OnRegionElementHidingIfExists(CurrentBackgroundAddressableId);
+                m_uiRegionHostPresenter.OnRegionElementHidingIfExists(m_currentBackgroundAddressableId);
             }
 
-            CurrentBackgroundAddressableId = addressableId;
+            m_currentBackgroundAddressableId = addressableId;
             m_uiRegionHostPresenter.OnRegionElementShowing(addressableId, UiRegionId.Background);
-            BackgroundChanged?.Invoke();
         }
 
         public void Reset()
         {
-            CurrentBackgroundAddressableId = null;
+            m_currentBackgroundAddressableId = null;
         }
     }
 }
