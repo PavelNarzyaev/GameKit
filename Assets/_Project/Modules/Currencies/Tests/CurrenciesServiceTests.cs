@@ -93,6 +93,28 @@ namespace GameKit.Currencies.Tests
         }
 
         [Test]
+        public void Set_WhenValueIsSame_DoesNotMarkStateDirtyOrRaiseChanged()
+        {
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            playerStateProvider.Data = new PlayerStateDto
+            {
+                Currencies = new PlayerCurrenciesDto
+                {
+                    SoftCurrency = 5
+                }
+            };
+
+            var gateway = Container.Resolve<PlayerStateCurrenciesGateway>();
+            var changedCalls = 0;
+            gateway.Changed += () => changedCalls++;
+
+            gateway.Set(CurrencyType.Soft, 5);
+
+            Assert.That(playerStateProvider.IsDirty, Is.False);
+            Assert.That(changedCalls, Is.EqualTo(0));
+        }
+
+        [Test]
         public void TrySpend_WhenBalanceIsEnough_UpdatesValueMarksStateDirtyAndRaisesChanged()
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
@@ -142,23 +164,6 @@ namespace GameKit.Currencies.Tests
             Assert.That(changedCalls, Is.EqualTo(0));
         }
 
-        [Test]
-        public void Changed_WhenPlayerStateIsRefreshedFromJson_RaisesChangedAndReadsUpdatedValues()
-        {
-            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto();
-
-            var currencyWallet = Container.Resolve<ICurrencyWallet>();
-            var changedCalls = 0;
-            currencyWallet.Changed += () => changedCalls++;
-
-            playerStateProvider.Set(GetPlayerStateJson());
-
-            Assert.That(changedCalls, Is.EqualTo(1));
-            Assert.That(currencyWallet.Get(CurrencyType.Soft), Is.EqualTo(7));
-            Assert.That(currencyWallet.Get(CurrencyType.Hard), Is.EqualTo(9));
-        }
-
         [UsedImplicitly]
         private class FakePlayerStateStorage : IPlayerStateStorage
         {
@@ -190,23 +195,5 @@ namespace GameKit.Currencies.Tests
             }
         }
 
-        private static string GetPlayerStateJson()
-        {
-            return @"{
-  ""userId"": ""user-1"",
-  ""firstLaunchTimestamp"": 123,
-  ""launchesCounter"": 0,
-  ""currencies"": {
-    ""softCurrency"": 7,
-    ""hardCurrency"": 9
-  },
-  ""energyData"": {
-    ""energy"": 0,
-    ""isRestorationInProgress"": false,
-    ""restorationStartTimestamp"": 0,
-    ""restored"": 0
-  }
-}";
-        }
     }
 }

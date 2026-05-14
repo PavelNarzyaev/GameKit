@@ -13,13 +13,13 @@ namespace GameKit.StateClipboardProxy
 
         public void CopyStateToClipboard()
         {
-            UniClipboard.SetText(m_playerStateProvider.Get());
+            UniClipboard.SetText(m_playerStateProvider.ExportJson());
             Debug.Log("User state is copied to clipboard");
         }
 
         public void PasteStateFromClipboard()
         {
-            m_playerStateProvider.Set(UniClipboard.GetText());
+            m_playerStateProvider.ReplaceFromJson(UniClipboard.GetText());
             Debug.Log("User state is applied from clipboard");
         }
     }

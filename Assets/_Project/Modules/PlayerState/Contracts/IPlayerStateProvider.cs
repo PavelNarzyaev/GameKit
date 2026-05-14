@@ -6,13 +6,13 @@ namespace GameKit.PlayerState.Contracts
     {
         PlayerStateDto Data { get; set; }
         bool IsDirty { get; }
-        event Action RefreshedFromJson;
+        event Action Replaced;
 
         void MarkAsDirty();
         void Save();
-        void Set(string json);
+        void ReplaceFromJson(string json);
         void Refresh();
-        string Get();
+        string ExportJson();
         void Delete();
     }
 }

@@ -11,12 +11,6 @@ namespace GameKit.Energy
         [Inject] private IPlayerStateProvider m_playerStateProvider;
         public event Action Changed;
 
-        [Inject]
-        private void Inject()
-        {
-            m_playerStateProvider.RefreshedFromJson += HandlePlayerStateRefreshedFromJson;
-        }
-
         public int Energy => EnergyData.Energy;
         public long NextRestoreTimestamp => EnergyData.NextRestoreTimestamp;
 
@@ -34,10 +28,5 @@ namespace GameKit.Energy
         }
 
         private PlayerEnergyDataDto EnergyData => m_playerStateProvider.Data.EnergyData ??= new PlayerEnergyDataDto();
-
-        private void HandlePlayerStateRefreshedFromJson()
-        {
-            Changed?.Invoke();
-        }
     }
 }

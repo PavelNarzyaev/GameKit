@@ -55,16 +55,45 @@ namespace GameKit.PlayerState.Tests
         }
 
         [Test]
-        public void Set_WhenJsonIsIncompatible_ThrowsWithoutSavingOrRaisingRefreshedFromJson()
+        public void MarkAsDirty_MarksStateDirtyWithoutRaisingReplaced()
+        {
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            var replacedCalls = 0;
+            playerStateProvider.Replaced += () => replacedCalls++;
+
+            playerStateProvider.MarkAsDirty();
+
+            Assert.That(playerStateProvider.IsDirty, Is.True);
+            Assert.That(replacedCalls, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void ReplaceFromJson_WhenJsonIsValid_SavesAndRaisesReplaced()
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
             var storage = (FakePlayerStateStorage)Container.Resolve<IPlayerStateStorage>();
-            var refreshedFromJsonCalls = 0;
-            playerStateProvider.RefreshedFromJson += () => refreshedFromJsonCalls++;
+            var replacedCalls = 0;
+            playerStateProvider.Replaced += () => replacedCalls++;
 
-            Assert.That(() => playerStateProvider.Set("{}"), Throws.Exception);
+            playerStateProvider.ReplaceFromJson(GetPlayerStateJson());
+
+            Assert.That(playerStateProvider.Data.UserId, Is.EqualTo("user-1"));
+            Assert.That(playerStateProvider.IsDirty, Is.False);
+            Assert.That(storage.SaveCalls, Is.EqualTo(1));
+            Assert.That(replacedCalls, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void ReplaceFromJson_WhenJsonIsIncompatible_ThrowsWithoutSavingOrRaisingEvents()
+        {
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            var storage = (FakePlayerStateStorage)Container.Resolve<IPlayerStateStorage>();
+            var replacedCalls = 0;
+            playerStateProvider.Replaced += () => replacedCalls++;
+
+            Assert.That(() => playerStateProvider.ReplaceFromJson("{}"), Throws.Exception);
             Assert.That(storage.SaveCalls, Is.EqualTo(0));
-            Assert.That(refreshedFromJsonCalls, Is.EqualTo(0));
+            Assert.That(replacedCalls, Is.EqualTo(0));
         }
 
         [Test]
@@ -153,6 +182,23 @@ namespace GameKit.PlayerState.Tests
             {
                 IsProduction = isProduction;
             }
+        }
+
+        private static string GetPlayerStateJson()
+        {
+            return @"{
+  ""userId"": ""user-1"",
+  ""firstLaunchTimestamp"": 123,
+  ""launchesCounter"": 0,
+  ""currencies"": {
+    ""softCurrency"": 7,
+    ""hardCurrency"": 9
+  },
+  ""energyData"": {
+    ""energy"": 7,
+    ""nextRestoreTimestamp"": 10
+  }
+}";
         }
     }
 }

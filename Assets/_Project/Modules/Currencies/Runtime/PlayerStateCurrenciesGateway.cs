@@ -12,12 +12,6 @@ namespace GameKit.Currencies
         [Inject] private IPlayerStateProvider m_playerStateProvider;
         public event Action Changed;
 
-        [Inject]
-        private void Inject()
-        {
-            m_playerStateProvider.RefreshedFromJson += HandlePlayerStateRefreshedFromJson;
-        }
-
         public int Get(CurrencyType type)
         {
             return type switch
@@ -30,6 +24,11 @@ namespace GameKit.Currencies
 
         public void Set(CurrencyType type, int value)
         {
+            if (Get(type) == value)
+            {
+                return;
+            }
+
             switch (type)
             {
                 case CurrencyType.Soft:
@@ -47,10 +46,5 @@ namespace GameKit.Currencies
         }
 
         private PlayerCurrenciesDto Currencies => m_playerStateProvider.Data.Currencies;
-
-        private void HandlePlayerStateRefreshedFromJson()
-        {
-            Changed?.Invoke();
-        }
     }
 }
