@@ -22,6 +22,12 @@ Open Unity Hub and add the cloned repository folder as a project (`Add` -> `Add 
 
 If Unity Hub asks to install or select an editor version, use the version required by the project.
 
+When installing the editor version, include these modules:
+
+- Android Build Support;
+  - OpenJDK;
+  - Android SDK & NDK Tools.
+
 When selecting the editor version, you can choose Android as the target platform immediately.
 
 Alternatively, open the project with the current platform first, then use `File` -> `Build Profiles` in Unity and switch the active build profile to Android.
