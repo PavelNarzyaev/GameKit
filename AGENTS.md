@@ -17,9 +17,9 @@ When adding third-party code, packages, assets, fonts, art, generated SDK files,
 
 # Unity Meta Files
 
-Agents must not create or edit `.meta` files.
+Do not create or edit `.meta` files.
 
-Agents may delete or move `.meta` files only when deleting or moving the corresponding asset/file.
+Delete or move `.meta` files only when deleting or moving the corresponding asset/file.
 
 If `.meta` files appear or change during work, treat them as Unity-generated developer changes. Do not delete, revert, exclude, or otherwise clean them up.
 
@@ -30,17 +30,17 @@ If version matters for the task and is not specified in project notes or documen
 
 # Build And Tests
 
-Agents must not attempt to verify this project with `dotnet build`, other build commands, or automated test commands.
+Do not attempt to verify this project with `dotnet build`, other build commands, or automated test commands.
 
-Build verification and test execution are currently not supported in this repository environment, so agents should state that they were not run instead of trying ad-hoc workarounds.
+Build verification and test execution are currently not supported in this repository environment, so state that they were not run instead of trying ad-hoc workarounds.
 
 # Git Staging
 
-The developer uses the staging area as a review boundary. Files or hunks already in stage should be treated as reviewed or intentionally separated from later work.
+The developer uses the staging area as a review boundary. Treat files or hunks already in stage as reviewed or intentionally separated from later work.
 
-Agents must not stage changes (`git add`) unless explicitly instructed to create a commit of unstaged changes.
+Do not stage changes (`git add`) unless explicitly instructed to create a commit of unstaged changes.
 
-Agents must not unstage changes (`git restore --staged`, `git reset`, etc.).
+Do not unstage changes (`git restore --staged`, `git reset`, etc.).
 
 When the developer asks to create a commit, commit the files that are already staged unless instructed otherwise.
 
