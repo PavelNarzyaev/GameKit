@@ -8,11 +8,21 @@ namespace GameKit.PlayerState
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<JsonPlayerStateSerializer>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerStateValidator>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerStateFactory>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerStateProvider>().AsSingle();
-            Container.Bind<PlayerStateSavingController>().AsSingle().NonLazy();
+            InstallCore(Container);
+            InstallAutoSave(Container);
+        }
+
+        public static void InstallCore(DiContainer container)
+        {
+            container.BindInterfacesAndSelfTo<JsonPlayerStateSerializer>().AsSingle();
+            container.BindInterfacesAndSelfTo<PlayerStateValidator>().AsSingle();
+            container.BindInterfacesAndSelfTo<PlayerStateFactory>().AsSingle();
+            container.BindInterfacesAndSelfTo<PlayerStateProvider>().AsSingle();
+        }
+
+        public static void InstallAutoSave(DiContainer container)
+        {
+            container.Bind<PlayerStateSavingController>().AsSingle().NonLazy();
         }
     }
 }

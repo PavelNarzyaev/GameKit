@@ -18,9 +18,8 @@ namespace GameKit.PlayerState.Tests
             Container.Bind<IPlayerStateStorage>().To<FakePlayerStateStorage>().AsSingle();
             Container.Bind<IProductionModeProvider>().To<FakeProductionModeProvider>().AsSingle();
             Container.Bind<ICurrentTimeSource>().To<FakeCurrentTimeSource>().AsSingle();
-            Container.Bind<IGameTickSource>().To<FakeGameTickSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
-            PlayerStateInstaller.Install(Container);
+            PlayerStateInstaller.InstallCore(Container);
         }
 
         [Test]
@@ -145,7 +144,9 @@ namespace GameKit.PlayerState.Tests
         [Test]
         public void PlayerStateSavingController_WhenTickedAndStateIsDirty_SavesState()
         {
-            var tickSource = (FakeGameTickSource)Container.Resolve<IGameTickSource>();
+            var tickSource = new FakeGameTickSource();
+            Container.Bind<IGameTickSource>().FromInstance(tickSource);
+            PlayerStateInstaller.InstallAutoSave(Container);
             Container.Resolve<PlayerStateSavingController>();
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
             var storage = (FakePlayerStateStorage)Container.Resolve<IPlayerStateStorage>();

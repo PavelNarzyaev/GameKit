@@ -1,4 +1,3 @@
-using System;
 using GameKit.Core.Contracts;
 using GameKit.Currencies.Contracts;
 using GameKit.CurrentTime;
@@ -20,9 +19,8 @@ namespace GameKit.Currencies.Tests
             Container.Bind<IPlayerStateStorage>().To<FakePlayerStateStorage>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProductionModeProvider>().AsSingle();
             Container.Bind<ICurrentTimeSource>().To<FakeCurrentTimeSource>().AsSingle();
-            Container.Bind<IGameTickSource>().To<FakeGameTickSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
-            PlayerStateInstaller.Install(Container);
+            PlayerStateInstaller.InstallCore(Container);
             Container.Bind<PlayerStateCurrenciesGateway>().AsSingle();
             Container.BindInterfacesAndSelfTo<CurrenciesService>().AsSingle();
         }
@@ -203,10 +201,5 @@ namespace GameKit.Currencies.Tests
             }
         }
 
-        [UsedImplicitly]
-        private class FakeGameTickSource : IGameTickSource
-        {
-            public event Action Ticked;
-        }
     }
 }
