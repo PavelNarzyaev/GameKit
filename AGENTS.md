@@ -21,6 +21,8 @@ Agents must not create or edit `.meta` files.
 
 Agents may delete or move `.meta` files only when deleting or moving the corresponding asset/file.
 
+If `.meta` files appear or change during work, treat them as Unity-generated developer changes. Do not delete, revert, exclude, or otherwise clean them up.
+
 # Backward compatibility
 
 Backward compatibility for save data is not required before version 1.0.0.
