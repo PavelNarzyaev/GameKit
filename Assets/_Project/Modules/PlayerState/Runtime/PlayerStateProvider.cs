@@ -12,7 +12,7 @@ namespace GameKit.PlayerState
     {
         public PlayerStateDto Data { get; set; }
         public bool IsDirty { get; private set; }
-        public event Action RefreshedFromJson;
+        public event Action Replaced;
 
         [Inject] private IPlayerStateStorage m_playerStateStorage;
         [Inject] private IProductionModeProvider m_productionModeProvider;
@@ -30,11 +30,11 @@ namespace GameKit.PlayerState
             SaveJsonToFile(m_playerStateSerializer.Serialize(Data));
         }
 
-        public void Set(string json)
+        public void ReplaceFromJson(string json)
         {
             Data = DeserializeAndValidate(json);
             SaveJsonToFile(m_playerStateSerializer.Serialize(Data));
-            RefreshedFromJson?.Invoke();
+            Replaced?.Invoke();
         }
 
         private void SaveJsonToFile(string json)
@@ -60,7 +60,7 @@ namespace GameKit.PlayerState
         {
             try
             {
-                var json = Get();
+                var json = LoadJsonFromFile();
                 Data = DeserializeAndValidate(json);
             }
             catch (Exception e)
@@ -95,7 +95,12 @@ namespace GameKit.PlayerState
             IsDirty = true;
         }
 
-        public string Get()
+        public string ExportJson()
+        {
+            return LoadJsonFromFile();
+        }
+
+        private string LoadJsonFromFile()
         {
             return m_playerStateStorage.Load();
         }

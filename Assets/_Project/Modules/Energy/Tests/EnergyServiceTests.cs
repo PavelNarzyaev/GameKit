@@ -262,24 +262,6 @@ namespace GameKit.Energy.Tests
             Assert.That(energyService.IsRestorationInProgress, Is.False);
         }
 
-        [Test]
-        public void Changed_WhenPlayerStateIsRefreshedFromJson_RaisesChangedAndReadsUpdatedValues()
-        {
-            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto();
-
-            var energyService = Container.Resolve<IEnergyService>();
-            var changedCalls = 0;
-            energyService.Changed += () => changedCalls++;
-
-            playerStateProvider.Set(GetPlayerStateJson());
-
-            Assert.That(changedCalls, Is.EqualTo(1));
-            Assert.That(energyService.Energy, Is.EqualTo(7));
-            Assert.That(energyService.GetRestorationTimer(), Is.EqualTo(System.TimeSpan.FromSeconds(10)));
-            Assert.That(energyService.IsRestorationInProgress, Is.True);
-        }
-
         [UsedImplicitly]
         private class FakePlayerStateStorage : IPlayerStateStorage
         {
@@ -325,21 +307,5 @@ namespace GameKit.Energy.Tests
             public int EnergyRestorationLimit => 10;
         }
 
-        private static string GetPlayerStateJson()
-        {
-            return @"{
-  ""userId"": ""user-1"",
-  ""firstLaunchTimestamp"": 123,
-  ""launchesCounter"": 0,
-  ""currencies"": {
-    ""softCurrency"": 7,
-    ""hardCurrency"": 9
-  },
-  ""energyData"": {
-    ""energy"": 7,
-    ""nextRestoreTimestamp"": 10
-  }
-}";
-        }
     }
 }

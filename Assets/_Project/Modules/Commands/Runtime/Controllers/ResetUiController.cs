@@ -15,10 +15,10 @@ namespace GameKit.Commands
         [Inject]
         private void Inject()
         {
-            m_playerStateProvider.RefreshedFromJson += HandleRefreshedFromJson;
+            m_playerStateProvider.Replaced += HandlePlayerStateReplaced;
         }
 
-        private void HandleRefreshedFromJson()
+        private void HandlePlayerStateReplaced()
         {
             m_destroyUiCommand.Execute();
             m_showInitialUiCommand.Execute();

@@ -44,6 +44,26 @@ namespace GameKit.TimeOffset.Tests
         }
 
         [Test]
+        public void AddSeconds_WhenDeltaIsZero_DoesNotMarkStateDirtyOrRaiseChanged()
+        {
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            playerStateProvider.Data = new PlayerStateDto
+            {
+                TimeOffsetSeconds = 60
+            };
+
+            var timeOffsetService = Container.Resolve<TimeOffsetService>();
+            var changedCalls = 0;
+            timeOffsetService.Changed += () => changedCalls++;
+
+            timeOffsetService.AddSeconds(0);
+
+            Assert.That(playerStateProvider.Data.TimeOffsetSeconds, Is.EqualTo(60));
+            Assert.That(playerStateProvider.IsDirty, Is.False);
+            Assert.That(changedCalls, Is.EqualTo(0));
+        }
+
+        [Test]
         public void Refresh_WhenPlayerStateIsInitializing_UsesZeroOffsetBeforeStateExists()
         {
             const long currentTimestamp = 1_735_689_600;
@@ -74,44 +94,6 @@ namespace GameKit.TimeOffset.Tests
             var currentTimeProvider = Container.Resolve<CurrentTimeProvider>();
 
             Assert.That(currentTimeProvider.GetTimestamp(), Is.EqualTo(currentTimestamp + 3661));
-        }
-
-        [Test]
-        public void Changed_WhenPlayerStateIsRefreshedFromJson_RaisesChangedAndUsesUpdatedOffset()
-        {
-            const long currentTimestamp = 1_735_689_600;
-            var currentTimeSource = (FakeCurrentTimeSource)Container.ResolveId<ICurrentTimeSource>(CurrentTimeSourceIds.k_BaseCurrentTimeSource);
-            currentTimeSource.SetTimestamp(currentTimestamp);
-
-            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
-            playerStateProvider.Data = new PlayerStateDto();
-
-            var timeOffsetService = Container.Resolve<TimeOffsetService>();
-            var changedCalls = 0;
-            timeOffsetService.Changed += () => changedCalls++;
-
-            playerStateProvider.Set(GetPlayerStateJson());
-
-            Assert.That(changedCalls, Is.EqualTo(1));
-            Assert.That(timeOffsetService.OffsetSeconds, Is.EqualTo(3723));
-        }
-
-        private static string GetPlayerStateJson()
-        {
-            return @"{
-  ""userId"": ""user-1"",
-  ""firstLaunchTimestamp"": 123,
-  ""launchesCounter"": 0,
-  ""timeOffsetSeconds"": 3723,
-  ""currencies"": {
-    ""softCurrency"": 7,
-    ""hardCurrency"": 9
-  },
-  ""energyData"": {
-    ""energy"": 7,
-    ""nextRestoreTimestamp"": 10
-  }
-}";
         }
 
         [UsedImplicitly]

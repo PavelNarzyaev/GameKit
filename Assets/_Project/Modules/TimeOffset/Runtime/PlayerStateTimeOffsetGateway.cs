@@ -11,23 +11,17 @@ namespace GameKit.TimeOffset
         [Inject] private IPlayerStateProvider m_playerStateProvider;
         public event Action Changed;
 
-        [Inject]
-        private void Inject()
-        {
-            m_playerStateProvider.RefreshedFromJson += HandlePlayerStateRefreshedFromJson;
-        }
-
         public int OffsetSeconds => m_playerStateProvider.Data?.TimeOffsetSeconds ?? 0;
 
         public void SetOffsetSeconds(int offsetSeconds)
         {
+            if (m_playerStateProvider.Data.TimeOffsetSeconds == offsetSeconds)
+            {
+                return;
+            }
+
             m_playerStateProvider.Data.TimeOffsetSeconds = offsetSeconds;
             m_playerStateProvider.MarkAsDirty();
-            Changed?.Invoke();
-        }
-
-        private void HandlePlayerStateRefreshedFromJson()
-        {
             Changed?.Invoke();
         }
     }
