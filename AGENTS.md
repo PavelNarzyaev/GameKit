@@ -32,6 +32,14 @@ Agents must not attempt to verify this project with `dotnet build`, other build 
 
 Build verification and test execution are currently not supported in this repository environment, so agents should state that they were not run instead of trying ad-hoc workarounds.
 
-Git Staging
+# Git Staging
 
-Agents must not stage changes (git add) unless explicitly instructed to create a commit.
+The developer uses the staging area as a review boundary. Files or hunks already in stage should be treated as reviewed or intentionally separated from later work.
+
+Agents must not stage changes (`git add`) unless explicitly instructed to create a commit of unstaged changes.
+
+Agents must not unstage changes (`git restore --staged`, `git reset`, etc.).
+
+When the developer asks to create a commit, commit the files that are already staged unless instructed otherwise.
+
+When adding new edits on top of an existing staged set, leave the new edits unstaged so the developer can review them separately.
