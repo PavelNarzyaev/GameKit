@@ -16,7 +16,16 @@ namespace GameKit.PlayerState
             return new PlayerStateDto
             {
                 UserId = Guid.NewGuid().ToString(),
-                FirstLaunchTimestamp = m_currentTimeProvider.GetTimestamp()
+                FirstLaunchTimestamp = m_currentTimeProvider.GetTimestamp(),
+                Currencies =
+                {
+                    SoftCurrency = 100,
+                    HardCurrency = 50,
+                },
+                EnergyData =
+                {
+                    Energy = 100,
+                }
             };
         }
     }
