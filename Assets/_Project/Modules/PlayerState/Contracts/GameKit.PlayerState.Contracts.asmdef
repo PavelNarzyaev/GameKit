@@ -1,6 +1,9 @@
 {
   "name": "GameKit.PlayerState.Contracts",
-  "references": [],
+  "references": [
+    "GUID:5fd783aac5c5c3d4697b5a6bc6b54861",
+    "GUID:43ef1698ecf7a4a42b606affe567a3c4"
+  ],
   "includePlatforms": [],
   "excludePlatforms": [],
   "allowUnsafeCode": false,

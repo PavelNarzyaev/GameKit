@@ -1,6 +1,6 @@
 using System;
 
-namespace GameKit.PlayerState.Contracts
+namespace GameKit.Energy.Contracts
 {
     [Serializable]
     public class PlayerEnergyDataDto

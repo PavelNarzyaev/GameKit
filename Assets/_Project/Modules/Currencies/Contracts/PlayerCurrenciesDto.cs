@@ -1,6 +1,6 @@
 using System;
 
-namespace GameKit.PlayerState.Contracts
+namespace GameKit.Currencies.Contracts
 {
     [Serializable]
     public class PlayerCurrenciesDto

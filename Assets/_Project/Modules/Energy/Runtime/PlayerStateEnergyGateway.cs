@@ -1,4 +1,5 @@
 using System;
+using GameKit.Energy.Contracts;
 using GameKit.PlayerState.Contracts;
 using JetBrains.Annotations;
 using Zenject;

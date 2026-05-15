@@ -1,4 +1,6 @@
 using System;
+using GameKit.Currencies.Contracts;
+using GameKit.Energy.Contracts;
 
 namespace GameKit.PlayerState.Contracts
 {

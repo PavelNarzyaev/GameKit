@@ -1,3 +1,5 @@
+using GameKit.Currencies.Contracts;
+using GameKit.Energy.Contracts;
 using GameKit.PlayerState.Contracts;
 using NUnit.Framework;
 
