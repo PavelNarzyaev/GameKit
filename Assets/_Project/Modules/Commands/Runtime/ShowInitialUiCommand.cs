@@ -23,6 +23,7 @@ namespace GameKit.Commands
             var isDebug = !m_productionModeProvider.IsProduction;
             m_uiRegionHostPresenter.OnRegionActivating(UiRegionId.DebugPanelTabBar, isDebug);
             m_uiRegionHostPresenter.OnRegionActivating(UiRegionId.DebugPanelPage, isDebug);
+            m_uiRegionHostPresenter.OnRegionActivating(UiRegionId.DebugPanelMessage, isDebug);
 #if !IS_PRODUCTION
             m_uiRegionHostPresenter.OnRegionElementShowing(UiRegionElementAddressableIds.k_DebugPanelTabBar, UiRegionId.DebugPanelTabBar);
 #endif

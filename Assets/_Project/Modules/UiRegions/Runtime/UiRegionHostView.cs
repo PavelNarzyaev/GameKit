@@ -14,6 +14,7 @@ namespace GameKit.UiRegions
         [SerializeField] private RectTransform pageRegion;
         [SerializeField] private RectTransform popupsRegion;
         [SerializeField] private RectTransform debugPanelPageRegion;
+        [SerializeField] private RectTransform debugPanelMessageRegion;
         [SerializeField] private RectTransform debugPanelTabBarRegion;
 
         private readonly Dictionary<string, UiRegionElement> m_elementByAddressableId = new();
@@ -24,11 +25,12 @@ namespace GameKit.UiRegions
         private void Awake()
         {
             m_transformByRegionId.Add(UiRegionId.Background, backgroundRegion);
-            m_transformByRegionId.Add(UiRegionId.DebugPanelPage, debugPanelPageRegion);
-            m_transformByRegionId.Add(UiRegionId.DebugPanelTabBar, debugPanelTabBarRegion);
             m_transformByRegionId.Add(UiRegionId.TopPanel, topPanelRegion);
             m_transformByRegionId.Add(UiRegionId.Page, pageRegion);
             m_transformByRegionId.Add(UiRegionId.Popups, popupsRegion);
+            m_transformByRegionId.Add(UiRegionId.DebugPanelPage, debugPanelPageRegion);
+            m_transformByRegionId.Add(UiRegionId.DebugPanelMessage, debugPanelMessageRegion);
+            m_transformByRegionId.Add(UiRegionId.DebugPanelTabBar, debugPanelTabBarRegion);
         }
 
         private void OnEnable()

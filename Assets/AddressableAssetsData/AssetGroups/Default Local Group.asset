@@ -90,6 +90,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cf24a71513146464ababd4e6352e5e45
+    m_Address: DebugPanelMessage
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f79c03c886a26ab46a1dd0169d0cea2f
     m_Address: EnergyDebugPage
     m_ReadOnly: 0

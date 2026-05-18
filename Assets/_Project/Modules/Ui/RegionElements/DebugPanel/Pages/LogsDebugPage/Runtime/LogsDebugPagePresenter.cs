@@ -1,6 +1,8 @@
 using System;
 using System.Text;
 using GameKit.Logs.Contracts;
+using GameKit.UiDebugPanel.Contracts;
+using GameKit.UiRegionsControl.Contracts;
 using JetBrains.Annotations;
 using Zenject;
 
@@ -18,6 +20,7 @@ namespace GameKit.LogsDebugPage
         private LogsDebugPageFilter m_filter = LogsDebugPageFilter.All;
 
         [Inject] private ILogsProvider m_logsProvider;
+        [Inject] private IDebugPanelMessageNavigator m_debugPanelMessageNavigator;
 
         public LogsDebugPageFilter CurrentFilter => m_filter;
 
@@ -60,6 +63,7 @@ namespace GameKit.LogsDebugPage
         public void CopyAllLogs()
         {
             UniClipboard.SetText(BuildLogsText(LogsDebugPageFilter.All));
+            m_debugPanelMessageNavigator.ShowMessage(UiRegionElementAddressableIds.k_DebugPanelMessage);
         }
 
         private string BuildLogsText(LogsDebugPageFilter filter)

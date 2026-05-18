@@ -22,6 +22,7 @@ using UnityEngine;
 using Zenject;
 #if !IS_PRODUCTION
 using GameKit.CurrenciesDebugPage;
+using GameKit.DebugPanelMessage;
 using GameKit.DebugPanelTabBar;
 using GameKit.EnergyDebugPage;
 using GameKit.LogsDebugPage;
@@ -87,7 +88,9 @@ namespace GameKit.ScriptableObjects
         private void InstallDebugPanel()
         {
 #if !IS_PRODUCTION
-            Container.BindInterfacesAndSelfTo<DebugPanelNavigator>().AsSingle();
+            Container.BindInterfacesAndSelfTo<DebugPanelPageNavigator>().AsSingle();
+            Container.BindInterfacesAndSelfTo<DebugPanelMessageNavigator>().AsSingle();
+            Container.Bind<DebugPanelMessagePresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<DebugPanelTabBarPresenter>().AsSingle();
             Container.Bind<CurrenciesDebugPagePresenter>().AsSingle();
             Container.Bind<EnergyDebugPagePresenter>().AsSingle();

@@ -19,7 +19,7 @@ namespace GameKit.Commands
         [Inject] private IPageNavigator m_pageNavigator;
         [Inject] private IPopupNavigator m_popupNavigator;
 #if !IS_PRODUCTION
-        [Inject] private IDebugPanelNavigator m_debugPanelNavigator;
+        [Inject] private IDebugPanelPageNavigator m_debugPanelPageNavigator;
 #endif
 
         public void Execute()
@@ -29,7 +29,7 @@ namespace GameKit.Commands
             m_popupNavigator.Reset();
             m_pageNavigator.Reset();
 #if !IS_PRODUCTION
-            m_debugPanelNavigator.Reset();
+            m_debugPanelPageNavigator.Reset();
 #endif
         }
     }

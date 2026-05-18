@@ -2,12 +2,12 @@ using System;
 
 namespace GameKit.UiDebugPanel.Contracts
 {
-    public interface IDebugPanelNavigator
+    public interface IDebugPanelPageNavigator
     {
         string CurrentPageAddressableId { get; }
         event Action PageChanged;
 
-        void ShowPage(string addressableId);
+        void Show(string addressableId);
         void Close();
         void Reset();
     }

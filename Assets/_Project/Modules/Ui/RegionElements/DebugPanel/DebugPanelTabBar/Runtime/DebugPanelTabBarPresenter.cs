@@ -18,7 +18,7 @@ namespace GameKit.DebugPanelTabBar
     [UsedImplicitly]
     public class DebugPanelTabBarPresenter : IDisposable
     {
-        [Inject] private IDebugPanelNavigator m_debugPanelNavigator;
+        [Inject] private IDebugPanelPageNavigator m_debugPanelPageNavigator;
         [Inject] private ILogsProvider m_logsProvider;
 
         private int m_viewedMessagesCount;
@@ -29,30 +29,30 @@ namespace GameKit.DebugPanelTabBar
         public DebugPanelTabBarLogsIndicatorState LogsIndicatorState { get; private set; }
 
 
-        public string CurrentPageAddressableId => m_debugPanelNavigator.CurrentPageAddressableId;
+        public string CurrentPageAddressableId => m_debugPanelPageNavigator.CurrentPageAddressableId;
 
         [Inject]
         private void Inject()
         {
-            m_debugPanelNavigator.PageChanged += HandlePageChanged;
+            m_debugPanelPageNavigator.PageChanged += HandlePageChanged;
             m_logsProvider.Changed += HandleLogsProviderChanged;
             RefreshLogsIndicatorState();
         }
 
         public void Dispose()
         {
-            m_debugPanelNavigator.PageChanged -= HandlePageChanged;
+            m_debugPanelPageNavigator.PageChanged -= HandlePageChanged;
             m_logsProvider.Changed -= HandleLogsProviderChanged;
         }
 
         public void ShowPage(string addressableId)
         {
-            m_debugPanelNavigator.ShowPage(addressableId);
+            m_debugPanelPageNavigator.Show(addressableId);
         }
 
         public void Close()
         {
-            m_debugPanelNavigator.Close();
+            m_debugPanelPageNavigator.Close();
         }
 
         private void MarkLogsAsViewed()

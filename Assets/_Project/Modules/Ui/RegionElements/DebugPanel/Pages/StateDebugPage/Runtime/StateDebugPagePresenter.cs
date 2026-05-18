@@ -3,6 +3,8 @@ using GameKit.Commands.Contracts;
 using GameKit.Core;
 using GameKit.PlayerState.Contracts;
 using GameKit.StateClipboardProxy.Contracts;
+using GameKit.UiDebugPanel.Contracts;
+using GameKit.UiRegionsControl.Contracts;
 using JetBrains.Annotations;
 using Zenject;
 
@@ -14,10 +16,12 @@ namespace GameKit.StateDebugPage
         [Inject] private IPlayerStateProvider m_playerStateProvider;
         [Inject] private IResetStateCommand m_resetStateCommand;
         [Inject] private IStateClipboardProxy m_stateClipboardProxy;
+        [Inject] private IDebugPanelMessageNavigator m_debugPanelMessageNavigator;
 
         public void CopyStateToClipboard()
         {
             m_stateClipboardProxy.CopyStateToClipboard();
+            m_debugPanelMessageNavigator.ShowMessage(UiRegionElementAddressableIds.k_DebugPanelMessage);
         }
 
         public void PasteStateFromClipboard()

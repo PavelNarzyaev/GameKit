@@ -8,14 +8,14 @@ using Zenject;
 namespace GameKit.UiDebugPanel
 {
     [UsedImplicitly]
-    public class DebugPanelNavigator : IDebugPanelNavigator
+    public class DebugPanelPageNavigator : IDebugPanelPageNavigator
     {
         [Inject] private IUiRegionHostPresenter m_uiRegionHostPresenter;
         public string CurrentPageAddressableId { get; private set; }
 
         public event Action PageChanged;
 
-        public void ShowPage(string addressableId)
+        public void Show(string addressableId)
         {
             if (CurrentPageAddressableId == addressableId)
             {
@@ -44,6 +44,7 @@ namespace GameKit.UiDebugPanel
             }
 
             m_uiRegionHostPresenter.OnRegionElementHidingIfExists(CurrentPageAddressableId);
+            m_uiRegionHostPresenter.OnRegionElementHidingIfExists(UiRegionElementAddressableIds.k_DebugPageBackdrop);
             Reset();
             PageChanged?.Invoke();
         }
@@ -51,7 +52,6 @@ namespace GameKit.UiDebugPanel
         public void Reset()
         {
             CurrentPageAddressableId = null;
-            m_uiRegionHostPresenter.OnRegionElementHidingIfExists(UiRegionElementAddressableIds.k_DebugPageBackdrop);
         }
     }
 }
