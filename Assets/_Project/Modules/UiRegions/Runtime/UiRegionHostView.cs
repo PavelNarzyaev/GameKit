@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using GameKit.UiRegions.Contracts;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Zenject;
 
 namespace GameKit.UiRegions
@@ -17,10 +16,9 @@ namespace GameKit.UiRegions
         [SerializeField] private RectTransform debugPanelMessageRegion;
         [SerializeField] private RectTransform debugPanelTabBarRegion;
 
-        private readonly Dictionary<string, UiRegionElement> m_elementByAddressableId = new();
         private readonly Dictionary<UiRegionId, RectTransform> m_transformByRegionId = new();
-        [Inject] private DiContainer m_diContainer;
         [Inject] private IUiRegionHostPresenter m_presenter;
+        [Inject] private UiRegionElementSpawner m_regionElementSpawner;
 
         private void Awake()
         {
@@ -53,73 +51,22 @@ namespace GameKit.UiRegions
 
         private void HandleRegionElementShowing(string addressableId, UiRegionId regionId)
         {
-            if (m_elementByAddressableId.TryGetValue(addressableId, out var element))
-            {
-                element.gameObject.SetActive(true);
-            }
-            else
-            {
-                var regionTransform = GetRegionTransformById(regionId);
-
-                var asyncOperationHandle = Addressables.LoadAssetAsync<GameObject>(addressableId);
-                var elementPrefab = asyncOperationHandle.WaitForCompletion();
-                if (!elementPrefab)
-                {
-                    Addressables.Release(asyncOperationHandle);
-                    throw new Exception($"Prefab for UI region element \"{addressableId}\" is not found");
-                }
-
-                var elementGameObject = m_diContainer.InstantiatePrefab(elementPrefab, regionTransform);
-                Addressables.Release(asyncOperationHandle);
-
-                var elementComponent = elementGameObject.GetComponent<UiRegionElement>();
-                if (!elementComponent)
-                {
-                    throw new Exception($"UI region element prefab must have a \"{nameof(UiRegionElement)}\" component.");
-                }
-
-                elementComponent.AddressableId = addressableId;
-                m_elementByAddressableId.Add(addressableId, elementComponent);
-            }
+            m_regionElementSpawner.Show(addressableId, GetRegionTransformById(regionId));
         }
 
         private void HandleRegionElementHidingIfExists(string addressableId)
         {
-            if (!m_elementByAddressableId.TryGetValue(addressableId, out var element))
-            {
-                return;
-            }
-
-            if (element.IsCached)
-            {
-                element.gameObject.SetActive(false);
-            }
-            else
-            {
-                DestroyRegionElementGameObject(element);
-                m_elementByAddressableId.Remove(addressableId);
-            }
+            m_regionElementSpawner.HideIfExists(addressableId);
         }
 
         private void HandleAllRegionElementsDestroying()
         {
-            foreach (var element in m_elementByAddressableId.Values)
-            {
-                DestroyRegionElementGameObject(element);
-            }
-
-            m_elementByAddressableId.Clear();
+            m_regionElementSpawner.DestroyAll();
         }
 
         private void HandleRegionElementIndexSetting(string addressableId, int index)
         {
-            if (!m_elementByAddressableId.TryGetValue(addressableId, out var element))
-            {
-                Debug.LogWarning($"Can't set sibling index for UI region element \"{addressableId}\" because it is not loaded.");
-                return;
-            }
-
-            element.transform.SetSiblingIndex(index);
+            m_regionElementSpawner.SetSiblingIndex(addressableId, index);
         }
 
         private void HandleRegionActivating(UiRegionId regionId, bool isActive)
@@ -135,13 +82,6 @@ namespace GameKit.UiRegions
             }
 
             return regionTransform;
-        }
-
-        private static void DestroyRegionElementGameObject(UiRegionElement element)
-        {
-            var elementGameObject = element.gameObject;
-            elementGameObject.SetActive(false);
-            Destroy(elementGameObject);
         }
     }
 }
