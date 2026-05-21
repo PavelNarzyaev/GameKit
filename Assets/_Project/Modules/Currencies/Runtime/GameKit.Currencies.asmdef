@@ -1,7 +1,6 @@
 {
   "name": "GameKit.Currencies",
   "references": [
-    "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
     "GUID:5fd783aac5c5c3d4697b5a6bc6b54861",
     "GUID:01efc9816489be94cae91075d7b67450"
   ],
