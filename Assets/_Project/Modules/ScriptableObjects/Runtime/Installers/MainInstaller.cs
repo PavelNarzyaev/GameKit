@@ -44,6 +44,7 @@ namespace GameKit.ScriptableObjects
             InstallCurrentTimeSource();
             Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
 
+            Container.Bind<UiRegionElementSpawner>().AsSingle();
             Container.BindInterfacesAndSelfTo<UiRegionHostPresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<BackgroundNavigator>().AsSingle();
             Container.BindInterfacesAndSelfTo<PageNavigator>().AsSingle();
