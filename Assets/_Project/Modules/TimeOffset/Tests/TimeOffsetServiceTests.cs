@@ -3,7 +3,6 @@ using GameKit.CurrentTime;
 using GameKit.PlayerState;
 using GameKit.PlayerState.Contracts;
 using GameKit.ProductionMode;
-using GameKit.TimeOffset.Contracts;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using Zenject;
@@ -18,7 +17,7 @@ namespace GameKit.TimeOffset.Tests
         {
             Container.Bind<IPlayerStateStorage>().To<FakePlayerStateStorage>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProductionModeProvider>().AsSingle();
-            Container.Bind<ICurrentTimeSource>().WithId(CurrentTimeSourceIds.k_BaseCurrentTimeSource).To<FakeCurrentTimeSource>().AsSingle();
+            Container.Bind<IRealTimeSource>().To<FakeCurrentTimeSource>().AsSingle();
             Container.Bind<PlayerStateTimeOffsetGateway>().AsSingle();
             Container.BindInterfacesAndSelfTo<TimeOffsetService>().AsSingle();
             Container.Bind<ICurrentTimeSource>().To<TimeOffsetCurrentTimeSource>().AsSingle();
@@ -67,7 +66,7 @@ namespace GameKit.TimeOffset.Tests
         public void Refresh_WhenPlayerStateIsInitializing_UsesZeroOffsetBeforeStateExists()
         {
             const long currentTimestamp = 1_735_689_600;
-            var currentTimeSource = (FakeCurrentTimeSource)Container.ResolveId<ICurrentTimeSource>(CurrentTimeSourceIds.k_BaseCurrentTimeSource);
+            var currentTimeSource = (FakeCurrentTimeSource)Container.Resolve<IRealTimeSource>();
             currentTimeSource.SetTimestamp(currentTimestamp);
 
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
@@ -82,7 +81,7 @@ namespace GameKit.TimeOffset.Tests
         public void GetTimestamp_WhenOffsetIsStoredInPlayerState_ReturnsTimestampWithOffset()
         {
             const long currentTimestamp = 1_735_689_600;
-            var currentTimeSource = (FakeCurrentTimeSource)Container.ResolveId<ICurrentTimeSource>(CurrentTimeSourceIds.k_BaseCurrentTimeSource);
+            var currentTimeSource = (FakeCurrentTimeSource)Container.Resolve<IRealTimeSource>();
             currentTimeSource.SetTimestamp(currentTimestamp);
 
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
@@ -125,7 +124,7 @@ namespace GameKit.TimeOffset.Tests
         }
 
         [UsedImplicitly]
-        private class FakeCurrentTimeSource : ICurrentTimeSource
+        private class FakeCurrentTimeSource : IRealTimeSource
         {
             private long m_currentTimestamp;
 

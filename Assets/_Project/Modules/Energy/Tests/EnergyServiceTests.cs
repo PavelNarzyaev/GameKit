@@ -18,7 +18,7 @@ namespace GameKit.Energy.Tests
         {
             Container.Bind<IPlayerStateStorage>().To<FakePlayerStateStorage>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProductionModeProvider>().AsSingle();
-            Container.Bind<ICurrentTimeSource>().To<FakeCurrentTimeSource>().AsSingle();
+            Container.Bind(typeof(ICurrentTimeSource), typeof(IRealTimeSource)).To<FakeCurrentTimeSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
             PlayerStateInstaller.InstallCore(Container);
             Container.Bind<IEnergyConfig>().To<FakeEnergyConfig>().AsSingle();
@@ -291,7 +291,7 @@ namespace GameKit.Energy.Tests
         }
 
         [UsedImplicitly]
-        private class FakeCurrentTimeSource : ICurrentTimeSource
+        private class FakeCurrentTimeSource : ICurrentTimeSource, IRealTimeSource
         {
             private long m_currentTimestamp;
 

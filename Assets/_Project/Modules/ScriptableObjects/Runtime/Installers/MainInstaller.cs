@@ -28,7 +28,6 @@ using GameKit.EnergyDebugPage;
 using GameKit.LogsDebugPage;
 using GameKit.StateDebugPage;
 using GameKit.TimeOffset;
-using GameKit.TimeOffset.Contracts;
 using GameKit.TimeDebugPage;
 using GameKit.UiDebugPanel;
 #endif
@@ -76,9 +75,9 @@ namespace GameKit.ScriptableObjects
         private void InstallCurrentTimeSource()
         {
 #if IS_PRODUCTION
-            Container.Bind<ICurrentTimeSource>().To<SystemUtcCurrentTimeSource>().AsSingle();
+            Container.Bind(typeof(IRealTimeSource), typeof(ICurrentTimeSource)).To<SystemUtcCurrentTimeSource>().AsSingle();
 #else
-            Container.Bind<ICurrentTimeSource>().WithId(CurrentTimeSourceIds.k_BaseCurrentTimeSource).To<SystemUtcCurrentTimeSource>().AsSingle();
+            Container.Bind<IRealTimeSource>().To<SystemUtcCurrentTimeSource>().AsSingle();
             Container.Bind<PlayerStateTimeOffsetGateway>().AsSingle();
             Container.BindInterfacesAndSelfTo<TimeOffsetService>().AsSingle();
             Container.Bind<ICurrentTimeSource>().To<TimeOffsetCurrentTimeSource>().AsSingle();

@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 namespace GameKit.CurrentTime
 {
     [UsedImplicitly]
-    public class SystemUtcCurrentTimeSource : ICurrentTimeSource
+    public class SystemUtcCurrentTimeSource : ICurrentTimeSource, IRealTimeSource
     {
         public long GetTimestamp()
         {

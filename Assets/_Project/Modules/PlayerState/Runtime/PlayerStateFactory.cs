@@ -1,5 +1,5 @@
 using System;
-using GameKit.CurrentTime.Contracts;
+using GameKit.Core.Contracts;
 using GameKit.PlayerState.Contracts;
 using JetBrains.Annotations;
 
@@ -8,11 +8,11 @@ namespace GameKit.PlayerState
     [UsedImplicitly]
     public class PlayerStateFactory : IPlayerStateFactory
     {
-        private readonly ICurrentTimeProvider m_currentTimeProvider;
+        private readonly IRealTimeSource m_realTimeSource;
 
-        public PlayerStateFactory(ICurrentTimeProvider currentTimeProvider)
+        public PlayerStateFactory(IRealTimeSource realTimeSource)
         {
-            m_currentTimeProvider = currentTimeProvider;
+            m_realTimeSource = realTimeSource;
         }
 
         public PlayerStateDto Create()
@@ -20,7 +20,7 @@ namespace GameKit.PlayerState
             return new PlayerStateDto
             {
                 UserId = Guid.NewGuid().ToString(),
-                FirstLaunchTimestamp = m_currentTimeProvider.GetTimestamp(),
+                FirstLaunchTimestamp = m_realTimeSource.GetTimestamp(),
                 Currencies =
                 {
                     SoftCurrency = 100,

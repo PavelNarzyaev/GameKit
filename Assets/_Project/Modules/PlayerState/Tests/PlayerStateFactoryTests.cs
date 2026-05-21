@@ -1,5 +1,4 @@
 using GameKit.Core.Contracts;
-using GameKit.CurrentTime;
 using NUnit.Framework;
 using Zenject;
 
@@ -11,8 +10,7 @@ namespace GameKit.PlayerState.Tests
         [SetUp]
         public void SetUp()
         {
-            Container.Bind<ICurrentTimeSource>().To<FakeCurrentTimeSource>().AsSingle();
-            Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
+            Container.Bind<IRealTimeSource>().To<FakeCurrentTimeSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerStateFactory>().AsSingle();
         }
 
@@ -20,7 +18,7 @@ namespace GameKit.PlayerState.Tests
         public void Create_WhenCalled_CreatesStateWithUserIdAndCurrentTimestamp()
         {
             const long currentTimestamp = 1_735_689_600;
-            var currentTimeSource = (FakeCurrentTimeSource)Container.Resolve<ICurrentTimeSource>();
+            var currentTimeSource = (FakeCurrentTimeSource)Container.Resolve<IRealTimeSource>();
             currentTimeSource.SetTimestamp(currentTimestamp);
             var factory = Container.Resolve<IPlayerStateFactory>();
 
@@ -42,7 +40,7 @@ namespace GameKit.PlayerState.Tests
             Assert.That(result.EnergyData.Energy, Is.EqualTo(0));
         }
 
-        private class FakeCurrentTimeSource : ICurrentTimeSource
+        private class FakeCurrentTimeSource : IRealTimeSource
         {
             private long m_currentTimestamp;
 

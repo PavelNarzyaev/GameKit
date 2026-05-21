@@ -18,7 +18,7 @@ namespace GameKit.Currencies.Tests
         {
             Container.Bind<IPlayerStateStorage>().To<FakePlayerStateStorage>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProductionModeProvider>().AsSingle();
-            Container.Bind<ICurrentTimeSource>().To<FakeCurrentTimeSource>().AsSingle();
+            Container.Bind(typeof(ICurrentTimeSource), typeof(IRealTimeSource)).To<FakeCurrentTimeSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
             PlayerStateInstaller.InstallCore(Container);
             Container.Bind<PlayerStateCurrenciesGateway>().AsSingle();
@@ -193,7 +193,7 @@ namespace GameKit.Currencies.Tests
         }
 
         [UsedImplicitly]
-        private class FakeCurrentTimeSource : ICurrentTimeSource
+        private class FakeCurrentTimeSource : ICurrentTimeSource, IRealTimeSource
         {
             public long GetTimestamp()
             {
