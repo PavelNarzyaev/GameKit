@@ -4,7 +4,6 @@ using GameKit.UiDebugPanel.Contracts;
 using GameKit.UiRegionsControl.Contracts;
 using UnityEngine;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.DebugPanelTabBar
 {
@@ -18,8 +17,8 @@ namespace GameKit.DebugPanelTabBar
     [UsedImplicitly]
     public class DebugPanelTabBarPresenter : IDisposable
     {
-        [Inject] private IDebugPanelPageNavigator m_debugPanelPageNavigator;
-        [Inject] private ILogsProvider m_logsProvider;
+        private readonly IDebugPanelPageNavigator m_debugPanelPageNavigator;
+        private readonly ILogsProvider m_logsProvider;
 
         private int m_viewedMessagesCount;
 
@@ -31,9 +30,12 @@ namespace GameKit.DebugPanelTabBar
 
         public string CurrentPageAddressableId => m_debugPanelPageNavigator.CurrentPageAddressableId;
 
-        [Inject]
-        private void Inject()
+        public DebugPanelTabBarPresenter(
+            IDebugPanelPageNavigator debugPanelPageNavigator,
+            ILogsProvider logsProvider)
         {
+            m_debugPanelPageNavigator = debugPanelPageNavigator;
+            m_logsProvider = logsProvider;
             m_debugPanelPageNavigator.PageChanged += HandlePageChanged;
             m_logsProvider.Changed += HandleLogsProviderChanged;
             RefreshLogsIndicatorState();

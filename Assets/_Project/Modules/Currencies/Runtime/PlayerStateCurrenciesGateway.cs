@@ -2,15 +2,19 @@ using System;
 using GameKit.Currencies.Contracts;
 using GameKit.PlayerState.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.Currencies
 {
     [UsedImplicitly]
     public class PlayerStateCurrenciesGateway
     {
-        [Inject] private IPlayerStateProvider m_playerStateProvider;
+        private readonly IPlayerStateProvider m_playerStateProvider;
         public event Action Changed;
+
+        public PlayerStateCurrenciesGateway(IPlayerStateProvider playerStateProvider)
+        {
+            m_playerStateProvider = playerStateProvider;
+        }
 
         public int Get(CurrencyType type)
         {

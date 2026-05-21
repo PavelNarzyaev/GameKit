@@ -1,15 +1,19 @@
 using System;
 using GameKit.PlayerState.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.TimeOffset
 {
     [UsedImplicitly]
     public class PlayerStateTimeOffsetGateway
     {
-        [Inject] private IPlayerStateProvider m_playerStateProvider;
+        private readonly IPlayerStateProvider m_playerStateProvider;
         public event Action Changed;
+
+        public PlayerStateTimeOffsetGateway(IPlayerStateProvider playerStateProvider)
+        {
+            m_playerStateProvider = playerStateProvider;
+        }
 
         public int OffsetSeconds => m_playerStateProvider.Data?.TimeOffsetSeconds ?? 0;
 

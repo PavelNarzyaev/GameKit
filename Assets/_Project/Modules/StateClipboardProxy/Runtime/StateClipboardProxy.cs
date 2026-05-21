@@ -2,14 +2,18 @@ using GameKit.PlayerState.Contracts;
 using GameKit.StateClipboardProxy.Contracts;
 using JetBrains.Annotations;
 using UnityEngine;
-using Zenject;
 
 namespace GameKit.StateClipboardProxy
 {
     [UsedImplicitly]
     public class StateClipboardProxy : IStateClipboardProxy
     {
-        [Inject] private IPlayerStateProvider m_playerStateProvider;
+        private readonly IPlayerStateProvider m_playerStateProvider;
+
+        public StateClipboardProxy(IPlayerStateProvider playerStateProvider)
+        {
+            m_playerStateProvider = playerStateProvider;
+        }
 
         public void CopyStateToClipboard()
         {

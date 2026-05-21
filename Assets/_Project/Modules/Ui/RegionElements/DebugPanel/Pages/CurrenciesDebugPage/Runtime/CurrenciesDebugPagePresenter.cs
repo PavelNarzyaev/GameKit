@@ -2,14 +2,18 @@ using System;
 using System.Globalization;
 using GameKit.Currencies.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.CurrenciesDebugPage
 {
     [UsedImplicitly]
     public class CurrenciesDebugPagePresenter
     {
-        [Inject] private ICurrencyWallet m_currencyWallet;
+        private readonly ICurrencyWallet m_currencyWallet;
+
+        public CurrenciesDebugPagePresenter(ICurrencyWallet currencyWallet)
+        {
+            m_currencyWallet = currencyWallet;
+        }
 
         public event Action Changed
         {

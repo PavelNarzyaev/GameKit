@@ -1,16 +1,20 @@
 using GameKit.UiPages.Contracts;
 using GameKit.UiRegions.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.UiPages
 {
     [UsedImplicitly]
     public class PageNavigator : IPageNavigator
     {
-        [Inject] private IUiRegionHostPresenter m_uiRegionHostPresenter;
+        private readonly IUiRegionHostPresenter m_uiRegionHostPresenter;
 
         private string m_currentPageAddressableId;
+
+        public PageNavigator(IUiRegionHostPresenter uiRegionHostPresenter)
+        {
+            m_uiRegionHostPresenter = uiRegionHostPresenter;
+        }
 
         public void ShowPage(string addressableId)
         {

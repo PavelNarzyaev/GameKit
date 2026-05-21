@@ -1,21 +1,20 @@
 using System;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.LogsDebugPage
 {
     [UsedImplicitly]
     public class DebugLogsFilterSelectorPresenter : IDisposable
     {
-        [Inject] private LogsDebugPagePresenter m_logsDebugPagePresenter;
+        private readonly LogsDebugPagePresenter m_logsDebugPagePresenter;
 
         public LogsDebugPageFilter CurrentFilter => m_logsDebugPagePresenter.CurrentFilter;
 
         public event Action Changed;
 
-        [Inject]
-        private void Inject()
+        public DebugLogsFilterSelectorPresenter(LogsDebugPagePresenter logsDebugPagePresenter)
         {
+            m_logsDebugPagePresenter = logsDebugPagePresenter;
             m_logsDebugPagePresenter.FilterChanged += HandleFilterChanged;
         }
 

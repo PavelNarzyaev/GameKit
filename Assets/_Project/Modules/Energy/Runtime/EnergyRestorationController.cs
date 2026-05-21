@@ -1,19 +1,19 @@
 using GameKit.Core.Contracts;
 using GameKit.Energy.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.Energy
 {
     [UsedImplicitly]
     public class EnergyRestorationController
     {
-        [Inject] private IEnergyService m_energyService;
-        [Inject] private IGameTickSource m_gameTickSource;
+        private readonly IEnergyService m_energyService;
+        private readonly IGameTickSource m_gameTickSource;
 
-        [Inject]
-        private void Inject()
+        public EnergyRestorationController(IEnergyService energyService, IGameTickSource gameTickSource)
         {
+            m_energyService = energyService;
+            m_gameTickSource = gameTickSource;
             m_gameTickSource.Ticked += HandleTicked;
         }
 

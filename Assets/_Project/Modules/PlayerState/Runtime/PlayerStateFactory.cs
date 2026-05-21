@@ -2,14 +2,18 @@ using System;
 using GameKit.CurrentTime.Contracts;
 using GameKit.PlayerState.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.PlayerState
 {
     [UsedImplicitly]
     public class PlayerStateFactory : IPlayerStateFactory
     {
-        [Inject] private ICurrentTimeProvider m_currentTimeProvider;
+        private readonly ICurrentTimeProvider m_currentTimeProvider;
+
+        public PlayerStateFactory(ICurrentTimeProvider currentTimeProvider)
+        {
+            m_currentTimeProvider = currentTimeProvider;
+        }
 
         public PlayerStateDto Create()
         {

@@ -1,16 +1,20 @@
 using GameKit.UiBackgrounds.Contracts;
 using GameKit.UiRegions.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.UiBackgrounds
 {
     [UsedImplicitly]
     public class BackgroundNavigator : IBackgroundNavigator
     {
-        [Inject] private IUiRegionHostPresenter m_uiRegionHostPresenter;
+        private readonly IUiRegionHostPresenter m_uiRegionHostPresenter;
 
         private string m_currentBackgroundAddressableId;
+
+        public BackgroundNavigator(IUiRegionHostPresenter uiRegionHostPresenter)
+        {
+            m_uiRegionHostPresenter = uiRegionHostPresenter;
+        }
 
         public void ShowBackground(string addressableId)
         {

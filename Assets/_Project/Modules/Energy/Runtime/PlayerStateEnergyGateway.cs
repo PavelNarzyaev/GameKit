@@ -2,15 +2,19 @@ using System;
 using GameKit.Energy.Contracts;
 using GameKit.PlayerState.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.Energy
 {
     [UsedImplicitly]
     public class PlayerStateEnergyGateway
     {
-        [Inject] private IPlayerStateProvider m_playerStateProvider;
+        private readonly IPlayerStateProvider m_playerStateProvider;
         public event Action Changed;
+
+        public PlayerStateEnergyGateway(IPlayerStateProvider playerStateProvider)
+        {
+            m_playerStateProvider = playerStateProvider;
+        }
 
         public int Energy => EnergyData.Energy;
         public long NextRestoreTimestamp => EnergyData.NextRestoreTimestamp;

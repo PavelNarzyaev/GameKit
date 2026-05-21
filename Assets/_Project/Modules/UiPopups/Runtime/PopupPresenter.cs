@@ -1,14 +1,18 @@
 using System;
 using GameKit.UiPopups.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.UiPopups
 {
     [UsedImplicitly]
     public class PopupPresenter : IPopupPresenter
     {
-        [Inject] private IPopupNavigator m_popupNavigator;
+        private readonly IPopupNavigator m_popupNavigator;
+
+        public PopupPresenter(IPopupNavigator popupNavigator)
+        {
+            m_popupNavigator = popupNavigator;
+        }
 
         public event Action FrontPopupChanged
         {

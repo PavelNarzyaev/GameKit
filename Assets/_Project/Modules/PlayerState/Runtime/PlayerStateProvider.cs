@@ -3,7 +3,6 @@ using GameKit.PlayerState.Contracts;
 using GameKit.ProductionMode.Contracts;
 using JetBrains.Annotations;
 using UnityEngine;
-using Zenject;
 
 namespace GameKit.PlayerState
 {
@@ -14,11 +13,25 @@ namespace GameKit.PlayerState
         public bool IsDirty { get; private set; }
         public event Action Replaced;
 
-        [Inject] private IPlayerStateStorage m_playerStateStorage;
-        [Inject] private IProductionModeProvider m_productionModeProvider;
-        [Inject] private IPlayerStateSerializer m_playerStateSerializer;
-        [Inject] private IPlayerStateValidator m_playerStateValidator;
-        [Inject] private IPlayerStateFactory m_playerStateFactory;
+        private readonly IPlayerStateStorage m_playerStateStorage;
+        private readonly IProductionModeProvider m_productionModeProvider;
+        private readonly IPlayerStateSerializer m_playerStateSerializer;
+        private readonly IPlayerStateValidator m_playerStateValidator;
+        private readonly IPlayerStateFactory m_playerStateFactory;
+
+        public PlayerStateProvider(
+            IPlayerStateStorage playerStateStorage,
+            IProductionModeProvider productionModeProvider,
+            IPlayerStateSerializer playerStateSerializer,
+            IPlayerStateValidator playerStateValidator,
+            IPlayerStateFactory playerStateFactory)
+        {
+            m_playerStateStorage = playerStateStorage;
+            m_productionModeProvider = productionModeProvider;
+            m_playerStateSerializer = playerStateSerializer;
+            m_playerStateValidator = playerStateValidator;
+            m_playerStateFactory = playerStateFactory;
+        }
 
         public void Edit(Action<PlayerStateDto> edit)
         {

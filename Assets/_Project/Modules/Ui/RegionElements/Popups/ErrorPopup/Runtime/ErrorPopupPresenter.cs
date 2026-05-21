@@ -1,14 +1,19 @@
 using GameKit.Commands.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.ErrorPopup
 {
     [UsedImplicitly]
     public class ErrorPopupPresenter
     {
-        [Inject] private IDestroyUiCommand m_destroyUiCommand;
-        [Inject] private ILaunchCommand m_launchCommand;
+        private readonly IDestroyUiCommand m_destroyUiCommand;
+        private readonly ILaunchCommand m_launchCommand;
+
+        public ErrorPopupPresenter(IDestroyUiCommand destroyUiCommand, ILaunchCommand launchCommand)
+        {
+            m_destroyUiCommand = destroyUiCommand;
+            m_launchCommand = launchCommand;
+        }
 
         public void Reload()
         {

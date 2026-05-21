@@ -4,16 +4,25 @@ using GameKit.UiPages.Contracts;
 using GameKit.UiRegions.Contracts;
 using GameKit.UiRegionsControl.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.Commands
 {
     [UsedImplicitly]
     public class ShowInitialUiCommand : IShowInitialUiCommand
     {
-        [Inject] private IUiRegionHostPresenter m_uiRegionHostPresenter;
-        [Inject] private IPageNavigator m_pageNavigator;
-        [Inject] private IProductionModeProvider m_productionModeProvider;
+        private readonly IUiRegionHostPresenter m_uiRegionHostPresenter;
+        private readonly IPageNavigator m_pageNavigator;
+        private readonly IProductionModeProvider m_productionModeProvider;
+
+        public ShowInitialUiCommand(
+            IUiRegionHostPresenter uiRegionHostPresenter,
+            IPageNavigator pageNavigator,
+            IProductionModeProvider productionModeProvider)
+        {
+            m_uiRegionHostPresenter = uiRegionHostPresenter;
+            m_pageNavigator = pageNavigator;
+            m_productionModeProvider = productionModeProvider;
+        }
 
         public void Execute()
         {

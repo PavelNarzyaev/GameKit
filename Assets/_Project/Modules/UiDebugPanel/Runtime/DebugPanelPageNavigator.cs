@@ -3,17 +3,21 @@ using GameKit.UiDebugPanel.Contracts;
 using GameKit.UiRegions.Contracts;
 using GameKit.UiRegionsControl.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.UiDebugPanel
 {
     [UsedImplicitly]
     public class DebugPanelPageNavigator : IDebugPanelPageNavigator
     {
-        [Inject] private IUiRegionHostPresenter m_uiRegionHostPresenter;
+        private readonly IUiRegionHostPresenter m_uiRegionHostPresenter;
         public string CurrentPageAddressableId { get; private set; }
 
         public event Action PageChanged;
+
+        public DebugPanelPageNavigator(IUiRegionHostPresenter uiRegionHostPresenter)
+        {
+            m_uiRegionHostPresenter = uiRegionHostPresenter;
+        }
 
         public void Show(string addressableId)
         {

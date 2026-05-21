@@ -10,9 +10,19 @@ namespace GameKit.Commands
     [UsedImplicitly]
     public class EntryPointController : IInitializable
     {
-        [Inject] private IUiFontPreloader m_uiFontPreloader;
-        [Inject] private ILaunchCommand m_launchCommand;
-        [Inject] private IEncryptionKeysProvider m_encryptionKeysProvider;
+        private readonly IUiFontPreloader m_uiFontPreloader;
+        private readonly ILaunchCommand m_launchCommand;
+        private readonly IEncryptionKeysProvider m_encryptionKeysProvider;
+
+        public EntryPointController(
+            IUiFontPreloader uiFontPreloader,
+            ILaunchCommand launchCommand,
+            IEncryptionKeysProvider encryptionKeysProvider)
+        {
+            m_uiFontPreloader = uiFontPreloader;
+            m_launchCommand = launchCommand;
+            m_encryptionKeysProvider = encryptionKeysProvider;
+        }
 
         public void Initialize()
         {

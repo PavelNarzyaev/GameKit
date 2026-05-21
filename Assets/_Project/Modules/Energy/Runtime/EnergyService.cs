@@ -2,23 +2,27 @@ using System;
 using GameKit.CurrentTime.Contracts;
 using GameKit.Energy.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.Energy
 {
     [UsedImplicitly]
     public class EnergyService : IEnergyService
     {
-        [Inject] private PlayerStateEnergyGateway m_gateway;
-        [Inject] private ICurrentTimeProvider m_currentTimeProvider;
-        [Inject] private IEnergyConfig m_energyConfig;
+        private readonly PlayerStateEnergyGateway m_gateway;
+        private readonly ICurrentTimeProvider m_currentTimeProvider;
+        private readonly IEnergyConfig m_energyConfig;
         public event Action Changed;
 
         private int RestorationStepSeconds => Math.Max(1, m_energyConfig.OneEnergyRestorationSeconds);
 
-        [Inject]
-        private void Inject()
+        public EnergyService(
+            PlayerStateEnergyGateway gateway,
+            ICurrentTimeProvider currentTimeProvider,
+            IEnergyConfig energyConfig)
         {
+            m_gateway = gateway;
+            m_currentTimeProvider = currentTimeProvider;
+            m_energyConfig = energyConfig;
             m_gateway.Changed += HandleGatewayChanged;
         }
 

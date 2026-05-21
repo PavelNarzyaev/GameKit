@@ -5,17 +5,28 @@ using GameKit.UiPopups.Contracts;
 using GameKit.UiRegionsControl.Contracts;
 using JetBrains.Annotations;
 using UnityEngine;
-using Zenject;
 
 namespace GameKit.Commands
 {
     [UsedImplicitly]
     public class LaunchCommand : ILaunchCommand
     {
-        [Inject] private IPlayerStateProvider m_playerStateProvider;
-        [Inject] private IPopupNavigator m_popupNavigator;
-        [Inject] private IShowInitialUiCommand m_showInitialUiCommand;
-        [Inject] private GameKitTickController m_gameKitTickController;
+        private readonly IPlayerStateProvider m_playerStateProvider;
+        private readonly IPopupNavigator m_popupNavigator;
+        private readonly IShowInitialUiCommand m_showInitialUiCommand;
+        private readonly GameKitTickController m_gameKitTickController;
+
+        public LaunchCommand(
+            IPlayerStateProvider playerStateProvider,
+            IPopupNavigator popupNavigator,
+            IShowInitialUiCommand showInitialUiCommand,
+            GameKitTickController gameKitTickController)
+        {
+            m_playerStateProvider = playerStateProvider;
+            m_popupNavigator = popupNavigator;
+            m_showInitialUiCommand = showInitialUiCommand;
+            m_gameKitTickController = gameKitTickController;
+        }
 
         public void Execute()
         {

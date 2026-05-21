@@ -6,17 +6,28 @@ using GameKit.StateClipboardProxy.Contracts;
 using GameKit.UiDebugPanel.Contracts;
 using GameKit.UiRegionsControl.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.StateDebugPage
 {
     [UsedImplicitly]
     public class StateDebugPagePresenter
     {
-        [Inject] private IPlayerStateProvider m_playerStateProvider;
-        [Inject] private IResetStateCommand m_resetStateCommand;
-        [Inject] private IStateClipboardProxy m_stateClipboardProxy;
-        [Inject] private IDebugPanelMessageNavigator m_debugPanelMessageNavigator;
+        private readonly IPlayerStateProvider m_playerStateProvider;
+        private readonly IResetStateCommand m_resetStateCommand;
+        private readonly IStateClipboardProxy m_stateClipboardProxy;
+        private readonly IDebugPanelMessageNavigator m_debugPanelMessageNavigator;
+
+        public StateDebugPagePresenter(
+            IPlayerStateProvider playerStateProvider,
+            IResetStateCommand resetStateCommand,
+            IStateClipboardProxy stateClipboardProxy,
+            IDebugPanelMessageNavigator debugPanelMessageNavigator)
+        {
+            m_playerStateProvider = playerStateProvider;
+            m_resetStateCommand = resetStateCommand;
+            m_stateClipboardProxy = stateClipboardProxy;
+            m_debugPanelMessageNavigator = debugPanelMessageNavigator;
+        }
 
         public void CopyStateToClipboard()
         {

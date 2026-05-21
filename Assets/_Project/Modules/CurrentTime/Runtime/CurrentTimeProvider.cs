@@ -1,14 +1,18 @@
 using GameKit.Core.Contracts;
 using GameKit.CurrentTime.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.CurrentTime
 {
     [UsedImplicitly]
     public class CurrentTimeProvider : ICurrentTimeProvider
     {
-        [Inject] private ICurrentTimeSource m_currentTimeSource;
+        private readonly ICurrentTimeSource m_currentTimeSource;
+
+        public CurrentTimeProvider(ICurrentTimeSource currentTimeSource)
+        {
+            m_currentTimeSource = currentTimeSource;
+        }
 
         public long GetTimestamp()
         {

@@ -1,14 +1,18 @@
 using System;
 using GameKit.TimeOffset.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.TimeOffset
 {
     [UsedImplicitly]
     public class TimeOffsetService : ITimeOffsetService
     {
-        [Inject] private PlayerStateTimeOffsetGateway m_gateway;
+        private readonly PlayerStateTimeOffsetGateway m_gateway;
+
+        public TimeOffsetService(PlayerStateTimeOffsetGateway gateway)
+        {
+            m_gateway = gateway;
+        }
 
         public event Action Changed
         {

@@ -1,6 +1,5 @@
 using GameKit.ProductionMode.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.ProductionMode
 {
@@ -9,8 +8,7 @@ namespace GameKit.ProductionMode
     {
         public bool IsProduction { get; private set; }
 
-        [Inject]
-        private void Inject()
+        public ProductionModeProvider()
         {
 #if IS_PRODUCTION
             IsProduction = true;

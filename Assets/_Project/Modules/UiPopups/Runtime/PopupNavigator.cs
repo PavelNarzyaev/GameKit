@@ -5,7 +5,6 @@ using GameKit.UiPopups.Contracts;
 using GameKit.UiRegions.Contracts;
 using GameKit.UiRegionsControl.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.UiPopups
 {
@@ -13,10 +12,15 @@ namespace GameKit.UiPopups
     public class PopupNavigator : IPopupNavigator
     {
         private readonly List<string> m_stack = new();
+        private readonly IUiRegionHostPresenter m_uiRegionHostPresenter;
         public bool IsFrontPopupModal { get; set; }
         public string FrontPopupAddressableId => m_stack.Count == 0 ? null : m_stack.Last();
-        [Inject] private IUiRegionHostPresenter m_uiRegionHostPresenter;
         public event Action FrontPopupChanged;
+
+        public PopupNavigator(IUiRegionHostPresenter uiRegionHostPresenter)
+        {
+            m_uiRegionHostPresenter = uiRegionHostPresenter;
+        }
 
         public void Open(string addressableId)
         {

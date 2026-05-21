@@ -1,19 +1,18 @@
 using System;
 using GameKit.Currencies.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.Currencies
 {
     [UsedImplicitly]
     public class CurrenciesService : ICurrencyWallet
     {
-        [Inject] private PlayerStateCurrenciesGateway m_gateway;
+        private readonly PlayerStateCurrenciesGateway m_gateway;
         public event Action Changed;
 
-        [Inject]
-        private void Inject()
+        public CurrenciesService(PlayerStateCurrenciesGateway gateway)
         {
+            m_gateway = gateway;
             m_gateway.Changed += HandleGatewayChanged;
         }
 

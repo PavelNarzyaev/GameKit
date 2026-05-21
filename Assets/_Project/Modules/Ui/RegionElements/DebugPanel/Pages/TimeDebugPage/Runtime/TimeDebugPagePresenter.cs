@@ -4,15 +4,22 @@ using GameKit.Core;
 using GameKit.CurrentTime.Contracts;
 using GameKit.TimeOffset.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.TimeDebugPage
 {
     [UsedImplicitly]
     public class TimeDebugPagePresenter
     {
-        [Inject] private ICurrentTimeProvider m_currentTimeProvider;
-        [Inject] private ITimeOffsetService m_timeOffsetService;
+        private readonly ICurrentTimeProvider m_currentTimeProvider;
+        private readonly ITimeOffsetService m_timeOffsetService;
+
+        public TimeDebugPagePresenter(
+            ICurrentTimeProvider currentTimeProvider,
+            ITimeOffsetService timeOffsetService)
+        {
+            m_currentTimeProvider = currentTimeProvider;
+            m_timeOffsetService = timeOffsetService;
+        }
 
         public event Action Changed
         {

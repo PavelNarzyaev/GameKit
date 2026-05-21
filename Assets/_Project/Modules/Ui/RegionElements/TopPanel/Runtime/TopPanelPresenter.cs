@@ -1,14 +1,18 @@
 ﻿using GameKit.UiPopups.Contracts;
 using GameKit.UiRegionsControl.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.TopPanel
 {
     [UsedImplicitly]
     public class TopPanelPresenter
     {
-        [Inject] private IPopupNavigator m_popupNavigator;
+        private readonly IPopupNavigator m_popupNavigator;
+
+        public TopPanelPresenter(IPopupNavigator popupNavigator)
+        {
+            m_popupNavigator = popupNavigator;
+        }
 
         public void OpenSettingsPopup()
         {

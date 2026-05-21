@@ -8,14 +8,20 @@ namespace GameKit.TimeOffset
     [UsedImplicitly]
     public class TimeOffsetCurrentTimeSource : ICurrentTimeSource
     {
-        [Inject(Id = CurrentTimeSourceIds.k_BaseCurrentTimeSource)]
-        private ICurrentTimeSource m_baseCurrentTimeSource;
+        private readonly ICurrentTimeSource m_baseCurrentTimeSource;
+        private readonly LazyInject<ITimeOffsetService> m_timeOffsetService;
 
-        [Inject] private ITimeOffsetService m_timeOffsetService;
+        public TimeOffsetCurrentTimeSource(
+            [Inject(Id = CurrentTimeSourceIds.k_BaseCurrentTimeSource)] ICurrentTimeSource baseCurrentTimeSource,
+            LazyInject<ITimeOffsetService> timeOffsetService)
+        {
+            m_baseCurrentTimeSource = baseCurrentTimeSource;
+            m_timeOffsetService = timeOffsetService;
+        }
 
         public long GetTimestamp()
         {
-            return m_baseCurrentTimeSource.GetTimestamp() + m_timeOffsetService.OffsetSeconds;
+            return m_baseCurrentTimeSource.GetTimestamp() + m_timeOffsetService.Value.OffsetSeconds;
         }
     }
 }

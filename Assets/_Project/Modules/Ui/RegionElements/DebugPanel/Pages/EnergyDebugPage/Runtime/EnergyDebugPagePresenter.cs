@@ -2,15 +2,20 @@ using System;
 using System.Globalization;
 using GameKit.Energy.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.EnergyDebugPage
 {
     [UsedImplicitly]
     public class EnergyDebugPagePresenter
     {
-        [Inject] private IEnergyService m_energyService;
-        [Inject] private IEnergyConfig m_energyConfig;
+        private readonly IEnergyService m_energyService;
+        private readonly IEnergyConfig m_energyConfig;
+
+        public EnergyDebugPagePresenter(IEnergyService energyService, IEnergyConfig energyConfig)
+        {
+            m_energyService = energyService;
+            m_energyConfig = energyConfig;
+        }
 
         public event Action Changed
         {

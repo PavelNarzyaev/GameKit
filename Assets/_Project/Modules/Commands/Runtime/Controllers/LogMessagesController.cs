@@ -9,7 +9,12 @@ namespace GameKit.Commands
     [UsedImplicitly]
     public class LogMessagesController : IInitializable, IDisposable
     {
-        [Inject] private ILogMessagesWriter m_logMessagesWriter;
+        private readonly ILogMessagesWriter m_logMessagesWriter;
+
+        public LogMessagesController(ILogMessagesWriter logMessagesWriter)
+        {
+            m_logMessagesWriter = logMessagesWriter;
+        }
 
         public void Initialize()
         {

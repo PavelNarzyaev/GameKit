@@ -1,13 +1,17 @@
 using GameKit.UiDebugPanel.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.DebugPanelMessage
 {
     [UsedImplicitly]
     public class DebugPanelMessagePresenter
     {
-        [Inject] private IDebugPanelMessageNavigator m_debugPanelMessageNavigator;
+        private readonly IDebugPanelMessageNavigator m_debugPanelMessageNavigator;
+
+        public DebugPanelMessagePresenter(IDebugPanelMessageNavigator debugPanelMessageNavigator)
+        {
+            m_debugPanelMessageNavigator = debugPanelMessageNavigator;
+        }
 
         public void Hide(string addressableId)
         {

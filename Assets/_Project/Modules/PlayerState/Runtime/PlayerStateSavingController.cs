@@ -1,19 +1,19 @@
 using GameKit.Core.Contracts;
 using GameKit.PlayerState.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.PlayerState
 {
     [UsedImplicitly]
     public class PlayerStateSavingController
     {
-        [Inject] private IPlayerStateProvider m_playerStateProvider;
-        [Inject] private IGameTickSource m_gameTickSource;
+        private readonly IPlayerStateProvider m_playerStateProvider;
+        private readonly IGameTickSource m_gameTickSource;
 
-        [Inject]
-        private void Inject()
+        public PlayerStateSavingController(IPlayerStateProvider playerStateProvider, IGameTickSource gameTickSource)
         {
+            m_playerStateProvider = playerStateProvider;
+            m_gameTickSource = gameTickSource;
             m_gameTickSource.Ticked += HandleTicked;
         }
 

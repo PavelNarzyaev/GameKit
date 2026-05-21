@@ -3,14 +3,18 @@ using System.IO;
 using System.Security.Cryptography;
 using GameKit.PlayerState.Contracts;
 using JetBrains.Annotations;
-using Zenject;
 
 namespace GameKit.PlayerState
 {
     [UsedImplicitly]
     public class EncryptedPlayerStateStorage : IPlayerStateStorage
     {
-        [Inject] private FilePlayerStateStorage m_filePlayerStateStorage;
+        private readonly FilePlayerStateStorage m_filePlayerStateStorage;
+
+        public EncryptedPlayerStateStorage(FilePlayerStateStorage filePlayerStateStorage)
+        {
+            m_filePlayerStateStorage = filePlayerStateStorage;
+        }
 
         public bool Exists()
         {
