@@ -1,3 +1,4 @@
+using System;
 using GameKit.Core.Contracts;
 using GameKit.PlayerState.Contracts;
 using JetBrains.Annotations;
@@ -5,7 +6,7 @@ using JetBrains.Annotations;
 namespace GameKit.PlayerState
 {
     [UsedImplicitly]
-    public class PlayerStateSavingController
+    public class PlayerStateSavingController : IDisposable
     {
         private readonly IPlayerStateProvider m_playerStateProvider;
         private readonly IGameTickSource m_gameTickSource;
@@ -15,6 +16,11 @@ namespace GameKit.PlayerState
             m_playerStateProvider = playerStateProvider;
             m_gameTickSource = gameTickSource;
             m_gameTickSource.Ticked += HandleTicked;
+        }
+
+        public void Dispose()
+        {
+            m_gameTickSource.Ticked -= HandleTicked;
         }
 
         private void HandleTicked()

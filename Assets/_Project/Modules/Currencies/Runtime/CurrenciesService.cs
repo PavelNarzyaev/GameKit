@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 namespace GameKit.Currencies
 {
     [UsedImplicitly]
-    public class CurrenciesService : ICurrencyWallet
+    public class CurrenciesService : ICurrencyWallet, IDisposable
     {
         private readonly PlayerStateCurrenciesGateway m_gateway;
         public event Action Changed;
@@ -54,6 +54,11 @@ namespace GameKit.Currencies
 
             m_gateway.Set(type, currentValue - amount);
             return true;
+        }
+
+        public void Dispose()
+        {
+            m_gateway.Changed -= HandleGatewayChanged;
         }
 
         private void HandleGatewayChanged()

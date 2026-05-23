@@ -22,7 +22,7 @@ namespace GameKit.PlayerState
 
         public static void InstallAutoSave(DiContainer container)
         {
-            container.Bind<PlayerStateSavingController>().AsSingle().NonLazy();
+            container.BindInterfacesAndSelfTo<PlayerStateSavingController>().AsSingle().NonLazy();
         }
     }
 }

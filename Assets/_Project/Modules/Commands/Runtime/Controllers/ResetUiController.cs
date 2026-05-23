@@ -1,3 +1,4 @@
+using System;
 using GameKit.Commands.Contracts;
 using GameKit.PlayerState.Contracts;
 using JetBrains.Annotations;
@@ -5,7 +6,7 @@ using JetBrains.Annotations;
 namespace GameKit.Commands
 {
     [UsedImplicitly]
-    public class ResetUiController
+    public class ResetUiController : IDisposable
     {
         private readonly IPlayerStateProvider m_playerStateProvider;
         private readonly IDestroyUiCommand m_destroyUiCommand;
@@ -20,6 +21,11 @@ namespace GameKit.Commands
             m_destroyUiCommand = destroyUiCommand;
             m_showInitialUiCommand = showInitialUiCommand;
             m_playerStateProvider.Replaced += HandlePlayerStateReplaced;
+        }
+
+        public void Dispose()
+        {
+            m_playerStateProvider.Replaced -= HandlePlayerStateReplaced;
         }
 
         private void HandlePlayerStateReplaced()

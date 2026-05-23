@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 namespace GameKit.Energy
 {
     [UsedImplicitly]
-    public class EnergyService : IEnergyService
+    public class EnergyService : IEnergyService, IDisposable
     {
         private readonly PlayerStateEnergyGateway m_gateway;
         private readonly ICurrentTimeProvider m_currentTimeProvider;
@@ -145,6 +145,11 @@ namespace GameKit.Energy
         private void SetState(int energy, long nextRestoreTimestamp)
         {
             m_gateway.SetState(energy, nextRestoreTimestamp);
+        }
+
+        public void Dispose()
+        {
+            m_gateway.Changed -= HandleGatewayChanged;
         }
 
         private void HandleGatewayChanged()
