@@ -28,11 +28,15 @@ If `.meta` files appear or change during work, treat them as Unity-generated dev
 Backward compatibility for save data is not required before version 1.0.0.
 If version matters for the task and is not specified in project notes or documentation, determine it from the project configuration.
 
-# Build And Tests
+# Verification
 
-Do not attempt to verify this project with `dotnet build`, other build commands, or automated test commands.
+Do not attempt to verify this project with `dotnet build`, Unity builds, or ad-hoc build commands.
 
-Build verification and test execution are currently not supported in this repository environment, so state that they were not run instead of trying ad-hoc workarounds.
+When code changes need verification, use the supported tools below:
+
+- Run Unity EditMode Unit tests through MCP Test Runner:
+  `run_tests` with `testMode: "EditMode"`, `returnOnlyFailures: true`, and normally `returnWithLogs: false`.
+- For scoped checks, pass a fully qualified `testFilter`.
 
 # Git Staging
 
