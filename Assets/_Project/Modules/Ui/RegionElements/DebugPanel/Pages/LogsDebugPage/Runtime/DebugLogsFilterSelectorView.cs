@@ -4,7 +4,7 @@ using Zenject;
 
 namespace GameKit.LogsDebugPage
 {
-    public class DebugLogsFilterSelector : MonoBehaviour
+    public class DebugLogsFilterSelectorView : MonoBehaviour
     {
         [SerializeField] private DebugButton allTab;
         [SerializeField] private DebugButton problemsTab;
