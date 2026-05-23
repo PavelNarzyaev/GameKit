@@ -90,3 +90,12 @@ winget install BurntSushi.ripgrep.MSVC
 ```
 
 Make sure both `pwsh` and `rg` are available in `PATH`.
+
+## 11. Optional: Configure Unity MCP for AI Agents
+
+Example of configutation:
+
+- Open `Tools` -> `MCP Unity` -> `Server Window` in the Unity Editor
+  - Enable `Allow Remote Connections`.
+  - Click `Configure CLI (Project)`.
+  - Restart Rider if it is running.
