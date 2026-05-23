@@ -34,6 +34,10 @@ Do not attempt to verify this project with `dotnet build`, Unity builds, or ad-h
 
 When code changes need verification, use the supported tools below:
 
+- Recompile Unity scripts through MCP:
+  `recompile_scripts` with `returnWithLogs: false` unless compilation logs are needed.
+- Read Unity Console through MCP:
+  `get_console_logs` with `includeStackTrace: false` unless stack traces are needed.
 - Run Unity EditMode Unit tests through MCP Test Runner:
   `run_tests` with `testMode: "EditMode"`, `returnOnlyFailures: true`, and normally `returnWithLogs: false`.
 - For scoped checks, pass a fully qualified `testFilter`.
