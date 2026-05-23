@@ -117,3 +117,9 @@ InitTestScene*.unity*
 # Keep this ignored while the folder contains only generated build state.
 # Remove this rule before committing source files inside this folder.
 /[Aa]ssets/AddressableAssetsData/Android.meta
+
+# Local AI agent configuration
+/.codex/
+
+# MCP Unity local editor/server settings
+/ProjectSettings/McpUnitySettings.json
