@@ -93,9 +93,10 @@ Make sure both `pwsh` and `rg` are available in `PATH`.
 
 ## 11. Optional: Configure Unity MCP for AI Agents
 
-Example of configutation:
+Example configuration:
 
-- Open `Tools` -> `MCP Unity` -> `Server Window` in the Unity Editor
+- Open `Tools` -> `MCP Unity` -> `Server Window` in the Unity Editor.
+  - Set `Request Timeout (Seconds)` to 60.
   - Enable `Allow Remote Connections`.
   - Click `Configure CLI (Project)`.
-  - Restart Rider if it is running.
+- Restart Rider if it is running.
