@@ -30,6 +30,7 @@ Direct Unity Package Manager dependencies are declared in [`Packages/manifest.js
 
 Current direct non-module package dependencies:
 
+- `com.gamelovers.mcp-unity` - MIT License. Upstream: https://github.com/CoderGamester/mcp-unity. License file is restored by Unity under `Library/PackageCache/com.gamelovers.mcp-unity@*/LICENSE.md`.
 - `com.unity.adaptiveperformance`
 - `com.unity.adaptiveperformance.google.android`
 - `com.unity.addressables`
