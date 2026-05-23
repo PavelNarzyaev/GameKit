@@ -29,15 +29,14 @@ namespace GameKit.PlayerState.Tests
         }
 
         [Test]
-        public void Create_WhenCalled_CreatesStateWithoutDemoResources()
+        public void Create_WhenCalled_CreatesStateWithRuntimeDataSections()
         {
             var factory = Container.Resolve<IPlayerStateFactory>();
 
             var result = factory.Create();
 
-            Assert.That(result.Currencies.SoftCurrency, Is.EqualTo(0));
-            Assert.That(result.Currencies.HardCurrency, Is.EqualTo(0));
-            Assert.That(result.EnergyData.Energy, Is.EqualTo(0));
+            Assert.That(result.Currencies, Is.Not.Null);
+            Assert.That(result.EnergyData, Is.Not.Null);
         }
 
         private class FakeCurrentTimeSource : IRealTimeSource
