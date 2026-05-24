@@ -123,15 +123,20 @@ namespace GameKit.ProductionMode.Editor
 
         private static bool RemoveAddressableEntry(object settings, string guid)
         {
-            var method = settings.GetType().GetMethod("RemoveAssetEntry", new[] { typeof(string), typeof(bool) });
+            var settingsType = settings.GetType();
+            var method = settingsType.GetMethod("RemoveAssetEntry", new[] { typeof(string), typeof(bool) })
+                ?? throw new MissingMethodException(settingsType.FullName, "RemoveAssetEntry");
+
             return (bool)method.Invoke(settings, new object[] { guid, false });
         }
 
         private static object CreateOrMoveAddressableEntry(object settings, string guid, object defaultGroup)
         {
-            var method = settings.GetType().GetMethod(
+            var settingsType = settings.GetType();
+            var method = settingsType.GetMethod(
                 "CreateOrMoveEntry",
-                new[] { typeof(string), defaultGroup.GetType(), typeof(bool), typeof(bool) });
+                new[] { typeof(string), defaultGroup.GetType(), typeof(bool), typeof(bool) })
+                ?? throw new MissingMethodException(settingsType.FullName, "CreateOrMoveEntry");
 
             return method.Invoke(settings, new[] { guid, defaultGroup, false, false });
         }
@@ -145,7 +150,7 @@ namespace GameKit.ProductionMode.Editor
         {
             return AssetDatabase.FindAssets("t:Prefab", new[] { k_PrefabSearchRoot })
                 .Where(IsDebugUiRegionElementPrefab)
-                .OrderBy(guid => AssetDatabase.GUIDToAssetPath(guid))
+                .OrderBy(AssetDatabase.GUIDToAssetPath)
                 .ToList();
         }
 
