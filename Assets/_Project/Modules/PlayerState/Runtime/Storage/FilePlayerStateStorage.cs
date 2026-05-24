@@ -9,6 +9,22 @@ namespace GameKit.PlayerState
     public class FilePlayerStateStorage : IPlayerStateStorage
     {
         private const string k_FileName = "state.dat";
+        private readonly string m_storageDirectoryPath;
+
+        public FilePlayerStateStorage()
+            : this(Application.persistentDataPath)
+        {
+        }
+
+        private FilePlayerStateStorage(string storageDirectoryPath)
+        {
+            m_storageDirectoryPath = storageDirectoryPath;
+        }
+
+        public static FilePlayerStateStorage CreateForDirectory(string storageDirectoryPath)
+        {
+            return new FilePlayerStateStorage(storageDirectoryPath);
+        }
 
         public bool Exists()
         {
@@ -49,9 +65,9 @@ namespace GameKit.PlayerState
             }
         }
 
-        private static string GetFilePath()
+        private string GetFilePath()
         {
-            return Path.Combine(Application.persistentDataPath, k_FileName);
+            return Path.Combine(m_storageDirectoryPath, k_FileName);
         }
     }
 }
