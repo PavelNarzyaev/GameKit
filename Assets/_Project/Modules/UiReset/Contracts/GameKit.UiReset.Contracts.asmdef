@@ -1,10 +1,6 @@
 {
-  "name": "GameKit.UiPages",
-  "references": [
-    "GUID:a2af520ed85107e44ae899b88a990e8f",
-    "GUID:513663cdc16cf8e4fa689d27f09596c6",
-    "GUID:71644e93a12c2914c99b2c70b71ab86e"
-  ],
+  "name": "GameKit.UiReset.Contracts",
+  "references": [],
   "includePlatforms": [],
   "excludePlatforms": [],
   "allowUnsafeCode": false,

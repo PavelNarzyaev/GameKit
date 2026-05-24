@@ -9,6 +9,5 @@ namespace GameKit.UiDebugPanel.Contracts
 
         void Show(string addressableId);
         void Close();
-        void Reset();
     }
 }

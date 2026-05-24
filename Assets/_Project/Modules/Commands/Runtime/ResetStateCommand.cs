@@ -1,5 +1,6 @@
 using GameKit.Commands.Contracts;
 using GameKit.PlayerState.Contracts;
+using GameKit.UiReset.Contracts;
 using JetBrains.Annotations;
 
 namespace GameKit.Commands
@@ -9,21 +10,21 @@ namespace GameKit.Commands
     {
         private readonly IPlayerStateProvider m_playerStateProvider;
         private readonly ILaunchCommand m_launchCommand;
-        private readonly IDestroyUiCommand m_destroyUiCommand;
+        private readonly IUiResetEventPublisher m_uiResetEventPublisher;
 
         public ResetStateCommand(
             IPlayerStateProvider playerStateProvider,
             ILaunchCommand launchCommand,
-            IDestroyUiCommand destroyUiCommand)
+            IUiResetEventPublisher uiResetEventPublisher)
         {
             m_playerStateProvider = playerStateProvider;
             m_launchCommand = launchCommand;
-            m_destroyUiCommand = destroyUiCommand;
+            m_uiResetEventPublisher = uiResetEventPublisher;
         }
 
         public void Execute()
         {
-            m_destroyUiCommand.Execute();
+            m_uiResetEventPublisher.PublishReset();
             m_playerStateProvider.Delete();
             m_launchCommand.Execute();
         }

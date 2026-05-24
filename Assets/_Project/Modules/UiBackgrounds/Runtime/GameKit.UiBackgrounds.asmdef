@@ -2,7 +2,8 @@
   "name": "GameKit.UiBackgrounds",
   "references": [
     "GUID:0d3f50dd4e339434599ed97a6889fb30",
-    "GUID:513663cdc16cf8e4fa689d27f09596c6"
+    "GUID:513663cdc16cf8e4fa689d27f09596c6",
+    "GUID:71644e93a12c2914c99b2c70b71ab86e"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

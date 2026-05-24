@@ -11,6 +11,5 @@ namespace GameKit.UiPopups.Contracts
         void Open(string addressableId);
         void Close(string addressableId);
         void CloseFront();
-        void Reset();
     }
 }

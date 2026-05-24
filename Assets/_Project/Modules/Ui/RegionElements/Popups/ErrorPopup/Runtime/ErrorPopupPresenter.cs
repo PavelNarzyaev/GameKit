@@ -1,4 +1,5 @@
 using GameKit.Commands.Contracts;
+using GameKit.UiReset.Contracts;
 using JetBrains.Annotations;
 
 namespace GameKit.ErrorPopup
@@ -6,18 +7,18 @@ namespace GameKit.ErrorPopup
     [UsedImplicitly]
     public class ErrorPopupPresenter
     {
-        private readonly IDestroyUiCommand m_destroyUiCommand;
+        private readonly IUiResetEventPublisher m_uiResetEventPublisher;
         private readonly ILaunchCommand m_launchCommand;
 
-        public ErrorPopupPresenter(IDestroyUiCommand destroyUiCommand, ILaunchCommand launchCommand)
+        public ErrorPopupPresenter(IUiResetEventPublisher uiResetEventPublisher, ILaunchCommand launchCommand)
         {
-            m_destroyUiCommand = destroyUiCommand;
+            m_uiResetEventPublisher = uiResetEventPublisher;
             m_launchCommand = launchCommand;
         }
 
         public void Reload()
         {
-            m_destroyUiCommand.Execute();
+            m_uiResetEventPublisher.PublishReset();
             m_launchCommand.Execute();
         }
     }

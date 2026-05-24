@@ -18,6 +18,7 @@ using GameKit.UiFonts;
 using GameKit.UiPages;
 using GameKit.UiPopups;
 using GameKit.UiRegions;
+using GameKit.UiReset;
 using UnityEngine;
 using Zenject;
 #if !IS_PRODUCTION
@@ -44,6 +45,7 @@ namespace GameKit.ScriptableObjects
             InstallCurrentTimeSource();
             Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
 
+            Container.BindInterfacesAndSelfTo<UiResetEventBus>().AsSingle();
             Container.Bind<UiRegionElementSpawner>().AsSingle();
             Container.BindInterfacesAndSelfTo<UiRegionHostPresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<BackgroundNavigator>().AsSingle();
@@ -103,7 +105,6 @@ namespace GameKit.ScriptableObjects
 
         private void InstallCommands()
         {
-            Container.BindInterfacesAndSelfTo<DestroyUiCommand>().AsSingle();
             Container.BindInterfacesAndSelfTo<LaunchCommand>().AsSingle();
             Container.BindInterfacesAndSelfTo<ShowInitialUiCommand>().AsSingle();
             Container.BindInterfacesAndSelfTo<ResetStateCommand>().AsSingle();

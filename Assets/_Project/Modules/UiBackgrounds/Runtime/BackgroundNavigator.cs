@@ -1,19 +1,31 @@
+using System;
 using GameKit.UiBackgrounds.Contracts;
 using GameKit.UiRegions.Contracts;
+using GameKit.UiReset.Contracts;
 using JetBrains.Annotations;
 
 namespace GameKit.UiBackgrounds
 {
     [UsedImplicitly]
-    public class BackgroundNavigator : IBackgroundNavigator
+    public class BackgroundNavigator : IBackgroundNavigator, IDisposable
     {
         private readonly IUiRegionHostPresenter m_uiRegionHostPresenter;
+        private readonly IUiResetEventListener m_uiResetEventListener;
 
         private string m_currentBackgroundAddressableId;
 
-        public BackgroundNavigator(IUiRegionHostPresenter uiRegionHostPresenter)
+        public BackgroundNavigator(
+            IUiRegionHostPresenter uiRegionHostPresenter,
+            IUiResetEventListener uiResetEventListener)
         {
             m_uiRegionHostPresenter = uiRegionHostPresenter;
+            m_uiResetEventListener = uiResetEventListener;
+            m_uiResetEventListener.ResetRequested += HandleUiResetRequested;
+        }
+
+        public void Dispose()
+        {
+            m_uiResetEventListener.ResetRequested -= HandleUiResetRequested;
         }
 
         public void ShowBackground(string addressableId)
@@ -32,7 +44,7 @@ namespace GameKit.UiBackgrounds
             m_uiRegionHostPresenter.OnRegionElementShowing(addressableId, UiRegionId.Background);
         }
 
-        public void Reset()
+        private void HandleUiResetRequested()
         {
             m_currentBackgroundAddressableId = null;
         }

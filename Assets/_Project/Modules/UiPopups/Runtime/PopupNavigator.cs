@@ -4,22 +4,33 @@ using System.Linq;
 using GameKit.UiPopups.Contracts;
 using GameKit.UiRegions.Contracts;
 using GameKit.UiRegionsControl.Contracts;
+using GameKit.UiReset.Contracts;
 using JetBrains.Annotations;
 
 namespace GameKit.UiPopups
 {
     [UsedImplicitly]
-    public class PopupNavigator : IPopupNavigator
+    public class PopupNavigator : IPopupNavigator, IDisposable
     {
         private readonly List<string> m_stack = new();
         private readonly IUiRegionHostPresenter m_uiRegionHostPresenter;
+        private readonly IUiResetEventListener m_uiResetEventListener;
         public bool IsFrontPopupModal { get; set; }
         public string FrontPopupAddressableId => m_stack.Count == 0 ? null : m_stack.Last();
         public event Action FrontPopupChanged;
 
-        public PopupNavigator(IUiRegionHostPresenter uiRegionHostPresenter)
+        public PopupNavigator(
+            IUiRegionHostPresenter uiRegionHostPresenter,
+            IUiResetEventListener uiResetEventListener)
         {
             m_uiRegionHostPresenter = uiRegionHostPresenter;
+            m_uiResetEventListener = uiResetEventListener;
+            m_uiResetEventListener.ResetRequested += HandleUiResetRequested;
+        }
+
+        public void Dispose()
+        {
+            m_uiResetEventListener.ResetRequested -= HandleUiResetRequested;
         }
 
         public void Open(string addressableId)
@@ -66,7 +77,7 @@ namespace GameKit.UiPopups
             Close(m_stack.Last());
         }
 
-        public void Reset()
+        private void HandleUiResetRequested()
         {
             m_stack.Clear();
             IsFrontPopupModal = false;

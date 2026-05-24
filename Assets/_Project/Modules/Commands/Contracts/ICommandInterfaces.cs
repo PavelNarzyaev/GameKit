@@ -1,10 +1,5 @@
 namespace GameKit.Commands.Contracts
 {
-    public interface IDestroyUiCommand
-    {
-        void Execute();
-    }
-
     public interface ILaunchCommand
     {
         void Execute();

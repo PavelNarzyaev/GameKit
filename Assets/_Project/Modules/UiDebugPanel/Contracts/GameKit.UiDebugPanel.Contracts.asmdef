@@ -7,7 +7,9 @@
   "overrideReferences": false,
   "precompiledReferences": [],
   "autoReferenced": true,
-  "defineConstraints": [],
+  "defineConstraints": [
+    "!IS_PRODUCTION"
+  ],
   "versionDefines": [],
   "noEngineReferences": false
 }
