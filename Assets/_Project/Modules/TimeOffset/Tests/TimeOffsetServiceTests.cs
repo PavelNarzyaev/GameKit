@@ -62,6 +62,29 @@ namespace GameKit.TimeOffset.Tests
             Assert.That(changedCalls, Is.EqualTo(0));
         }
 
+        [TestCase(int.MaxValue, 1)]
+        [TestCase(int.MinValue, -1)]
+        public void AddSeconds_WhenResultWouldOverflowOrUnderflow_DoesNotChangeStateOrRaiseChanged(
+            int offsetSeconds,
+            int deltaSeconds)
+        {
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            SetCleanState(playerStateProvider, new PlayerStateDto
+            {
+                TimeOffsetSeconds = offsetSeconds
+            });
+
+            var timeOffsetService = Container.Resolve<TimeOffsetService>();
+            var changedCalls = 0;
+            timeOffsetService.Changed += () => changedCalls++;
+
+            timeOffsetService.AddSeconds(deltaSeconds);
+
+            Assert.That(playerStateProvider.Data.TimeOffsetSeconds, Is.EqualTo(offsetSeconds));
+            Assert.That(playerStateProvider.IsDirty, Is.False);
+            Assert.That(changedCalls, Is.EqualTo(0));
+        }
+
         [Test]
         public void Refresh_WhenPlayerStateIsInitializing_UsesZeroOffsetBeforeStateExists()
         {
