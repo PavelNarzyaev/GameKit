@@ -25,8 +25,11 @@ The region's transform and layout are controlled in Unity. This means a project 
 1. Create a component that inherits from `UiRegionElement`.
 2. Create a prefab for that component and attach the component to the prefab root.
 3. Add the prefab to Addressables.
-4. Run `GameKit/Rebuild UI Region Element Addressable Ids` in the Unity Editor.
-5. Use the generated constant from `UiRegionElementAddressableIds.Generated.cs` when calling `UiRegionHostPresenter.OnRegionElementShowing`.
+4. Set the Addressables address to the prefab file name without the `.prefab` extension.
+   For example, `MetaPage.prefab` must use the `MetaPage` address.
+   Production mode restores debug-only region elements by using the prefab file name as the Addressables address, so the prefab name and address must stay in sync.
+5. Run `GameKit/Rebuild UI Region Element Addressable Ids` in the Unity Editor.
+6. Use the generated constant from `UiRegionElementAddressableIds.Generated.cs` when calling `UiRegionHostPresenter.OnRegionElementShowing`.
 
 ## Limitations
 
