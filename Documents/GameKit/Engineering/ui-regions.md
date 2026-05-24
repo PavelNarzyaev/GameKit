@@ -6,19 +6,20 @@
 
 ## How It Works
 
-The scene contains a `UiRegionHost` object with references to the region containers.
+The scene contains a `UiRegionHost` object with references to the main region containers.
 
-When a region element is requested, the region host loads the registered Addressables prefab and places it under the requested region.
+When a region element is requested, the region system loads the registered Addressables prefab and places it under the requested region transform.
 
 The region's transform and layout are controlled in Unity. This means a project can decide whether a region is full-screen, fixed-size, layout-driven, above the content, below the content, or part of a more custom UI shell.
 
 ## Regions Management
 
-- All regions are created and adjusted on the `UiRegionHost` object on the main canvas.
+- Main regions are created and adjusted on the `UiRegionHost` object on the main canvas.
 - `UiRegionId` defines the available UI regions.
 - `UiRegionElementAddressableIds` contains the Addressables ids for registered region elements.
 - The `GameKit/Rebuild UI Region Element Addressable Ids` Unity Editor menu item rebuilds `UiRegionElementAddressableIds.Generated.cs`.
-- Region transforms and their identifiers are linked in `UiRegionHostView`.
+- Main region transforms and their identifiers are linked in `UiRegionHostView`.
+- Nested or dynamic regions can use their own `RectTransform` as the parent for spawned region elements.
 
 ## Creating a New UiRegionElement
 
