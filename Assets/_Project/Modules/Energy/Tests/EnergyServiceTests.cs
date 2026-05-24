@@ -101,6 +101,32 @@ namespace GameKit.Energy.Tests
         }
 
         [Test]
+        public void TryAdd_WhenAmountWouldOverflow_ReturnsFalseWithoutChangingState()
+        {
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            SetCleanState(playerStateProvider, new PlayerStateDto
+            {
+                EnergyData = new PlayerEnergyDataDto
+                {
+                    Energy = int.MaxValue,
+                    NextRestoreTimestamp = 145
+                }
+            });
+
+            var energyService = Container.Resolve<IEnergyService>();
+            var changedCalls = 0;
+            energyService.Changed += () => changedCalls++;
+
+            var result = energyService.TryAdd(1);
+
+            Assert.That(result, Is.False);
+            Assert.That(energyService.Energy, Is.EqualTo(int.MaxValue));
+            Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(145));
+            Assert.That(playerStateProvider.IsDirty, Is.False);
+            Assert.That(changedCalls, Is.EqualTo(0));
+        }
+
+        [Test]
         public void TrySpend_WhenBalanceIsEnough_StartsRestorationMarksStateDirtyAndRaisesChanged()
         {
             const long currentTimestamp = 100;
@@ -182,6 +208,50 @@ namespace GameKit.Energy.Tests
         }
 
         [Test]
+        public void GetRestorationTimer_WhenEnergyIsAtLimit_ReturnsZero()
+        {
+            const long currentTimestamp = 103;
+            var currentTimeSource = (FakeCurrentTimeSource)Container.Resolve<ICurrentTimeSource>();
+            currentTimeSource.SetTimestamp(currentTimestamp);
+
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            SetCleanState(playerStateProvider, new PlayerStateDto
+            {
+                EnergyData = new PlayerEnergyDataDto
+                {
+                    Energy = 10,
+                    NextRestoreTimestamp = 110
+                }
+            });
+
+            var energyService = Container.Resolve<IEnergyService>();
+
+            var timer = energyService.GetRestorationTimer();
+
+            Assert.That(timer, Is.EqualTo(System.TimeSpan.Zero));
+        }
+
+        [Test]
+        public void GetRestorationTimer_WhenNextRestoreTimestampIsMissing_ReturnsFullStep()
+        {
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            SetCleanState(playerStateProvider, new PlayerStateDto
+            {
+                EnergyData = new PlayerEnergyDataDto
+                {
+                    Energy = 4,
+                    NextRestoreTimestamp = 0
+                }
+            });
+
+            var energyService = Container.Resolve<IEnergyService>();
+
+            var timer = energyService.GetRestorationTimer();
+
+            Assert.That(timer, Is.EqualTo(System.TimeSpan.FromSeconds(10)));
+        }
+
+        [Test]
         public void ProcessPendingRestoration_WhenTimerIsNotScheduled_InitializesNextRestoreTimestamp()
         {
             const long currentTimestamp = 100;
@@ -208,6 +278,35 @@ namespace GameKit.Energy.Tests
             Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(110));
             Assert.That(playerStateProvider.IsDirty, Is.True);
             Assert.That(changedCalls, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void ProcessPendingRestoration_WhenCurrentTimeIsBeforeNextRestore_DoesNotChangeState()
+        {
+            const long currentTimestamp = 109;
+            var currentTimeSource = (FakeCurrentTimeSource)Container.Resolve<ICurrentTimeSource>();
+            currentTimeSource.SetTimestamp(currentTimestamp);
+
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            SetCleanState(playerStateProvider, new PlayerStateDto
+            {
+                EnergyData = new PlayerEnergyDataDto
+                {
+                    Energy = 4,
+                    NextRestoreTimestamp = 110
+                }
+            });
+
+            var energyService = Container.Resolve<IEnergyService>();
+            var changedCalls = 0;
+            energyService.Changed += () => changedCalls++;
+
+            energyService.ProcessPendingRestoration();
+
+            Assert.That(energyService.Energy, Is.EqualTo(4));
+            Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(110));
+            Assert.That(playerStateProvider.IsDirty, Is.False);
+            Assert.That(changedCalls, Is.EqualTo(0));
         }
 
         [Test]
@@ -260,6 +359,31 @@ namespace GameKit.Energy.Tests
             Assert.That(energyService.Energy, Is.EqualTo(10));
             Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(0));
             Assert.That(energyService.IsRestorationInProgress, Is.False);
+        }
+
+        [Test]
+        public void ProcessPendingRestoration_WhenEnergyIsAtLimitButTimestampIsStale_ClearsTimestamp()
+        {
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            SetCleanState(playerStateProvider, new PlayerStateDto
+            {
+                EnergyData = new PlayerEnergyDataDto
+                {
+                    Energy = 10,
+                    NextRestoreTimestamp = 110
+                }
+            });
+
+            var energyService = Container.Resolve<IEnergyService>();
+            var changedCalls = 0;
+            energyService.Changed += () => changedCalls++;
+
+            energyService.ProcessPendingRestoration();
+
+            Assert.That(energyService.Energy, Is.EqualTo(10));
+            Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(0));
+            Assert.That(playerStateProvider.IsDirty, Is.True);
+            Assert.That(changedCalls, Is.EqualTo(1));
         }
 
         private static void SetCleanState(PlayerStateProvider playerStateProvider, PlayerStateDto state)
