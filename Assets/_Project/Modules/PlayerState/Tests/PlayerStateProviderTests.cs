@@ -56,6 +56,29 @@ namespace GameKit.PlayerState.Tests
         }
 
         [Test]
+        public void Refresh_WhenSavedStateIsValid_LoadsStateWithoutMarkingDirty()
+        {
+            var storage = (FakePlayerStateStorage)Container.Resolve<IPlayerStateStorage>();
+            storage.SetStoredState(GetPlayerStateJson());
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            var replacedCalls = 0;
+            playerStateProvider.Replaced += () => replacedCalls++;
+
+            playerStateProvider.Refresh();
+
+            Assert.That(playerStateProvider.Data.UserId, Is.EqualTo("user-1"));
+            Assert.That(playerStateProvider.Data.FirstLaunchTimestamp, Is.EqualTo(123));
+            Assert.That(playerStateProvider.Data.Currencies.SoftCurrency, Is.EqualTo(7));
+            Assert.That(playerStateProvider.Data.Currencies.HardCurrency, Is.EqualTo(9));
+            Assert.That(playerStateProvider.Data.EnergyData.Energy, Is.EqualTo(7));
+            Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(10));
+            Assert.That(playerStateProvider.IsDirty, Is.False);
+            Assert.That(storage.LoadCalls, Is.EqualTo(1));
+            Assert.That(storage.SaveCalls, Is.EqualTo(0));
+            Assert.That(replacedCalls, Is.EqualTo(0));
+        }
+
+        [Test]
         public void Edit_WhenActionCompletes_MarksStateDirtyWithoutRaisingReplaced()
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
@@ -156,6 +179,42 @@ namespace GameKit.PlayerState.Tests
 
             Assert.That(storage.SaveCalls, Is.EqualTo(1));
             Assert.That(playerStateProvider.IsDirty, Is.False);
+        }
+
+        [Test]
+        public void PlayerStateSavingController_WhenTickedAndStateIsClean_DoesNotSaveState()
+        {
+            var tickSource = new FakeGameTickSource();
+            Container.Bind<IGameTickSource>().FromInstance(tickSource);
+            PlayerStateInstaller.InstallAutoSave(Container);
+            Container.Resolve<PlayerStateSavingController>();
+            var storage = (FakePlayerStateStorage)Container.Resolve<IPlayerStateStorage>();
+            storage.SetStoredState(GetPlayerStateJson());
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            playerStateProvider.Refresh();
+
+            tickSource.Tick();
+
+            Assert.That(playerStateProvider.IsDirty, Is.False);
+            Assert.That(storage.SaveCalls, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void PlayerStateSavingController_WhenDisposedBeforeTick_DoesNotSaveState()
+        {
+            var tickSource = new FakeGameTickSource();
+            Container.Bind<IGameTickSource>().FromInstance(tickSource);
+            PlayerStateInstaller.InstallAutoSave(Container);
+            var savingController = Container.Resolve<PlayerStateSavingController>();
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            var storage = (FakePlayerStateStorage)Container.Resolve<IPlayerStateStorage>();
+            playerStateProvider.Replace(new PlayerStateDto());
+
+            savingController.Dispose();
+            tickSource.Tick();
+
+            Assert.That(playerStateProvider.IsDirty, Is.True);
+            Assert.That(storage.SaveCalls, Is.EqualTo(0));
         }
 
         [UsedImplicitly]
