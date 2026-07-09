@@ -11,6 +11,18 @@ The root [LICENSE](LICENSE) applies only to materials authored by the GameKit pr
 | Extenject / Zenject | `Assets/Plugins/Zenject` | MIT License. See [`Assets/Plugins/Zenject/LICENSE.txt`](Assets/Plugins/Zenject/LICENSE.txt). Upstream: https://github.com/modesttree/Zenject. |
 | UniClipboard | `Assets/UniClipboard` | MIT License. See [`Assets/UniClipboard/LICENSE.md`](Assets/UniClipboard/LICENSE.md). Upstream: https://github.com/sanukin39/UniClipboard. |
 
+## NuGet Packages
+
+NuGet package dependencies are declared in [`Assets/packages.config`](Assets/packages.config) and restored under `Assets/Packages`.
+
+| Material | Location | License or terms reference |
+| --- | --- | --- |
+| R3 | `Assets/Packages/R3.1.3.1` | MIT License. See [`Assets/Packages/R3.1.3.1/R3.nuspec`](Assets/Packages/R3.1.3.1/R3.nuspec). Upstream: https://github.com/Cysharp/R3. |
+| Microsoft.Bcl.AsyncInterfaces | `Assets/Packages/Microsoft.Bcl.AsyncInterfaces.6.0.0` | MIT License. See [`Assets/Packages/Microsoft.Bcl.AsyncInterfaces.6.0.0/LICENSE.TXT`](Assets/Packages/Microsoft.Bcl.AsyncInterfaces.6.0.0/LICENSE.TXT). Upstream: https://github.com/dotnet/runtime. |
+| Microsoft.Bcl.TimeProvider | `Assets/Packages/Microsoft.Bcl.TimeProvider.8.0.0` | MIT License. See [`Assets/Packages/Microsoft.Bcl.TimeProvider.8.0.0/LICENSE.TXT`](Assets/Packages/Microsoft.Bcl.TimeProvider.8.0.0/LICENSE.TXT). Upstream: https://github.com/dotnet/runtime. |
+| System.ComponentModel.Annotations | `Assets/Packages/System.ComponentModel.Annotations.5.0.0` | MIT License. See [`Assets/Packages/System.ComponentModel.Annotations.5.0.0/LICENSE.TXT`](Assets/Packages/System.ComponentModel.Annotations.5.0.0/LICENSE.TXT). Upstream: https://github.com/dotnet/runtime. |
+| System.Threading.Channels | `Assets/Packages/System.Threading.Channels.8.0.0` | MIT License. See [`Assets/Packages/System.Threading.Channels.8.0.0/LICENSE.TXT`](Assets/Packages/System.Threading.Channels.8.0.0/LICENSE.TXT). Upstream: https://github.com/dotnet/runtime. |
+
 ## Fonts And Text Assets
 
 | Material | Location | License or terms reference |
@@ -30,6 +42,7 @@ Direct Unity Package Manager dependencies are declared in [`Packages/manifest.js
 
 Current direct non-module package dependencies:
 
+- `com.github-glitchenzo.nugetforunity` - MIT License. Upstream: https://github.com/GlitchEnzo/NuGetForUnity. License file is restored by Unity under `Library/PackageCache/com.github-glitchenzo.nugetforunity@*/LICENSE.md`.
 - `com.gamelovers.mcp-unity` - MIT License. Upstream: https://github.com/CoderGamester/mcp-unity. License file is restored by Unity under `Library/PackageCache/com.gamelovers.mcp-unity@*/LICENSE.md`.
 - `com.unity.adaptiveperformance`
 - `com.unity.adaptiveperformance.google.android`
