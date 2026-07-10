@@ -486,7 +486,7 @@ MonoBehaviour:
   popupsRegion: {fileID: 2076422765}
   debugPanelPageRegion: {fileID: 2067736022}
   debugPanelMessageRegion: {fileID: 3000000002}
-  debugPanelTabBarRegion: {fileID: 1384149801}
+  debugPanelToolBarRegion: {fileID: 1384149801}
 --- !u!114 &1118331746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,7 +524,7 @@ GameObject:
   - component: {fileID: 1384149801}
   - component: {fileID: 1384149802}
   m_Layer: 5
-  m_Name: DebugPanelTabBar
+  m_Name: DebugPanelToolBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

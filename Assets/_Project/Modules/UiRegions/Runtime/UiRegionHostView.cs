@@ -14,7 +14,7 @@ namespace GameKit.UiRegions
         [SerializeField] private RectTransform popupsRegion;
         [SerializeField] private RectTransform debugPanelPageRegion;
         [SerializeField] private RectTransform debugPanelMessageRegion;
-        [SerializeField] private RectTransform debugPanelTabBarRegion;
+        [SerializeField] private RectTransform debugPanelToolBarRegion;
 
         private readonly Dictionary<UiRegionId, RectTransform> m_transformByRegionId = new();
         [Inject] private IUiRegionHostPresenter m_presenter;
@@ -28,7 +28,7 @@ namespace GameKit.UiRegions
             m_transformByRegionId.Add(UiRegionId.Popups, popupsRegion);
             m_transformByRegionId.Add(UiRegionId.DebugPanelPage, debugPanelPageRegion);
             m_transformByRegionId.Add(UiRegionId.DebugPanelMessage, debugPanelMessageRegion);
-            m_transformByRegionId.Add(UiRegionId.DebugPanelTabBar, debugPanelTabBarRegion);
+            m_transformByRegionId.Add(UiRegionId.DebugPanelToolBar, debugPanelToolBarRegion);
         }
 
         private void OnEnable()

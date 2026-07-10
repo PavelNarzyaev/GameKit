@@ -2,10 +2,10 @@ using System;
 using GameKit.UiDebugPanel.Contracts;
 using JetBrains.Annotations;
 
-namespace GameKit.DebugPanelTabBar
+namespace GameKit.DebugToolBar
 {
     [UsedImplicitly]
-    public class DebugPanelCloseButtonPresenter : IDisposable
+    public class DebugToolBarCloseButtonPresenter : IDisposable
     {
         private readonly IDebugPanelPageNavigator m_debugPanelPageNavigator;
 
@@ -13,7 +13,7 @@ namespace GameKit.DebugPanelTabBar
 
         public bool IsInteractable => m_debugPanelPageNavigator.CurrentPageAddressableId != null;
 
-        public DebugPanelCloseButtonPresenter(IDebugPanelPageNavigator debugPanelPageNavigator)
+        public DebugToolBarCloseButtonPresenter(IDebugPanelPageNavigator debugPanelPageNavigator)
         {
             m_debugPanelPageNavigator = debugPanelPageNavigator;
             m_debugPanelPageNavigator.PageChanged += HandlePageChanged;

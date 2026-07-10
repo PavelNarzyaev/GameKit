@@ -235,10 +235,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2772410265458825564}
   - component: {fileID: 9065727185168909215}
-  - component: {fileID: 2701757908307109106}
   - component: {fileID: 2422415756178499660}
+  - component: {fileID: 705728027529041418}
   m_Layer: 0
-  m_Name: DebugPanelTabBarLogsIndicator
+  m_Name: DebugToolBarLogsIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -288,26 +288,6 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &2701757908307109106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5104881562431643298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fc434a7f52742679add3f007f33025d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: GameKit.UiDebugPanelTabBar::GameKit.DebugPanelTabBar.DebugPanelTabBarLogsIndicator
-  logIndicator: {fileID: 3577599306011419942}
-  warningIndicator: {fileID: 7970338013472520191}
-  errorIndicator: {fileID: 2044496701730237154}
-  defaultColor: {r: 1, g: 1, b: 1, a: 0.39215687}
-  warningColor: {r: 0.9963192, g: 1, b: 0, a: 0.39215687}
-  errorColor: {r: 1, g: 0, b: 0, a: 0.39215687}
-  pressedIndicator: {fileID: 3421436485176087880}
-  button: {fileID: 2422415756178499660}
 --- !u!114 &2422415756178499660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,6 +332,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &705728027529041418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5104881562431643298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b38ce7441472a4ab341651b5082dd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameKit.UiDebugPanelToolBar::GameKit.DebugPanelToolBar.DebugToolBarLogsIndicatorView
+  logIndicator: {fileID: 3577599306011419942}
+  warningIndicator: {fileID: 7970338013472520191}
+  errorIndicator: {fileID: 2044496701730237154}
+  pressedIndicator: {fileID: 3421436485176087880}
+  button: {fileID: 2422415756178499660}
 --- !u!1 &5390436620267412635
 GameObject:
   m_ObjectHideFlags: 0

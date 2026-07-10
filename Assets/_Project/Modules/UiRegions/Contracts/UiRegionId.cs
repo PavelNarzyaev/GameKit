@@ -8,6 +8,6 @@ namespace GameKit.UiRegions.Contracts
         Popups,
         DebugPanelPage,
         DebugPanelMessage,
-        DebugPanelTabBar,
+        DebugPanelToolBar,
     }
 }

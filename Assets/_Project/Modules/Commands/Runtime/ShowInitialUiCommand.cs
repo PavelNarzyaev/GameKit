@@ -30,11 +30,11 @@ namespace GameKit.Commands
             m_pageNavigator.ShowPage(UiRegionElementAddressableIds.k_MetaPage);
 
             var isDebug = !m_productionModeProvider.IsProduction;
-            m_uiRegionHostPresenter.OnRegionActivating(UiRegionId.DebugPanelTabBar, isDebug);
+            m_uiRegionHostPresenter.OnRegionActivating(UiRegionId.DebugPanelToolBar, isDebug);
             m_uiRegionHostPresenter.OnRegionActivating(UiRegionId.DebugPanelPage, isDebug);
             m_uiRegionHostPresenter.OnRegionActivating(UiRegionId.DebugPanelMessage, isDebug);
 #if !IS_PRODUCTION
-            m_uiRegionHostPresenter.OnRegionElementShowing(UiRegionElementAddressableIds.k_DebugPanelTabBar, UiRegionId.DebugPanelTabBar);
+            m_uiRegionHostPresenter.OnRegionElementShowing(UiRegionElementAddressableIds.k_DebugToolBar, UiRegionId.DebugPanelToolBar);
 #endif
         }
     }

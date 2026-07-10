@@ -24,7 +24,7 @@ using Zenject;
 #if !IS_PRODUCTION
 using GameKit.CurrenciesDebugPage;
 using GameKit.DebugPanelMessage;
-using GameKit.DebugPanelTabBar;
+using GameKit.DebugToolBar;
 using GameKit.EnergyDebugPage;
 using GameKit.LogsDebugPage;
 using GameKit.StateDebugPage;
@@ -93,9 +93,9 @@ namespace GameKit.ScriptableObjects
             Container.BindInterfacesAndSelfTo<DebugPanelPageNavigator>().AsSingle();
             Container.BindInterfacesAndSelfTo<DebugPanelMessageNavigator>().AsSingle();
             Container.Bind<DebugPanelMessagePresenter>().AsSingle();
-            Container.BindInterfacesAndSelfTo<DebugPanelTabBarPresenter>().AsSingle();
-            Container.BindInterfacesAndSelfTo<DebugPanelLogsIndicatorPresenter>().AsSingle();
-            Container.BindInterfacesAndSelfTo<DebugPanelCloseButtonPresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<DebugToolBarPageTabsPresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<DebugToolBarLogsIndicatorPresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<DebugToolBarCloseButtonPresenter>().AsSingle();
             Container.Bind<CurrenciesDebugPagePresenter>().AsSingle();
             Container.Bind<EnergyDebugPagePresenter>().AsSingle();
             Container.Bind<StateDebugPagePresenter>().AsSingle();

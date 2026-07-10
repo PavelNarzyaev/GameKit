@@ -1,12 +1,13 @@
 using System;
 using GameKit.Logs.Contracts;
+using GameKit.UiRegionsControl.Contracts;
 using JetBrains.Annotations;
 using R3;
 using UnityEngine;
 
-namespace GameKit.DebugPanelTabBar
+namespace GameKit.DebugToolBar
 {
-    public enum DebugPanelLogsIndicatorState
+    public enum DebugToolBarLogsIndicatorState
     {
         Default,
         Warning,
@@ -14,18 +15,20 @@ namespace GameKit.DebugPanelTabBar
     }
 
     [UsedImplicitly]
-    public class DebugPanelLogsIndicatorPresenter : IDisposable
+    public class DebugToolBarLogsIndicatorPresenter : IDisposable
     {
         private readonly ILogsProvider m_logsProvider;
+        private readonly DebugToolBarPageTabsPresenter m_pageTabsPresenter;
         private readonly IDisposable m_messageAddedSubscription;
 
         public event Action StateChanged;
 
-        public DebugPanelLogsIndicatorState State { get; private set; }
+        public DebugToolBarLogsIndicatorState State { get; private set; }
 
-        public DebugPanelLogsIndicatorPresenter(ILogsProvider logsProvider)
+        public DebugToolBarLogsIndicatorPresenter(ILogsProvider logsProvider, DebugToolBarPageTabsPresenter pageTabsPresenter)
         {
             m_logsProvider = logsProvider;
+            m_pageTabsPresenter = pageTabsPresenter;
             m_messageAddedSubscription = m_logsProvider.MessageAdded.Subscribe(HandleMessageAdded);
             RefreshInitialState();
         }
@@ -48,7 +51,7 @@ namespace GameKit.DebugPanelTabBar
             }
         }
 
-        private void SetState(DebugPanelLogsIndicatorState state)
+        private void SetState(DebugToolBarLogsIndicatorState state)
         {
             if (state <= State)
             {
@@ -59,14 +62,19 @@ namespace GameKit.DebugPanelTabBar
             StateChanged?.Invoke();
         }
 
-        private DebugPanelLogsIndicatorState GetState(LogType type)
+        private DebugToolBarLogsIndicatorState GetState(LogType type)
         {
             return type switch
             {
-                LogType.Warning => DebugPanelLogsIndicatorState.Warning,
-                LogType.Error or LogType.Assert or LogType.Exception => DebugPanelLogsIndicatorState.Error,
-                _ => DebugPanelLogsIndicatorState.Default
+                LogType.Warning => DebugToolBarLogsIndicatorState.Warning,
+                LogType.Error or LogType.Assert or LogType.Exception => DebugToolBarLogsIndicatorState.Error,
+                _ => DebugToolBarLogsIndicatorState.Default
             };
+        }
+
+        public void ShowLogsPage()
+        {
+            m_pageTabsPresenter.ShowPage(UiRegionElementAddressableIds.k_LogsDebugPage);
         }
     }
 }

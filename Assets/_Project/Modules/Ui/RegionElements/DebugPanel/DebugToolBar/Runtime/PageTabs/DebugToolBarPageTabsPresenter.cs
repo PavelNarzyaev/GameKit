@@ -2,10 +2,10 @@ using System;
 using GameKit.UiDebugPanel.Contracts;
 using JetBrains.Annotations;
 
-namespace GameKit.DebugPanelTabBar
+namespace GameKit.DebugToolBar
 {
     [UsedImplicitly]
-    public class DebugPanelTabBarPresenter : IDisposable
+    public class DebugToolBarPageTabsPresenter : IDisposable
     {
         private readonly IDebugPanelPageNavigator m_debugPanelPageNavigator;
 
@@ -13,7 +13,7 @@ namespace GameKit.DebugPanelTabBar
 
         public string CurrentPageAddressableId => m_debugPanelPageNavigator.CurrentPageAddressableId;
 
-        public DebugPanelTabBarPresenter(IDebugPanelPageNavigator debugPanelPageNavigator)
+        public DebugToolBarPageTabsPresenter(IDebugPanelPageNavigator debugPanelPageNavigator)
         {
             m_debugPanelPageNavigator = debugPanelPageNavigator;
             m_debugPanelPageNavigator.PageChanged += HandlePageChanged;
