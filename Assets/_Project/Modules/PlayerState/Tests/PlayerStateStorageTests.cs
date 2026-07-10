@@ -35,34 +35,34 @@ namespace GameKit.PlayerState.Tests
         }
 
         [Test]
-        public void FileStorage_SaveAndLoad_WhenStateJsonIsSaved_ReturnsSavedJson()
+        public void FileStorage_SaveAndLoad_WhenStateIsSaved_ReturnsSavedState()
         {
-            const string stateJson = @"{""userId"":""user-1""}";
+            var state = CreateState("user-1", 3);
             var storage = CreateFileStorage();
 
-            storage.Save(stateJson);
+            storage.Save(state);
             var result = storage.Load();
 
             Assert.That(storage.Exists(), Is.True);
-            Assert.That(result, Is.EqualTo(stateJson));
+            AssertState(result, "user-1", 3);
         }
 
         [Test]
-        public void FileStorage_Save_WhenFileAlreadyExists_ReplacesSavedJson()
+        public void FileStorage_Save_WhenFileAlreadyExists_ReplacesSavedState()
         {
             var storage = CreateFileStorage();
-            storage.Save(@"{""userId"":""old-user""}");
+            storage.Save(CreateState("old-user", 1));
 
-            storage.Save(@"{""userId"":""new-user""}");
+            storage.Save(CreateState("new-user", 2));
 
-            Assert.That(storage.Load(), Is.EqualTo(@"{""userId"":""new-user""}"));
+            AssertState(storage.Load(), "new-user", 2);
         }
 
         [Test]
         public void FileStorage_Delete_WhenFileExists_RemovesSavedFile()
         {
             var storage = CreateFileStorage();
-            storage.Save(@"{""userId"":""user-1""}");
+            storage.Save(CreateState("user-1", 3));
 
             storage.Delete();
 
@@ -70,24 +70,25 @@ namespace GameKit.PlayerState.Tests
         }
 
         [Test]
-        public void EncryptedStorage_SaveLoad_WhenStateJsonIsSaved_ReturnsOriginalJson()
+        public void EncryptedStorage_SaveLoad_WhenStateIsSaved_ReturnsOriginalState()
         {
-            const string stateJson = @"{""userId"":""user-1"",""launchesCounter"":3}";
+            var state = CreateState("user-1", 3);
             var storage = CreateEncryptedStorage();
 
-            storage.Save(stateJson);
+            storage.Save(state);
             var result = storage.Load();
 
-            Assert.That(result, Is.EqualTo(stateJson));
+            AssertState(result, "user-1", 3);
         }
 
         [Test]
-        public void EncryptedStorage_Save_WhenStateJsonIsSaved_DoesNotStorePlainText()
+        public void EncryptedStorage_Save_WhenStateIsSaved_DoesNotStorePlainText()
         {
-            const string stateJson = @"{""userId"":""user-1"",""launchesCounter"":3}";
+            var state = CreateState("user-1", 3);
+            var stateJson = new JsonPlayerStateSerializer().Serialize(state);
             var storage = CreateEncryptedStorage();
 
-            storage.Save(stateJson);
+            storage.Save(state);
             var storedContent = File.ReadAllText(m_stateFilePath);
 
             Assert.That(storedContent, Is.Not.EqualTo(stateJson));
@@ -111,8 +112,22 @@ namespace GameKit.PlayerState.Tests
 
         private IPlayerStateStorage CreateEncryptedStorage()
         {
-            return new EncryptedPlayerStateStorage(CreateFileStorage());
+            return new EncryptedPlayerStateStorage(CreateFileStorage(), new JsonPlayerStateSerializer());
         }
 
+        private static PlayerStateDto CreateState(string userId, int launchesCounter)
+        {
+            return new PlayerStateDto
+            {
+                UserId = userId,
+                LaunchesCounter = launchesCounter
+            };
+        }
+
+        private static void AssertState(PlayerStateDto state, string userId, int launchesCounter)
+        {
+            Assert.That(state.UserId, Is.EqualTo(userId));
+            Assert.That(state.LaunchesCounter, Is.EqualTo(launchesCounter));
+        }
     }
 }

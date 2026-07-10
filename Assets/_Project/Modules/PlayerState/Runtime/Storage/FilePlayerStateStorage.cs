@@ -2,6 +2,7 @@ using System.IO;
 using GameKit.PlayerState.Contracts;
 using JetBrains.Annotations;
 using UnityEngine;
+using Zenject;
 
 namespace GameKit.PlayerState
 {
@@ -10,20 +11,28 @@ namespace GameKit.PlayerState
     {
         private const string k_FileName = "state.dat";
         private readonly string m_storageDirectoryPath;
+        private readonly IPlayerStateSerializer m_playerStateSerializer;
 
         public FilePlayerStateStorage()
-            : this(Application.persistentDataPath)
+            : this(Application.persistentDataPath, new JsonPlayerStateSerializer())
         {
         }
 
-        private FilePlayerStateStorage(string storageDirectoryPath)
+        [Inject]
+        public FilePlayerStateStorage(IPlayerStateSerializer playerStateSerializer)
+            : this(Application.persistentDataPath, playerStateSerializer)
+        {
+        }
+
+        private FilePlayerStateStorage(string storageDirectoryPath, IPlayerStateSerializer playerStateSerializer)
         {
             m_storageDirectoryPath = storageDirectoryPath;
+            m_playerStateSerializer = playerStateSerializer;
         }
 
         public static FilePlayerStateStorage CreateForDirectory(string storageDirectoryPath)
         {
-            return new FilePlayerStateStorage(storageDirectoryPath);
+            return new FilePlayerStateStorage(storageDirectoryPath, new JsonPlayerStateSerializer());
         }
 
         public bool Exists()
@@ -31,12 +40,22 @@ namespace GameKit.PlayerState
             return File.Exists(GetFilePath());
         }
 
-        public void Save(string stateJson)
+        public void Save(PlayerStateDto state)
+        {
+            SaveContent(m_playerStateSerializer.Serialize(state));
+        }
+
+        public PlayerStateDto Load()
+        {
+            return m_playerStateSerializer.Deserialize(LoadContent());
+        }
+
+        internal void SaveContent(string content)
         {
             var filePath = GetFilePath();
             var temporaryFilePath = $"{filePath}.tmp";
 
-            File.WriteAllText(temporaryFilePath, stateJson);
+            File.WriteAllText(temporaryFilePath, content);
             if (File.Exists(filePath))
             {
                 File.Replace(temporaryFilePath, filePath, null);
@@ -46,7 +65,7 @@ namespace GameKit.PlayerState
             File.Move(temporaryFilePath, filePath);
         }
 
-        public string Load()
+        internal string LoadContent()
         {
             return File.ReadAllText(GetFilePath());
         }

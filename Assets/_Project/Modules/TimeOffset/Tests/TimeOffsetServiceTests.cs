@@ -118,27 +118,33 @@ namespace GameKit.TimeOffset.Tests
             Assert.That(currentTimeProvider.GetTimestamp(), Is.EqualTo(currentTimestamp + 3661));
         }
 
-        private static void SetCleanState(PlayerStateProvider playerStateProvider, PlayerStateDto state)
+        private void SetCleanState(PlayerStateProvider playerStateProvider, PlayerStateDto state)
         {
-            playerStateProvider.Replace(state);
-            playerStateProvider.Save();
+            state.UserId = "test-user";
+
+            var storage = (FakePlayerStateStorage)Container.Resolve<IPlayerStateStorage>();
+            storage.Save(state);
+            playerStateProvider.Refresh();
         }
 
         [UsedImplicitly]
         private class FakePlayerStateStorage : IPlayerStateStorage
         {
+            private PlayerStateDto m_storedState;
+
             public bool Exists()
             {
-                return false;
+                return m_storedState != null;
             }
 
-            public void Save(string stateJson)
+            public void Save(PlayerStateDto state)
             {
+                m_storedState = state;
             }
 
-            public string Load()
+            public PlayerStateDto Load()
             {
-                return string.Empty;
+                return m_storedState;
             }
 
             public void Delete()

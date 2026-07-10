@@ -39,29 +39,17 @@ namespace GameKit.PlayerState
             IsDirty = true;
         }
 
-        public void Replace(PlayerStateDto state)
-        {
-            Data = state;
-            IsDirty = true;
-            Replaced?.Invoke();
-        }
-
         public void Save()
         {
-            SaveJsonToFile(m_playerStateSerializer.Serialize(Data));
+            m_playerStateStorage.Save(Data);
+            IsDirty = false;
         }
 
         public void ReplaceFromJson(string json)
         {
             Data = DeserializeAndValidate(json);
-            SaveJsonToFile(m_playerStateSerializer.Serialize(Data));
+            Save();
             Replaced?.Invoke();
-        }
-
-        private void SaveJsonToFile(string json)
-        {
-            m_playerStateStorage.Save(json);
-            IsDirty = false;
         }
 
         public void Refresh()
@@ -73,16 +61,17 @@ namespace GameKit.PlayerState
             }
             else
             {
-                LoadFromFile();
+                Load();
             }
         }
 
-        private void LoadFromFile()
+        private void Load()
         {
             try
             {
-                var json = LoadJsonFromFile();
-                Data = DeserializeAndValidate(json);
+                Data = m_playerStateStorage.Load();
+                m_playerStateValidator.Validate(Data);
+                IsDirty = false;
             }
             catch (Exception e)
             {
@@ -118,12 +107,7 @@ namespace GameKit.PlayerState
 
         public string ExportJson()
         {
-            return LoadJsonFromFile();
-        }
-
-        private string LoadJsonFromFile()
-        {
-            return m_playerStateStorage.Load();
+            return m_playerStateSerializer.Serialize(m_playerStateStorage.Load());
         }
 
         public void Delete()

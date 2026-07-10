@@ -9,7 +9,6 @@ namespace GameKit.PlayerState.Contracts
         event Action Replaced;
 
         void Edit(Action<PlayerStateDto> edit);
-        void Replace(PlayerStateDto state);
         void Save();
         void ReplaceFromJson(string json);
         void Refresh();

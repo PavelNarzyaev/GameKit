@@ -10,10 +10,14 @@ namespace GameKit.PlayerState
     public class EncryptedPlayerStateStorage : IPlayerStateStorage
     {
         private readonly FilePlayerStateStorage m_filePlayerStateStorage;
+        private readonly IPlayerStateSerializer m_playerStateSerializer;
 
-        public EncryptedPlayerStateStorage(FilePlayerStateStorage filePlayerStateStorage)
+        public EncryptedPlayerStateStorage(
+            FilePlayerStateStorage filePlayerStateStorage,
+            IPlayerStateSerializer playerStateSerializer)
         {
             m_filePlayerStateStorage = filePlayerStateStorage;
+            m_playerStateSerializer = playerStateSerializer;
         }
 
         public bool Exists()
@@ -21,14 +25,14 @@ namespace GameKit.PlayerState
             return m_filePlayerStateStorage.Exists();
         }
 
-        public void Save(string stateJson)
+        public void Save(PlayerStateDto state)
         {
-            m_filePlayerStateStorage.Save(Encrypt(stateJson));
+            m_filePlayerStateStorage.SaveContent(Encrypt(m_playerStateSerializer.Serialize(state)));
         }
 
-        public string Load()
+        public PlayerStateDto Load()
         {
-            return Decrypt(m_filePlayerStateStorage.Load());
+            return m_playerStateSerializer.Deserialize(Decrypt(m_filePlayerStateStorage.LoadContent()));
         }
 
         public void Delete()
