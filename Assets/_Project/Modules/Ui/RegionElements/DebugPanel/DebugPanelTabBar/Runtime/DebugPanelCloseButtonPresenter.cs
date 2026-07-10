@@ -5,15 +5,15 @@ using JetBrains.Annotations;
 namespace GameKit.DebugPanelTabBar
 {
     [UsedImplicitly]
-    public class DebugPanelTabBarPresenter : IDisposable
+    public class DebugPanelCloseButtonPresenter : IDisposable
     {
         private readonly IDebugPanelPageNavigator m_debugPanelPageNavigator;
 
-        public event Action PageChanged;
+        public event Action StateChanged;
 
-        public string CurrentPageAddressableId => m_debugPanelPageNavigator.CurrentPageAddressableId;
+        public bool IsInteractable => m_debugPanelPageNavigator.CurrentPageAddressableId != null;
 
-        public DebugPanelTabBarPresenter(IDebugPanelPageNavigator debugPanelPageNavigator)
+        public DebugPanelCloseButtonPresenter(IDebugPanelPageNavigator debugPanelPageNavigator)
         {
             m_debugPanelPageNavigator = debugPanelPageNavigator;
             m_debugPanelPageNavigator.PageChanged += HandlePageChanged;
@@ -24,14 +24,14 @@ namespace GameKit.DebugPanelTabBar
             m_debugPanelPageNavigator.PageChanged -= HandlePageChanged;
         }
 
-        public void ShowPage(string addressableId)
+        public void Close()
         {
-            m_debugPanelPageNavigator.Show(addressableId);
+            m_debugPanelPageNavigator.Close();
         }
 
         private void HandlePageChanged()
         {
-            PageChanged?.Invoke();
+            StateChanged?.Invoke();
         }
     }
 }

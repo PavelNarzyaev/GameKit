@@ -35,11 +35,11 @@ namespace GameKit.DebugPanelTabBar
             pressedIndicator.SetActive(false);
         }
 
-        public void SetState(DebugPanelTabBarLogsIndicatorState state)
+        public void SetState(DebugPanelLogsIndicatorState state)
         {
-            logIndicator.SetActive(state == DebugPanelTabBarLogsIndicatorState.Default);
-            warningIndicator.SetActive(state == DebugPanelTabBarLogsIndicatorState.Warning);
-            errorIndicator.SetActive(state == DebugPanelTabBarLogsIndicatorState.Error);
+            logIndicator.SetActive(state == DebugPanelLogsIndicatorState.Default);
+            warningIndicator.SetActive(state == DebugPanelLogsIndicatorState.Warning);
+            errorIndicator.SetActive(state == DebugPanelLogsIndicatorState.Error);
         }
     }
 }

@@ -19,7 +19,9 @@ namespace GameKit.DebugPanelTabBar
 
         private readonly Dictionary<string, DebugButton> m_tabByAddressableId = new();
 
-        [Inject] private DebugPanelTabBarPresenter m_presenter;
+        [Inject] private DebugPanelTabBarPresenter m_tabBarPresenter;
+        [Inject] private DebugPanelLogsIndicatorPresenter m_logsIndicatorPresenter;
+        [Inject] private DebugPanelCloseButtonPresenter m_closeButtonPresenter;
         private DebugButton m_selectedTab;
 
         private void Awake()
@@ -30,7 +32,7 @@ namespace GameKit.DebugPanelTabBar
             SetUpTab(currenciesDebugPageTab, UiRegionElementAddressableIds.k_CurrenciesDebugPage);
             SetUpTab(energyDebugPageTab, UiRegionElementAddressableIds.k_EnergyDebugPage);
             SetUpTab(logsDebugPageTab, UiRegionElementAddressableIds.k_LogsDebugPage);
-            closeButton.AddClickListener(m_presenter.Close);
+            closeButton.AddClickListener(m_closeButtonPresenter.Close);
         }
 
         private void Start()
@@ -40,26 +42,28 @@ namespace GameKit.DebugPanelTabBar
 
         private void OnEnable()
         {
-            m_presenter.PageChanged += HandlePageChanged;
-            m_presenter.LogsIndicatorStateChanged += HandleLogsIndicatorStateChanged;
+            m_tabBarPresenter.PageChanged += HandlePageChanged;
+            m_logsIndicatorPresenter.StateChanged += HandleLogsIndicatorStateChanged;
+            m_closeButtonPresenter.StateChanged += HandleCloseButtonStateChanged;
         }
 
         private void OnDisable()
         {
-            m_presenter.PageChanged -= HandlePageChanged;
-            m_presenter.LogsIndicatorStateChanged -= HandleLogsIndicatorStateChanged;
+            m_tabBarPresenter.PageChanged -= HandlePageChanged;
+            m_logsIndicatorPresenter.StateChanged -= HandleLogsIndicatorStateChanged;
+            m_closeButtonPresenter.StateChanged -= HandleCloseButtonStateChanged;
         }
 
         private void HandleLogsIndicatorClicked()
         {
-            m_presenter.ShowPage(UiRegionElementAddressableIds.k_LogsDebugPage);
+            m_tabBarPresenter.ShowPage(UiRegionElementAddressableIds.k_LogsDebugPage);
         }
 
         private void SetUpTab(DebugButton tab, string addressableId)
         {
-            tab.SetEnabled(m_presenter.CurrentPageAddressableId != addressableId);
+            tab.SetEnabled(m_tabBarPresenter.CurrentPageAddressableId != addressableId);
             m_tabByAddressableId.Add(addressableId, tab);
-            tab.AddClickListener(() => m_presenter.ShowPage(addressableId));
+            tab.AddClickListener(() => m_tabBarPresenter.ShowPage(addressableId));
         }
 
         private void HandlePageChanged()
@@ -79,9 +83,14 @@ namespace GameKit.DebugPanelTabBar
             RefreshLogsIndicator();
         }
 
+        private void HandleCloseButtonStateChanged()
+        {
+            RefreshCloseButton();
+        }
+
         private void RefreshLogsIndicator()
         {
-            logsIndicator.SetState(m_presenter.LogsIndicatorState);
+            logsIndicator.SetState(m_logsIndicatorPresenter.State);
         }
 
         private void RefreshSelectedPage()
@@ -93,12 +102,12 @@ namespace GameKit.DebugPanelTabBar
 
             m_selectedTab = null;
 
-            if (string.IsNullOrEmpty(m_presenter.CurrentPageAddressableId))
+            if (string.IsNullOrEmpty(m_tabBarPresenter.CurrentPageAddressableId))
             {
                 return;
             }
 
-            if (!m_tabByAddressableId.TryGetValue(m_presenter.CurrentPageAddressableId, out var tab))
+            if (!m_tabByAddressableId.TryGetValue(m_tabBarPresenter.CurrentPageAddressableId, out var tab))
             {
                 return;
             }
@@ -109,8 +118,7 @@ namespace GameKit.DebugPanelTabBar
 
         private void RefreshCloseButton()
         {
-            var isCloseButtonInteractable = !string.IsNullOrEmpty(m_presenter.CurrentPageAddressableId);
-            closeButton.SetEnabled(isCloseButtonInteractable);
+            closeButton.SetEnabled(m_closeButtonPresenter.IsInteractable);
         }
     }
 }
