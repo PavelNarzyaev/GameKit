@@ -70,23 +70,11 @@ namespace GameKit.PlayerState.Tests
         }
 
         [Test]
-        public void EncryptedStorage_SaveLoad_WhenStateIsSaved_ReturnsOriginalState()
-        {
-            var state = CreateState("user-1", 3);
-            var storage = CreateEncryptedStorage();
-
-            storage.Save(state);
-            var result = storage.Load();
-
-            AssertState(result, "user-1", 3);
-        }
-
-        [Test]
-        public void EncryptedStorage_Save_WhenStateIsSaved_DoesNotStorePlainText()
+        public void FileStorage_Save_WhenStateIsSaved_DoesNotStorePlainText()
         {
             var state = CreateState("user-1", 3);
             var stateJson = new JsonPlayerStateSerializer().Serialize(state);
-            var storage = CreateEncryptedStorage();
+            var storage = CreateFileStorage();
 
             storage.Save(state);
             var storedContent = File.ReadAllText(m_stateFilePath);
@@ -97,9 +85,9 @@ namespace GameKit.PlayerState.Tests
         }
 
         [Test]
-        public void EncryptedStorage_Load_WhenStoredDataIsInvalid_Throws()
+        public void FileStorage_Load_WhenStoredDataIsInvalid_Throws()
         {
-            var storage = CreateEncryptedStorage();
+            var storage = CreateFileStorage();
             File.WriteAllText(m_stateFilePath, "not encrypted state");
 
             Assert.That(storage.Load, Throws.Exception);
@@ -108,11 +96,6 @@ namespace GameKit.PlayerState.Tests
         private FilePlayerStateStorage CreateFileStorage()
         {
             return FilePlayerStateStorage.CreateForDirectory(m_storageDirectoryPath);
-        }
-
-        private IPlayerStateStorage CreateEncryptedStorage()
-        {
-            return new EncryptedPlayerStateStorage(CreateFileStorage(), new JsonPlayerStateSerializer());
         }
 
         private static PlayerStateDto CreateState(string userId, int launchesCounter)

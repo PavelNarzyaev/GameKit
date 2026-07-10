@@ -15,6 +15,8 @@ namespace GameKit.PlayerState
         public static void InstallCore(DiContainer container)
         {
             container.BindInterfacesAndSelfTo<JsonPlayerStateSerializer>().AsSingle();
+            container.BindInterfacesAndSelfTo<AesTextCipher>().AsSingle();
+            container.BindInterfacesAndSelfTo<FilePlayerStateCodec>().AsSingle();
             container.BindInterfacesAndSelfTo<PlayerStateValidator>().AsSingle();
             container.BindInterfacesAndSelfTo<PlayerStateFactory>().AsSingle();
             container.BindInterfacesAndSelfTo<PlayerStateProvider>().AsSingle();

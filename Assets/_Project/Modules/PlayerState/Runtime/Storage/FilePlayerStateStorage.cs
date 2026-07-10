@@ -11,28 +11,28 @@ namespace GameKit.PlayerState
     {
         private const string k_FileName = "state.dat";
         private readonly string m_storageDirectoryPath;
-        private readonly IPlayerStateSerializer m_playerStateSerializer;
+        private readonly IPlayerStateCodec m_playerStateCodec;
 
         public FilePlayerStateStorage()
-            : this(Application.persistentDataPath, new JsonPlayerStateSerializer())
+            : this(Application.persistentDataPath, CreateDefaultCodec())
         {
         }
 
         [Inject]
-        public FilePlayerStateStorage(IPlayerStateSerializer playerStateSerializer)
-            : this(Application.persistentDataPath, playerStateSerializer)
+        public FilePlayerStateStorage(IPlayerStateCodec playerStateCodec)
+            : this(Application.persistentDataPath, playerStateCodec)
         {
         }
 
-        private FilePlayerStateStorage(string storageDirectoryPath, IPlayerStateSerializer playerStateSerializer)
+        private FilePlayerStateStorage(string storageDirectoryPath, IPlayerStateCodec playerStateCodec)
         {
             m_storageDirectoryPath = storageDirectoryPath;
-            m_playerStateSerializer = playerStateSerializer;
+            m_playerStateCodec = playerStateCodec;
         }
 
         public static FilePlayerStateStorage CreateForDirectory(string storageDirectoryPath)
         {
-            return new FilePlayerStateStorage(storageDirectoryPath, new JsonPlayerStateSerializer());
+            return new FilePlayerStateStorage(storageDirectoryPath, CreateDefaultCodec());
         }
 
         public bool Exists()
@@ -42,20 +42,10 @@ namespace GameKit.PlayerState
 
         public void Save(PlayerStateDto state)
         {
-            SaveContent(m_playerStateSerializer.Serialize(state));
-        }
-
-        public PlayerStateDto Load()
-        {
-            return m_playerStateSerializer.Deserialize(LoadContent());
-        }
-
-        internal void SaveContent(string content)
-        {
             var filePath = GetFilePath();
             var temporaryFilePath = $"{filePath}.tmp";
 
-            File.WriteAllText(temporaryFilePath, content);
+            File.WriteAllText(temporaryFilePath, m_playerStateCodec.Encode(state));
             if (File.Exists(filePath))
             {
                 File.Replace(temporaryFilePath, filePath, null);
@@ -65,9 +55,9 @@ namespace GameKit.PlayerState
             File.Move(temporaryFilePath, filePath);
         }
 
-        internal string LoadContent()
+        public PlayerStateDto Load()
         {
-            return File.ReadAllText(GetFilePath());
+            return m_playerStateCodec.Decode(File.ReadAllText(GetFilePath()));
         }
 
         public void Delete()
@@ -87,6 +77,11 @@ namespace GameKit.PlayerState
         private string GetFilePath()
         {
             return Path.Combine(m_storageDirectoryPath, k_FileName);
+        }
+
+        private static IPlayerStateCodec CreateDefaultCodec()
+        {
+            return new FilePlayerStateCodec(new JsonPlayerStateSerializer(), new AesTextCipher());
         }
     }
 }

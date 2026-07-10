@@ -53,8 +53,7 @@ namespace GameKit.ScriptableObjects
             Container.BindInterfacesAndSelfTo<PopupNavigator>().AsSingle();
             Container.BindInterfacesAndSelfTo<PopupPresenter>().AsSingle();
             Container.Bind<PopupBackdropPresenter>().AsSingle();
-            Container.Bind<FilePlayerStateStorage>().AsSingle();
-            Container.Bind<IPlayerStateStorage>().To<EncryptedPlayerStateStorage>().AsSingle();
+            Container.BindInterfacesAndSelfTo<FilePlayerStateStorage>().AsSingle();
             Container.BindInterfacesAndSelfTo<EncryptionKeysProvider>().AsSingle();
             PlayerStateInstaller.Install(Container);
             Container.BindInterfacesAndSelfTo<LogsProvider>().AsSingle();
