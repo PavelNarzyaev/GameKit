@@ -1,11 +1,11 @@
-using System;
 using System.Collections.Generic;
+using R3;
 
 namespace GameKit.Logs.Contracts
 {
     public interface ILogsProvider
     {
-        event Action Changed;
+        Observable<LogMessage> MessageAdded { get; }
 
         IReadOnlyList<LogMessage> Messages { get; }
     }

@@ -4,6 +4,7 @@ using GameKit.Logs.Contracts;
 using GameKit.UiDebugPanel.Contracts;
 using GameKit.UiRegionsControl.Contracts;
 using JetBrains.Annotations;
+using R3;
 
 namespace GameKit.LogsDebugPage
 {
@@ -20,6 +21,7 @@ namespace GameKit.LogsDebugPage
 
         private readonly ILogsProvider m_logsProvider;
         private readonly IDebugPanelMessageNavigator m_debugPanelMessageNavigator;
+        private readonly IDisposable m_messageAddedSubscription;
 
         public LogsDebugPageFilter CurrentFilter => m_filter;
 
@@ -32,15 +34,15 @@ namespace GameKit.LogsDebugPage
         {
             m_logsProvider = logsProvider;
             m_debugPanelMessageNavigator = debugPanelMessageNavigator;
-            m_logsProvider.Changed += HandleLogsProviderChanged;
+            m_messageAddedSubscription = m_logsProvider.MessageAdded.Subscribe(HandleMessageAdded);
         }
 
         public void Dispose()
         {
-            m_logsProvider.Changed -= HandleLogsProviderChanged;
+            m_messageAddedSubscription.Dispose();
         }
 
-        private void HandleLogsProviderChanged()
+        private void HandleMessageAdded(LogMessage message)
         {
             Changed?.Invoke();
         }

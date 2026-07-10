@@ -1,9 +1,9 @@
 using System;
 using GameKit.Logs.Contracts;
 using GameKit.UiDebugPanel.Contracts;
-using GameKit.UiRegionsControl.Contracts;
 using UnityEngine;
 using JetBrains.Annotations;
+using R3;
 
 namespace GameKit.DebugPanelTabBar
 {
@@ -19,14 +19,12 @@ namespace GameKit.DebugPanelTabBar
     {
         private readonly IDebugPanelPageNavigator m_debugPanelPageNavigator;
         private readonly ILogsProvider m_logsProvider;
-
-        private int m_viewedMessagesCount;
+        private readonly IDisposable m_messageAddedSubscription;
 
         public event Action PageChanged;
         public event Action LogsIndicatorStateChanged;
 
         public DebugPanelTabBarLogsIndicatorState LogsIndicatorState { get; private set; }
-
 
         public string CurrentPageAddressableId => m_debugPanelPageNavigator.CurrentPageAddressableId;
 
@@ -37,14 +35,14 @@ namespace GameKit.DebugPanelTabBar
             m_debugPanelPageNavigator = debugPanelPageNavigator;
             m_logsProvider = logsProvider;
             m_debugPanelPageNavigator.PageChanged += HandlePageChanged;
-            m_logsProvider.Changed += HandleLogsProviderChanged;
-            RefreshLogsIndicatorState();
+            m_messageAddedSubscription = m_logsProvider.MessageAdded.Subscribe(HandleMessageAdded);
+            RefreshInitialLogsIndicatorState();
         }
 
         public void Dispose()
         {
             m_debugPanelPageNavigator.PageChanged -= HandlePageChanged;
-            m_logsProvider.Changed -= HandleLogsProviderChanged;
+            m_messageAddedSubscription.Dispose();
         }
 
         public void ShowPage(string addressableId)
@@ -57,63 +55,27 @@ namespace GameKit.DebugPanelTabBar
             m_debugPanelPageNavigator.Close();
         }
 
-        private void MarkLogsAsViewed()
-        {
-            m_viewedMessagesCount = m_logsProvider.Messages.Count;
-
-            if (LogsIndicatorState == DebugPanelTabBarLogsIndicatorState.Default)
-            {
-                return;
-            }
-
-            LogsIndicatorState = DebugPanelTabBarLogsIndicatorState.Default;
-            LogsIndicatorStateChanged?.Invoke();
-        }
-
         private void HandlePageChanged()
         {
-            if (IsLogsPageOpened())
-            {
-                MarkLogsAsViewed();
-            }
-
             PageChanged?.Invoke();
         }
 
-        private void HandleLogsProviderChanged()
+        private void HandleMessageAdded(LogMessage message)
         {
-            RefreshLogsIndicatorState();
+            SetLogsIndicatorState(GetState(message.Type));
         }
 
-        private void RefreshLogsIndicatorState()
+        private void RefreshInitialLogsIndicatorState()
         {
-            if (IsLogsPageOpened())
+            foreach (var message in m_logsProvider.Messages)
             {
-                MarkLogsAsViewed();
-                return;
+                SetLogsIndicatorState(GetState(message.Type));
             }
-
-            for (var i = m_viewedMessagesCount; i < m_logsProvider.Messages.Count; i++)
-            {
-                SetLogsIndicatorState(GetState(m_logsProvider.Messages[i].Type));
-            }
-
-            m_viewedMessagesCount = m_logsProvider.Messages.Count;
         }
 
         private void SetLogsIndicatorState(DebugPanelTabBarLogsIndicatorState state)
         {
-            if (LogsIndicatorState == DebugPanelTabBarLogsIndicatorState.Error)
-            {
-                return;
-            }
-
-            if (LogsIndicatorState == DebugPanelTabBarLogsIndicatorState.Warning && state == DebugPanelTabBarLogsIndicatorState.Default)
-            {
-                return;
-            }
-
-            if (LogsIndicatorState == state)
+            if (state <= LogsIndicatorState)
             {
                 return;
             }
@@ -130,11 +92,6 @@ namespace GameKit.DebugPanelTabBar
                 LogType.Error or LogType.Assert or LogType.Exception => DebugPanelTabBarLogsIndicatorState.Error,
                 _ => DebugPanelTabBarLogsIndicatorState.Default
             };
-        }
-
-        private bool IsLogsPageOpened()
-        {
-            return CurrentPageAddressableId == UiRegionElementAddressableIds.k_LogsDebugPage;
         }
     }
 }
