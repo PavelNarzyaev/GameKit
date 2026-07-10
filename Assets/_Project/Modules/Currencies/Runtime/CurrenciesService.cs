@@ -1,20 +1,21 @@
-using System;
 using GameKit.Currencies.Contracts;
 using JetBrains.Annotations;
+using R3;
 
 namespace GameKit.Currencies
 {
     [UsedImplicitly]
-    public class CurrenciesService : ICurrencyWallet, IDisposable
+    public class CurrenciesService : ICurrencyWallet
     {
         private readonly PlayerStateCurrenciesGateway m_gateway;
-        public event Action Changed;
 
         public CurrenciesService(PlayerStateCurrenciesGateway gateway)
         {
             m_gateway = gateway;
-            m_gateway.Changed += HandleGatewayChanged;
         }
+
+        public ReadOnlyReactiveProperty<int> SoftCurrency => m_gateway.SoftCurrency;
+        public ReadOnlyReactiveProperty<int> HardCurrency => m_gateway.HardCurrency;
 
         public int Get(CurrencyType type)
         {
@@ -54,16 +55,6 @@ namespace GameKit.Currencies
 
             m_gateway.Set(type, currentValue - amount);
             return true;
-        }
-
-        public void Dispose()
-        {
-            m_gateway.Changed -= HandleGatewayChanged;
-        }
-
-        private void HandleGatewayChanged()
-        {
-            Changed?.Invoke();
         }
     }
 }

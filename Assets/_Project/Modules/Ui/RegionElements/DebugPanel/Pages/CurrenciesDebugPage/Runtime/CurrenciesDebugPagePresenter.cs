@@ -1,7 +1,6 @@
-using System;
-using System.Globalization;
 using GameKit.Currencies.Contracts;
 using JetBrains.Annotations;
+using R3;
 
 namespace GameKit.CurrenciesDebugPage
 {
@@ -15,11 +14,8 @@ namespace GameKit.CurrenciesDebugPage
             m_currencyWallet = currencyWallet;
         }
 
-        public event Action Changed
-        {
-            add => m_currencyWallet.Changed += value;
-            remove => m_currencyWallet.Changed -= value;
-        }
+        public ReadOnlyReactiveProperty<int> SoftCurrency => m_currencyWallet.SoftCurrency;
+        public ReadOnlyReactiveProperty<int> HardCurrency => m_currencyWallet.HardCurrency;
 
         public void SpendSoft(int amount)
         {
@@ -39,16 +35,6 @@ namespace GameKit.CurrenciesDebugPage
         public void AddHard(int amount)
         {
             m_currencyWallet.TryAdd(CurrencyType.Hard, amount);
-        }
-
-        public string GetSoftText()
-        {
-            return m_currencyWallet.Get(CurrencyType.Soft).ToString(CultureInfo.InvariantCulture);
-        }
-
-        public string GetHardText()
-        {
-            return m_currencyWallet.Get(CurrencyType.Hard).ToString(CultureInfo.InvariantCulture);
         }
     }
 }

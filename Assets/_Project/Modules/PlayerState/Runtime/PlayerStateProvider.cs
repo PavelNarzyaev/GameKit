@@ -12,6 +12,7 @@ namespace GameKit.PlayerState
         public PlayerStateDto Data { get; private set; }
         public bool IsDirty { get; private set; }
         public event Action Replaced;
+        public event Action Refreshed;
 
         private readonly IPlayerStateStorage m_playerStateStorage;
         private readonly IProductionModeProvider m_productionModeProvider;
@@ -75,6 +76,8 @@ namespace GameKit.PlayerState
             {
                 LoadFromFile();
             }
+
+            Refreshed?.Invoke();
         }
 
         private void LoadFromFile()

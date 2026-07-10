@@ -31,6 +31,8 @@ namespace GameKit.PlayerState.Tests
 
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
             var storage = (FakePlayerStateStorage)Container.Resolve<IPlayerStateStorage>();
+            var refreshedCalls = 0;
+            playerStateProvider.Refreshed += () => refreshedCalls++;
 
             playerStateProvider.Refresh();
 
@@ -39,6 +41,7 @@ namespace GameKit.PlayerState.Tests
             Assert.That(playerStateProvider.Data.FirstLaunchTimestamp, Is.EqualTo(currentTimestamp));
             Assert.That(playerStateProvider.IsDirty, Is.True);
             Assert.That(storage.LoadCalls, Is.EqualTo(0));
+            Assert.That(refreshedCalls, Is.EqualTo(1));
         }
 
         [Test]
@@ -62,7 +65,9 @@ namespace GameKit.PlayerState.Tests
             storage.SetStoredState(GetPlayerStateJson());
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
             var replacedCalls = 0;
+            var refreshedCalls = 0;
             playerStateProvider.Replaced += () => replacedCalls++;
+            playerStateProvider.Refreshed += () => refreshedCalls++;
 
             playerStateProvider.Refresh();
 
@@ -76,6 +81,7 @@ namespace GameKit.PlayerState.Tests
             Assert.That(storage.LoadCalls, Is.EqualTo(1));
             Assert.That(storage.SaveCalls, Is.EqualTo(0));
             Assert.That(replacedCalls, Is.EqualTo(0));
+            Assert.That(refreshedCalls, Is.EqualTo(1));
         }
 
         [Test]

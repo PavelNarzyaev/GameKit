@@ -7,6 +7,7 @@ namespace GameKit.PlayerState.Contracts
         PlayerStateDto Data { get; }
         bool IsDirty { get; }
         event Action Replaced;
+        event Action Refreshed;
 
         void Edit(Action<PlayerStateDto> edit);
         void Replace(PlayerStateDto state);
