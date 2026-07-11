@@ -16,7 +16,7 @@ The panel is placed at the bottom of the application. It slightly reduces the he
 
 ## Logs Indicator
 
-The debug panel tab bar includes an always-visible logs indicator. The indicator changes when a new warning or error appears while the logs page is not open, so testers can notice the moment when a problem appears in the console.
+The debug panel toolbar includes an always-visible logs indicator. The indicator changes when a new warning or error appears, so testers can notice console problems during gameplay.
 
 ## Technical Article
 
