@@ -9,7 +9,6 @@ using GameKit.ErrorPopup;
 using GameKit.Logs;
 using GameKit.MetaPage;
 using GameKit.PlayerState;
-using GameKit.PlayerState.Contracts;
 using GameKit.ProductionMode;
 using GameKit.SettingsPopup;
 using GameKit.TopPanel;
@@ -108,7 +107,6 @@ namespace GameKit.ScriptableObjects
         {
             Container.BindInterfacesAndSelfTo<LaunchCommand>().AsSingle();
             Container.BindInterfacesAndSelfTo<ShowInitialUiCommand>().AsSingle();
-            Container.BindInterfacesAndSelfTo<ResetSceneCommand>().AsSingle();
         }
 
         private void InstallControllers()
