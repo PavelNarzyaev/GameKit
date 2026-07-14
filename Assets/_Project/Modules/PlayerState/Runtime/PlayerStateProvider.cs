@@ -45,6 +45,14 @@ namespace GameKit.PlayerState
             IsDirty = false;
         }
 
+        public void Reset()
+        {
+            Delete();
+            Initialize();
+            Save();
+            Replaced?.Invoke();
+        }
+
         public void ReplaceFromJson(string json)
         {
             Data = DeserializeAndValidate(json);

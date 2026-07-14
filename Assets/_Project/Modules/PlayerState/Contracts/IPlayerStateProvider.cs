@@ -10,6 +10,7 @@ namespace GameKit.PlayerState.Contracts
 
         void Edit(Action<PlayerStateDto> edit);
         void Save();
+        void Reset();
         void ReplaceFromJson(string json);
         void Refresh();
         string ExportJson();

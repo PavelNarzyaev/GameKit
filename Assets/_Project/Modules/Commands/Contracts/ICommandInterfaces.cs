@@ -10,11 +10,6 @@ namespace GameKit.Commands.Contracts
         void Execute();
     }
 
-    public interface IResetStateCommand
-    {
-        void Execute();
-    }
-
     public interface IShowInitialUiCommand
     {
         void Execute();

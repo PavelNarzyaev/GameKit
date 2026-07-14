@@ -1,5 +1,4 @@
 using System.Globalization;
-using GameKit.Commands.Contracts;
 using GameKit.Core;
 using GameKit.PlayerState.Contracts;
 using GameKit.StateClipboardProxy.Contracts;
@@ -13,18 +12,15 @@ namespace GameKit.StateDebugPage
     public class StateDebugPagePresenter
     {
         private readonly IPlayerStateProvider m_playerStateProvider;
-        private readonly IResetStateCommand m_resetStateCommand;
         private readonly IStateClipboardProxy m_stateClipboardProxy;
         private readonly IDebugPanelMessageNavigator m_debugPanelMessageNavigator;
 
         public StateDebugPagePresenter(
             IPlayerStateProvider playerStateProvider,
-            IResetStateCommand resetStateCommand,
             IStateClipboardProxy stateClipboardProxy,
             IDebugPanelMessageNavigator debugPanelMessageNavigator)
         {
             m_playerStateProvider = playerStateProvider;
-            m_resetStateCommand = resetStateCommand;
             m_stateClipboardProxy = stateClipboardProxy;
             m_debugPanelMessageNavigator = debugPanelMessageNavigator;
         }
@@ -42,7 +38,7 @@ namespace GameKit.StateDebugPage
 
         public void ResetState()
         {
-            m_resetStateCommand.Execute();
+            m_playerStateProvider.Reset();
         }
 
         public string GetUserIdText()

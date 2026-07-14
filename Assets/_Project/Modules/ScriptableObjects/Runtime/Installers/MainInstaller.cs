@@ -108,7 +108,6 @@ namespace GameKit.ScriptableObjects
         {
             Container.BindInterfacesAndSelfTo<LaunchCommand>().AsSingle();
             Container.BindInterfacesAndSelfTo<ShowInitialUiCommand>().AsSingle();
-            Container.BindInterfacesAndSelfTo<ResetStateCommand>().AsSingle();
             Container.BindInterfacesAndSelfTo<ResetSceneCommand>().AsSingle();
         }
 

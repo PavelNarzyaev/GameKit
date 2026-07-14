@@ -136,6 +136,31 @@ namespace GameKit.PlayerState.Tests
         }
 
         [Test]
+        public void Reset_WhenCalled_RecreatesSavesAndRaisesReplaced()
+        {
+            const long currentTimestamp = 1_735_689_600;
+            var currentTimeSource = (FakeCurrentTimeSource)Container.Resolve<ICurrentTimeSource>();
+            currentTimeSource.SetTimestamp(currentTimestamp);
+            var storage = (FakePlayerStateStorage)Container.Resolve<IPlayerStateStorage>();
+            storage.SetStoredState(CreatePlayerState());
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            var replacedCalls = 0;
+            playerStateProvider.Replaced += () => replacedCalls++;
+
+            playerStateProvider.Reset();
+
+            Assert.That(playerStateProvider.Data.UserId, Is.Not.Empty);
+            Assert.That(playerStateProvider.Data.FirstLaunchTimestamp, Is.EqualTo(currentTimestamp));
+            Assert.That(playerStateProvider.Data.Currencies.SoftCurrency, Is.EqualTo(100));
+            Assert.That(playerStateProvider.Data.Currencies.HardCurrency, Is.EqualTo(50));
+            Assert.That(playerStateProvider.Data.EnergyData.Energy, Is.EqualTo(100));
+            Assert.That(playerStateProvider.IsDirty, Is.False);
+            Assert.That(storage.DeleteCalls, Is.EqualTo(1));
+            Assert.That(storage.SaveCalls, Is.EqualTo(1));
+            Assert.That(replacedCalls, Is.EqualTo(1));
+        }
+
+        [Test]
         public void Refresh_WhenSavedStateIsInvalidAndProduction_Throws()
         {
             var productionModeProvider = (FakeProductionModeProvider)Container.Resolve<IProductionModeProvider>();
@@ -224,6 +249,7 @@ namespace GameKit.PlayerState.Tests
         {
             public int LoadCalls { get; private set; }
             public int SaveCalls { get; private set; }
+            public int DeleteCalls { get; private set; }
             private PlayerStateDto m_storedState;
 
             public bool Exists()
@@ -245,6 +271,8 @@ namespace GameKit.PlayerState.Tests
 
             public void Delete()
             {
+                DeleteCalls++;
+                m_storedState = null;
             }
 
             public void SetStoredState(PlayerStateDto storedState)
