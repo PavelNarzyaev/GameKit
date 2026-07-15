@@ -1,5 +1,4 @@
 using System;
-using GameKit.Currencies.Contracts;
 using R3;
 
 namespace GameKit.PlayerState.Contracts
@@ -10,9 +9,11 @@ namespace GameKit.PlayerState.Contracts
         bool IsDirty { get; }
         event Action Replaced;
 
-        ReadOnlyReactiveProperty<int> GetSoftCurrency();
-        ReadOnlyReactiveProperty<int> GetHardCurrency();
+        ReadOnlyReactiveProperty<int> SoftCurrency { get; }
+        ReadOnlyReactiveProperty<int> HardCurrency { get; }
 
+        void SetSoftCurrency(int value);
+        void SetHardCurrency(int value);
         void Edit(Action<PlayerStateDto> edit);
         void Save();
         void Reset();

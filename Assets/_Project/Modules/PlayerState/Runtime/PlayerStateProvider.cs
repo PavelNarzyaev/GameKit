@@ -37,8 +37,32 @@ namespace GameKit.PlayerState
             m_playerStateFactory = playerStateFactory;
         }
 
-        public ReadOnlyReactiveProperty<int> GetSoftCurrency() => m_softCurrency;
-        public ReadOnlyReactiveProperty<int> GetHardCurrency() => m_hardCurrency;
+        public ReadOnlyReactiveProperty<int> SoftCurrency => m_softCurrency;
+        public ReadOnlyReactiveProperty<int> HardCurrency => m_hardCurrency;
+
+        public void SetSoftCurrency(int value)
+        {
+            if (Data.Currencies.SoftCurrency == value)
+            {
+                return;
+            }
+
+            Data.Currencies.SoftCurrency = value;
+            m_softCurrency.Value = value;
+            IsDirty = true;
+        }
+
+        public void SetHardCurrency(int value)
+        {
+            if (Data.Currencies.HardCurrency == value)
+            {
+                return;
+            }
+
+            Data.Currencies.HardCurrency = value;
+            m_hardCurrency.Value = value;
+            IsDirty = true;
+        }
 
         public void Edit(Action<PlayerStateDto> edit)
         {

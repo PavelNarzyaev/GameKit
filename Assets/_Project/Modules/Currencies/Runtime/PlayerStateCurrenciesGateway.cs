@@ -20,33 +20,25 @@ namespace GameKit.Currencies
         {
             return type switch
             {
-                CurrencyType.Soft => m_playerStateProvider.GetSoftCurrency(),
-                CurrencyType.Hard => m_playerStateProvider.GetHardCurrency(),
+                CurrencyType.Soft => m_playerStateProvider.SoftCurrency,
+                CurrencyType.Hard => m_playerStateProvider.HardCurrency,
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
         }
 
         public void Set(CurrencyType type, int value)
         {
-            if (Get(type).CurrentValue == value)
+            switch (type)
             {
-                return;
+                case CurrencyType.Soft:
+                    m_playerStateProvider.SetSoftCurrency(value);
+                    break;
+                case CurrencyType.Hard:
+                    m_playerStateProvider.SetHardCurrency(value);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
-
-            m_playerStateProvider.Edit(state =>
-            {
-                switch (type)
-                {
-                    case CurrencyType.Soft:
-                        state.Currencies.SoftCurrency = value;
-                        break;
-                    case CurrencyType.Hard:
-                        state.Currencies.HardCurrency = value;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(type), type, null);
-                }
-            });
         }
     }
 }
