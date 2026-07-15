@@ -56,7 +56,7 @@ namespace GameKit.ScriptableObjects
             Container.BindInterfacesAndSelfTo<EncryptionKeysProvider>().AsSingle();
             PlayerStateInstaller.Install(Container);
             Container.BindInterfacesAndSelfTo<LogsProvider>().AsSingle();
-            Container.Bind<PlayerStateCurrenciesGateway>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerStateCurrenciesGateway>().AsSingle();
             Container.BindInterfacesAndSelfTo<CurrenciesService>().AsSingle();
             Container.Bind<PlayerStateEnergyGateway>().AsSingle();
             Container.BindInterfacesAndSelfTo<EnergyService>().AsSingle();

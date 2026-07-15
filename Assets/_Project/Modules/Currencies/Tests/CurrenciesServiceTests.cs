@@ -21,26 +21,23 @@ namespace GameKit.Currencies.Tests
             Container.Bind(typeof(ICurrentTimeSource), typeof(IRealTimeSource)).To<FakeCurrentTimeSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
             PlayerStateInstaller.InstallCore(Container);
-            Container.Bind<PlayerStateCurrenciesGateway>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerStateCurrenciesGateway>().AsSingle();
             Container.BindInterfacesAndSelfTo<CurrenciesService>().AsSingle();
         }
 
         [Test]
-        public void TryAdd_WhenAmountIsPositive_UpdatesValueMarksStateDirtyAndRaisesChanged()
+        public void TryAdd_WhenAmountIsPositive_UpdatesValueAndMarksStateDirty()
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
             SetCleanState(playerStateProvider, new PlayerStateDto());
 
-            var currencyWallet = Container.Resolve<ICurrencyWallet>();
-            var changedCalls = 0;
-            currencyWallet.Changed += () => changedCalls++;
+            var currenciesService = Container.Resolve<ICurrenciesService>();
 
-            var result = currencyWallet.TryAdd(CurrencyType.Soft, 10);
+            var result = currenciesService.TryAdd(CurrencyType.Soft, 10);
 
             Assert.That(result, Is.True);
-            Assert.That(currencyWallet.Get(CurrencyType.Soft), Is.EqualTo(10));
+            Assert.That(playerStateProvider.Data.Currencies.SoftCurrency, Is.EqualTo(10));
             Assert.That(playerStateProvider.IsDirty, Is.True);
-            Assert.That(changedCalls, Is.EqualTo(1));
         }
 
         [TestCase(0)]
@@ -56,16 +53,13 @@ namespace GameKit.Currencies.Tests
                 }
             });
 
-            var currencyWallet = Container.Resolve<ICurrencyWallet>();
-            var changedCalls = 0;
-            currencyWallet.Changed += () => changedCalls++;
+            var currenciesService = Container.Resolve<ICurrenciesService>();
 
-            var result = currencyWallet.TryAdd(CurrencyType.Soft, amount);
+            var result = currenciesService.TryAdd(CurrencyType.Soft, amount);
 
             Assert.That(result, Is.False);
-            Assert.That(currencyWallet.Get(CurrencyType.Soft), Is.EqualTo(5));
+            Assert.That(playerStateProvider.Data.Currencies.SoftCurrency, Is.EqualTo(5));
             Assert.That(playerStateProvider.IsDirty, Is.False);
-            Assert.That(changedCalls, Is.EqualTo(0));
         }
 
         [Test]
@@ -80,20 +74,36 @@ namespace GameKit.Currencies.Tests
                 }
             });
 
-            var currencyWallet = Container.Resolve<ICurrencyWallet>();
-            var changedCalls = 0;
-            currencyWallet.Changed += () => changedCalls++;
+            var currenciesService = Container.Resolve<ICurrenciesService>();
 
-            var result = currencyWallet.TryAdd(CurrencyType.Soft, 1);
+            var result = currenciesService.TryAdd(CurrencyType.Soft, 1);
 
             Assert.That(result, Is.False);
-            Assert.That(currencyWallet.Get(CurrencyType.Soft), Is.EqualTo(int.MaxValue));
+            Assert.That(playerStateProvider.Data.Currencies.SoftCurrency, Is.EqualTo(int.MaxValue));
             Assert.That(playerStateProvider.IsDirty, Is.False);
-            Assert.That(changedCalls, Is.EqualTo(0));
         }
 
         [Test]
-        public void Set_WhenValueIsSame_DoesNotMarkStateDirtyOrRaiseChanged()
+        public void TryAdd_WhenServiceWasResolvedBeforeStateRefresh_UsesRefreshedState()
+        {
+            var currenciesService = Container.Resolve<ICurrenciesService>();
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            SetCleanState(playerStateProvider, new PlayerStateDto
+            {
+                Currencies = new PlayerCurrenciesDto
+                {
+                    SoftCurrency = 5
+                }
+            });
+
+            var result = currenciesService.TryAdd(CurrencyType.Soft, 1);
+
+            Assert.That(result, Is.True);
+            Assert.That(playerStateProvider.Data.Currencies.SoftCurrency, Is.EqualTo(6));
+        }
+
+        [Test]
+        public void Set_WhenValueIsSame_DoesNotMarkStateDirty()
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
             SetCleanState(playerStateProvider, new PlayerStateDto
@@ -105,17 +115,14 @@ namespace GameKit.Currencies.Tests
             });
 
             var gateway = Container.Resolve<PlayerStateCurrenciesGateway>();
-            var changedCalls = 0;
-            gateway.Changed += () => changedCalls++;
 
             gateway.Set(CurrencyType.Soft, 5);
 
             Assert.That(playerStateProvider.IsDirty, Is.False);
-            Assert.That(changedCalls, Is.EqualTo(0));
         }
 
         [Test]
-        public void TrySpend_WhenBalanceIsEnough_UpdatesValueMarksStateDirtyAndRaisesChanged()
+        public void TrySpend_WhenBalanceIsEnough_UpdatesValueAndMarksStateDirty()
         {
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
             SetCleanState(playerStateProvider, new PlayerStateDto
@@ -126,16 +133,13 @@ namespace GameKit.Currencies.Tests
                 }
             });
 
-            var currencyWallet = Container.Resolve<ICurrencyWallet>();
-            var changedCalls = 0;
-            currencyWallet.Changed += () => changedCalls++;
+            var currenciesService = Container.Resolve<ICurrenciesService>();
 
-            var result = currencyWallet.TrySpend(CurrencyType.Hard, 4);
+            var result = currenciesService.TrySpend(CurrencyType.Hard, 4);
 
             Assert.That(result, Is.True);
-            Assert.That(currencyWallet.Get(CurrencyType.Hard), Is.EqualTo(6));
+            Assert.That(playerStateProvider.Data.Currencies.HardCurrency, Is.EqualTo(6));
             Assert.That(playerStateProvider.IsDirty, Is.True);
-            Assert.That(changedCalls, Is.EqualTo(1));
         }
 
         [TestCase(0)]
@@ -152,16 +156,37 @@ namespace GameKit.Currencies.Tests
                 }
             });
 
-            var currencyWallet = Container.Resolve<ICurrencyWallet>();
-            var changedCalls = 0;
-            currencyWallet.Changed += () => changedCalls++;
+            var currenciesService = Container.Resolve<ICurrenciesService>();
 
-            var result = currencyWallet.TrySpend(CurrencyType.Hard, amount);
+            var result = currenciesService.TrySpend(CurrencyType.Hard, amount);
 
             Assert.That(result, Is.False);
-            Assert.That(currencyWallet.Get(CurrencyType.Hard), Is.EqualTo(10));
+            Assert.That(playerStateProvider.Data.Currencies.HardCurrency, Is.EqualTo(10));
             Assert.That(playerStateProvider.IsDirty, Is.False);
-            Assert.That(changedCalls, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void Reset_WhenStateIsReplacedAfterGatewayWasCreated_UpdatesReactiveProperties()
+        {
+            var playerStateProvider = Container.Resolve<PlayerStateProvider>();
+            SetCleanState(playerStateProvider, new PlayerStateDto
+            {
+                Currencies = new PlayerCurrenciesDto
+                {
+                    SoftCurrency = 5,
+                    HardCurrency = 10
+                }
+            });
+            var currenciesService = Container.Resolve<ICurrenciesService>();
+
+            playerStateProvider.Reset();
+            var addResult = currenciesService.TryAdd(CurrencyType.Soft, 1);
+            var spendResult = currenciesService.TrySpend(CurrencyType.Hard, 1);
+
+            Assert.That(addResult, Is.True);
+            Assert.That(spendResult, Is.True);
+            Assert.That(playerStateProvider.Data.Currencies.SoftCurrency, Is.EqualTo(101));
+            Assert.That(playerStateProvider.Data.Currencies.HardCurrency, Is.EqualTo(49));
         }
 
         private void SetCleanState(PlayerStateProvider playerStateProvider, PlayerStateDto state)

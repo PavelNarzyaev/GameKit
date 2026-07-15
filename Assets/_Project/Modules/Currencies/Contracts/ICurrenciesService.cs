@@ -1,12 +1,10 @@
-using System;
+using R3;
 
 namespace GameKit.Currencies.Contracts
 {
-    public interface ICurrencyWallet
+    public interface ICurrenciesService
     {
-        event Action Changed;
-
-        int Get(CurrencyType type);
+        ReadOnlyReactiveProperty<int> Get(CurrencyType type);
         bool TryAdd(CurrencyType type, int amount);
         bool TrySpend(CurrencyType type, int amount);
     }

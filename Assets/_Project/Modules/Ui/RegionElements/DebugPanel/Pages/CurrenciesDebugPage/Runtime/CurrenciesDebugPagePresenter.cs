@@ -1,54 +1,42 @@
-using System;
-using System.Globalization;
 using GameKit.Currencies.Contracts;
 using JetBrains.Annotations;
+using R3;
 
 namespace GameKit.CurrenciesDebugPage
 {
     [UsedImplicitly]
     public class CurrenciesDebugPagePresenter
     {
-        private readonly ICurrencyWallet m_currencyWallet;
+        private readonly ICurrenciesService m_currenciesService;
 
-        public CurrenciesDebugPagePresenter(ICurrencyWallet currencyWallet)
+        public CurrenciesDebugPagePresenter(ICurrenciesService currenciesService)
         {
-            m_currencyWallet = currencyWallet;
+            m_currenciesService = currenciesService;
         }
 
-        public event Action Changed
+        public ReadOnlyReactiveProperty<int> Get(CurrencyType type)
         {
-            add => m_currencyWallet.Changed += value;
-            remove => m_currencyWallet.Changed -= value;
+            return m_currenciesService.Get(type);
         }
 
         public void SpendSoft(int amount)
         {
-            m_currencyWallet.TrySpend(CurrencyType.Soft, amount);
+            m_currenciesService.TrySpend(CurrencyType.Soft, amount);
         }
 
         public void AddSoft(int amount)
         {
-            m_currencyWallet.TryAdd(CurrencyType.Soft, amount);
+            m_currenciesService.TryAdd(CurrencyType.Soft, amount);
         }
 
         public void SpendHard(int amount)
         {
-            m_currencyWallet.TrySpend(CurrencyType.Hard, amount);
+            m_currenciesService.TrySpend(CurrencyType.Hard, amount);
         }
 
         public void AddHard(int amount)
         {
-            m_currencyWallet.TryAdd(CurrencyType.Hard, amount);
-        }
-
-        public string GetSoftText()
-        {
-            return m_currencyWallet.Get(CurrencyType.Soft).ToString(CultureInfo.InvariantCulture);
-        }
-
-        public string GetHardText()
-        {
-            return m_currencyWallet.Get(CurrencyType.Hard).ToString(CultureInfo.InvariantCulture);
+            m_currenciesService.TryAdd(CurrencyType.Hard, amount);
         }
     }
 }

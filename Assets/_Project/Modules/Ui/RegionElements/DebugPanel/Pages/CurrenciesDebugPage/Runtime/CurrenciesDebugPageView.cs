@@ -1,5 +1,9 @@
+using System;
+using System.Globalization;
+using GameKit.Currencies.Contracts;
 using GameKit.UiDebugShared;
 using GameKit.UiRegions;
+using R3;
 using UnityEngine;
 using Zenject;
 
@@ -19,6 +23,8 @@ namespace GameKit.CurrenciesDebugPage
         [SerializeField] private DebugButton add10DiamondsButton;
 
         [Inject] private CurrenciesDebugPagePresenter m_presenter;
+        private IDisposable m_softCurrencySubscription;
+        private IDisposable m_hardCurrencySubscription;
 
         private void Awake()
         {
@@ -35,24 +41,24 @@ namespace GameKit.CurrenciesDebugPage
 
         private void OnEnable()
         {
-            Refresh();
-            m_presenter.Changed += HandleChanged;
+            m_softCurrencySubscription = m_presenter.Get(CurrencyType.Soft).Subscribe(RefreshSoftCurrency);
+            m_hardCurrencySubscription = m_presenter.Get(CurrencyType.Hard).Subscribe(RefreshHardCurrency);
         }
 
         private void OnDisable()
         {
-            m_presenter.Changed -= HandleChanged;
+            m_softCurrencySubscription.Dispose();
+            m_hardCurrencySubscription.Dispose();
         }
 
-        private void HandleChanged()
+        private void RefreshSoftCurrency(int value)
         {
-            Refresh();
+            coins.SetValueText(value.ToString(CultureInfo.InvariantCulture));
         }
 
-        private void Refresh()
+        private void RefreshHardCurrency(int value)
         {
-            coins.SetValueText(m_presenter.GetSoftText());
-            diamonds.SetValueText(m_presenter.GetHardText());
+            diamonds.SetValueText(value.ToString(CultureInfo.InvariantCulture));
         }
     }
 }
