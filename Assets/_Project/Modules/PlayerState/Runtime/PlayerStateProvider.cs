@@ -2,16 +2,20 @@ using System;
 using GameKit.PlayerState.Contracts;
 using GameKit.ProductionMode.Contracts;
 using JetBrains.Annotations;
+using R3;
 using UnityEngine;
 
 namespace GameKit.PlayerState
 {
     [UsedImplicitly]
-    public class PlayerStateProvider : IPlayerStateProvider
+    public class PlayerStateProvider : IPlayerStateProvider, IDisposable
     {
         public PlayerStateDto Data { get; private set; }
         public bool IsDirty { get; private set; }
         public event Action Replaced;
+
+        private readonly ReactiveProperty<int> m_softCurrency = new(0);
+        private readonly ReactiveProperty<int> m_hardCurrency = new(0);
 
         private readonly IPlayerStateStorage m_playerStateStorage;
         private readonly IProductionModeProvider m_productionModeProvider;
@@ -33,10 +37,14 @@ namespace GameKit.PlayerState
             m_playerStateFactory = playerStateFactory;
         }
 
+        public ReadOnlyReactiveProperty<int> GetSoftCurrency() => m_softCurrency;
+        public ReadOnlyReactiveProperty<int> GetHardCurrency() => m_hardCurrency;
+
         public void Edit(Action<PlayerStateDto> edit)
         {
             edit(Data);
             IsDirty = true;
+            RefreshReactiveProperties();
         }
 
         public void Save()
@@ -50,6 +58,7 @@ namespace GameKit.PlayerState
             Delete();
             Initialize();
             Save();
+            RefreshReactiveProperties();
             Replaced?.Invoke();
         }
 
@@ -57,6 +66,7 @@ namespace GameKit.PlayerState
         {
             Data = DeserializeAndValidate(json);
             Save();
+            RefreshReactiveProperties();
             Replaced?.Invoke();
         }
 
@@ -71,6 +81,8 @@ namespace GameKit.PlayerState
             {
                 Load();
             }
+
+            RefreshReactiveProperties();
         }
 
         private void Load()
@@ -123,11 +135,23 @@ namespace GameKit.PlayerState
             m_playerStateStorage.Delete();
         }
 
+        public void Dispose()
+        {
+            m_softCurrency.Dispose();
+            m_hardCurrency.Dispose();
+        }
+
         private PlayerStateDto DeserializeAndValidate(string json)
         {
             var state = m_playerStateSerializer.Deserialize(json);
             m_playerStateValidator.Validate(state);
             return state;
+        }
+
+        private void RefreshReactiveProperties()
+        {
+            m_softCurrency.Value = Data.Currencies.SoftCurrency;
+            m_hardCurrency.Value = Data.Currencies.HardCurrency;
         }
     }
 }
