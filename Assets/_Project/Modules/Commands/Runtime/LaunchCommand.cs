@@ -1,4 +1,5 @@
 using System;
+using GameKit.Audio;
 using GameKit.Commands.Contracts;
 using GameKit.PlayerState.Contracts;
 using GameKit.UiPopups.Contracts;
@@ -15,17 +16,20 @@ namespace GameKit.Commands
         private readonly IPopupNavigator m_popupNavigator;
         private readonly IShowInitialUiCommand m_showInitialUiCommand;
         private readonly GameKitTickController m_gameKitTickController;
+        private readonly BackgroundMusicPlayer m_backgroundMusicPlayer;
 
         public LaunchCommand(
             IPlayerStateProvider playerStateProvider,
             IPopupNavigator popupNavigator,
             IShowInitialUiCommand showInitialUiCommand,
-            GameKitTickController gameKitTickController)
+            GameKitTickController gameKitTickController,
+            BackgroundMusicPlayer backgroundMusicPlayer)
         {
             m_playerStateProvider = playerStateProvider;
             m_popupNavigator = popupNavigator;
             m_showInitialUiCommand = showInitialUiCommand;
             m_gameKitTickController = gameKitTickController;
+            m_backgroundMusicPlayer = backgroundMusicPlayer;
         }
 
         public void Execute()
@@ -37,6 +41,7 @@ namespace GameKit.Commands
 
                 m_showInitialUiCommand.Execute();
                 m_gameKitTickController.Launch();
+                m_backgroundMusicPlayer.Play();
             }
             catch (Exception e)
             {

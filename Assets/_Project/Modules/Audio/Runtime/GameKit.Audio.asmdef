@@ -1,0 +1,15 @@
+{
+  "name": "GameKit.Audio",
+  "references": [
+    "GUID:4b40ab6d3a41c864f95592ee907bce6c"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

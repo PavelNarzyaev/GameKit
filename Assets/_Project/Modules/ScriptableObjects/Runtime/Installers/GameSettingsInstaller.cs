@@ -1,3 +1,4 @@
+using GameKit.Audio.Contracts;
 using GameKit.Core;
 using GameKit.Energy.Contracts;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace GameKit.ScriptableObjects
 
         public override void InstallBindings()
         {
-            Container.Bind(typeof(MainConfig), typeof(IEnergyConfig)).FromInstance(mainConfig);
+            Container.Bind(typeof(MainConfig), typeof(IEnergyConfig), typeof(IAudioConfig)).FromInstance(mainConfig);
         }
     }
 }

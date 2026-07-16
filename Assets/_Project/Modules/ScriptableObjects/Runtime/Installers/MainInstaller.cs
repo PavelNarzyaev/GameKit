@@ -1,3 +1,4 @@
+using GameKit.Audio;
 using GameKit.Commands;
 using GameKit.Core;
 using GameKit.Core.Contracts;
@@ -67,6 +68,7 @@ namespace GameKit.ScriptableObjects
             Container.Bind<CorePagePresenter>().AsSingle();
             Container.Bind<MetaPagePresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<StateClipboardProxy.StateClipboardProxy>().AsSingle();
+            Container.Bind<BackgroundMusicPlayer>().AsSingle();
 
             InstallDebugPanel();
             InstallCommands();

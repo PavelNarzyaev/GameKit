@@ -10,6 +10,7 @@ The root [LICENSE](LICENSE) applies only to materials authored by the GameKit pr
 | --- | --- | --- |
 | Extenject / Zenject | `Assets/Plugins/Zenject` | MIT License. See [`Assets/Plugins/Zenject/LICENSE.txt`](Assets/Plugins/Zenject/LICENSE.txt). Upstream: https://github.com/modesttree/Zenject. |
 | UniClipboard | `Assets/UniClipboard` | MIT License. See [`Assets/UniClipboard/LICENSE.md`](Assets/UniClipboard/LICENSE.md). Upstream: https://github.com/sanukin39/UniClipboard. |
+| BackgroundMusic.mp3 | `Assets/_Project/Audio/BackgroundMusic.mp3` | AI-generated audio created with Suno. Subject to Suno terms: https://suno.com/terms. |
 
 ## NuGet Packages
 

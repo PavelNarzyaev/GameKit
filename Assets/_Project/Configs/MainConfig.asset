@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f5d6d4e0bde412b87ce19aec1376551, type: 3}
   m_Name: MainConfig
   m_EditorClassIdentifier: 
+  backgroundMusic: {fileID: 8300000, guid: eab852b4ed040a74480435d70279fc08, type: 3}
   energyRestorationLimit: 100
   oneEnergyRestorationSeconds: 60
