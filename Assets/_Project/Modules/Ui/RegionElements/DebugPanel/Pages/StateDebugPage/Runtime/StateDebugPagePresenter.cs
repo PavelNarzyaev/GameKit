@@ -43,19 +43,17 @@ namespace GameKit.StateDebugPage
 
         public string GetUserIdText()
         {
-            return State.UserId;
+            return m_playerStateProvider.UserId;
         }
 
         public string GetFirstLaunchTimeText()
         {
-            return State.FirstLaunchTimestamp.ToLocalDatetimeString();
+            return m_playerStateProvider.FirstLaunchTimestamp.ToLocalDatetimeString();
         }
 
         public string GetLaunchCountText()
         {
-            return State.LaunchesCounter.ToString(CultureInfo.InvariantCulture);
+            return m_playerStateProvider.LaunchesCounter.ToString(CultureInfo.InvariantCulture);
         }
-
-        private PlayerStateDto State => m_playerStateProvider.Data;
     }
 }

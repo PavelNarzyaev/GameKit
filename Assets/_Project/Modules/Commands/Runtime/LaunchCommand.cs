@@ -33,7 +33,7 @@ namespace GameKit.Commands
             try
             {
                 m_playerStateProvider.Refresh();
-                m_playerStateProvider.Edit(state => state.LaunchesCounter++);
+                m_playerStateProvider.IncrementLaunchesCounter();
 
                 m_showInitialUiCommand.Execute();
                 m_gameKitTickController.Launch();

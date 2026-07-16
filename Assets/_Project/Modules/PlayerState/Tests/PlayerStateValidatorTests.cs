@@ -10,10 +10,7 @@ namespace GameKit.PlayerState.Tests
         public void Validate_WhenStateHasUserId_DoesNotThrow()
         {
             var validator = new PlayerStateValidator();
-            var state = new PlayerStateDto
-            {
-                UserId = "user-1"
-            };
+            var state = new PlayerStateDto("user-1");
 
             Assert.That(() => validator.Validate(state), Throws.Nothing);
         }
@@ -31,10 +28,7 @@ namespace GameKit.PlayerState.Tests
         public void Validate_WhenUserIdIsMissing_Throws(string userId)
         {
             var validator = new PlayerStateValidator();
-            var state = new PlayerStateDto
-            {
-                UserId = userId
-            };
+            var state = new PlayerStateDto(userId);
 
             Assert.That(() => validator.Validate(state), Throws.Exception);
         }

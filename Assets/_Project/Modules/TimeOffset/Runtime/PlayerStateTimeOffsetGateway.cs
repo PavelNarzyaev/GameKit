@@ -15,16 +15,16 @@ namespace GameKit.TimeOffset
             m_playerStateProvider = playerStateProvider;
         }
 
-        public int OffsetSeconds => m_playerStateProvider.Data?.TimeOffsetSeconds ?? 0;
+        public int OffsetSeconds => m_playerStateProvider.TimeOffsetSeconds.CurrentValue;
 
         public void SetOffsetSeconds(int offsetSeconds)
         {
-            if (m_playerStateProvider.Data.TimeOffsetSeconds == offsetSeconds)
+            if (OffsetSeconds == offsetSeconds)
             {
                 return;
             }
 
-            m_playerStateProvider.Edit(state => state.TimeOffsetSeconds = offsetSeconds);
+            m_playerStateProvider.SetTimeOffsetSeconds(offsetSeconds);
             Changed?.Invoke();
         }
     }

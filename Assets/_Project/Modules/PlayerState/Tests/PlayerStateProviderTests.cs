@@ -34,9 +34,8 @@ namespace GameKit.PlayerState.Tests
 
             playerStateProvider.Refresh();
 
-            Assert.That(playerStateProvider.Data, Is.Not.Null);
-            Assert.That(playerStateProvider.Data.UserId, Is.Not.Empty);
-            Assert.That(playerStateProvider.Data.FirstLaunchTimestamp, Is.EqualTo(currentTimestamp));
+            Assert.That(playerStateProvider.UserId, Is.Not.Empty);
+            Assert.That(playerStateProvider.FirstLaunchTimestamp, Is.EqualTo(currentTimestamp));
             Assert.That(playerStateProvider.IsDirty, Is.True);
             Assert.That(storage.LoadCalls, Is.EqualTo(0));
         }
@@ -50,9 +49,9 @@ namespace GameKit.PlayerState.Tests
 
             playerStateProvider.Refresh();
 
-            Assert.That(playerStateProvider.Data.UserId, Is.EqualTo(FakePlayerStateFactory.k_UserId));
-            Assert.That(playerStateProvider.Data.FirstLaunchTimestamp, Is.EqualTo(FakePlayerStateFactory.k_FirstLaunchTimestamp));
-            Assert.That(playerStateProvider.Data.LaunchesCounter, Is.EqualTo(FakePlayerStateFactory.k_LaunchesCounter));
+            Assert.That(playerStateProvider.UserId, Is.EqualTo(FakePlayerStateFactory.k_UserId));
+            Assert.That(playerStateProvider.FirstLaunchTimestamp, Is.EqualTo(FakePlayerStateFactory.k_FirstLaunchTimestamp));
+            Assert.That(playerStateProvider.LaunchesCounter, Is.EqualTo(FakePlayerStateFactory.k_LaunchesCounter));
         }
 
         [Test]
@@ -66,12 +65,12 @@ namespace GameKit.PlayerState.Tests
 
             playerStateProvider.Refresh();
 
-            Assert.That(playerStateProvider.Data.UserId, Is.EqualTo("user-1"));
-            Assert.That(playerStateProvider.Data.FirstLaunchTimestamp, Is.EqualTo(123));
-            Assert.That(playerStateProvider.Data.Currencies.SoftCurrency, Is.EqualTo(7));
-            Assert.That(playerStateProvider.Data.Currencies.HardCurrency, Is.EqualTo(9));
-            Assert.That(playerStateProvider.Data.EnergyData.Energy, Is.EqualTo(7));
-            Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(10));
+            Assert.That(playerStateProvider.UserId, Is.EqualTo("user-1"));
+            Assert.That(playerStateProvider.FirstLaunchTimestamp, Is.EqualTo(123));
+            Assert.That(playerStateProvider.SoftCurrency.CurrentValue, Is.EqualTo(7));
+            Assert.That(playerStateProvider.HardCurrency.CurrentValue, Is.EqualTo(9));
+            Assert.That(playerStateProvider.Energy.CurrentValue, Is.EqualTo(7));
+            Assert.That(playerStateProvider.EnergyNextRestoreTimestamp.CurrentValue, Is.EqualTo(10));
             Assert.That(playerStateProvider.IsDirty, Is.False);
             Assert.That(storage.LoadCalls, Is.EqualTo(1));
             Assert.That(storage.SaveCalls, Is.EqualTo(0));
@@ -79,30 +78,31 @@ namespace GameKit.PlayerState.Tests
         }
 
         [Test]
-        public void Edit_WhenActionCompletes_MarksStateDirtyWithoutRaisingReplaced()
+        public void IncrementLaunchesCounter_WhenCalled_UpdatesValueAndMarksStateDirtyWithoutRaisingReplaced()
         {
             var storage = (FakePlayerStateStorage)Container.Resolve<IPlayerStateStorage>();
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
             InitializeCleanState(playerStateProvider, storage);
             var replacedCalls = 0;
             playerStateProvider.Replaced += () => replacedCalls++;
+            var launchesCounter = playerStateProvider.LaunchesCounter;
 
-            playerStateProvider.Edit(state => state.LaunchesCounter++);
+            playerStateProvider.IncrementLaunchesCounter();
 
+            Assert.That(playerStateProvider.LaunchesCounter, Is.EqualTo(launchesCounter + 1));
             Assert.That(playerStateProvider.IsDirty, Is.True);
             Assert.That(replacedCalls, Is.EqualTo(0));
         }
 
         [Test]
-        public void Edit_WhenActionThrows_DoesNotMarkStateDirty()
+        public void SetTimeOffsetSeconds_WhenValueIsSame_DoesNotMarkStateDirty()
         {
             var storage = (FakePlayerStateStorage)Container.Resolve<IPlayerStateStorage>();
             var playerStateProvider = Container.Resolve<PlayerStateProvider>();
             InitializeCleanState(playerStateProvider, storage);
 
-            Assert.That(
-                () => playerStateProvider.Edit(_ => throw new InvalidOperationException("edit failed")),
-                Throws.TypeOf<InvalidOperationException>());
+            playerStateProvider.SetTimeOffsetSeconds(playerStateProvider.TimeOffsetSeconds.CurrentValue);
+
             Assert.That(playerStateProvider.IsDirty, Is.False);
         }
 
@@ -116,7 +116,7 @@ namespace GameKit.PlayerState.Tests
 
             playerStateProvider.ReplaceFromJson(GetPlayerStateJson());
 
-            Assert.That(playerStateProvider.Data.UserId, Is.EqualTo("user-1"));
+            Assert.That(playerStateProvider.UserId, Is.EqualTo("user-1"));
             Assert.That(playerStateProvider.IsDirty, Is.False);
             Assert.That(storage.SaveCalls, Is.EqualTo(1));
             Assert.That(replacedCalls, Is.EqualTo(1));
@@ -149,11 +149,11 @@ namespace GameKit.PlayerState.Tests
 
             playerStateProvider.Reset();
 
-            Assert.That(playerStateProvider.Data.UserId, Is.Not.Empty);
-            Assert.That(playerStateProvider.Data.FirstLaunchTimestamp, Is.EqualTo(currentTimestamp));
-            Assert.That(playerStateProvider.Data.Currencies.SoftCurrency, Is.EqualTo(100));
-            Assert.That(playerStateProvider.Data.Currencies.HardCurrency, Is.EqualTo(50));
-            Assert.That(playerStateProvider.Data.EnergyData.Energy, Is.EqualTo(100));
+            Assert.That(playerStateProvider.UserId, Is.Not.Empty);
+            Assert.That(playerStateProvider.FirstLaunchTimestamp, Is.EqualTo(currentTimestamp));
+            Assert.That(playerStateProvider.SoftCurrency.CurrentValue, Is.EqualTo(100));
+            Assert.That(playerStateProvider.HardCurrency.CurrentValue, Is.EqualTo(50));
+            Assert.That(playerStateProvider.Energy.CurrentValue, Is.EqualTo(100));
             Assert.That(playerStateProvider.IsDirty, Is.False);
             Assert.That(storage.DeleteCalls, Is.EqualTo(1));
             Assert.That(storage.SaveCalls, Is.EqualTo(1));
@@ -306,10 +306,8 @@ namespace GameKit.PlayerState.Tests
 
             public PlayerStateDto Create()
             {
-                return new PlayerStateDto
+                return new PlayerStateDto(k_UserId, k_FirstLaunchTimestamp)
                 {
-                    UserId = k_UserId,
-                    FirstLaunchTimestamp = k_FirstLaunchTimestamp,
                     LaunchesCounter = k_LaunchesCounter
                 };
             }
@@ -356,10 +354,8 @@ namespace GameKit.PlayerState.Tests
 
         private static PlayerStateDto CreatePlayerState()
         {
-            return new PlayerStateDto
+            return new PlayerStateDto("user-1", 123)
             {
-                UserId = "user-1",
-                FirstLaunchTimestamp = 123,
                 Currencies =
                 {
                     SoftCurrency = 7,

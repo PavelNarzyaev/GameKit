@@ -17,10 +17,8 @@ namespace GameKit.PlayerState
 
         public PlayerStateDto Create()
         {
-            return new PlayerStateDto
+            return new PlayerStateDto(Guid.NewGuid().ToString(), m_realTimeSource.GetTimestamp())
             {
-                UserId = Guid.NewGuid().ToString(),
-                FirstLaunchTimestamp = m_realTimeSource.GetTimestamp(),
                 Currencies =
                 {
                     SoftCurrency = 100,

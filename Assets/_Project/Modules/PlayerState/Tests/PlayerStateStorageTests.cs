@@ -100,9 +100,8 @@ namespace GameKit.PlayerState.Tests
 
         private static PlayerStateDto CreateState(string userId, int launchesCounter)
         {
-            return new PlayerStateDto
+            return new PlayerStateDto(userId)
             {
-                UserId = userId,
                 LaunchesCounter = launchesCounter
             };
         }

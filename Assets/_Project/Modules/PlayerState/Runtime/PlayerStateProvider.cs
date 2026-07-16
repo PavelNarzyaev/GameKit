@@ -10,18 +10,22 @@ namespace GameKit.PlayerState
     [UsedImplicitly]
     public class PlayerStateProvider : IPlayerStateProvider, IDisposable
     {
-        public PlayerStateDto Data { get; private set; }
         public bool IsDirty { get; private set; }
         public event Action Replaced;
 
+        private readonly ReactiveProperty<int> m_timeOffsetSeconds = new(0);
         private readonly ReactiveProperty<int> m_softCurrency = new(0);
         private readonly ReactiveProperty<int> m_hardCurrency = new(0);
+        private readonly ReactiveProperty<int> m_energy = new(0);
+        private readonly ReactiveProperty<long> m_energyNextRestoreTimestamp = new(0);
 
         private readonly IPlayerStateStorage m_playerStateStorage;
         private readonly IProductionModeProvider m_productionModeProvider;
         private readonly IPlayerStateSerializer m_playerStateSerializer;
         private readonly IPlayerStateValidator m_playerStateValidator;
         private readonly IPlayerStateFactory m_playerStateFactory;
+
+        private PlayerStateDto m_data;
 
         public PlayerStateProvider(
             IPlayerStateStorage playerStateStorage,
@@ -37,43 +41,75 @@ namespace GameKit.PlayerState
             m_playerStateFactory = playerStateFactory;
         }
 
+        public string UserId => m_data.UserId;
+        public long FirstLaunchTimestamp => m_data.FirstLaunchTimestamp;
+        public int LaunchesCounter => m_data.LaunchesCounter;
+        public ReadOnlyReactiveProperty<int> TimeOffsetSeconds => m_timeOffsetSeconds;
         public ReadOnlyReactiveProperty<int> SoftCurrency => m_softCurrency;
         public ReadOnlyReactiveProperty<int> HardCurrency => m_hardCurrency;
+        public ReadOnlyReactiveProperty<int> Energy => m_energy;
+        public ReadOnlyReactiveProperty<long> EnergyNextRestoreTimestamp => m_energyNextRestoreTimestamp;
 
-        public void SetSoftCurrency(int value)
+        public void IncrementLaunchesCounter()
         {
-            if (Data.Currencies.SoftCurrency == value)
+            m_data.LaunchesCounter++;
+            IsDirty = true;
+        }
+
+        public void SetTimeOffsetSeconds(int value)
+        {
+            if (m_data.TimeOffsetSeconds == value)
             {
                 return;
             }
 
-            Data.Currencies.SoftCurrency = value;
+            m_data.TimeOffsetSeconds = value;
+            m_timeOffsetSeconds.Value = value;
+            IsDirty = true;
+        }
+
+        public void SetSoftCurrency(int value)
+        {
+            if (m_data.Currencies.SoftCurrency == value)
+            {
+                return;
+            }
+
+            m_data.Currencies.SoftCurrency = value;
             m_softCurrency.Value = value;
             IsDirty = true;
         }
 
         public void SetHardCurrency(int value)
         {
-            if (Data.Currencies.HardCurrency == value)
+            if (m_data.Currencies.HardCurrency == value)
             {
                 return;
             }
 
-            Data.Currencies.HardCurrency = value;
+            m_data.Currencies.HardCurrency = value;
             m_hardCurrency.Value = value;
             IsDirty = true;
         }
 
-        public void Edit(Action<PlayerStateDto> edit)
+        public void SetEnergyState(int energy, long nextRestoreTimestamp)
         {
-            edit(Data);
+            if (m_data.EnergyData.Energy == energy &&
+                m_data.EnergyData.NextRestoreTimestamp == nextRestoreTimestamp)
+            {
+                return;
+            }
+
+            m_data.EnergyData.Energy = energy;
+            m_data.EnergyData.NextRestoreTimestamp = nextRestoreTimestamp;
+            m_energy.Value = energy;
+            m_energyNextRestoreTimestamp.Value = nextRestoreTimestamp;
             IsDirty = true;
-            RefreshReactiveProperties();
         }
 
         public void Save()
         {
-            m_playerStateStorage.Save(Data);
+            m_playerStateStorage.Save(m_data);
             IsDirty = false;
         }
 
@@ -88,7 +124,7 @@ namespace GameKit.PlayerState
 
         public void ReplaceFromJson(string json)
         {
-            Data = DeserializeAndValidate(json);
+            m_data = DeserializeAndValidate(json);
             Save();
             RefreshReactiveProperties();
             Replaced?.Invoke();
@@ -113,8 +149,8 @@ namespace GameKit.PlayerState
         {
             try
             {
-                Data = m_playerStateStorage.Load();
-                m_playerStateValidator.Validate(Data);
+                m_data = m_playerStateStorage.Load();
+                m_playerStateValidator.Validate(m_data);
                 IsDirty = false;
             }
             catch (Exception e)
@@ -145,7 +181,7 @@ namespace GameKit.PlayerState
 
         private void Initialize()
         {
-            Data = m_playerStateFactory.Create();
+            m_data = m_playerStateFactory.Create();
             IsDirty = true;
         }
 
@@ -154,15 +190,18 @@ namespace GameKit.PlayerState
             return m_playerStateSerializer.Serialize(m_playerStateStorage.Load());
         }
 
-        public void Delete()
+        private void Delete()
         {
             m_playerStateStorage.Delete();
         }
 
         public void Dispose()
         {
+            m_timeOffsetSeconds.Dispose();
             m_softCurrency.Dispose();
             m_hardCurrency.Dispose();
+            m_energy.Dispose();
+            m_energyNextRestoreTimestamp.Dispose();
         }
 
         private PlayerStateDto DeserializeAndValidate(string json)
@@ -174,8 +213,11 @@ namespace GameKit.PlayerState
 
         private void RefreshReactiveProperties()
         {
-            m_softCurrency.Value = Data.Currencies.SoftCurrency;
-            m_hardCurrency.Value = Data.Currencies.HardCurrency;
+            m_timeOffsetSeconds.Value = m_data.TimeOffsetSeconds;
+            m_softCurrency.Value = m_data.Currencies.SoftCurrency;
+            m_hardCurrency.Value = m_data.Currencies.HardCurrency;
+            m_energy.Value = m_data.EnergyData.Energy;
+            m_energyNextRestoreTimestamp.Value = m_data.EnergyData.NextRestoreTimestamp;
         }
     }
 }

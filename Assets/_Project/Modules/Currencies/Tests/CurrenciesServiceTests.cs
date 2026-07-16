@@ -36,7 +36,7 @@ namespace GameKit.Currencies.Tests
             var result = currenciesService.TryAdd(CurrencyType.Soft, 10);
 
             Assert.That(result, Is.True);
-            Assert.That(playerStateProvider.Data.Currencies.SoftCurrency, Is.EqualTo(10));
+            Assert.That(playerStateProvider.SoftCurrency.CurrentValue, Is.EqualTo(10));
             Assert.That(playerStateProvider.IsDirty, Is.True);
         }
 
@@ -58,7 +58,7 @@ namespace GameKit.Currencies.Tests
             var result = currenciesService.TryAdd(CurrencyType.Soft, amount);
 
             Assert.That(result, Is.False);
-            Assert.That(playerStateProvider.Data.Currencies.SoftCurrency, Is.EqualTo(5));
+            Assert.That(playerStateProvider.SoftCurrency.CurrentValue, Is.EqualTo(5));
             Assert.That(playerStateProvider.IsDirty, Is.False);
         }
 
@@ -79,7 +79,7 @@ namespace GameKit.Currencies.Tests
             var result = currenciesService.TryAdd(CurrencyType.Soft, 1);
 
             Assert.That(result, Is.False);
-            Assert.That(playerStateProvider.Data.Currencies.SoftCurrency, Is.EqualTo(int.MaxValue));
+            Assert.That(playerStateProvider.SoftCurrency.CurrentValue, Is.EqualTo(int.MaxValue));
             Assert.That(playerStateProvider.IsDirty, Is.False);
         }
 
@@ -99,7 +99,7 @@ namespace GameKit.Currencies.Tests
             var result = currenciesService.TryAdd(CurrencyType.Soft, 1);
 
             Assert.That(result, Is.True);
-            Assert.That(playerStateProvider.Data.Currencies.SoftCurrency, Is.EqualTo(6));
+            Assert.That(playerStateProvider.SoftCurrency.CurrentValue, Is.EqualTo(6));
         }
 
         [Test]
@@ -138,7 +138,7 @@ namespace GameKit.Currencies.Tests
             var result = currenciesService.TrySpend(CurrencyType.Hard, 4);
 
             Assert.That(result, Is.True);
-            Assert.That(playerStateProvider.Data.Currencies.HardCurrency, Is.EqualTo(6));
+            Assert.That(playerStateProvider.HardCurrency.CurrentValue, Is.EqualTo(6));
             Assert.That(playerStateProvider.IsDirty, Is.True);
         }
 
@@ -161,7 +161,7 @@ namespace GameKit.Currencies.Tests
             var result = currenciesService.TrySpend(CurrencyType.Hard, amount);
 
             Assert.That(result, Is.False);
-            Assert.That(playerStateProvider.Data.Currencies.HardCurrency, Is.EqualTo(10));
+            Assert.That(playerStateProvider.HardCurrency.CurrentValue, Is.EqualTo(10));
             Assert.That(playerStateProvider.IsDirty, Is.False);
         }
 
@@ -185,16 +185,21 @@ namespace GameKit.Currencies.Tests
 
             Assert.That(addResult, Is.True);
             Assert.That(spendResult, Is.True);
-            Assert.That(playerStateProvider.Data.Currencies.SoftCurrency, Is.EqualTo(101));
-            Assert.That(playerStateProvider.Data.Currencies.HardCurrency, Is.EqualTo(49));
+            Assert.That(playerStateProvider.SoftCurrency.CurrentValue, Is.EqualTo(101));
+            Assert.That(playerStateProvider.HardCurrency.CurrentValue, Is.EqualTo(49));
         }
 
         private void SetCleanState(PlayerStateProvider playerStateProvider, PlayerStateDto state)
         {
-            state.UserId = "test-user";
+            var validState = new PlayerStateDto("test-user", state.FirstLaunchTimestamp)
+            {
+                LaunchesCounter = state.LaunchesCounter,
+                TimeOffsetSeconds = state.TimeOffsetSeconds,
+                Currencies = state.Currencies
+            };
 
             var storage = (FakePlayerStateStorage)Container.Resolve<IPlayerStateStorage>();
-            storage.Save(state);
+            storage.Save(validState);
             playerStateProvider.Refresh();
         }
 

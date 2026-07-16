@@ -38,7 +38,7 @@ namespace GameKit.TimeOffset.Tests
 
             timeOffsetService.AddSeconds(3600);
 
-            Assert.That(playerStateProvider.Data.TimeOffsetSeconds, Is.EqualTo(3660));
+            Assert.That(playerStateProvider.TimeOffsetSeconds.CurrentValue, Is.EqualTo(3660));
             Assert.That(playerStateProvider.IsDirty, Is.True);
         }
 
@@ -57,7 +57,7 @@ namespace GameKit.TimeOffset.Tests
 
             timeOffsetService.AddSeconds(0);
 
-            Assert.That(playerStateProvider.Data.TimeOffsetSeconds, Is.EqualTo(60));
+            Assert.That(playerStateProvider.TimeOffsetSeconds.CurrentValue, Is.EqualTo(60));
             Assert.That(playerStateProvider.IsDirty, Is.False);
             Assert.That(changedCalls, Is.EqualTo(0));
         }
@@ -80,7 +80,7 @@ namespace GameKit.TimeOffset.Tests
 
             timeOffsetService.AddSeconds(deltaSeconds);
 
-            Assert.That(playerStateProvider.Data.TimeOffsetSeconds, Is.EqualTo(offsetSeconds));
+            Assert.That(playerStateProvider.TimeOffsetSeconds.CurrentValue, Is.EqualTo(offsetSeconds));
             Assert.That(playerStateProvider.IsDirty, Is.False);
             Assert.That(changedCalls, Is.EqualTo(0));
         }
@@ -96,8 +96,8 @@ namespace GameKit.TimeOffset.Tests
 
             playerStateProvider.Refresh();
 
-            Assert.That(playerStateProvider.Data.FirstLaunchTimestamp, Is.EqualTo(currentTimestamp));
-            Assert.That(playerStateProvider.Data.TimeOffsetSeconds, Is.EqualTo(0));
+            Assert.That(playerStateProvider.FirstLaunchTimestamp, Is.EqualTo(currentTimestamp));
+            Assert.That(playerStateProvider.TimeOffsetSeconds.CurrentValue, Is.EqualTo(0));
         }
 
         [Test]
@@ -120,10 +120,14 @@ namespace GameKit.TimeOffset.Tests
 
         private void SetCleanState(PlayerStateProvider playerStateProvider, PlayerStateDto state)
         {
-            state.UserId = "test-user";
+            var validState = new PlayerStateDto("test-user", state.FirstLaunchTimestamp)
+            {
+                LaunchesCounter = state.LaunchesCounter,
+                TimeOffsetSeconds = state.TimeOffsetSeconds
+            };
 
             var storage = (FakePlayerStateStorage)Container.Resolve<IPlayerStateStorage>();
-            storage.Save(state);
+            storage.Save(validState);
             playerStateProvider.Refresh();
         }
 

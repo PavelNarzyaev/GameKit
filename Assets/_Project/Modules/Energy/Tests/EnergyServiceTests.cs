@@ -47,7 +47,7 @@ namespace GameKit.Energy.Tests
 
             Assert.That(result, Is.True);
             Assert.That(energyService.Energy, Is.EqualTo(5));
-            Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(120));
+            Assert.That(playerStateProvider.EnergyNextRestoreTimestamp.CurrentValue, Is.EqualTo(120));
             Assert.That(playerStateProvider.IsDirty, Is.True);
             Assert.That(changedCalls, Is.EqualTo(1));
         }
@@ -96,7 +96,7 @@ namespace GameKit.Energy.Tests
 
             Assert.That(result, Is.True);
             Assert.That(energyService.Energy, Is.EqualTo(10));
-            Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(0));
+            Assert.That(playerStateProvider.EnergyNextRestoreTimestamp.CurrentValue, Is.EqualTo(0));
             Assert.That(energyService.IsRestorationInProgress, Is.False);
         }
 
@@ -121,7 +121,7 @@ namespace GameKit.Energy.Tests
 
             Assert.That(result, Is.False);
             Assert.That(energyService.Energy, Is.EqualTo(int.MaxValue));
-            Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(145));
+            Assert.That(playerStateProvider.EnergyNextRestoreTimestamp.CurrentValue, Is.EqualTo(145));
             Assert.That(playerStateProvider.IsDirty, Is.False);
             Assert.That(changedCalls, Is.EqualTo(0));
         }
@@ -150,7 +150,7 @@ namespace GameKit.Energy.Tests
 
             Assert.That(result, Is.True);
             Assert.That(energyService.Energy, Is.EqualTo(6));
-            Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(110));
+            Assert.That(playerStateProvider.EnergyNextRestoreTimestamp.CurrentValue, Is.EqualTo(110));
             Assert.That(playerStateProvider.IsDirty, Is.True);
             Assert.That(changedCalls, Is.EqualTo(1));
             Assert.That(energyService.IsRestorationInProgress, Is.True);
@@ -178,7 +178,7 @@ namespace GameKit.Energy.Tests
 
             Assert.That(result, Is.False);
             Assert.That(energyService.Energy, Is.EqualTo(10));
-            Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(0));
+            Assert.That(playerStateProvider.EnergyNextRestoreTimestamp.CurrentValue, Is.EqualTo(0));
             Assert.That(playerStateProvider.IsDirty, Is.False);
             Assert.That(changedCalls, Is.EqualTo(0));
         }
@@ -275,7 +275,7 @@ namespace GameKit.Energy.Tests
             energyService.ProcessPendingRestoration();
 
             Assert.That(energyService.Energy, Is.EqualTo(4));
-            Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(110));
+            Assert.That(playerStateProvider.EnergyNextRestoreTimestamp.CurrentValue, Is.EqualTo(110));
             Assert.That(playerStateProvider.IsDirty, Is.True);
             Assert.That(changedCalls, Is.EqualTo(1));
         }
@@ -304,7 +304,7 @@ namespace GameKit.Energy.Tests
             energyService.ProcessPendingRestoration();
 
             Assert.That(energyService.Energy, Is.EqualTo(4));
-            Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(110));
+            Assert.That(playerStateProvider.EnergyNextRestoreTimestamp.CurrentValue, Is.EqualTo(110));
             Assert.That(playerStateProvider.IsDirty, Is.False);
             Assert.That(changedCalls, Is.EqualTo(0));
         }
@@ -331,7 +331,7 @@ namespace GameKit.Energy.Tests
             energyService.ProcessPendingRestoration();
 
             Assert.That(energyService.Energy, Is.EqualTo(7));
-            Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(140));
+            Assert.That(playerStateProvider.EnergyNextRestoreTimestamp.CurrentValue, Is.EqualTo(140));
             Assert.That(energyService.IsRestorationInProgress, Is.True);
         }
 
@@ -357,7 +357,7 @@ namespace GameKit.Energy.Tests
             energyService.ProcessPendingRestoration();
 
             Assert.That(energyService.Energy, Is.EqualTo(10));
-            Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(0));
+            Assert.That(playerStateProvider.EnergyNextRestoreTimestamp.CurrentValue, Is.EqualTo(0));
             Assert.That(energyService.IsRestorationInProgress, Is.False);
         }
 
@@ -381,17 +381,22 @@ namespace GameKit.Energy.Tests
             energyService.ProcessPendingRestoration();
 
             Assert.That(energyService.Energy, Is.EqualTo(10));
-            Assert.That(playerStateProvider.Data.EnergyData.NextRestoreTimestamp, Is.EqualTo(0));
+            Assert.That(playerStateProvider.EnergyNextRestoreTimestamp.CurrentValue, Is.EqualTo(0));
             Assert.That(playerStateProvider.IsDirty, Is.True);
             Assert.That(changedCalls, Is.EqualTo(1));
         }
 
         private void SetCleanState(PlayerStateProvider playerStateProvider, PlayerStateDto state)
         {
-            state.UserId = "test-user";
+            var validState = new PlayerStateDto("test-user", state.FirstLaunchTimestamp)
+            {
+                LaunchesCounter = state.LaunchesCounter,
+                TimeOffsetSeconds = state.TimeOffsetSeconds,
+                EnergyData = state.EnergyData
+            };
 
             var storage = (FakePlayerStateStorage)Container.Resolve<IPlayerStateStorage>();
-            storage.Save(state);
+            storage.Save(validState);
             playerStateProvider.Refresh();
         }
 

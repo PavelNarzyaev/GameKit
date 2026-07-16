@@ -72,10 +72,8 @@ namespace GameKit.PlayerState.Tests
 
         private static PlayerStateDto CreateState()
         {
-            return new PlayerStateDto
+            return new PlayerStateDto("user-1", 123)
             {
-                UserId = "user-1",
-                FirstLaunchTimestamp = 123,
                 LaunchesCounter = 4,
                 TimeOffsetSeconds = 3600,
                 Currencies = new PlayerCurrenciesDto
