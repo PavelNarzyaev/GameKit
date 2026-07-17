@@ -10,6 +10,8 @@ The root [LICENSE](LICENSE) applies only to materials authored by the GameKit pr
 | --- | --- | --- |
 | Extenject / Zenject | `Assets/Plugins/Zenject` | MIT License. See [`Assets/Plugins/Zenject/LICENSE.txt`](Assets/Plugins/Zenject/LICENSE.txt). Upstream: https://github.com/modesttree/Zenject. |
 | UniClipboard | `Assets/UniClipboard` | MIT License. See [`Assets/UniClipboard/LICENSE.md`](Assets/UniClipboard/LICENSE.md). Upstream: https://github.com/sanukin39/UniClipboard. |
+| Background images | `Assets/_Project/Images/Backgrounds` | AI-generated images created with ChatGPT Images 2.0. Subject to OpenAI terms and policies: https://openai.com/policies/row-terms-of-use/, https://openai.com/policies/usage-policies/. |
+| Debug panel images | `Assets/_Project/Images/DebugPanel` | AI-generated images created with ChatGPT Images 2.0. Subject to OpenAI terms and policies: https://openai.com/policies/row-terms-of-use/, https://openai.com/policies/usage-policies/. |
 | BackgroundMusic.mp3 | `Assets/_Project/Audio/BackgroundMusic.mp3` | AI-generated audio created with Suno. Subject to Suno terms: https://suno.com/terms. |
 | Click.mp3 | `Assets/_Project/Audio/Click/Click.mp3` | Derived from Kenney UI Audio, renamed and modified. Creative Commons Zero (CC0). See [`Assets/_Project/Audio/Click/License.txt`](Assets/_Project/Audio/Click/License.txt). Upstream: https://kenney.nl/assets/ui-audio. |
 
