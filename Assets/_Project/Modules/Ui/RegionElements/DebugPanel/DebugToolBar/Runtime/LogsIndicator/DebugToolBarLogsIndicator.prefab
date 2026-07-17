@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 9065727185168909215}
   - component: {fileID: 2422415756178499660}
   - component: {fileID: 705728027529041418}
+  - component: {fileID: 4241749569829807489}
   m_Layer: 0
   m_Name: DebugToolBarLogsIndicator
   m_TagString: Untagged
@@ -349,6 +350,18 @@ MonoBehaviour:
   errorIndicator: {fileID: 2044496701730237154}
   pressedIndicator: {fileID: 3421436485176087880}
   button: {fileID: 2422415756178499660}
+--- !u!114 &4241749569829807489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5104881562431643298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4502e86066f9cd8459f4fe3fc3e13be7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameKit.Audio::GameKit.Audio.ButtonClickSound
 --- !u!1 &5390436620267412635
 GameObject:
   m_ObjectHideFlags: 0

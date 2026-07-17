@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: MainConfig
   m_EditorClassIdentifier: 
   backgroundMusic: {fileID: 8300000, guid: eab852b4ed040a74480435d70279fc08, type: 3}
-  energyRestorationLimit: 100
+  buttonClick: {fileID: 8300000, guid: 60c0e2754d55c214a923a29e0dca12dc, type: 3}
   oneEnergyRestorationSeconds: 60
+  energyRestorationLimit: 100

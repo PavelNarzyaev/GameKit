@@ -69,6 +69,7 @@ namespace GameKit.ScriptableObjects
             Container.Bind<MetaPagePresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<StateClipboardProxy.StateClipboardProxy>().AsSingle();
             Container.Bind<BackgroundMusicPlayer>().AsSingle();
+            Container.Bind<ButtonClickSoundPlayer>().AsSingle();
 
             InstallDebugPanel();
             InstallCommands();

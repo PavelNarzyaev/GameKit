@@ -9,10 +9,12 @@ namespace GameKit.ScriptableObjects
     public class MainConfig : ScriptableObject, IEnergyConfig, IAudioConfig
     {
         [SerializeField] private AudioClip backgroundMusic;
+        [SerializeField] private AudioClip buttonClick;
         [SerializeField] private int oneEnergyRestorationSeconds = 60;
         [SerializeField] private int energyRestorationLimit = 100;
 
         public AudioClip BackgroundMusic => backgroundMusic;
+        public AudioClip ButtonClick => buttonClick;
         public int OneEnergyRestorationSeconds => oneEnergyRestorationSeconds;
         public int EnergyRestorationLimit => energyRestorationLimit;
     }
