@@ -63,12 +63,13 @@ namespace GameKit.ScriptableObjects
             Container.BindInterfacesAndSelfTo<EnergyService>().AsSingle();
             Container.BindInterfacesAndSelfTo<UiFontPreloader>().AsSingle();
             Container.Bind<ErrorPopupPresenter>().AsSingle();
-            Container.Bind<SettingsPopupPresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<SettingsPopupPresenter>().AsSingle();
             Container.Bind<TopPanelPresenter>().AsSingle();
             Container.Bind<CorePagePresenter>().AsSingle();
             Container.Bind<MetaPagePresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<StateClipboardProxy.StateClipboardProxy>().AsSingle();
-            Container.Bind<BackgroundMusicPlayer>().AsSingle();
+            Container.BindInterfacesAndSelfTo<AudioSettingsService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<BackgroundMusicPlayer>().AsSingle();
             Container.Bind<ButtonClickSoundPlayer>().AsSingle();
 
             InstallDebugPanel();

@@ -10,12 +10,12 @@ namespace GameKit.UiPopups
         [SerializeField] private bool isModal;
         [Inject] private IPopupPresenter m_presenter;
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             m_presenter.FrontPopupChanged += HandleFrontPopupChanged;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             m_presenter.FrontPopupChanged -= HandleFrontPopupChanged;
         }

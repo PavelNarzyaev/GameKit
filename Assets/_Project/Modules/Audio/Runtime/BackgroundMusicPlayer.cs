@@ -1,23 +1,59 @@
 using System;
 using GameKit.Audio.Contracts;
+using JetBrains.Annotations;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace GameKit.Audio
 {
-    public class BackgroundMusicPlayer
+    [UsedImplicitly]
+    public class BackgroundMusicPlayer : IDisposable
     {
         private readonly IAudioConfig m_audioConfig;
+        private readonly IAudioSettingsService m_audioSettingsService;
         private AudioSource m_audioSource;
 
-        public BackgroundMusicPlayer(IAudioConfig audioConfig)
+        public BackgroundMusicPlayer(IAudioConfig audioConfig, IAudioSettingsService audioSettingsService)
         {
             m_audioConfig = audioConfig;
+            m_audioSettingsService = audioSettingsService;
+            m_audioSettingsService.MusicEnabledChanged += HandleMusicEnabledChanged;
         }
 
         public void Play()
         {
             EnsureAudioSourceCreated();
+            RefreshPlayback();
+        }
+
+        public void Dispose()
+        {
+            m_audioSettingsService.MusicEnabledChanged -= HandleMusicEnabledChanged;
+        }
+
+        private void HandleMusicEnabledChanged()
+        {
+            if (!m_audioSource)
+            {
+                return;
+            }
+
+            RefreshPlayback();
+        }
+
+        private void RefreshPlayback()
+        {
+            if (m_audioSettingsService.IsMusicEnabled)
+            {
+                PlayIfNeeded();
+                return;
+            }
+
+            PauseIfNeeded();
+        }
+
+        private void PlayIfNeeded()
+        {
             if (m_audioSource.isPlaying)
             {
                 return;
@@ -26,14 +62,24 @@ namespace GameKit.Audio
             m_audioSource.Play();
         }
 
-        private void EnsureAudioSourceCreated()
+        private void PauseIfNeeded()
         {
-            if (m_audioSource != null)
+            if (!m_audioSource.isPlaying)
             {
                 return;
             }
 
-            if (m_audioConfig.BackgroundMusic == null)
+            m_audioSource.Pause();
+        }
+
+        private void EnsureAudioSourceCreated()
+        {
+            if (m_audioSource)
+            {
+                return;
+            }
+
+            if (!m_audioConfig.BackgroundMusic)
             {
                 throw new InvalidOperationException("Background music clip is not configured.");
             }

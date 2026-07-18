@@ -23,15 +23,15 @@ namespace GameKit.Audio
 
         private void OnEnable()
         {
-            m_button.onClick.AddListener(PlayClickSound);
+            m_button.onClick.AddListener(HandleButtonClicked);
         }
 
         private void OnDisable()
         {
-            m_button.onClick.RemoveListener(PlayClickSound);
+            m_button.onClick.RemoveListener(HandleButtonClicked);
         }
 
-        private void PlayClickSound()
+        private void HandleButtonClicked()
         {
             m_buttonClickSoundPlayer.Play();
         }

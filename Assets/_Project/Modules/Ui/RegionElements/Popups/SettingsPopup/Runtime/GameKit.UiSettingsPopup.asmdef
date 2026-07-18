@@ -2,6 +2,7 @@
   "name": "GameKit.UiSettingsPopup",
   "references": [
     "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+    "GUID:4b40ab6d3a41c864f95592ee907bce6c",
     "GUID:ca0656527acdf184aa0015fbef5607fb",
     "GUID:1f4df4ad609c9f64bb9be8be1c01009b"
   ],
