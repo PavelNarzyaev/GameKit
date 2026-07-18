@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 namespace GameKit.SettingsPopup
 {
+    [DefaultExecutionOrder(-100)]
     [RequireComponent(typeof(Button))]
     public class Checkbox : MonoBehaviour
     {
