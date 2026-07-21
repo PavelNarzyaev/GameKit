@@ -12,7 +12,5 @@ namespace GameKit.Audio.Contracts
 
         void ToggleMusicEnabled();
         void ToggleSoundEnabled();
-        void SetMusicEnabled(bool isEnabled);
-        void SetSoundEnabled(bool isEnabled);
     }
 }

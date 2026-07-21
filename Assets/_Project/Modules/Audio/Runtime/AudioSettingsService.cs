@@ -24,7 +24,7 @@ namespace GameKit.Audio
             SetSoundEnabled(!IsSoundEnabled);
         }
 
-        public void SetMusicEnabled(bool isEnabled)
+        private void SetMusicEnabled(bool isEnabled)
         {
             if (IsMusicEnabled == isEnabled)
             {
@@ -35,7 +35,7 @@ namespace GameKit.Audio
             MusicEnabledChanged?.Invoke();
         }
 
-        public void SetSoundEnabled(bool isEnabled)
+        private void SetSoundEnabled(bool isEnabled)
         {
             if (IsSoundEnabled == isEnabled)
             {
