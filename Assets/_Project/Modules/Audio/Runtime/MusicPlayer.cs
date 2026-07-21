@@ -2,28 +2,49 @@ using System;
 using GameKit.Audio.Contracts;
 using JetBrains.Annotations;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace GameKit.Audio
 {
     [UsedImplicitly]
-    public class BackgroundMusicPlayer : IBackgroundMusicPlayer, IDisposable
+    public class MusicPlayer : IMusicPlayer, IDisposable
     {
-        private readonly IAudioConfig m_audioConfig;
+        private readonly AudioPlayer m_audioPlayer;
+        private readonly AudioSourceFactory m_audioSourceFactory;
         private readonly IAudioSettingsService m_audioSettingsService;
+        private AudioClip m_currentClip;
         private AudioSource m_audioSource;
+        private bool m_isPaused;
 
-        public BackgroundMusicPlayer(IAudioConfig audioConfig, IAudioSettingsService audioSettingsService)
+        public MusicPlayer(
+            AudioPlayer audioPlayer,
+            AudioSourceFactory audioSourceFactory,
+            IAudioSettingsService audioSettingsService)
         {
-            m_audioConfig = audioConfig;
+            m_audioPlayer = audioPlayer;
+            m_audioSourceFactory = audioSourceFactory;
             m_audioSettingsService = audioSettingsService;
             m_audioSettingsService.MusicEnabledChanged += HandleMusicEnabledChanged;
         }
 
-        public void Play()
+        public void Play(AudioClip clip)
         {
+            m_audioPlayer.EnsureClipConfigured(clip);
+            m_currentClip = clip;
             EnsureAudioSourceCreated();
             RefreshPlayback();
+        }
+
+        public void Stop()
+        {
+            m_currentClip = null;
+            m_isPaused = false;
+
+            if (!m_audioSource)
+            {
+                return;
+            }
+
+            m_audioPlayer.Stop(m_audioSource);
         }
 
         public void Dispose()
@@ -33,7 +54,7 @@ namespace GameKit.Audio
 
         private void HandleMusicEnabledChanged()
         {
-            if (!m_audioSource)
+            if (!m_audioSource || !m_currentClip)
             {
                 return;
             }
@@ -54,12 +75,15 @@ namespace GameKit.Audio
 
         private void PlayIfNeeded()
         {
-            if (m_audioSource.isPlaying)
+            if (m_isPaused && m_audioSource.clip == m_currentClip)
             {
+                m_audioPlayer.UnPause(m_audioSource);
+                m_isPaused = false;
                 return;
             }
 
-            m_audioSource.Play();
+            m_audioPlayer.PlayLooped(m_audioSource, m_currentClip);
+            m_isPaused = false;
         }
 
         private void PauseIfNeeded()
@@ -69,7 +93,8 @@ namespace GameKit.Audio
                 return;
             }
 
-            m_audioSource.Pause();
+            m_audioPlayer.Pause(m_audioSource);
+            m_isPaused = true;
         }
 
         private void EnsureAudioSourceCreated()
@@ -79,18 +104,7 @@ namespace GameKit.Audio
                 return;
             }
 
-            if (!m_audioConfig.BackgroundMusic)
-            {
-                throw new InvalidOperationException("Background music clip is not configured.");
-            }
-
-            var gameObject = new GameObject(nameof(BackgroundMusicPlayer));
-            Object.DontDestroyOnLoad(gameObject);
-
-            m_audioSource = gameObject.AddComponent<AudioSource>();
-            m_audioSource.clip = m_audioConfig.BackgroundMusic;
-            m_audioSource.loop = true;
-            m_audioSource.playOnAwake = false;
+            m_audioSource = m_audioSourceFactory.Create(nameof(MusicPlayer));
         }
     }
 }

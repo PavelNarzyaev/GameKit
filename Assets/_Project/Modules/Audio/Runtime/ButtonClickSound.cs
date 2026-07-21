@@ -1,3 +1,4 @@
+using GameKit.Audio.Contracts;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -7,13 +8,15 @@ namespace GameKit.Audio
     [RequireComponent(typeof(Button))]
     public class ButtonClickSound : MonoBehaviour
     {
-        private ButtonClickSoundPlayer m_buttonClickSoundPlayer;
+        private IAudioConfig m_audioConfig;
+        private ISoundPlayer m_soundPlayer;
         private Button m_button;
 
         [Inject]
-        public void Construct(ButtonClickSoundPlayer buttonClickSoundPlayer)
+        public void Construct(IAudioConfig audioConfig, ISoundPlayer soundPlayer)
         {
-            m_buttonClickSoundPlayer = buttonClickSoundPlayer;
+            m_audioConfig = audioConfig;
+            m_soundPlayer = soundPlayer;
         }
 
         private void Awake()
@@ -33,7 +36,7 @@ namespace GameKit.Audio
 
         private void HandleButtonClicked()
         {
-            m_buttonClickSoundPlayer.Play();
+            m_soundPlayer.Play(m_audioConfig.ButtonClick);
         }
     }
 }
