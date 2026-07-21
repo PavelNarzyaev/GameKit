@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 namespace GameKit.Audio
 {
     [UsedImplicitly]
-    public class BackgroundMusicPlayer : IDisposable
+    public class BackgroundMusicPlayer : IBackgroundMusicPlayer, IDisposable
     {
         private readonly IAudioConfig m_audioConfig;
         private readonly IAudioSettingsService m_audioSettingsService;

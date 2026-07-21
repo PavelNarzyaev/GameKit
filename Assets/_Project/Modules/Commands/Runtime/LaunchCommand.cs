@@ -1,5 +1,5 @@
 using System;
-using GameKit.Audio;
+using GameKit.Audio.Contracts;
 using GameKit.Commands.Contracts;
 using GameKit.PlayerState.Contracts;
 using GameKit.UiPopups.Contracts;
@@ -16,14 +16,14 @@ namespace GameKit.Commands
         private readonly IPopupNavigator m_popupNavigator;
         private readonly IShowInitialUiCommand m_showInitialUiCommand;
         private readonly GameKitTickController m_gameKitTickController;
-        private readonly BackgroundMusicPlayer m_backgroundMusicPlayer;
+        private readonly IBackgroundMusicPlayer m_backgroundMusicPlayer;
 
         public LaunchCommand(
             IPlayerStateProvider playerStateProvider,
             IPopupNavigator popupNavigator,
             IShowInitialUiCommand showInitialUiCommand,
             GameKitTickController gameKitTickController,
-            BackgroundMusicPlayer backgroundMusicPlayer)
+            IBackgroundMusicPlayer backgroundMusicPlayer)
         {
             m_playerStateProvider = playerStateProvider;
             m_popupNavigator = popupNavigator;
