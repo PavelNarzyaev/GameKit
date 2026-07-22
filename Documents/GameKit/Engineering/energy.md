@@ -18,19 +18,19 @@ The restoration behavior is defined by `IEnergyConfig`:
 In the current project, `MainConfig` implements `IEnergyConfig`, and `GameSettingsInstaller` binds that config instance into Zenject:
 
 ```csharp
-Container.Bind(typeof(MainConfig), typeof(IEnergyConfig)).FromInstance(mainConfig);
+Container.Bind(typeof(MainConfig), typeof(IEnergyConfig), typeof(IAudioConfig)).FromInstance(mainConfig);
 ```
 
 `EnergyService` receives `IEnergyConfig` through injection and uses it to calculate restoration intervals and the maximum value that can be restored automatically.
 
 ## Current Implementation
 
-The runtime bindings are installed in `MainInstaller`:
+The runtime bindings are installed in `EnergyInstaller`, which is connected to the scene through `SceneContext`:
 
 ```csharp
 Container.Bind<PlayerStateEnergyGateway>().AsSingle();
 Container.BindInterfacesAndSelfTo<EnergyService>().AsSingle();
-Container.Bind<EnergyRestorationController>().AsSingle().NonLazy();
+Container.BindInterfacesAndSelfTo<EnergyRestorationController>().AsSingle().NonLazy();
 ```
 
 `EnergyService` supports spending energy, adding energy, returning the restoration timer, and processing pending restoration.

@@ -17,8 +17,8 @@ Consumers should depend on `CurrentTimeProvider` instead of calling `DateTimeOff
 **Production binding**
 
 ```csharp
-Container.Bind<ICurrentTimeSource>().To<SystemUtcCurrentTimeSource>().AsSingle();
-Container.Bind<CurrentTimeProvider>().AsSingle();
+Container.Bind(typeof(IRealTimeSource), typeof(ICurrentTimeSource)).To<SystemUtcCurrentTimeSource>().AsSingle();
+Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
 ```
 
 In production, `SystemUtcCurrentTimeSource` returns `DateTimeOffset.UtcNow.ToUnixTimeSeconds()`, so the project uses the device's UTC clock directly.
@@ -26,13 +26,15 @@ In production, `SystemUtcCurrentTimeSource` returns `DateTimeOffset.UtcNow.ToUni
 **Non-production binding**
 
 ```csharp
-Container.Bind<ICurrentTimeSource>().WithId(CurrentTimeSourceIds.k_BaseCurrentTimeSource).To<SystemUtcCurrentTimeSource>().AsSingle();
+Container.Bind<IRealTimeSource>().To<SystemUtcCurrentTimeSource>().AsSingle();
+Container.BindInterfacesAndSelfTo<CurrentTimeProvider>().AsSingle();
+
 Container.Bind<PlayerStateTimeOffsetGateway>().AsSingle();
-Container.Bind<TimeOffsetService>().AsSingle();
+Container.BindInterfacesAndSelfTo<TimeOffsetService>().AsSingle();
 Container.Bind<ICurrentTimeSource>().To<TimeOffsetCurrentTimeSource>().AsSingle();
 ```
 
-In non-production builds, `TimeOffsetCurrentTimeSource` wraps the base device UTC source and adds `TimeOffsetService.OffsetSeconds`. The offset is stored in player state and can be changed from the [Debug Panel](../Product/debug-panel.md).
+In non-production builds, `CurrentTimeInstaller` binds the real device UTC source as `IRealTimeSource`, and `DevelopmentInstaller` installs `TimeOffsetInstaller` to bind `ICurrentTimeSource` to `TimeOffsetCurrentTimeSource`. `TimeOffsetCurrentTimeSource` wraps the real source and adds `TimeOffsetService.OffsetSeconds`. The offset is stored in player state and can be changed from the [Debug Panel](../Product/debug-panel.md).
 
 **Test binding**
 
