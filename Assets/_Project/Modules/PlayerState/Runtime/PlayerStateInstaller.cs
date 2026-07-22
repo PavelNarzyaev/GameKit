@@ -1,15 +1,24 @@
 using JetBrains.Annotations;
+using UnityEngine;
 using Zenject;
 
 namespace GameKit.PlayerState
 {
     [UsedImplicitly]
-    public class PlayerStateInstaller : Installer<PlayerStateInstaller>
+    [CreateAssetMenu(fileName = nameof(PlayerStateInstaller), menuName = "Installers/" + nameof(PlayerStateInstaller))]
+    public class PlayerStateInstaller : ScriptableObjectInstaller
     {
         public override void InstallBindings()
         {
+            InstallRuntimeStorage(Container);
             InstallCore(Container);
             InstallAutoSave(Container);
+        }
+
+        public static void InstallRuntimeStorage(DiContainer container)
+        {
+            container.BindInterfacesAndSelfTo<FilePlayerStateStorage>().AsSingle();
+            container.BindInterfacesAndSelfTo<EncryptionKeysProvider>().AsSingle();
         }
 
         public static void InstallCore(DiContainer container)

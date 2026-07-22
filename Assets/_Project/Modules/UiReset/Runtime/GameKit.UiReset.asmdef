@@ -1,6 +1,7 @@
 {
   "name": "GameKit.UiReset",
   "references": [
+    "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
     "GUID:71644e93a12c2914c99b2c70b71ab86e"
   ],
   "includePlatforms": [],

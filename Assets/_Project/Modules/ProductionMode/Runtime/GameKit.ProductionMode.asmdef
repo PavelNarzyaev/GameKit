@@ -1,6 +1,7 @@
 {
   "name": "GameKit.ProductionMode",
   "references": [
+    "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
     "GUID:15538cb2de301724bb158435e90b89a8"
   ],
   "includePlatforms": [],
