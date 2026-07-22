@@ -1,4 +1,6 @@
+using System;
 using GameKit.UiPopups;
+using R3;
 using UnityEngine;
 using Zenject;
 
@@ -9,6 +11,8 @@ namespace GameKit.SettingsPopup
         [SerializeField] private Checkbox musicCheckbox;
         [SerializeField] private Checkbox soundCheckbox;
         [Inject] private SettingsPopupPresenter m_presenter;
+        private IDisposable m_musicEnabledSubscription;
+        private IDisposable m_soundEnabledSubscription;
 
         private void Awake()
         {
@@ -25,32 +29,25 @@ namespace GameKit.SettingsPopup
         protected override void OnEnable()
         {
             base.OnEnable();
-            Refresh();
-            m_presenter.MusicEnabledChanged += HandleMusicEnabledChanged;
-            m_presenter.SoundEnabledChanged += HandleSoundEnabledChanged;
+            m_musicEnabledSubscription = m_presenter.IsMusicEnabled.Subscribe(RefreshMusicCheckbox);
+            m_soundEnabledSubscription = m_presenter.IsSoundEnabled.Subscribe(RefreshSoundCheckbox);
         }
 
         protected override void OnDisable()
         {
-            m_presenter.MusicEnabledChanged -= HandleMusicEnabledChanged;
-            m_presenter.SoundEnabledChanged -= HandleSoundEnabledChanged;
+            m_musicEnabledSubscription.Dispose();
+            m_soundEnabledSubscription.Dispose();
             base.OnDisable();
         }
 
-        private void HandleMusicEnabledChanged()
+        private void RefreshMusicCheckbox(bool isMusicEnabled)
         {
-            musicCheckbox.SetIsOn(m_presenter.IsMusicEnabled);
+            musicCheckbox.SetIsOn(isMusicEnabled);
         }
 
-        private void HandleSoundEnabledChanged()
+        private void RefreshSoundCheckbox(bool isSoundEnabled)
         {
-            soundCheckbox.SetIsOn(m_presenter.IsSoundEnabled);
-        }
-
-        private void Refresh()
-        {
-            musicCheckbox.SetIsOn(m_presenter.IsMusicEnabled);
-            soundCheckbox.SetIsOn(m_presenter.IsSoundEnabled);
+            soundCheckbox.SetIsOn(isSoundEnabled);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using GameKit.Audio.Contracts;
 using JetBrains.Annotations;
+using R3;
 using UnityEngine;
 
 namespace GameKit.Audio
@@ -11,6 +12,7 @@ namespace GameKit.Audio
         private readonly AudioPlayer m_audioPlayer;
         private readonly AudioSourceFactory m_audioSourceFactory;
         private readonly IAudioSettingsService m_audioSettingsService;
+        private readonly IDisposable m_musicEnabledSubscription;
         private AudioClip m_currentClip;
         private AudioSource m_audioSource;
         private bool m_isPaused;
@@ -23,7 +25,7 @@ namespace GameKit.Audio
             m_audioPlayer = audioPlayer;
             m_audioSourceFactory = audioSourceFactory;
             m_audioSettingsService = audioSettingsService;
-            m_audioSettingsService.MusicEnabledChanged += HandleMusicEnabledChanged;
+            m_musicEnabledSubscription = m_audioSettingsService.IsMusicEnabled.Subscribe(HandleMusicEnabledChanged);
         }
 
         public void Play(AudioClip clip)
@@ -31,7 +33,7 @@ namespace GameKit.Audio
             m_audioPlayer.EnsureClipConfigured(clip);
             m_currentClip = clip;
             EnsureAudioSourceCreated();
-            RefreshPlayback();
+            RefreshPlayback(m_audioSettingsService.IsMusicEnabled.CurrentValue);
         }
 
         public void Stop()
@@ -49,22 +51,22 @@ namespace GameKit.Audio
 
         public void Dispose()
         {
-            m_audioSettingsService.MusicEnabledChanged -= HandleMusicEnabledChanged;
+            m_musicEnabledSubscription.Dispose();
         }
 
-        private void HandleMusicEnabledChanged()
+        private void HandleMusicEnabledChanged(bool isMusicEnabled)
         {
             if (!m_audioSource || !m_currentClip)
             {
                 return;
             }
 
-            RefreshPlayback();
+            RefreshPlayback(isMusicEnabled);
         }
 
-        private void RefreshPlayback()
+        private void RefreshPlayback(bool isMusicEnabled)
         {
-            if (m_audioSettingsService.IsMusicEnabled)
+            if (isMusicEnabled)
             {
                 PlayIfNeeded();
                 return;

@@ -26,7 +26,7 @@ namespace GameKit.Audio
         {
             m_audioPlayer.EnsureClipConfigured(clip);
 
-            if (!m_audioSettingsService.IsSoundEnabled)
+            if (!m_audioSettingsService.IsSoundEnabled.CurrentValue)
             {
                 return;
             }

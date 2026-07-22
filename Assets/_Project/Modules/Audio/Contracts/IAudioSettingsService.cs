@@ -1,14 +1,11 @@
-using System;
+using R3;
 
 namespace GameKit.Audio.Contracts
 {
     public interface IAudioSettingsService
     {
-        event Action MusicEnabledChanged;
-        event Action SoundEnabledChanged;
-
-        bool IsMusicEnabled { get; }
-        bool IsSoundEnabled { get; }
+        ReadOnlyReactiveProperty<bool> IsMusicEnabled { get; }
+        ReadOnlyReactiveProperty<bool> IsSoundEnabled { get; }
 
         void ToggleMusicEnabled();
         void ToggleSoundEnabled();
