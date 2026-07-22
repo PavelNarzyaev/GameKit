@@ -14,6 +14,7 @@ By forking this repository, you get a base Unity project that includes:
 - [UI Regions](Documents/GameKit/Product/ui-regions.md)
 - [Pages](Documents/GameKit/Product/pages.md)
 - [Popups](Documents/GameKit/Product/popups.md)
+- [Audio](Documents/GameKit/Product/audio.md) settings
 - [Debug panel](Documents/GameKit/Product/debug-panel.md)
 - [Player State](Documents/GameKit/Product/player-state.md) persistence
 - [Currencies](Documents/GameKit/Product/currencies.md)
