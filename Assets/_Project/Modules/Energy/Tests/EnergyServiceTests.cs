@@ -390,7 +390,7 @@ namespace GameKit.Energy.Tests
         {
             var validState = new PlayerStateDto("test-user", state.FirstLaunchTimestamp)
             {
-                LaunchesCounter = state.LaunchesCounter,
+                LaunchesCounter = 1,
                 TimeOffsetSeconds = state.TimeOffsetSeconds,
                 EnergyData = state.EnergyData
             };

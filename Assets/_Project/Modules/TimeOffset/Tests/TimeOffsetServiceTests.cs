@@ -122,7 +122,7 @@ namespace GameKit.TimeOffset.Tests
         {
             var validState = new PlayerStateDto("test-user", state.FirstLaunchTimestamp)
             {
-                LaunchesCounter = state.LaunchesCounter,
+                LaunchesCounter = 1,
                 TimeOffsetSeconds = state.TimeOffsetSeconds
             };
 

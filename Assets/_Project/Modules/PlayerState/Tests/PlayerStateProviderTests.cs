@@ -151,6 +151,7 @@ namespace GameKit.PlayerState.Tests
 
             Assert.That(playerStateProvider.UserId, Is.Not.Empty);
             Assert.That(playerStateProvider.FirstLaunchTimestamp, Is.EqualTo(currentTimestamp));
+            Assert.That(playerStateProvider.LaunchesCounter, Is.EqualTo(1));
             Assert.That(playerStateProvider.SoftCurrency.CurrentValue, Is.EqualTo(100));
             Assert.That(playerStateProvider.HardCurrency.CurrentValue, Is.EqualTo(50));
             Assert.That(playerStateProvider.Energy.CurrentValue, Is.EqualTo(100));
@@ -340,7 +341,7 @@ namespace GameKit.PlayerState.Tests
             return @"{
   ""userId"": ""user-1"",
   ""firstLaunchTimestamp"": 123,
-  ""launchesCounter"": 0,
+  ""launchesCounter"": 1,
   ""currencies"": {
     ""softCurrency"": 7,
     ""hardCurrency"": 9
@@ -356,6 +357,7 @@ namespace GameKit.PlayerState.Tests
         {
             return new PlayerStateDto("user-1", 123)
             {
+                LaunchesCounter = 1,
                 Currencies =
                 {
                     SoftCurrency = 7,

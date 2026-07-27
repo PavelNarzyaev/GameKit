@@ -9,7 +9,7 @@ namespace GameKit.PlayerState
     {
         public void Validate(PlayerStateDto state)
         {
-            if (state == null || string.IsNullOrEmpty(state.UserId))
+            if (state == null || string.IsNullOrEmpty(state.UserId) || state.LaunchesCounter < 1)
             {
                 throw new FormatException("Saved state format is incompatible.");
             }

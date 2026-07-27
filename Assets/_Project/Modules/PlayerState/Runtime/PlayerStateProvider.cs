@@ -117,6 +117,7 @@ namespace GameKit.PlayerState
         {
             Delete();
             Initialize();
+            IncrementLaunchesCounter();
             Save();
             RefreshReactiveProperties();
             Replaced?.Invoke();

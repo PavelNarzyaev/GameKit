@@ -193,7 +193,7 @@ namespace GameKit.Currencies.Tests
         {
             var validState = new PlayerStateDto("test-user", state.FirstLaunchTimestamp)
             {
-                LaunchesCounter = state.LaunchesCounter,
+                LaunchesCounter = 1,
                 TimeOffsetSeconds = state.TimeOffsetSeconds,
                 Currencies = state.Currencies
             };
